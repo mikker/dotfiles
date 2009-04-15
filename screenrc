@@ -1,0 +1,1 @@
+hardstatus alwayslastline "%?%{kw} %-w%?%{wk} %n %{kw}%+w %="

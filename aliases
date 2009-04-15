@@ -1,0 +1,41 @@
+# General
+alias ls="ls -Gh"
+
+# Git
+alias st='git st'
+alias ci='git ci -m'
+alias add='git add'
+alias gx='gitx'
+
+# Apache
+alias apachectl="sudo apachectl"
+alias re='touch tmp/restart.txt'
+alias vhost='mate /etc/hosts && mate /etc/apache2/extra/httpd-vhosts.conf'
+
+# Rails
+alias sc='script/console'
+alias ss='script/server'
+alias sg='script/generate'
+alias sd='script/destroy'
+alias sp='script/plugin'
+alias scdb='script/dbconsole'
+alias migrate='rake db:migrate; rake db:test:clone'
+alias remigrate='rake db:migrate:redo'
+alias tl='tail -f log/development.log'
+
+# Webby
+alias wa='webby autobuild'
+alias w?='webby -T'
+
+# Autotest
+alias at='autotest'
+alias as='autospec'
+
+# Rake
+alias r?='rake -T'
+
+# Irb
+alias irb='irb --readline -r irb/completion -rubygems'
+
+# Rubygems
+alias gemi="sudo gem install --no-ri"
