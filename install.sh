@@ -1,7 +1,7 @@
 rm -rf ~/.profile ~/.bashrc ~/.gitconfig ~/.gemrc ~/.irbrc ~/.screenrc
-ln -s `pwd`/bashrc ~/.bashrc
-ln -s ~/.bashrc ~/.profile
-ln -s `pwd`/gemrc ~/.gemrc
-ln -s `pwd`/irbrc ~/.irbrc
-ln -s `pwd`/gitprofile ~/.gitconfig
-ln -s `pwd`/screenrc ~/.screenrc
+ln -fs `pwd`/bashrc ~/.bashrc
+ln -fs ~/.bashrc ~/.profile
+ln -fs `pwd`/gemrc ~/.gemrc
+ln -fs `pwd`/irbrc ~/.irbrc
+ln -fs `pwd`/gitconfig ~/.gitconfig
+ln -fs `pwd`/screenrc ~/.screenrc
