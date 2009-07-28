@@ -1,5 +1,9 @@
+# Editor
+export EDITOR='mate -w'
+
 # Path
 PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH=/usr/local/git/bin:$PATH
 PATH=/Users/mikker/bin:$PATH
 
 # Git prompt
