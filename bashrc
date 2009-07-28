@@ -28,6 +28,16 @@ m(){
     mate .
   fi
 }
+cuc(){
+  if [[ $1 ]]; then
+    cucumber "$1"
+  else
+    cucumber features
+  fi
+}
+mkcd(){
+  mkdir $1 && cd $1
+}
 
 # History
 # see http://blog.macromates.com/2008/working-with-history-in-bash/
