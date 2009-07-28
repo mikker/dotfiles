@@ -31,6 +31,8 @@ alias w?='webby -T'
 # Autotest
 alias at='autotest'
 alias as='autospec'
+alias atf='AUTOFEATURE=true autotest'
+alias asf='AUTOFEATURE=true autospec'
 
 # Rake
 alias r?='rake -T'
