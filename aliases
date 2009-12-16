@@ -28,6 +28,9 @@ alias tl='tail -f log/development.log'
 alias wa='webby autobuild'
 alias w?='webby -T'
 
+# Shotgun
+alias sgun='shotgun config.ru'
+
 # Autotest
 alias at='autotest'
 alias as='autospec'
