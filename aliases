@@ -42,3 +42,4 @@ alias irb='irb --readline -r irb/completion -rubygems'
 
 # Rubygems
 alias gemi="sudo gem install --no-ri"
+alias cdgem='cd /usr/local/lib/ruby/gems/1.8/gems/'

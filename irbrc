@@ -12,6 +12,12 @@ IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 # Easily print methods local to an object's class
 class Object
   def local_methods
-    (methods - Object.instance_methods).sort
+    methods - Object.instance_methods
   end
+end
+
+if ENV['RAILS_ENV']
+  require 'rubygems'
+  require 'hirb'
+  Hirb.enable
 end
