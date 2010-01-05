@@ -41,8 +41,8 @@ if [ -n "$g" ]; then
   fi
  
   if [ -n "$1" ]; then
-    printf "$1" "${b##refs/heads/}$r"
+    printf "$1$(git_dirty)" "${b##refs/heads/}$r"
   else
-    printf "[%s]" "${b##refs/heads/}$r"
+    printf "[%s$(git_dirty)]" "${b##refs/heads/}$r"
   fi
 fi
