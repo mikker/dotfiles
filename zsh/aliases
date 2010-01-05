@@ -1,17 +1,17 @@
 # General
 alias ls="ls -Gh"
 alias ssp="hack && rake && ship"
+alias ct="newtab"
 
 # Git
 alias st='git st'
 alias ci='git ci -m'
 alias add='git add'
 alias gx='gitx'
+alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 
-# Apache
-alias apachectl="sudo apachectl"
+# Passenger
 alias re='touch tmp/restart.txt'
-alias vhost='mate /etc/hosts && mate /etc/apache2/extra/httpd-vhosts.conf'
 
 # Rails
 alias sc='script/console'
@@ -26,7 +26,7 @@ alias tl='tail -f log/development.log'
 
 # Webby
 alias wa='webby autobuild'
-alias w?='webby -T'
+alias wT='webby -T'
 
 # Shotgun
 alias sgun='shotgun config.ru'
@@ -34,15 +34,9 @@ alias sgun='shotgun config.ru'
 # Autotest
 alias at='autotest'
 alias as='autospec'
-alias atf='AUTOFEATURE=true autotest'
-alias asf='AUTOFEATURE=true autospec'
 
 # Rake
-alias r?='rake -T'
+alias rT='rake -T'
 
 # Irb
 alias irb='irb --readline -r irb/completion -rubygems'
-
-# Rubygems
-alias gemi="sudo gem install --no-ri"
-alias cdgem='cd /usr/local/lib/ruby/gems/1.8/gems/'
