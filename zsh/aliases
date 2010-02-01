@@ -1,7 +1,6 @@
 # General
 alias ls="ls -Gh"
 alias ssp="hack && rake && ship"
-alias ct="newtab"
 
 # Git
 alias st='git st'
