@@ -22,6 +22,14 @@ alias scdb='script/dbconsole'
 alias migrate='rake db:migrate; rake db:test:clone'
 alias remigrate='rake db:migrate:redo'
 alias tl='tail -f log/development.log'
+# Rails 3
+alias r='rails'
+alias rg='rails generate'
+alias rc='rails console'
+alias rs='rails server'
+alias rdb='rails dbconsole'
+alias rd='rails destroy'
+alias rp='rails plugin'
 
 # Webby
 alias wa='webby autobuild'
