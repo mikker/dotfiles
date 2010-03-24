@@ -8,8 +8,13 @@ else
 fi
 
 export EDITOR='mate -w'
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:$MANPATH"
+
+# Rubygems
+export GEM_PATH="$HOME/.gem/ruby/1.8"
+export GEM_HOME="$HOME/.gem/ruby/1.8"
+export PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
 
 # Functions
 fpath=(~/.zsh/functions $fpath)
