@@ -8,9 +8,13 @@ alias ci='git ci -m'
 alias add='git add'
 alias gx='gitx'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+alias nb='git checkout -b'
 
 # Passenger
 alias re='touch tmp/restart.txt'
+
+# Bundler
+alias be='bundle exec'
 
 # Rails
 alias sc='script/console'
@@ -24,12 +28,12 @@ alias remigrate='rake db:migrate:redo'
 alias tl='tail -f log/development.log'
 # Rails 3
 alias r='rails'
-alias rg='rails generate'
-alias rc='rails console'
-alias rs='rails server'
-alias rdb='rails dbconsole'
-alias rd='rails destroy'
-alias rp='rails plugin'
+alias rg='bundle exec rails generate'
+alias rc='bundle exec rails console'
+alias rs='bundle exec rails server'
+alias rdb='bundle exec rails dbconsole'
+alias rd='bundle exec rails destroy'
+alias rp='bundle exec rails plugin'
 
 # Webby
 alias wa='webby autobuild'
