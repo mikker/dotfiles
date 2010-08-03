@@ -7,7 +7,7 @@ else
   export PS1='%{$fg[blue]%}+%3 %{$fg[yellow]%}$(git_info_for_prompt)$reset_color%}%{$fg[blue]%}>$reset_color%} '
 fi
 
-export EDITOR='mate -w'
+export EDITOR='mvim'
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:$MANPATH"
 
