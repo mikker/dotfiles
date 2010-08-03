@@ -2,9 +2,9 @@
 autoload -U colors && colors
 
 if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%m %3 %{$fg[yellow]%}$(git_info_for_prompt)$reset_color%}%{$fg[blue]%}>$reset_color%} '
+  export PS1='%{$fg[blue]%}+%m %3 %{$fg[yellow]%}$(git_info_for_prompt)$reset_color%}%{$fg[blue]%}>$reset_color%} '
 else
-  export PS1='%3 %{$fg[yellow]%}$(git_info_for_prompt)$reset_color%}%{$fg[blue]%}>$reset_color%} '
+  export PS1='%{$fg[blue]%}+%3 %{$fg[yellow]%}$(git_info_for_prompt)$reset_color%}%{$fg[blue]%}>$reset_color%} '
 fi
 
 export EDITOR='mate -w'
