@@ -2,11 +2,11 @@ set nocompatible
 
 " Colorscheme if available
 if has("gui_running")
-  colorscheme desert 
+  colorscheme desert
 end
 
 " Enable syntax
-syntax on    
+syntax on
 
 " Search
 set incsearch
