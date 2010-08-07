@@ -7,7 +7,8 @@ else
   export PS1='%{$fg[blue]%}+%3 %{$fg[yellow]%}$(git_info_for_prompt)$reset_color%}%{$fg[blue]%}>$reset_color%} '
 fi
 
-export EDITOR='mvim'
+export EDITOR='vim'
+bindkey -e # Still use emacs bindings
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:$MANPATH"
 
@@ -43,13 +44,9 @@ setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share 
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 
-zle -N newtab
-
 # Keys
 bindkey '^[^[[D' backward-word
 bindkey '^[^[[C' forward-word
-bindkey '^[[5D' beginning-of-line
-bindkey '^[[5C' end-of-line
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
 bindkey '^[[3~' delete-char
-bindkey '^[^N' newtab
-bindkey '^?' backward-delete-char
