@@ -23,7 +23,9 @@ set cindent
 set autoindent
 
 " Command
-set cmdheight=2
+set cmdheight=1
+set laststatus=2
+set statusline=%{GitBranch()}
 
 " No backup files
 set backupdir=$HOME/.vim/backup
