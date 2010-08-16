@@ -26,7 +26,7 @@ set fileformat=unix
 set fileformats=unix,dos,mac
 
 " Enable filetypes and plugins
-filetype plugin indent on 
+filetype plugin indent on
 
 " Enable syntax
 if has("syntax")
@@ -34,7 +34,7 @@ if has("syntax")
 endif
 
 " Use wrap
-set wrap 
+set wrap
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -58,15 +58,16 @@ set directory=$HOME/.vim/backup
 
 " { LOOKS }
 
-" Colorscheme if available
+" Colorscheme and font
 if has("gui_running")
   colorscheme github
+  set guifont=Liberation\ Mono:h14
 end
 
 " Command
 set cmdheight=1
 set laststatus=2
-set statusline=%F%m%r%h%w[%{GitBranch()}]\ type:\ %Y,\ pos:\ %l,%v 
+set statusline=%F%m%r%h%w[%{GitBranch()}]\ type:\ %Y,\ pos:\ %l,%v
 
 " Set tab menu 0=never, 1=when more then one, 2=always
 set showtabline=1
@@ -99,7 +100,15 @@ let g:ragtag_global_maps = 1
 
 
 
+" { OTHER }
 
+" Automatically strip trailing whitespace
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
 
-
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
