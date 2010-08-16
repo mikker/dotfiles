@@ -42,12 +42,4 @@ map <Leader>d :NERDTreeToggle<CR> :set number<CR>
 " Hashrocket shortcut compliments of TextMate
 imap <C-L> <space>=><space>
 
-" Quickly delete trailing spaces and tab characters
-fun! ClearAllTrailingSpaces()
-  %s/\s\+$//
-  %s/\t/  /g
-endfun
-
-" and map it to <Leader>c
-nmap <Leader>c :call ClearAllTrailingSpaces()<CR>
-
+let g:ragtag_global_maps = 1
