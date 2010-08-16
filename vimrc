@@ -25,7 +25,8 @@ set autoindent
 " Command
 set cmdheight=1
 set laststatus=2
-set statusline=%{GitBranch()}
+set statusline=%F%m%r%h%w[%{GitBranch()}]\ type:\ %Y,\ pos:\ %04l,%04v 
+
 
 " No backup files
 set backupdir=$HOME/.vim/backup
