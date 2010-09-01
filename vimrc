@@ -110,27 +110,26 @@ map <M-S-D-BS> :bd<CR>
 " { PLUGINS }
 
 " NERDTree
-" map <Leader>d :NERDTreeToggle<CR>
-" let g:NERDTreeWinPos="right"
-" " let g:NERDTreeWinSize=24
+map <Leader>d :NERDTreeToggle<CR>
+let g:NERDTreeWinPos="right"
+" let g:NERDTreeWinSize=24
 
 " " NERDCommenter
-" let g:NERDSpaceDelims=1
+let g:NERDSpaceDelims=1
 
 " " RagTag
-" let g:ragtag_global_maps = 1
-
+let g:ragtag_global_maps = 1
 
 
 " " { OTHER }
 
 " " Automatically strip trailing whitespace
-" fun! <SID>StripTrailingWhitespaces()
-    " let l = line(".")
-    " let c = col(".")
-    " %s/\s\+$//e
-    " call cursor(l, c)
-" endfun
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
 
-" autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
