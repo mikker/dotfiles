@@ -83,17 +83,37 @@ set number
 " Leader
 let mapleader = ","
 
-" Hashrocket shortcut compliments of TextMate
+" Compliments of TextMate
+" Hash rocket (ctrl+l)
 imap <C-L> <space>=><space>
+" Open new line below (cmd+enter)
+imap <D-CR> <ESC>o
+map <D-CR> o
+" Mark current line
+imap <D-L> <ESC>V
+map <D-L> V
+" Deselect highlighted search terms
+map <D-d> :nohl<CR>
 
-
+" Windows
+map <M-D-Left> <C-w>h
+map <M-D-Right> <C-w>l
+map <M-D-Up> <C-w>k
+map <M-D-Down> <C-w>j
+" Buffers
+map <M-S-D-Left> :bp<CR>
+map <M-S-D-Right> :bn<CR>
+map <M-S-D-BS> :bd<CR>
 
 " { PLUGINS }
 
 " NERDTree
 map <Leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos="right"
-let g:NERDTreeWinSize=24
+" let g:NERDTreeWinSize=24
+
+" NERDCommenter
+let g:NERDSpaceDelims=1
 
 " RagTag
 let g:ragtag_global_maps = 1
