@@ -62,7 +62,7 @@ set directory=$HOME/.vim/backup
 
 " Colorscheme and font
 if has("gui_running")
-  colorscheme github
+  colorscheme sunburst
   set guifont=Liberation\ Mono:h14
 end
 
