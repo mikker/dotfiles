@@ -62,7 +62,7 @@ set directory=$HOME/.vim/backup
 
 " Colorscheme and font
 if has("gui_running")
-  colorscheme sunburst
+  colorscheme twilight_bright
   set guifont=Liberation\ Mono:h14
 end
 
@@ -114,11 +114,17 @@ map <Leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos="right"
 " let g:NERDTreeWinSize=24
 
-" " NERDCommenter
+" NERDCommenter
 let g:NERDSpaceDelims=1
 
-" " RagTag
+" RagTag
 let g:ragtag_global_maps = 1
+
+" miniBufExpl
+let g:miniBufExplMapWindowNavVim = 1
+" let g:miniBufExplMapWindowNavArrows = 1
+" let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
 
 
 " " { OTHER }
