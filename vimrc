@@ -139,3 +139,7 @@ endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
+" Source a global configuration file if available
+if filereadable(expand("$HOME/.vimrc.local"))
+  source $HOME/.vimrc.local
+endif
