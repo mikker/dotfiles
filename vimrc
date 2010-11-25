@@ -48,9 +48,9 @@ set ignorecase
 set smartcase
 
 " Use the system clipboard as the default register, '*'
-if has("clipboard")
-  set clipboard=unnamed,exclude:cons\|linux
-endif
+" if has("clipboard")
+  " set clipboard=unnamed,exclude:cons\|linux
+" endif
 
 " No backup files
 set backupdir=$HOME/.vim/backup
