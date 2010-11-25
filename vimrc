@@ -103,9 +103,9 @@ map <M-D-Right> <C-w>l
 map <M-D-Up> <C-w>k
 map <M-D-Down> <C-w>j
 " Buffers
-map <M-S-D-Left> :bp<CR>
-map <M-S-D-Right> :bn<CR>
-map <M-S-D-BS> :bd<CR>
+map <M-S-D-Left> :bp!<CR>
+map <M-S-D-Right> :bn!<CR>
+map <M-S-D-BS> :bd!<CR>
 
 " { PLUGINS }
 
