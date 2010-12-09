@@ -18,10 +18,10 @@ set shiftwidth=2
 set tabstop=2
 set softtabstop=2
 set expandtab
-set autoindent
-set smarttab
-set cindent
-set autoindent
+" set autoindent
+" set smarttab
+" set cindent
+" set autoindent
 
 " Preferred file formats
 set fileformat=unix
@@ -30,13 +30,14 @@ set fileformats=unix,dos,mac
 " Enable filetypes and plugins
 filetype plugin indent on
 
+" Tab completion
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc
+
 " Enable syntax
 if has("syntax")
   syntax on
 endif
-
-" Use wrap
-set wrap
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -126,7 +127,6 @@ let g:miniBufExplMapWindowNavVim = 1
 " let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
-
 " " { OTHER }
 
 " " Automatically strip trailing whitespace
@@ -138,6 +138,9 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+" Thorfile, Rakefile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
 
 " Source a global configuration file if available
 if filereadable(expand("$HOME/.vimrc.local"))
