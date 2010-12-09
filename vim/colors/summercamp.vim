@@ -11,7 +11,7 @@ endif
 let g:colors_name = "summercamp"
 
 hi Cursor  guifg=NONE guibg=#f2f8cb gui=NONE
-hi Visual  guifg=NONE guibg=#1e1b12 gui=NONE
+hi Visual  guifg=NONE guibg=#524f47 gui=NONE
 hi CursorLine  guifg=NONE guibg=#14120b gui=NONE
 hi CursorColumn  guifg=NONE guibg=#14120b gui=NONE
 hi LineNr  guifg=#82846a guibg=#110f0a gui=NONE
@@ -26,10 +26,10 @@ hi Search  guifg=NONE guibg=#415820 gui=NONE
 hi Directory  guifg=#3a94dc guibg=NONE gui=NONE
 hi Folded  guifg=#2b2719 guibg=#110f0a gui=NONE
 
-hi Normal  guifg=#f2f8cb guibg=#110f0a gui=NONE
+hi Normal  guifg=#f2f8cb guibg=#2e2b24 gui=NONE
 hi Boolean  guifg=#3588ca guibg=NONE gui=NONE
 hi Character  guifg=#3a94dc guibg=NONE gui=NONE
-hi Comment  guifg=#2b2719 guibg=#16140d gui=italic
+hi Comment  guifg=#555555 guibg=NONE gui=italic
 hi Conditional  guifg=#a3ed4e guibg=NONE gui=NONE
 hi Constant  guifg=#3a94dc guibg=NONE gui=NONE
 hi Define  guifg=#a3ed4e guibg=NONE gui=NONE
