@@ -18,10 +18,9 @@ set shiftwidth=2
 set tabstop=2
 set softtabstop=2
 set expandtab
-" set autoindent
-" set smarttab
-" set cindent
-" set autoindent
+set autoindent
+set smarttab
+set cindent
 
 " Preferred file formats
 set fileformat=unix
