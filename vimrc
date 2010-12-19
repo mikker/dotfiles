@@ -30,10 +30,6 @@ set fileformats=unix,dos,mac
 " Enable filetypes and plugins
 filetype plugin indent on
 
-" Tab completion
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc
-
 " Enable syntax
 if has("syntax")
   syntax on
@@ -63,8 +59,8 @@ set directory=$HOME/.vim/backup
 
 " Colorscheme and font
 if has("gui_running")
-  colorscheme twilight_bright
-  set guifont=Liberation\ Mono:h14
+  colorscheme summercamp
+  set guifont=Liberation\ Mono:h12
 end
 
 " Command
