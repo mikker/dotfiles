@@ -142,3 +142,6 @@ au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
+
+let g:ConqueTerm_ReadUnfocused = 1
+
