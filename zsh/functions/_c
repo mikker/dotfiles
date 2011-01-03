@@ -1,2 +1,2 @@
 #compdef c
-_files -W ~/code -/
+_files -W ~/Developer/bucket -/

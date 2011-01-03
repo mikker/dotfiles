@@ -135,7 +135,8 @@ endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,config.ru} set ft=ruby
+au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
 
 " Source a global configuration file if available
 if filereadable(expand("$HOME/.vimrc.local"))
