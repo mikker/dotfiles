@@ -58,7 +58,7 @@ set directory=$HOME/.vim/backup
 
 " Colorscheme and font
 if has("gui_running")
-  colorscheme summercamp
+  colorscheme twilight_bright
   set guifont=Liberation\ Mono:h12
 end
 
@@ -75,8 +75,10 @@ set numberwidth=2
 set number
 
 
-
 " { MAPPINGS }
+
+" Colon is tricky on danish keyboards
+map æ :
 
 " Leader
 let mapleader = ","
@@ -87,11 +89,10 @@ imap <C-L> <space>=><space>
 " Open new line below (cmd+enter)
 imap <D-CR> <ESC>o
 map <D-CR> o
-" Mark current line
-imap <D-L> <ESC>V
-map <D-L> V
 " Deselect highlighted search terms
 map <D-d> :nohl<CR>
+" Toggle hidden characters
+map <C-h> :set list!<CR>
 
 " Windows
 map <M-D-Left> <C-w>h
