@@ -58,7 +58,7 @@ set directory=$HOME/.vim/backup
 
 " Colorscheme and font
 if has("gui_running")
-  colorscheme twilight_bright
+  colorscheme sunburst
   set guifont=Liberation\ Mono:h12
 end
 
@@ -138,6 +138,7 @@ autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 " Thorfile, Rakefile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,config.ru} set ft=ruby
 au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
+au BufRead,BufNewFile *.scss set filetype=scss
 
 " Source a global configuration file if available
 if filereadable(expand("$HOME/.vimrc.local"))
