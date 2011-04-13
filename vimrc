@@ -1,3 +1,4 @@
+set nocompatible
 """"""""""""""""""""""""""
 "   Personal vim config  "
 "     Mikkel Malmberg    "
@@ -7,11 +8,15 @@
 " Setup paths using pathogen
 call pathogen#runtime_append_all_bundles()
 
-
 " { GENERAL }
 
-" Dont be vi compatible
-set nocompatible
+set number
+set ruler
+syntax on
+set shell=sh " zsh doesn't work so well
+
+" Set encoding
+set encoding=utf-8
 
 " Indentation
 set shiftwidth=2
@@ -26,13 +31,12 @@ set cindent
 set fileformat=unix
 set fileformats=unix,dos,mac
 
+" Tab completion
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,test/fixtures/*,vendor/gems/*
+
 " Enable filetypes and plugins
 filetype plugin indent on
-
-" Enable syntax
-if has("syntax")
-  syntax on
-endif
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -53,14 +57,15 @@ set backupdir=$HOME/.vim/backup
 set directory=$HOME/.vim/backup
 
 
+" Without setting this, ZoomWin restores windows in a way that causes
+" equalalways behavior to be triggered the next time CommandT is used.
+" This is likely a bludgeon to solve some other issue, but it works
+set noequalalways
 
 " { LOOKS }
 
-" Colorscheme and font
-if has("gui_running")
-  colorscheme sunburst
-  set guifont=Liberation\ Mono:h12
-end
+" Colorscheme
+colorscheme desert
 
 " Command
 set cmdheight=1
