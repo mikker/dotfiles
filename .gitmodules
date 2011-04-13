@@ -1,3 +1,6 @@
 [submodule "vim/bundle/scss-syntax.vim"]
 	path = vim/bundle/scss-syntax.vim
 	url = https://github.com/cakebaker/scss-syntax.vim.git
+[submodule "zsh/git-flow-completion"]
+	path = zsh/git-flow-completion
+	url = https://github.com/bobthecow/git-flow-completion.git

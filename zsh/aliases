@@ -9,6 +9,7 @@ alias add='git add'
 alias gx='gitx'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 # alias nb='git checkout -b'
+alias gf='git flow'
 
 # Passenger
 alias re='touch tmp/restart.txt'
