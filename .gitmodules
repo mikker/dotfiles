@@ -4,3 +4,6 @@
 [submodule "zsh/git-flow-completion"]
 	path = zsh/git-flow-completion
 	url = https://github.com/bobthecow/git-flow-completion.git
+[submodule "vim/bundle/vividchalk"]
+	path = vim/bundle/vividchalk
+	url = https://github.com/tpope/vim-vividchalk.git
