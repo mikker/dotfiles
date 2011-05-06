@@ -7,3 +7,6 @@
 [submodule "vim/bundle/vividchalk"]
 	path = vim/bundle/vividchalk
 	url = https://github.com/tpope/vim-vividchalk.git
+[submodule "vim/bundle/slim.vim"]
+	path = vim/bundle/slim.vim
+	url = https://github.com/bbommarito/vim-slim.git
