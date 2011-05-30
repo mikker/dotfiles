@@ -13,3 +13,6 @@
 [submodule "vim/bundle/coffee-script.vim"]
 	path = vim/bundle/coffee-script.vim
 	url = https://github.com/jayferd/vim-coffee-script.git
+[submodule "vim/bundle/NERD_commenter"]
+	path = vim/bundle/NERD_commenter
+	url = https://github.com/vim-scripts/The-NERD-Commenter.git
