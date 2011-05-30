@@ -10,3 +10,6 @@
 [submodule "vim/bundle/slim.vim"]
 	path = vim/bundle/slim.vim
 	url = https://github.com/bbommarito/vim-slim.git
+[submodule "vim/bundle/coffee-script.vim"]
+	path = vim/bundle/coffee-script.vim
+	url = https://github.com/jayferd/vim-coffee-script.git
