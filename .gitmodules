@@ -22,3 +22,6 @@
 [submodule "vim/bundle/ack.vim"]
 	path = vim/bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+[submodule "vim/bundle/autoclose.vim/plugin"]
+	path = vim/bundle/autoclose.vim/plugin
+	url = https://github.com/korpz/Autoclose-vim.git
