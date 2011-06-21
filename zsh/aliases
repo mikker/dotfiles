@@ -2,6 +2,9 @@
 alias ls="ls -Gh"
 alias ssp="hack && rake && ship"
 
+# Screen
+alias s="screen -R"
+
 # Git
 alias st='git st'
 alias ci='git ci -m'
@@ -26,9 +29,6 @@ alias sg='script/generate'
 alias sd='script/destroy'
 alias sp='script/plugin'
 alias scdb='script/dbconsole'
-alias migrate='rake db:migrate; rake db:test:clone'
-alias remigrate='rake db:migrate:redo'
-alias tl='tail -f log/development.log'
 # Rails 3
 alias r='rails'
 alias rg='bundle exec rails generate'
@@ -37,13 +37,14 @@ alias rs='bundle exec rails server'
 alias rdb='bundle exec rails dbconsole'
 alias rd='bundle exec rails destroy'
 alias rp='bundle exec rails plugin'
+# Rails
+alias migrate='rake db:migrate; rake db:test:clone'
+alias remigrate='rake db:migrate:redo'
+alias tl='tail -f log/development.log'
 
 # Webby
 alias wa='webby autobuild'
 alias wT='webby -T'
-
-# Shotgun
-alias sgun='shotgun config.ru'
 
 # Autotest
 alias at='autotest'
@@ -53,4 +54,4 @@ alias as='autospec'
 alias rT='rake -T'
 
 # Irb
-alias irb='irb --readline -r irb/completion -rubygems'
+alias irb='irb --readline'

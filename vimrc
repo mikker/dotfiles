@@ -10,7 +10,6 @@ call pathogen#runtime_append_all_bundles()
 
 " { GENERAL }
 
-set number
 set ruler
 syntax on
 set shell=sh " zsh doesn't work so well
@@ -105,9 +104,9 @@ map <M-D-Right> <C-w>l
 map <M-D-Up> <C-w>k
 map <M-D-Down> <C-w>j
 " Buffers
-map <M-S-D-Left> :bp!<CR>
-map <M-S-D-Right> :bn!<CR>
-map <M-S-D-BS> :bd!<CR>
+map <S-D-Left> :bp!<CR>
+map <S-D-Right> :bn!<CR>
+map <S-D-BS> :bd!<CR>
 
 " { PLUGINS }
 
@@ -119,13 +118,8 @@ let g:NERDTreeWinPos="right"
 " NERDCommenter
 let g:NERDSpaceDelims=1
 
-" RagTag
-let g:ragtag_global_maps = 1
-
 " miniBufExpl
 let g:miniBufExplMapWindowNavVim = 1
-" let g:miniBufExplMapWindowNavArrows = 1
-" let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
 " " { OTHER }
@@ -149,6 +143,3 @@ au BufRead,BufNewFile *.scss set filetype=scss
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
-
-let g:ConqueTerm_ReadUnfocused = 1
-
