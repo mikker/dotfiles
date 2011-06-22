@@ -21,7 +21,7 @@ function StartTerm()
 endfunction
 
 " Command-T
-" autocmd FocusGained * call s:CmdTFlush()
+autocmd FocusGained * call s:CmdTFlush()
 
 " Flush Command-T on focus function
 function s:CmdTFlush(...)
