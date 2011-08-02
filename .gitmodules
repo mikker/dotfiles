@@ -25,3 +25,6 @@
 [submodule "vim/bundle/autoclose.vim/plugin"]
 	path = vim/bundle/autoclose.vim/plugin
 	url = https://github.com/korpz/Autoclose-vim.git
+[submodule "vim/bundle/command-t.vim"]
+	path = vim/bundle/command-t.vim
+	url = git://git.wincent.com/command-t.git
