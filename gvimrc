@@ -15,29 +15,23 @@ if has("gui_macvim")
   colorscheme sunburst
 endif
 
-function StartTerm()
-  execute 'ConqueTerm ' . $SHELL . ' --login'
-  setlocal listchars=tab:\ \
-endfunction
-
 " Command-T
 autocmd FocusGained * call s:CmdTFlush()
 
 " Flush Command-T on focus function
-function s:CmdTFlush(...)
-  let stay = 0
+" function s:CmdTFlush(...)
+  " let stay = 0
 
-  if(exists("a:1"))
-    let stay = a:1
-  end
+  " if(exists("a:1"))
+    " let stay = a:1
+  " end
 
-  if exists(":CommandTFlush") == 2
-    CommandTFlush
-  endif
-endfunction
+  " if exists(":CommandTFlush") == 2
+    " CommandTFlush
+  " endif
+" endfunction
 
 " Include user's local vim config
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif
-
