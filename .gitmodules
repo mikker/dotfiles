@@ -37,3 +37,6 @@
 [submodule "vim/bundle/endwise.vim"]
 	path = vim/bundle/endwise.vim
 	url = https://github.com/tpope/vim-endwise.git
+[submodule "vim/bundle/vim-ruby-runner"]
+	path = vim/bundle/vim-ruby-runner
+	url = https://github.com/henrik/vim-ruby-runner.git
