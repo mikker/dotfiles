@@ -40,3 +40,6 @@
 [submodule "vim/bundle/vim-ruby-runner"]
 	path = vim/bundle/vim-ruby-runner
 	url = https://github.com/henrik/vim-ruby-runner.git
+[submodule "vim/bundle/markdown-preview.vim"]
+	path = vim/bundle/markdown-preview.vim
+	url = https://github.com/henrik/vim-markdown-preview.git
