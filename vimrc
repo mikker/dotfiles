@@ -1,4 +1,5 @@
 set nocompatible
+set encoding=utf-8
 """"""""""""""""""""""""""
 "   Personal vim config  "
 "     Mikkel Malmberg    "
@@ -6,16 +7,17 @@ set nocompatible
 """"""""""""""""""""""""""
 
 " Setup paths using pathogen
+filetype off
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " { GENERAL }
 
-set ruler
+filetype plugin indent on
 syntax on
+color desert
 set shell=sh " zsh doesn't work so well
-
-" Set encoding
-set encoding=utf-8
+set ruler
 
 " Indentation
 set shiftwidth=2
@@ -25,13 +27,15 @@ set expandtab
 set autoindent
 set smarttab
 set cindent
+set autoread
+set gdefault    " Global search by default; /g for first-per-row only.
 
 " Preferred file formats
 set fileformat=unix
 set fileformats=unix,dos,mac
 
 " Tab completion
-set wildmode=list:longest,list:full
+set wildmode=longest,list
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,test/fixtures/*,vendor/gems/*
 
 " Enable filetypes and plugins
@@ -53,7 +57,6 @@ set directory=$HOME/.vim/backup
 " { LOOKS }
 
 " Colorscheme
-colorscheme desert
 
 " Command
 set cmdheight=1
@@ -69,6 +72,15 @@ set number
 
 
 " { MAPPINGS }
+
+" Move by screen lines instead of file lines.
+" http://vim.wikia.com/wiki/Moving_by_screen_lines_instead_of_file_lines
+noremap <Up> gk
+noremap <Down> gj
+noremap k gk
+noremap j gj
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
 " Colon is tricky on danish keyboards
 map æ :
@@ -112,3 +124,13 @@ au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
+
+" Quicker filetype setting:
+"   :F html
+" instead of
+"   :set ft=html
+" Can tab-complete filetype.
+command! -nargs=1 -complete=filetype F set filetype=<args>
+
+" Even quicker setting often-used filetypes.
+command! FR set filetype=ruby

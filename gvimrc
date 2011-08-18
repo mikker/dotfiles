@@ -32,6 +32,10 @@ if has("gui_macvim")
   macmenu &Tools.List\ Errors key=<nop>
   map <D-l> :CommandT<CR>
 
+  " Command-Shift-F for Ack
+  macmenu Window.Toggle\ Full\ Screen\ Mode key=<nop>
+  map <D-F> :Ack<space>
+
   " Font settings
   set guifont=Liberation\ Mono:h14
   colorscheme sunburst
