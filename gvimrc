@@ -38,7 +38,7 @@ if has("gui_macvim")
 
   " Font settings
   set guifont=Liberation\ Mono:h14
-  colorscheme sunburst
+  colorscheme Tomorrow-Night
 endif
 
 " Flush Command-T on focus function
