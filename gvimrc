@@ -37,7 +37,7 @@ if has("gui_macvim")
   map <D-F> :Ack<space>
 
   " Font settings
-  set guifont=Liberation\ Mono:h14
+  set guifont=Liberation\ Mono:h12
   colorscheme Tomorrow-Night
 endif
 
