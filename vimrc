@@ -82,6 +82,10 @@ noremap j gj
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
+" Make < > shifts keep selection
+vnoremap < <gv
+vnoremap > >gv
+
 " Colon is tricky on danish keyboards
 map æ :
 
@@ -93,10 +97,13 @@ let mapleader = ","
 " NERDTree
 map <Leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos="right"
+let g:NERDMenuMode=0
 " let g:NERDTreeWinSize=24
 
 " NERDCommenter
+let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
+map <leader>c <Plug>NERDCommenterToggle
 
 " miniBufExpl
 let g:miniBufExplMapWindowNavVim = 1
