@@ -109,6 +109,9 @@ map <leader>c <Plug>NERDCommenterToggle
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplModSelTarget = 1
 
+" snipMate
+nmap <Leader>rr :call ReloadAllSnippets()<CR>
+
 " " { OTHER }
 
 " " Automatically strip trailing whitespace
