@@ -1,5 +1,10 @@
 " No toolbar
 set guioptions-=T
+" Fullscreen takes up entire screen
+set fuoptions=maxhorz,maxvert
+" Font settings
+set guifont=Menlo:h12
+colorscheme Tomorrow-Night
 
 " Compliments of TextMate
 " Hash rocket (ctrl+l)
@@ -9,6 +14,7 @@ imap <D-CR> <ESC>o
 map <D-CR> o
 " Deselect highlighted search terms
 map <D-d> :nohl<CR>
+imap <D-d> <Esc>:nohl<CR>a
 " Toggle hidden characters
 map <C-h> :set list!<CR>
 
@@ -22,42 +28,29 @@ map <S-D-Left> :bp!<CR>
 map <S-D-Right> :bn!<CR>
 map <S-D-BS> :bd!<CR>
 
-
-" Command-T
 if has("gui_macvim")
-  " Fullscreen takes up entire screen
-  set fuoptions=maxhorz,maxvert
-
   " Command-t is cmd+l
   macmenu &Tools.List\ Errors key=<nop>
   map <D-l> :CommandT<CR>
+  imap <D-l> <Esc>:CommandT<CR>
 
   " Command-Shift-F for Ack
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<nop>
   map <D-F> :Ack<space>
-
-  " Font settings
-  set guifont=Liberation\ Mono:h12
-  colorscheme Tomorrow-Night
+  macmenu Tools.Older\ List key=<nop>
+  macmenu Tools.Newer\ List key=<nop>
 endif
-
-" Flush Command-T on focus function
-function s:CmdTFlush(...)
-  let stay = 0
-
-  if(exists("a:1"))
-    let stay = a:1
-  end
-
-  if exists(":CommandTFlush") == 2
-    CommandTFlush
-  endif
-endfunction
-
-" Command-T
-autocmd FocusGained * call s:CmdTFlush()
 
 " Include user's local vim config
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif
+
+" Moving lines around (using vim-unimpaired)
+" http://github.com/tpope/vim-unimpaired
+map <C-D-Up> [e
+map <C-D-Down> ]e
+vmap <C-D-Up> [egv
+vmap <C-D-Down> ]egv
+" Reselect last visual selection
+nmap gV `[v`]
