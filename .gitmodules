@@ -43,9 +43,6 @@
 [submodule "vim/bundle/markdown-preview.vim"]
 	path = vim/bundle/markdown-preview.vim
 	url = https://github.com/henrik/vim-markdown-preview.git
-[submodule "vim/bundle/solarized-themes.git"]
-	path = vim/bundle/solarized-themes.git
-	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/rails.vim"]
 	path = vim/bundle/rails.vim
 	url = https://github.com/tpope/vim-rails.git
