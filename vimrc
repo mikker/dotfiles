@@ -1,15 +1,15 @@
 set nocompatible
-set encoding=utf-8
 """"""""""""""""""""""""""
 "   Personal vim config  "
 "     Mikkel Malmberg    "
 "                        "
 """"""""""""""""""""""""""
+set encoding=utf-8
 
 " Setup paths using pathogen
 filetype off
 call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+" call pathogen#helptags()
 
 " { GENERAL }
 
@@ -75,12 +75,12 @@ set number
 
 " Move by screen lines instead of file lines.
 " http://vim.wikia.com/wiki/Moving_by_screen_lines_instead_of_file_lines
-noremap <Up> gk
-noremap <Down> gj
-noremap k gk
-noremap j gj
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
+" noremap <Up> gk
+" noremap <Down> gj
+" noremap k gk
+" noremap j gj
+" inoremap <Down> <C-o>gj
+" inoremap <Up> <C-o>gk
 
 " Make < > shifts keep selection
 vnoremap < <gv
@@ -95,6 +95,7 @@ let mapleader = ","
 " { PLUGINS }
 
 " NERDTree
+" let loaded_nerd_tree=1
 map <Leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos="right"
 let g:NERDMenuMode=0
@@ -104,10 +105,6 @@ let g:NERDMenuMode=0
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
-
-" miniBufExpl
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplModSelTarget = 1
 
 " snipMate
 nmap <Leader>rr :call ReloadAllSnippets()<CR>
@@ -144,3 +141,109 @@ command! -nargs=1 -complete=filetype F set filetype=<args>
 
 " Even quicker setting often-used filetypes.
 command! FR set filetype=ruby
+
+
+" FROM https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
+
+" Map ,e and ,v to open files in the same directory as the current file
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+map <leader>v :view %%
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+" Seriously, guys. It's not like :W is bound to anything anyway.
+command! W :w
+
+" Map keys to go to specific files
+map <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gr :topleft :split config/routes.rb<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+
+" Jump around
+nnoremap <leader><leader> <c-^>
+
+"""""""""
+" TESTS "
+"""""""""
+function! RunTests(filename)
+    " Write the file and run tests for the given filename
+    :w
+    :silent !echo;echo;echo;echo;echo
+    if filereadable("script/test")
+        exec ":!script/test " . a:filename
+    else
+        exec ":!bundle exec rspec " . a:filename
+    end
+endfunction
+
+function! SetTestFile()
+    " Set the spec file that tests will be run for.
+    let t:grb_test_file=@%
+endfunction
+
+function! RunTestFile(...)
+    if a:0
+        let command_suffix = a:1
+    else
+        let command_suffix = ""
+    endif
+
+    " Run the tests for the previously-marked file.
+    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
+    if in_spec_file
+        call SetTestFile()
+    elseif !exists("t:grb_test_file")
+        return
+    end
+    call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+    let spec_line_number = line('.')
+    call RunTestFile(":" . spec_line_number)
+endfunction
+
+map <leader>t :call RunTestFile()<cr>
+map <leader>T :call RunNearestTest()<cr>
+" map <leader>a :call RunTests('spec')<cr>
+
+set winwidth=84
+" We have to have a winheight bigger than we want to set winminheight. But if
+" we set winheight to be huge before winminheight, the winminheight set will
+" fail.
+set winheight=5
+set winminheight=5
+set winheight=999
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
+map <c-Down> <c-j>
+map <c-Up> <c-k>
+map <c-Left> <c-h>
+map <c-Right> <c-l>
+
+" Hash rocket (ctrl+l)
+imap <C-L> <space>=><space>
+" Toggle hidden characters
+" map <C-h> :set list!<CR>
+

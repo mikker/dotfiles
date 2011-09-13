@@ -7,22 +7,13 @@ set guifont=Menlo:h12
 colorscheme Tomorrow-Night
 
 " Compliments of TextMate
-" Hash rocket (ctrl+l)
-imap <C-L> <space>=><space>
 " Open new line below (cmd+enter)
 imap <D-CR> <ESC>o
 map <D-CR> o
 " Deselect highlighted search terms
 map <D-d> :nohl<CR>
 imap <D-d> <Esc>:nohl<CR>a
-" Toggle hidden characters
-map <C-h> :set list!<CR>
 
-" Windows
-map <M-D-Left> <C-w>h
-map <M-D-Right> <C-w>l
-map <M-D-Up> <C-w>k
-map <M-D-Down> <C-w>j
 " Buffers
 map <S-D-Left> :bp!<CR>
 map <S-D-Right> :bn!<CR>
