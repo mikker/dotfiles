@@ -52,3 +52,6 @@
 [submodule "vim/bundle/vim-unimpaired.git"]
 	path = vim/bundle/vim-unimpaired.git
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "vim/bundle/matchit.vim"]
+	path = vim/bundle/matchit.vim
+	url = https://github.com/tsaleh/vim-matchit.git
