@@ -1,29 +1,13 @@
-" No toolbar
-set guioptions-=T
-" Fullscreen takes up entire screen
-set fuoptions=maxhorz,maxvert
-" Font settings
-set guifont=Menlo:h12
-colorscheme Tomorrow-Night
-
-" Compliments of TextMate
-" Open new line below (cmd+enter)
-imap <D-CR> <ESC>o
-map <D-CR> o
-" Deselect highlighted search terms
-map <D-d> :nohl<CR>
-imap <D-d> <Esc>:nohl<CR>a
-
-" Buffers
-map <S-D-Left> :bp!<CR>
-map <S-D-Right> :bn!<CR>
-map <S-D-BS> :bd!<CR>
+" Looks
+set guioptions-=T " No toolbar
+set fuoptions=maxhorz,maxvert " Fullscreen takes up entire screen
+set guifont=Menlo:h12 " Font
 
 if has("gui_macvim")
   " Command-t is cmd+l
   macmenu &Tools.List\ Errors key=<nop>
   map <D-l> :CommandT<CR>
-  imap <D-l> <Esc>:CommandT<CR>
+  imap <D-l> <esc>:CommandT<CR>
 
   " Command-Shift-F for Ack
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<nop>
@@ -36,12 +20,3 @@ endif
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif
-
-" Moving lines around (using vim-unimpaired)
-" http://github.com/tpope/vim-unimpaired
-map <C-D-Up> [e
-map <C-D-Down> ]e
-vmap <C-D-Up> [egv
-vmap <C-D-Down> ]egv
-" Reselect last visual selection
-nmap gV `[v`]
