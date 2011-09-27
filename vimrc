@@ -4,20 +4,21 @@ set nocompatible
 "     Mikkel Malmberg    "
 "                        "
 """"""""""""""""""""""""""
-set encoding=utf-8
+set encoding=utf-8 " ensure encoding
 
-" Setup paths using pathogen
-filetype off
+" Setup paths and help tags from pathogen
 call pathogen#runtime_append_all_bundles()
-" call pathogen#helptags()
+call pathogen#helptags()
 
 " { GENERAL }
 
-filetype plugin indent on
-syntax on
-color desert
+filetype plugin indent on " enable filetype and it's plugins
+syntax on " syntax highlighting on
+
 set shell=sh " zsh doesn't work so well
-set ruler
+set ruler " enable ruler
+set gdefault " Global search by default; /g for first-per-row only.
+set backspace=indent,eol,start "  backspace over everything in insert mode
 
 " Indentation
 set shiftwidth=2
@@ -28,7 +29,6 @@ set autoindent
 set smarttab
 set cindent
 set autoread
-set gdefault    " Global search by default; /g for first-per-row only.
 
 " Preferred file formats
 set fileformat=unix
@@ -38,40 +38,67 @@ set fileformats=unix,dos,mac
 set wildmode=longest,list
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,test/fixtures/*,vendor/gems/*
 
-" Enable filetypes and plugins
-filetype plugin indent on
-
-" Allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
 " Search
 set incsearch
 set hlsearch
 set ignorecase
 set smartcase
 
-" No backup files
+" Centralized backup files
 set backupdir=$HOME/.vim/backup
 set directory=$HOME/.vim/backup
 
 " { LOOKS }
 
-" Colorscheme
+color Tomorrow-Night " https://github.com/ChrisKempson/Tomorrow-Theme
 
+set showtabline=1 " only show tabbar when > 1 tab
 " Command
 set cmdheight=1
 set laststatus=2
-set statusline=%F%m%r%h%w[%{GitBranch()}]\ type:\ %Y,\ pos:\ %l,%v
-
-" Set tab menu 0=never, 1=when more then one, 2=always
-set showtabline=1
-
-" Set minimal length of line numbering and set it on
+set statusline=%F%m%r%h%w\ (%Y)[%v]
+" Line numbers
 set numberwidth=2
 set number
-
+" Windows
+set winwidth=84
+" We have to have a winheight bigger than we want to set winminheight. But if
+" we set winheight to be huge before winminheight, the winminheight set will
+" fail.
+set winheight=5
+set winminheight=5
+set winheight=999
 
 " { MAPPINGS }
+
+" Leader
+let mapleader = ","
+
+" Open new line below (cmd+enter)
+imap <D-CR> <esc>o
+map <D-CR> o
+
+" Deselect highlighted search terms
+map <D-d> :nohl<CR>
+imap <D-d> <esc>:nohl<CR>gi
+
+" Close current buffer
+map <S-D-BS> :bd!<CR>
+
+" Hash rocket (ctrl+l)
+imap <C-l> <space>=><space>
+" Toggle hidden characters
+map <leader>h :set list!<cr>
+
+" Moving lines around (using vim-unimpaired)
+" http://github.com/tpope/vim-unimpaired
+map <C-D-Up> [e
+map <C-D-Down> ]e
+vmap <C-D-Up> [egv
+vmap <C-D-Down> ]egv
+
+" Reselect last visual selection
+nmap gV `[v`]
 
 " Move by screen lines instead of file lines.
 " http://vim.wikia.com/wiki/Moving_by_screen_lines_instead_of_file_lines
@@ -86,11 +113,23 @@ set number
 vnoremap < <gv
 vnoremap > >gv
 
+" I do this ALL the time
+command! W :w
 " Colon is tricky on danish keyboards
 map æ :
 
-" Leader
-let mapleader = ","
+" Readjust windows
+nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
+" Jump around
+map <D-A-down> <c-w>j
+map <D-A-up> <c-w>k
+map <D-A-left> <c-w>h
+map <D-A-right> <c-w>l
+" Open a the split rightmost in the window
+map <c-w>V :botright :vertical :split<cr>
+
+" quickly jump between two recent files
+nnoremap <leader><leader> <c-^>
 
 " { PLUGINS }
 
@@ -109,9 +148,23 @@ map <leader>c <Plug>NERDCommenterToggle
 " snipMate
 nmap <Leader>rr :call ReloadAllSnippets()<CR>
 
-" " { OTHER }
+" { FILETYPES }
 
-" " Automatically strip trailing whitespace
+" Quicker filetype setting:
+"   :F html
+" instead of
+"   :set ft=html
+command! -nargs=1 F set filetype=<args>
+" Even quicker setting often-used filetypes.
+command! FR set filetype=ruby
+
+" Thorfile, Rakefile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,config.ru} set ft=ruby
+au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
+
+" { OTHER }
+
+" Automatically strip trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
@@ -121,28 +174,12 @@ endfun
 
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-map <C-D-w> :call Wipeout()<CR>
-
-" Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,config.ru} set ft=ruby
-au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
-
 " Source a global configuration file if available
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
 
-" Quicker filetype setting:
-"   :F html
-" instead of
-"   :set ft=html
-" Can tab-complete filetype.
-command! -nargs=1 -complete=filetype F set filetype=<args>
-
-" Even quicker setting often-used filetypes.
-command! FR set filetype=ruby
-
-
+" ------ "
 " FROM https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
 
 " Map ,e and ,v to open files in the same directory as the current file
@@ -160,90 +197,64 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-" Seriously, guys. It's not like :W is bound to anything anyway.
-command! W :w
-
 " Map keys to go to specific files
-map <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
-map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-map <leader>gr :topleft :split config/routes.rb<cr>
-map <leader>gg :topleft 100 :split Gemfile<cr>
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
-
-" Jump around
-nnoremap <leader><leader> <c-^>
+noremap <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
+noremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+noremap <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+noremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+noremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+noremap <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+noremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+noremap <leader>gr :topleft :split config/routes.rb<cr>
+noremap <leader>gg :topleft 100 :split Gemfile<cr>
+noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
 """""""""
 " TESTS "
 """""""""
 function! RunTests(filename)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !echo;echo;echo;echo;echo
-    if filereadable("script/test")
-        exec ":!script/test " . a:filename
-    else
-        exec ":!bundle exec rspec " . a:filename
-    end
+  " Write the file and run tests for the given filename
+  :w
+  :silent !echo;echo;echo;echo;echo
+  if filereadable("script/test")
+    exec ":!script/test " . a:filename
+  elseif filereadable("spec/spec_helper.rb")
+    exec ":!spec " . a:filename
+  else
+    exec ":!rake test:single TEST=" . a:filename
+  end
 endfunction
 
 function! SetTestFile()
-    " Set the spec file that tests will be run for.
-    let t:grb_test_file=@%
+  " Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
 endfunction
 
 function! RunTestFile(...)
-    if a:0
-        let command_suffix = a:1
-    else
-        let command_suffix = ""
-    endif
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
 
-    " Run the tests for the previously-marked file.
-    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
-    if in_spec_file
-        call SetTestFile()
-    elseif !exists("t:grb_test_file")
-        return
-    end
-    call RunTests(t:grb_test_file . command_suffix)
+  " Run the tests for the previously-marked file.
+  let in_spec_file = match(expand("%"), '_(test|spec).rb$') != -1
+  if in_spec_file
+    :!echo "in spec!"
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
 endfunction
 
-function! RunNearestTest()
-    let spec_line_number = line('.')
-    call RunTestFile(":" . spec_line_number)
-endfunction
+" function! RunNearestTest()
+  " let spec_line_number = line('.')
+  " call RunTestFile(":" . spec_line_number)
+" endfunction
 
 map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-" map <leader>a :call RunTests('spec')<cr>
-
-set winwidth=84
-" We have to have a winheight bigger than we want to set winminheight. But if
-" we set winheight to be huge before winminheight, the winminheight set will
-" fail.
-set winheight=5
-set winminheight=5
-set winheight=999
-
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
-map <c-Down> <c-j>
-map <c-Up> <c-k>
-map <c-Left> <c-h>
-map <c-Right> <c-l>
-
-" Hash rocket (ctrl+l)
-imap <C-L> <space>=><space>
-" Toggle hidden characters
-" map <C-h> :set list!<CR>
-
+" map <leader>T :call RunNearestTest()<cr>
+map <leader>S :call RunTests('spec')<cr>
+map <leader>T :call RunTests('test')<cr>
