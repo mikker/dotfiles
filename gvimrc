@@ -2,6 +2,7 @@
 set guioptions-=T " No toolbar
 set fuoptions=maxhorz,maxvert " Fullscreen takes up entire screen
 set guifont=Menlo:h12 " Font
+colorscheme Tomorrow-Night
 
 if has("gui_macvim")
   " Command-t is cmd+l

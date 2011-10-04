@@ -50,7 +50,7 @@ set directory=$HOME/.vim/backup
 
 " { LOOKS }
 
-color Tomorrow-Night " https://github.com/ChrisKempson/Tomorrow-Theme
+colorscheme Tomorrow-Night " https://github.com/ChrisKempson/Tomorrow-Theme
 
 set showtabline=1 " only show tabbar when > 1 tab
 " Command
@@ -117,14 +117,15 @@ vnoremap > >gv
 command! W :w
 " Colon is tricky on danish keyboards
 map æ :
+map - /
 
 " Readjust windows
 nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
 " Jump around
-map <D-A-down> <c-w>j
-map <D-A-up> <c-w>k
-map <D-A-left> <c-w>h
-map <D-A-right> <c-w>l
+noremap <D-A-down> <c-w>j
+noremap <D-A-up> <c-w>k
+noremap <D-A-left> <c-w>h
+noremap <D-A-right> <c-w>l
 " Open a the split rightmost in the window
 map <c-w>V :botright :vertical :split<cr>
 
