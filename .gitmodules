@@ -1,51 +1,67 @@
-[submodule "vim/bundle/scss-syntax.vim"]
-	path = vim/bundle/scss-syntax.vim
-	url = https://github.com/cakebaker/scss-syntax.vim.git
 [submodule "zsh/git-flow-completion"]
 	path = zsh/git-flow-completion
 	url = https://github.com/bobthecow/git-flow-completion.git
+[submodule "vim/bundle/scss-syntax.vim"]
+	path = vim/bundle/scss-syntax.vim
+	url = https://github.com/cakebaker/scss-syntax.vim.git
+  ignore = untracked
 [submodule "vim/bundle/vividchalk"]
 	path = vim/bundle/vividchalk
 	url = https://github.com/tpope/vim-vividchalk.git
+  ignore = untracked
 [submodule "vim/bundle/slim.vim"]
 	path = vim/bundle/slim.vim
 	url = https://github.com/bbommarito/vim-slim.git
+  ignore = untracked
 [submodule "vim/bundle/coffee-script.vim"]
 	path = vim/bundle/coffee-script.vim
 	url = https://github.com/jayferd/vim-coffee-script.git
+  ignore = untracked
 [submodule "vim/bundle/NERD_commenter"]
 	path = vim/bundle/NERD_commenter
 	url = https://github.com/vim-scripts/The-NERD-Commenter.git
+  ignore = untracked
 [submodule "vim/bundle/ack.vim"]
 	path = vim/bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+  ignore = untracked
 [submodule "vim/bundle/autoclose.vim/plugin"]
 	path = vim/bundle/autoclose.vim/plugin
 	url = https://github.com/korpz/Autoclose-vim.git
+  ignore = untracked
 [submodule "vim/bundle/command-t.vim"]
 	path = vim/bundle/command-t.vim
 	url = git://git.wincent.com/command-t.git
+  ignore = untracked
 [submodule "vim/bundle/markdown.git"]
 	path = vim/bundle/markdown.git
 	url = https://github.com/tpope/vim-markdown.git
+  ignore = untracked
 [submodule "vim/bundle/endwise.vim"]
 	path = vim/bundle/endwise.vim
 	url = https://github.com/tpope/vim-endwise.git
+  ignore = untracked
 [submodule "vim/bundle/vim-ruby-runner"]
 	path = vim/bundle/vim-ruby-runner
 	url = https://github.com/henrik/vim-ruby-runner.git
+  ignore = untracked
 [submodule "vim/bundle/markdown-preview.vim"]
 	path = vim/bundle/markdown-preview.vim
 	url = https://github.com/henrik/vim-markdown-preview.git
+  ignore = untracked
 [submodule "vim/bundle/rails.vim"]
 	path = vim/bundle/rails.vim
 	url = https://github.com/tpope/vim-rails.git
+  ignore = untracked
 [submodule "vim/bundle/snipmate.git"]
 	path = vim/bundle/snipmate.git
 	url = git@github.com:mikker/snipmate.vim.git
+  ignore = untracked
 [submodule "vim/bundle/vim-unimpaired.git"]
 	path = vim/bundle/vim-unimpaired.git
 	url = git://github.com/tpope/vim-unimpaired.git
+  ignore = untracked
 [submodule "vim/bundle/matchit.vim"]
 	path = vim/bundle/matchit.vim
 	url = https://github.com/tsaleh/vim-matchit.git
+  ignore = untracked
