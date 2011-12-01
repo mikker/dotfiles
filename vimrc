@@ -117,7 +117,9 @@ vnoremap > >gv
 command! W :w
 " Colon is tricky on danish keyboards
 map æ :
+
 map - /
+map _ ^
 
 " Readjust windows
 nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
