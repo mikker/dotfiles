@@ -5,10 +5,6 @@
 	path = vim/bundle/scss-syntax.vim
 	url = https://github.com/cakebaker/scss-syntax.vim.git
   ignore = untracked
-[submodule "vim/bundle/vividchalk"]
-	path = vim/bundle/vividchalk
-	url = https://github.com/tpope/vim-vividchalk.git
-  ignore = untracked
 [submodule "vim/bundle/slim.vim"]
 	path = vim/bundle/slim.vim
 	url = https://github.com/bbommarito/vim-slim.git
@@ -44,10 +40,6 @@
 [submodule "vim/bundle/vim-ruby-runner"]
 	path = vim/bundle/vim-ruby-runner
 	url = https://github.com/henrik/vim-ruby-runner.git
-  ignore = untracked
-[submodule "vim/bundle/markdown-preview.vim"]
-	path = vim/bundle/markdown-preview.vim
-	url = https://github.com/henrik/vim-markdown-preview.git
   ignore = untracked
 [submodule "vim/bundle/rails.vim"]
 	path = vim/bundle/rails.vim
