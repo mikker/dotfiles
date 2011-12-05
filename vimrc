@@ -1,3 +1,5 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+
 set nocompatible
 """"""""""""""""""""""""""
 "   Personal vim config  "
