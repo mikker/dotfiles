@@ -216,6 +216,8 @@ noremap <leader>gf :topleft 100 :split test/factories.rb<cr>
 noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
+" Quick calculations
+inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR><esc>F=i<space><esc>la<space><esc>A
 
 function! RunTest(args)
   if filereadable("spec/spec_helper.rb")
