@@ -63,3 +63,6 @@
 [submodule "vim/bundle/Tomorrow-Theme"]
 	path = vim/bundle/Tomorrow-Theme
 	url = https://github.com/ChrisKempson/Vim-Tomorrow-Theme.git
+[submodule "vim/bundle/gundo.vim"]
+	path = vim/bundle/gundo.vim
+	url = https://github.com/sjl/gundo.vim.git
