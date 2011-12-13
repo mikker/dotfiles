@@ -212,6 +212,7 @@ noremap <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
 noremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
+noremap <leader>gf :topleft 100 :split test/factories.rb<cr>
 noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 
