@@ -132,6 +132,7 @@ noremap <D-A-left> <c-w>h
 noremap <D-A-right> <c-w>l
 " Open a the split rightmost in the window
 map <c-w>V :botright :vertical :split<cr>
+map <c-w>S :topleft :split<cr>
 
 " quickly jump between two recent files
 nnoremap <leader><leader> <c-^>
@@ -220,10 +221,15 @@ noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR><esc>F=i<space><esc>la<space><esc>A
 
 function! RunTest(args)
+  let test_file = match(expand("%"), '_\(test\|spec\)\.rb$')
   if filereadable("spec/spec_helper.rb")
     exec ":!rspec --no-color % " . a:args
   else
-    exec ":!ruby -i'lib:test' % " . a:args
+    if filereadable("script/rails")
+      exec ":Rake test:single TEST=%"
+    else
+      exec ":!ruby -i'lib:test' %"
+    endif
   endif
 endfunction
 
