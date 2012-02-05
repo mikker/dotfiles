@@ -69,3 +69,12 @@
 [submodule "vim/bundle/mustache"]
 	path = vim/bundle/mustache
 	url = git://github.com/juvenn/mustache.vim.git
+[submodule "vim/bundle/yankring.vim"]
+	path = vim/bundle/yankring.vim
+	url = https://github.com/chrismetcalf/vim-yankring.git
+[submodule "vim/bundle/vim-repeat"]
+	path = vim/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule "vim/bundle/RainbowParenthesis"]
+	path = vim/bundle/RainbowParenthesis
+	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
