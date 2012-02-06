@@ -1,50 +1,53 @@
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
-set nocompatible
 """"""""""""""""""""""""""
 "   Personal vim config  "
 "     Mikkel Malmberg    "
 "                        "
 """"""""""""""""""""""""""
-set encoding=utf-8 " ensure encoding
 
-" Setup paths and help tags from pathogen
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+filetype off " turn filetype off before loading pathogen
+call pathogen#runtime_append_all_bundles() " call in the cavalry
+call pathogen#helptags() " and their documentation
+filetype plugin indent on " turn filetype back on
 
 " { GENERAL }
 
-filetype plugin indent on " enable filetype and it's plugins
-syntax on " syntax highlighting on
-
-set shell=sh " zsh doesn't work so well
-set ruler " enable ruler
-set gdefault " Global search by default; /g for first-per-row only.
-set backspace=indent,eol,start "  backspace over everything in insert mode
+set nocompatible " get with the times
+set modelines=0 " security thing?
 
 " Indentation
-set shiftwidth=2
 set tabstop=2
+set shiftwidth=2
 set softtabstop=2
 set expandtab
-set autoindent
-set smarttab
-set cindent
-set autoread
 
-" Preferred file formats
-set fileformat=unix
-set fileformats=unix,dos,mac
-
-" Tab completion
-set wildmode=longest,list
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,test/fixtures/*,vendor/gems/*
+" Options
+set encoding=utf-8 " ensure encoding
+set scrolloff=3 " some pading around search results
+set shell=sh " zsh doesn't work so well
+set ruler " enable ruler
+set backspace=indent,eol,start "  backspace over everything in insert mode
+set autoindent " auto indentation on
+set smarttab " tab is smart
+set autoread " auto-reload files edited elsewhere
+set wildmode=longest,list " auto-completion
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn
+set fileformat=unix " Preferred file formats
+set fileformats=unix,dos,mac " ...
+set cursorline " highlight current line
+set hidden " allow buffers in background
 
 " Search
-set incsearch
-set hlsearch
-set ignorecase
-set smartcase
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase " search is case insensitive
+set smartcase " ... unless you use upper case
+set gdefault " global search by default; /g for first-per-row only.
+set incsearch " incremental search
+set hlsearch " highlight results
+nnoremap <tab> %
+vnoremap <tab> %
 
 " Centralized backup files
 set backupdir=$HOME/.vim/backup
@@ -53,6 +56,8 @@ set directory=$HOME/.vim/backup
 " { LOOKS }
 
 colorscheme Tomorrow-Night " https://github.com/ChrisKempson/Tomorrow-Theme
+set listchars=tab:▸\ ,eol:¬
+nnoremap <c-h> :set list!<cr>
 
 set showtabline=1 " only show tabbar when > 1 tab
 " Command
@@ -154,6 +159,9 @@ map <leader>c <Plug>NERDCommenterToggle
 " snipMate
 nmap <Leader>rr :call ReloadAllSnippets()<CR>
 
+" GundoTree
+nnoremap <F5> :GundoToggle<CR>
+
 " { FILETYPES }
 
 " Quicker filetype setting:
@@ -226,7 +234,7 @@ function! RunTest(args)
     exec ":!rspec --no-color % " . a:args
   else
     if filereadable("script/rails")
-      exec ":Rake test:single TEST=%"
+      exec ":!rake test:single TEST=%"
     else
       exec ":!ruby -i'lib:test' %"
     endif
@@ -235,3 +243,16 @@ endfunction
 
 noremap <leader>T :call RunTest("")<cr>
 noremap <leader>t :call RunTest("-l " . <C-r>=line(".")<cr>)<cr>
+
+"" NEW STUFF
+
+" Don't move on *
+nnoremap * *<c-o>
+
+" Easy buffer navigation
+noremap <C-h>  <C-w>h
+noremap <C-j>  <C-w>j
+noremap <C-k>  <C-w>k
+noremap <C-l>  <C-w>l
+noremap <leader>v <C-w>v
+

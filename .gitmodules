@@ -78,3 +78,4 @@
 [submodule "vim/bundle/RainbowParenthesis"]
 	path = vim/bundle/RainbowParenthesis
 	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
+  ignore = untracked
