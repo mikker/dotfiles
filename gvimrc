@@ -1,10 +1,18 @@
 " Looks
 set guioptions-=T " No toolbar
-set fuoptions=maxhorz,maxvert " Fullscreen takes up entire screen
-set guifont=Menlo:h14 " Font
 colorscheme Tomorrow-Night
 
+" Font
+if has('mac')
+  set guifont=Menlo:h14
+elseif has('unix')
+  set guifont=Droid\ Sans\ Mono\ 10
+endif
+
 if has("gui_macvim")
+  " Fullscreen takes up entire screen
+  set fuoptions=maxhorz,maxvert
+
   " Command-t is cmd+l
   macmenu &Tools.List\ Errors key=<nop>
   map <D-l> :CommandT<CR>
