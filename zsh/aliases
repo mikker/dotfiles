@@ -44,9 +44,10 @@ alias migrate='rake db:migrate; rake db:test:clone'
 alias remigrate='rake db:migrate:redo'
 alias tl='tail -f log/development.log'
 
-# Webby
+# Gems
 alias wa='webby autobuild'
 alias wT='webby -T'
+alias mm='middleman'
 
 # Autotest
 alias at='autotest'
