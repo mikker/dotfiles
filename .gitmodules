@@ -79,3 +79,6 @@
 	path = vim/bundle/RainbowParenthesis
 	url = https://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
   ignore = untracked
+[submodule "vim/bundle/inkpot-theme"]
+	path = vim/bundle/inkpot-theme
+	url = https://github.com/ciaranm/inkpot.git
