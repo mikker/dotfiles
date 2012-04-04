@@ -125,8 +125,8 @@ command! W :w
 " Colon is tricky on danish keyboards
 map æ :
 
-map - /
-map _ ^
+noremap - /
+noremap _ ^
 
 " Readjust windows
 nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
@@ -256,3 +256,5 @@ noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
 noremap <leader>v <C-w>v
 
+" allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
