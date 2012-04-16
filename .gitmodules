@@ -86,3 +86,6 @@
 	path = vim/bundle/vim-vroom
 	url = https://github.com/skalnik/vim-vroom.git
   ignore = untracked
+[submodule "vim/bundle/vim-colors-solarized"]
+	path = vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
