@@ -15,6 +15,9 @@ filetype plugin indent on " turn filetype back on
 
 set nocompatible " get with the times
 set modelines=0 " security thing?
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
 
 " Indentation
 set tabstop=2
@@ -25,7 +28,7 @@ set expandtab
 " Options
 set encoding=utf-8 " ensure encoding
 set scrolloff=3 " some pading around search results
-set shell=sh " zsh doesn't work so well
+set shell=bash " zsh doesn't work so well
 set ruler " enable ruler
 set backspace=indent,eol,start "  backspace over everything in insert mode
 set autoindent " auto indentation on
@@ -46,12 +49,12 @@ set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set incsearch " incremental search
 set hlsearch " highlight results
-nnoremap <tab> %
-vnoremap <tab> %
+" nnoremap <tab> %
+" vnoremap <tab> %
 
 " Centralized backup files
-set backupdir=$HOME/.vim/backup
-set directory=$HOME/.vim/backup
+set backupdir=$HOME/.vim/backup,/var/tmp,/tmp
+set directory=$HOME/.vim/backup,/var/tmp,/tmp
 
 " { LOOKS }
 
@@ -81,28 +84,28 @@ set winheight=999
 " Leader
 let mapleader = ","
 
+" Set system clipboard contents as register
+map <leader>y "*y
+
 " Open new line below (cmd+enter)
 imap <D-CR> <esc>o
 map <D-CR> o
 
 " Deselect highlighted search terms
-map <D-d> :nohl<CR>
+" map <D-d> :nohl<CR>
 imap <D-d> <esc>:nohl<CR>gi
+map <cr> :nohl<cr>
 
-" Close current buffer
-map <S-D-BS> :bd!<CR>
+" Let's see how long this goes...
+map <Left> :echo "no!"<cr>
+map <Right> :echo "no!"<cr>
+map <Up> :echo "no!"<cr>
+map <Down> :echo "no!"<cr>
 
 " Hash rocket (ctrl+l)
 imap <C-l> <space>=><space>
 " Toggle hidden characters
 map <leader>h :set list!<cr>
-
-" Moving lines around (using vim-unimpaired)
-" http://github.com/tpope/vim-unimpaired
-map <C-D-Up> [e
-map <C-D-Down> ]e
-vmap <C-D-Up> [egv
-vmap <C-D-Down> ]egv
 
 " Reselect last visual selection
 nmap gV `[v`]
@@ -128,13 +131,28 @@ map æ :
 noremap - /
 noremap _ ^
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
 " Readjust windows
 nnoremap <c-n> :let &wh = (&wh == 999 ? 10 : 999)<CR><C-W>=
 " Jump around
-noremap <D-A-down> <c-w>j
-noremap <D-A-up> <c-w>k
-noremap <D-A-left> <c-w>h
-noremap <D-A-right> <c-w>l
+" noremap <D-A-down> <c-w>j
+" noremap <D-A-up> <c-w>k
+" noremap <D-A-left> <c-w>h
+" noremap <D-A-right> <c-w>l
 " Open a the split rightmost in the window
 map <c-w>V :botright :vertical :split<cr>
 map <c-w>S :topleft :split<cr>
@@ -144,21 +162,12 @@ nnoremap <leader><leader> <c-^>
 
 " { PLUGINS }
 
-" NERDTree
-" let loaded_nerd_tree=1
-map <Leader>d :NERDTreeToggle<CR>
-let g:NERDTreeWinPos="right"
-let g:NERDMenuMode=0
-" let g:NERDTreeWinSize=24
-
 " NERDCommenter
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
-
 " snipMate
 nmap <Leader>rr :call ReloadAllSnippets()<CR>
-
 " GundoTree
 nnoremap <F5> :GundoToggle<CR>
 
@@ -185,21 +194,14 @@ fun! <SID>StripTrailingWhitespaces()
   %s/\s\+$//e
   call cursor(l, c)
 endfun
-
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-" Source a global configuration file if available
-if filereadable(expand("$HOME/.vimrc.local"))
-  source $HOME/.vimrc.local
-endif
-
-" ------ "
-" FROM https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
+" autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
 " Map ,e and ,v to open files in the same directory as the current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
-map <leader>v :view %%
+" map <leader>v :view %%
+
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'))
@@ -228,22 +230,6 @@ noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 " Quick calculations
 inoremap <C-A> <C-O>yiW<End>=<C-R>=<C-R>0<CR><esc>F=i<space><esc>la<space><esc>A
 
-function! RunTest(args)
-  let test_file = match(expand("%"), '_\(test\|spec\)\.rb$')
-  if filereadable("spec/spec_helper.rb")
-    exec ":!rspec --no-color % " . a:args
-  else
-    if filereadable("script/rails")
-      exec ":!rake test:single TEST=%"
-    else
-      exec ":!ruby -i'lib:test' %"
-    endif
-  endif
-endfunction
-
-noremap <leader>T :call RunTest("")<cr>
-noremap <leader>t :call RunTest("-l " . <C-r>=line(".")<cr>)<cr>
-
 "" NEW STUFF
 
 " Don't move on *
@@ -258,3 +244,19 @@ noremap <leader>v <C-w>v
 
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
+
+" Source a global configuration file if available
+if filereadable(expand("$HOME/.vimrc.local"))
+  source $HOME/.vimrc.local
+endif
+
+
+" Close current buffer
+" map <S-D-BS> :bd!<CR>
+
+" Moving lines around (using vim-unimpaired)
+" http://github.com/tpope/vim-unimpaired
+" map <C-D-Up> [e
+" map <C-D-Down> ]e
+" vmap <C-D-Up> [egv
+" vmap <C-D-Down> ]egv
