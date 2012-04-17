@@ -58,6 +58,7 @@ set directory=$HOME/.vim/backup,/var/tmp,/tmp
 
 " { LOOKS }
 
+syntax on
 colorscheme Tomorrow-Night " https://github.com/ChrisKempson/Tomorrow-Theme
 set listchars=tab:▸\ ,eol:¬
 nnoremap <c-h> :set list!<cr>
@@ -97,10 +98,10 @@ imap <D-d> <esc>:nohl<CR>gi
 map <cr> :nohl<cr>
 
 " Let's see how long this goes...
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
+" map <Left> :echo "no!"<cr>
+" map <Right> :echo "no!"<cr>
+" map <Up> :echo "no!"<cr>
+" map <Down> :echo "no!"<cr>
 
 " Hash rocket (ctrl+l)
 imap <C-l> <space>=><space>
