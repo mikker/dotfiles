@@ -1,6 +1,0 @@
-if [ $1 ]
-then
-  mvim $1;
-else
-  mvim
-fi

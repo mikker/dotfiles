@@ -1,6 +1,0 @@
-if [ $1 ]
-then
-  open $1;
-else
-  open .
-fi
