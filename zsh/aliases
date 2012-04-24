@@ -1,0 +1,54 @@
+# General
+alias ssp="hack && rake && ship"
+alias v='mvim'
+alias o='open'
+
+# Screen
+alias s="screen -R"
+
+# Git
+alias st='git st'
+alias ci='git ci -m'
+alias a='git add'
+alias gx='gitx'
+alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
+alias gf='git flow'
+alias gd='git diff'
+alias gt='git tree'
+alias ca='add . && grm && ci'
+alias prep='git rebase -i master'
+
+# Rack
+alias re='touch tmp/restart.txt'
+
+# Bundler
+alias be='bundle exec'
+
+# Rails
+alias sc='script/console'
+alias ss='script/server'
+alias sg='script/generate'
+alias sd='script/destroy'
+alias sp='script/plugin'
+alias scdb='script/dbconsole'
+# Rails 3
+alias r='rails'
+alias rg='bundle exec rails generate'
+alias rc='bundle exec rails console'
+alias rs='bundle exec rails server'
+alias rdb='bundle exec rails dbconsole'
+alias rd='bundle exec rails destroy'
+alias rp='bundle exec rails plugin'
+# Rails
+alias migrate='rake db:migrate; rake db:test:prepare'
+alias remigrate='rake db:migrate:redo'
+alias tl='tail -f log/development.log'
+# Gems
+alias mm='middleman'
+# Autotest
+alias at='autotest'
+alias as='autospec'
+# Rake
+alias rt='rake -T'
+# Irb
+alias irb='irb --readline'

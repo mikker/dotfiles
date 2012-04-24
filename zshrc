@@ -42,6 +42,8 @@ terminalapp)
 
 source $ZSH/oh-my-zsh.sh
 
+source $HOME/.zsh/aliases
+
 # Customize to your needs...
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
