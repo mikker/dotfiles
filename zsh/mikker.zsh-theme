@@ -1,4 +1,9 @@
-local anchor="%(?,%{$fg[green]%}⚓%{$reset_color%},%{$fg[red]%}⚓%{$reset_color%})"
+if [[ -n $SSH_CONNECTION ]]; then
+  local conn="%m"
+else
+  local conn=""
+fi
+local anchor="${conn}%(?,%{$fg[green]%}⚓%{$reset_color%},%{$fg[red]%}⚓%{$reset_color%})"
 PROMPT='
 ${anchor} '
 RPROMPT='$(git_prompt_info) %{$fg[cyan]%}%~%{$reset_color%}'
