@@ -30,19 +30,14 @@ bundler
 gem
 git
 git-flow
-github
-heroku
 osx
-pow
-rails3
-rake
-ruby
 rvm
 terminalapp)
 
 source $ZSH/oh-my-zsh.sh
 
 source $HOME/.zsh/aliases
+source $HOME/.zsh/functions
 
 # Customize to your needs...
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
