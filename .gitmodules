@@ -100,3 +100,6 @@
 	path = vim/bundle/cocoa.vim
 	url = https://github.com/msanders/cocoa.vim.git
   ignore = untracked
+[submodule "vim/bundle/Spacedust-theme.vim"]
+	path = vim/bundle/Spacedust-theme.vim
+	url = git@github.com:mikker/Spacedust-theme.vim.git
