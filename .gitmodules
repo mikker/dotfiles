@@ -103,3 +103,6 @@
 [submodule "vim/bundle/Spacedust-theme.vim"]
 	path = vim/bundle/Spacedust-theme.vim
 	url = git@github.com:mikker/Spacedust-theme.vim.git
+[submodule "vim/bundle/vim-fugitive"]
+	path = vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git

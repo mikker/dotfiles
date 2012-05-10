@@ -1,6 +1,5 @@
 " Looks
 set guioptions-=T " No toolbar
-colorscheme Tomorrow-Night
 
 " Font
 if has('mac')

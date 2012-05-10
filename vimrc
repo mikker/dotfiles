@@ -59,7 +59,7 @@ set directory=$HOME/.vim/backup,/var/tmp,/tmp
 " { LOOKS }
 
 syntax on
-colorscheme Tomorrow-Night " https://github.com/ChrisKempson/Tomorrow-Theme
+colorscheme Spacedust " https://github.com/ChrisKempson/Tomorrow-Theme
 set listchars=tab:▸\ ,eol:¬
 nnoremap <c-h> :set list!<cr>
 
