@@ -60,15 +60,10 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 chflags nohidden ~/Library
 
 # Show indicator lights for open applications in the Dock
-defaults write com.apple.dock show-process-indicators -bool true
+defaults write com.apple.dock show-process-indicators -bool false
 
 # Speed up Mission Control animations
 defaults write com.apple.dock expose-animation-duration -float 0.1
-
-# Remove the auto-hiding Dock delay
-defaults write com.apple.Dock autohide-delay -float 0
-# Remove the animation when hiding/showing the Dock
-defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Hot corners
 # Top left screen corner → Mission Control
@@ -114,3 +109,6 @@ hash tmutil &> /dev/null && sudo tmutil disablelocal
 # Put Dock in bottom right corner
 defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock pinning -string "end"
+
+# Disable Desktop
+defaults write com.apple.finder CreateDesktop -bool FALSE
