@@ -112,3 +112,7 @@ defaults write com.apple.dock pinning -string "end"
 
 # Disable Desktop
 defaults write com.apple.finder CreateDesktop -bool FALSE
+
+# Disable AppleSpell checker system-wide
+sudo mv /System/Library/Services/AppleSpell.service/Contents/Resources /System/Library/Services/AppleSpell.service/Contents/Resources.disabled
+sudo killall AppleSpell
