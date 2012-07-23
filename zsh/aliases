@@ -20,7 +20,7 @@ alias prep='git rebase -i master'
 
 # Rack
 alias re='touch tmp/restart.txt'
-alias pow='ln -s "`pwd`" ~/.pow/'
+alias pow='ln -s "`pwd`" ~/.pow'
 
 # Bundler
 alias be='bundle exec'
