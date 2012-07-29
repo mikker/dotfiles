@@ -5,7 +5,7 @@ ZSH=$HOME/dotfiles/oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="mikker"
+ZSH_THEME="awesomepanda"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -30,6 +30,7 @@ bundler
 gem
 git
 git-flow
+svn
 osx
 rvm
 terminalapp)
