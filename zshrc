@@ -45,3 +45,5 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Local modifications
 [[ -f ~/.localrc ]] && .  ~/.localrc
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
