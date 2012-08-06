@@ -59,7 +59,7 @@ set directory=$HOME/.vim/backup,/var/tmp,/tmp
 " { LOOKS }
 
 syntax on
-colorscheme Spacedust " https://github.com/ChrisKempson/Tomorrow-Theme
+colorscheme jellybeans " https://github.com/ChrisKempson/Tomorrow-Theme
 set listchars=tab:▸\ ,eol:¬
 nnoremap <c-h> :set list!<cr>
 
@@ -128,9 +128,15 @@ vnoremap > >gv
 command! W :w
 " Colon is tricky on danish keyboards
 map æ :
+nnoremap å {
+nnoremap ¨ }
+onoremap å {
+onoremap ¨ }
 
-noremap - /
+noremap - /\v
+vnoremap - /\v
 noremap _ ^
+onoremap _ ^
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -241,7 +247,6 @@ noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
-noremap <leader>v <C-w>v
 
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
