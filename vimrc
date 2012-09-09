@@ -189,7 +189,7 @@ command! -nargs=1 F set filetype=<args>
 command! FR set filetype=ruby
 
 " Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,config.ru} set ft=ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
 au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
 
 " { OTHER }

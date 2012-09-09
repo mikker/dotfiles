@@ -3,7 +3,7 @@ set guioptions-=T " No toolbar
 
 " Font
 if has('mac')
-  set guifont=Menlo:h14
+  set guifont=Menlo:h12
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif
