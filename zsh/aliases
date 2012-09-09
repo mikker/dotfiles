@@ -15,12 +15,14 @@ alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gf='git flow'
 alias gd='git diff'
 alias gt='git tree'
+alias gl='git l'
 alias ca='add . && grm && ci'
-alias prep='git rebase -i master'
 
+# Heroku
+alias h="heroku"
 # Rack
 alias re='touch tmp/restart.txt'
-alias pow='ln -s "`pwd`" ~/.pow'
+# alias pow='ln -s "`pwd`" ~/.pow'
 
 # Bundler
 alias be='bundle exec'
