@@ -1,6 +1,9 @@
 # Allow Selection in QuickLook
 defaults write com.apple.finder QLEnableTextSelection -bool TRUE
 
+# Completely turn off Dashboard
+defaults write com.apple.dashboard mcx-disabled -boolean YES
+
 # Menu bar: disable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
