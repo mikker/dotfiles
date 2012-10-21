@@ -103,3 +103,6 @@
 [submodule "vim/bundle/jellybeans.vim"]
 	path = vim/bundle/jellybeans.vim
 	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "vim/bundle/vim-irblack"]
+	path = vim/bundle/vim-irblack
+	url = https://github.com/wgibbs/vim-irblack.git
