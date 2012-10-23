@@ -106,3 +106,6 @@
 [submodule "vim/bundle/vim-irblack"]
 	path = vim/bundle/vim-irblack
 	url = https://github.com/wgibbs/vim-irblack.git
+[submodule "vim/bundle/vim-ego-colortheme"]
+	path = vim/bundle/vim-ego-colortheme
+	url = https://github.com/geetarista/ego.vim.git
