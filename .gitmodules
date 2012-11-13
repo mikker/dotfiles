@@ -109,3 +109,6 @@
 [submodule "vim/bundle/vim-ego-colortheme"]
 	path = vim/bundle/vim-ego-colortheme
 	url = https://github.com/geetarista/ego.vim.git
+[submodule "vim/bundle/vim-gist"]
+	path = vim/bundle/vim-gist
+	url = https://github.com/mattn/gist-vim.git
