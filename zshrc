@@ -25,15 +25,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew
-bundler
-gem
-git
-git-flow
-svn
-osx
-rvm
-terminalapp)
+plugins=(git git-flow svn osx terminalapp)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -44,7 +36,8 @@ source $HOME/.zsh/functions
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
+# na -- https://github.com/ttscoff/na
+[[ -s "$HOME/dotfiles/na.sh" ]] && source "$HOME/dotfiles/na.sh"
+
 # Local modifications
 [[ -f ~/.localrc ]] && .  ~/.localrc
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -112,3 +112,6 @@
 [submodule "vim/bundle/vim-gist"]
 	path = vim/bundle/vim-gist
 	url = https://github.com/mattn/gist-vim.git
+[submodule "na"]
+	path = na
+	url = https://github.com/ttscoff/na.git
