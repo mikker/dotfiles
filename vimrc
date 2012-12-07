@@ -177,6 +177,8 @@ map <leader>c <Plug>NERDCommenterToggle
 nmap <Leader>rr :call ReloadAllSnippets()<CR>
 " GundoTree
 nnoremap <F5> :GundoToggle<CR>
+" vim-vroom
+let g:vroom_use_bundle_exec=0
 
 " { FILETYPES }
 
@@ -266,3 +268,10 @@ endif
 " map <C-D-Down> ]e
 " vmap <C-D-Up> [egv
 " vmap <C-D-Down> ]egv
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
