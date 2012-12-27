@@ -36,8 +36,5 @@ source $HOME/.zsh/functions
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
-# na -- https://github.com/ttscoff/na
-[[ -s "$HOME/dotfiles/na.sh" ]] && source "$HOME/dotfiles/na.sh"
-
 # Local modifications
 [[ -f ~/.localrc ]] && .  ~/.localrc

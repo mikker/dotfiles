@@ -31,16 +31,6 @@ def paste
   `pbpaste`
 end
 
-def quick(repetitions=100, &block)
-  require 'benchmark'
-
-  Benchmark.bmbm do |b|
-    b.report {repetitions.times &block}
-  end
-
-  nil
-end
-
 # Project-specific .irbrc
 if Dir.pwd != File.expand_path("~")
   local_irbrc = File.expand_path '.irbrc'

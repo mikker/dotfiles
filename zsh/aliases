@@ -1,4 +1,6 @@
+# 
 # General
+#
 alias ssp="hack && rake && ship"
 alias v='mvim'
 alias so='source'
@@ -6,7 +8,9 @@ alias so='source'
 # Screen
 alias s="screen -R"
 
+#
 # Git
+#
 alias st='git st'
 alias ci='git ci -m'
 alias a='git add'
@@ -16,17 +20,17 @@ alias gf='git flow'
 alias gd='git diff'
 alias gt='git tree'
 alias gl='git l'
-alias ca='add . && grm && ci'
+alias ca='git add . && grm && ci'
 
+#
+# Ruby
+#
 # Heroku
 alias h="heroku"
 # Rack
 alias re='touch tmp/restart.txt'
-# alias pow='ln -s "`pwd`" ~/.pow'
-
 # Bundler
 alias be='bundle exec'
-
 # Rails
 alias sc='script/console'
 alias ss='script/server'
@@ -34,7 +38,7 @@ alias sg='script/generate'
 alias sd='script/destroy'
 alias sp='script/plugin'
 alias scdb='script/dbconsole'
-# Rails 3
+# Rails 3+
 alias r='rails'
 alias rg='bundle exec rails generate'
 alias rc='bundle exec rails console'
@@ -44,7 +48,7 @@ alias rd='bundle exec rails destroy'
 alias rp='bundle exec rails plugin'
 # Rails
 alias migrate='rake db:migrate; rake db:test:prepare'
-alias remigrate='rake db:migrate:redo'
+alias remigrate='rake db:migrate:redo && rake db:test:prepare'
 alias tl='tail -f log/development.log'
 # Gems
 alias mm='middleman'

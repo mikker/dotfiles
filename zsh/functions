@@ -13,12 +13,3 @@ o() {
     open .
   fi
 }
-
-pow() {
-  if [ $1 ]; then
-    ln -sf "`pwd`" ~/.pow/$1
-  else
-    ln -sf "`pwd`" ~/.pow
-  fi
-}
-
