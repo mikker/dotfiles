@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+base = "pg_ctl -D /usr/local/var/postgres"
+
+case ARGV.first
+when "start"
+  `#{base} -l /usr/local/var/postgres/server.log start`
+when "stop"
+  `#{base} stop -s -m fast`
+else
+  puts "Must pass in command.  (ex) pgd start|stop"
+  exit -1
+end

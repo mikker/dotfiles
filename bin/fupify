@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'taglib'
+require 'date'
+
+# Variables
+distributor = "Fup i Farvandet"
+image_path = "/Users/mikkelmalmberg/Projects/Fup I Farvandet/Media/FIF.jpg"
+genre = "Comedy"
+
+# Format arguments
+arguments = ARGV
+input_file = arguments.shift
+title = arguments.shift
+
+unless input_file =~ /\.mp3$/ && (title && title != "")
+  puts "No input file or input file not .mp3"
+  puts "Usage: fupify 'Filename.mp3' 'Episode title'"
+  exit
+end
+
+TagLib::MPEG::File.open(input_file) do |file|
+  file.strip # remove old data
+
+  tag = file.id3v2_tag(true) # create tag
+  tag.title = "#{title}"
+  tag.artist = distributor
+  tag.album = distributor
+  tag.genre = genre
+
+  picture = TagLib::ID3v2::AttachedPictureFrame.new
+  picture.mime_type = "image/jpeg"
+  picture.description = "Cover"
+  picture.type = TagLib::ID3v2::AttachedPictureFrame::FrontCover
+  picture.picture = File.open(image_path, 'rb') { |f| f.read }
+  tag.add_frame(picture)
+
+  file.save
+end
+
+system "mv '#{input_file}' 'FIF_#{Date.today.strftime("%Y-%m-%d")}_.mp3'"

@@ -1,0 +1,16 @@
+#!/bin/sh
+CURRENT=`git branch | grep '\*' | awk '{print $2}'`
+if [[ $CURRENT != "develop" && $CURRENT != "master" ]]; then
+  git rebase -i develop
+  exit
+fi
+
+if [[ $CURRENT == "develop" ]]; then
+  git rebase -i master
+  exit
+fi
+
+if [[ $CURRENT == "master" ]]; then
+  git rebase -i origin/master
+  exit
+fi
