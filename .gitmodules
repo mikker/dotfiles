@@ -108,3 +108,6 @@
 [submodule "vim/bundle/vim-gist"]
 	path = vim/bundle/vim-gist
 	url = https://github.com/mattn/gist-vim.git
+[submodule "vim/bundle/vim-slim"]
+	path = vim/bundle/vim-slim
+	url = https://github.com/slim-template/vim-slim.git
