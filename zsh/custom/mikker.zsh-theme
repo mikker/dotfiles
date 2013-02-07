@@ -3,9 +3,9 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   local conn=""
 fi
-local anchor="${conn}%(?,%{$fg[green]%}⚓%{$reset_color%},%{$fg[red]%}⚓%{$reset_color%})"
-PROMPT='
-${anchor} '
+local char=">"
+local anchor="${conn}%(?,%{$fg[green]%}${char}%{$reset_color%},%{$fg[red]%} %{$reset_color%})"
+PROMPT='${anchor} '
 RPROMPT='$(git_prompt_info) %{$fg[cyan]%}%~%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}["
