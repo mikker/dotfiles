@@ -1,5 +1,5 @@
 # UTF-8
-defutf8
+defutf8 on
 # Change scrollback to 10000 lines
 defscrollback 10000
 
