@@ -20,6 +20,7 @@ alias gf='git flow'
 alias gd='git diff'
 alias gt='git tree'
 alias gl='git l'
+alias gla='git l --all'
 alias ca='git add . && grm && ci'
 
 #
