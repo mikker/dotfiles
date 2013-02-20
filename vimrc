@@ -193,6 +193,7 @@ command! FR set filetype=ruby
 " Thorfile, Rakefile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
 au BufRead,BufNewFile {*.markdown,*.md} set ft=markdown
+au BufRead,BufNewFile {*.scss} set ft=scss
 
 " { OTHER }
 
