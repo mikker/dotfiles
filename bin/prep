@@ -1,7 +1,12 @@
-#!/bin/sh
+#!/bin/sh -x
 CURRENT=`git branch | grep '\*' | awk '{print $2}'`
 if [[ $CURRENT != "develop" && $CURRENT != "master" ]]; then
-  git rebase -i develop
+  if [ `git branch | grep develop` ]; then
+    TARGET="develop"
+  else
+    TARGET="master"
+  fi
+  git rebase -i $TARGET
   exit
 fi
 
