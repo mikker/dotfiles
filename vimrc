@@ -13,10 +13,10 @@ filetype plugin indent on " turn filetype back on
 
 " GENERAL
 
-set nocompatible " get with the times
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
+set shell=bash " zsh doesn't work so well
 
 " Indentation
 set tabstop=2
@@ -25,17 +25,6 @@ set softtabstop=2
 set expandtab
 
 " Options
-set encoding=utf-8 " ensure encoding
-set shell=bash " zsh doesn't work so well
-set ruler " enable ruler
-set backspace=indent,eol,start "  backspace over everything in insert mode
-set autoindent " auto indentation on
-set smarttab " tab is smart
-set autoread " auto-reload files edited elsewhere
-set wildmode=longest,list " auto-completion
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn
-set fileformat=unix " Preferred file formats
-set fileformats=unix,dos,mac " ...
 set hidden " allow buffers in background
 
 " Search
@@ -44,20 +33,12 @@ vnoremap / /\v
 set ignorecase " search is case insensitive
 set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
-set incsearch " incremental search
 set hlsearch " highlight results
-
-" Centralized backup files
-set backupdir=$HOME/.vim/backup,/var/tmp,/tmp
-set directory=$HOME/.vim/backup,/var/tmp,/tmp
 
 " LOOKS
 
-syntax on
-colorscheme desert
+colorscheme github
 " Command
-set cmdheight=1
-set laststatus=2
 set statusline=%F%m%r%h%w\ (%Y)[%v]
 " Line numbers
 set numberwidth=2

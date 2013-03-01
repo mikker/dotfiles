@@ -45,3 +45,6 @@
 [submodule "vim/bundle/vim-jellybeans-theme"]
 	path = vim/bundle/vim-jellybeans-theme
 	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "vim/bundle/vim-sensible"]
+	path = vim/bundle/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
