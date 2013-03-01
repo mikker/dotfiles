@@ -140,6 +140,18 @@ let g:NERDSpaceDelims=1
 " NERDTree
 map <leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos = "right"
+" Command-T
+noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+" Map keys to go to specific files
+noremap <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
+noremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+noremap <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+noremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+noremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+noremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+noremap <leader>gr :topleft :split config/routes.rb<cr>
+noremap <leader>gg :topleft 100 :split Gemfile<cr>
 
 " LOCAL CONFIG
 
