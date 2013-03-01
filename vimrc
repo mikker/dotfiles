@@ -153,7 +153,11 @@ vnoremap <silent> * :<C-U>
 
 " PLUGINS
 
-
+" NERDCommenter
+let g:NERDCreateDefaultMappings=0
+let g:NERDSpaceDelims=1
+" NERDTree
+map <leader>d :NERDTreeToggle<CR>
 
 " LOCAL CONFIG
 
