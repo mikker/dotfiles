@@ -35,9 +35,12 @@ set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
+" No swap files
+set noswapfile
+
 " LOOKS
 
-colorscheme github
+colorscheme Tomorrow-Night-Eighties
 " Command
 set statusline=%F%m%r%h%w\ (%Y)[%v]
 " Line numbers
@@ -137,6 +140,7 @@ vnoremap <silent> * :<C-U>
 " NERDCommenter
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
+map <leader>c <Plug>NERDCommenterToggle
 " NERDTree
 map <leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos = "right"
