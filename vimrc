@@ -158,6 +158,7 @@ let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 " NERDTree
 map <leader>d :NERDTreeToggle<CR>
+let g:NERDTreeWinPos = "right"
 
 " LOCAL CONFIG
 
