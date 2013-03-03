@@ -46,6 +46,11 @@ set statusline=%F%m%r%h%w\ (%Y)[%v]
 " Line numbers
 set numberwidth=2
 set number
+" Windows
+set winwidth=84
+set winheight=3
+set winminheight=3
+set winheight=999
 
 " MAPPINGS
 
