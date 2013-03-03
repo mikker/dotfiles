@@ -135,6 +135,11 @@ vnoremap <silent> * :<C-U>
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+" FILETYPES
+
+au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
+au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
+
 " PLUGINS
 
 " NERDCommenter

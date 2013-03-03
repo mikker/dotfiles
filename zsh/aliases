@@ -52,7 +52,7 @@ alias migrate='rake db:migrate; rake db:test:prepare'
 alias remigrate='rake db:migrate:redo && rake db:test:prepare'
 alias tl='tail -f log/development.log'
 # Gems
-alias mm='middleman'
+alias mm='bundle exec middleman'
 # Autotest
 alias at='autotest'
 alias as='autospec'
