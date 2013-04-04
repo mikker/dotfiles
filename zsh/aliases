@@ -14,14 +14,17 @@ alias s="screen -R"
 alias st='git st'
 alias ci='git ci -m'
 alias a='git add'
-alias gx='gitx'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gf='git flow'
 alias gd='git diff'
 alias gt='git tree'
-alias gl='git l'
-alias gla='git l --all'
+alias gl='git tree'
+alias gla='git tree --all'
 alias ca='git add . && grm && ci'
+alias gpu='git push -u'
+alias gx='gitx'
+alias gdt='git difftool'
+alias gmt='git mergetool'
 
 #
 # Ruby

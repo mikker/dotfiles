@@ -5,7 +5,7 @@ set go-=L " Removes left hand scroll bar
 
 " Font
 if has('mac')
-  set guifont=Liberation\ Mono:h19
+  set guifont=DejaVu\ Sans\ Mono:h16
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif

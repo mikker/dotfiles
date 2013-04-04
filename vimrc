@@ -23,6 +23,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set wildmode=longest,list " auto-completion
 
 " Options
 set hidden " allow buffers in background
@@ -75,6 +76,9 @@ noremap - /\v
 vnoremap - /\v
 noremap _ ^
 onoremap _ ^
+
+" I'm too fast for myself
+command! W :w
 
 " Multi-purpose tab-key
 " Indent if beginning of line, else do completion
