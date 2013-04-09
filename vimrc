@@ -7,7 +7,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 """"""""""""""""""""""""""
 
 filetype off " turn filetype off before loading pathogen
-call pathogen#runtime_append_all_bundles() " call in the cavalry
+call pathogen#incubate() " call in the cavalry
 call pathogen#helptags() " and their documentation
 filetype plugin indent on " turn filetype back on
 

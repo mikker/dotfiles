@@ -4,6 +4,8 @@
 alias ssp="hack && rake && ship"
 alias v='mvim'
 alias so='source'
+alias ln='ln -v'
+alias mkdir='mkdir -p'
 
 # Screen
 alias s="screen -R"
