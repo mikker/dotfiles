@@ -1,0 +1,46 @@
+[user]
+  name = Mikkel Malmberg
+  email = mikkelmalmberg@me.com
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[github]
+  user = mikker
+  token = !security find-generic-password -gs github.token -w | tr -d '\n'
+  password = !security find-generic-password -gs github.password -w | tr -d '\n'
+[alias]
+  br = branch
+  st = status
+  ci = commit
+  co = checkout
+  ll = "log -1"
+  rb = rebase
+  tree = "log --graph --decorate --abbrev=commit"
+  l = "!source ~/.githelpers && pretty_git_log"
+[core]
+  excludesfile = ~/.gitignore
+  editor = vim
+[apply]
+  whitespace = nowarn
+[format]
+  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
+[push]
+  default = current
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+  tool = Kaleidoscope
+[difftool]
+  prompt = false
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+[mergetool]
+  prompt = false
+[merge]
+  tool = Kaleidoscope
+
