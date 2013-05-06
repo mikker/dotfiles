@@ -65,3 +65,5 @@ alias as='autospec'
 alias rt='rake -T'
 # Irb
 alias irb='irb --readline'
+alias fs='bundle exec foreman start'
+alias sg='shotgun'

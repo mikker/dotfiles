@@ -3,7 +3,7 @@ if [ $# -ne 1 ]; then
   echo 'No new branch name'
   exit
 fi
-CURRENT=`git branch | grep '\*' | awk '{print $2}'`
+
 echo "Checking out new branch '$1'"
 git checkout -b $1
 # if [ "master" != ${CURRENT} && "develop" != ${CURRENT} ]; then

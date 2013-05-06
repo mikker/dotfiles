@@ -55,6 +55,9 @@ set winheight=999
 
 " MAPPINGS
 
+imap <D-cr> <c-o>o
+
+
 let mapleader = ","
 
 " Quickly jump between two recent files

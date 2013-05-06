@@ -14,15 +14,14 @@
   st = status
   ci = commit
   co = checkout
-  ll = "log -1"
   rb = rebase
   tree = "log --graph --decorate --abbrev=commit"
-  l = "!source ~/.githelpers && pretty_git_log"
+  ; l = "!source ~/.githelpers && pretty_git_log"
 [core]
   excludesfile = ~/.gitignore
   editor = vim
-[apply]
-  whitespace = nowarn
+; [apply]
+  ; whitespace = nowarn
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [branch "master"]
