@@ -6,6 +6,7 @@ alias v='mvim'
 alias so='source'
 alias ln='ln -v'
 alias mkdir='mkdir -p'
+alias l='ls'
 
 # Screen
 alias s="screen -R"
