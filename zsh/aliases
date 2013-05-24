@@ -68,3 +68,7 @@ alias rt='rake -T'
 alias irb='irb --readline'
 alias fs='bundle exec foreman start'
 alias sg='shotgun'
+
+
+
+alias wr="open -a \"iA Writer\""
