@@ -41,7 +41,7 @@ set noswapfile
 
 " LOOKS
 
-colorscheme Tomorrow-Night-Eighties
+colorscheme Bongzilla " Tomorrow-Night-Eighties
 " Command
 set statusline=%F%m%r%h%w\ (%Y)[%v]
 " Line numbers
