@@ -6,16 +6,6 @@ IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 
-%w{rubygems}.each do |gem|
-  begin
-    require gem
-  rescue LoadError
-  end
-end
-
-# Prompt behavior
-ARGV.concat [ "--readline", "--prompt-mode", "simple" ]
-
 # Easily print methods local to an object's class
 class Object
   def local_methods(obj = self)
@@ -23,13 +13,8 @@ class Object
   end
 end
 
-def copy(str)
-  IO.popen('pbcopy', 'w') { |f| f << str.to_s }
-end
-
-def paste
-  `pbpaste`
-end
+def copy(str); IO.popen('pbcopy', 'w') { |f| f << str.to_s }; end
+def paste; `pbpaste`; end
 
 # Project-specific .irbrc
 if Dir.pwd != File.expand_path("~")

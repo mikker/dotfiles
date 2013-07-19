@@ -29,6 +29,9 @@ alias gu='git pull'
 alias gx='gitx'
 alias gdt='git difftool'
 alias gmt='git mergetool'
+alias co='git checkout'
+alias up='git checkout master && git pull && git checkout -'
+alias hb='hub browse'
 
 #
 # Ruby
