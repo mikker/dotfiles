@@ -32,6 +32,7 @@ alias gmt='git mergetool'
 alias co='git checkout'
 alias up='git checkout master && git pull && git checkout -'
 alias hb='hub browse'
+alias ms='git checkout master'
 
 #
 # Ruby
