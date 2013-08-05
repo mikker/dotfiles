@@ -63,3 +63,6 @@
 [submodule "vim/bundle/vim-html5"]
 	path = vim/bundle/vim-html5
 	url = https://github.com/othree/html5.vim.git
+[submodule "vim/bundle/vim-bufonly"]
+	path = vim/bundle/vim-bufonly
+	url = https://github.com/duff/vim-bufonly.git
