@@ -7,7 +7,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-sensible'
-Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
@@ -178,15 +178,15 @@ map <leader>c <Plug>NERDCommenterToggle
 map <leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos = "right"
 " Command-T
-noremap <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-noremap <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+noremap <leader>f :CtrlP<cr>
+noremap <leader>F :CtrlP %%<cr>
 " Map keys to go to specific files
-noremap <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
-noremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-noremap <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-noremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-noremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-noremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+noremap <leader>ga :CtrlP app/assets<cr>
+noremap <leader>gc :CtrlP app/controllers<cr>
+noremap <leader>gh :CtrlP app/helpers<cr>
+noremap <leader>gv :CtrlP app/views<cr>
+noremap <leader>gm :CtrlP app/models<cr>
+noremap <leader>gp :CtrlP public<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
 " Airline
