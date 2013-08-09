@@ -1,22 +1,46 @@
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-
-""""""""""""""""""""""""""
-"   Personal vim config  "
-"     Mikkel Malmberg    "
-"                        "
-""""""""""""""""""""""""""
-
+set nocompatible
 filetype off " turn filetype off before loading pathogen
-call pathogen#incubate() " call in the cavalry
-call pathogen#helptags() " and their documentation
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+Bundle 'tpope/vim-sensible'
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'skalnik/vim-vroom'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'vim-scripts/BufOnly.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'maxbrunsfeld/vim-yankstack'
+
+Bundle 'tpope/vim-haml'
+Bundle 'slim-template/vim-slim'
+Bundle 'tpope/vim-liquid'
+Bundle 'kchmck/vim-coffee-script'
+
+Bundle 'chriskempson/vim-tomorrow-theme'
+Bundle 'Lokaltog/vim-distinguished'
+
 filetype plugin indent on " turn filetype back on
 
-" GENERAL
-
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
+" Prevent Vim from clobbering the scrollback buffer.
+" See http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
 set shell=bash " zsh doesn't work so well
+
+set noswapfile
+set backupdir-=.
+set backupdir^=~/tmp,/tmp
+set hidden " allow buffers in background
 
 " Indentation
 set tabstop=2
@@ -24,9 +48,6 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set wildmode=longest,list " auto-completion
-
-" Options
-set hidden " allow buffers in background
 
 " Search
 nnoremap / /\v
@@ -36,16 +57,9 @@ set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
-" No swap files
-set noswapfile
-set backupdir-=.
-set backupdir^=~/tmp,/tmp
-
 " LOOKS
 
-colorscheme Bongzilla " Tomorrow-Night-Eighties
-" Command
-set statusline=%F%m%r%h%w\ (%Y)[%v]
+colorscheme Tomorrow-Night
 " Line numbers
 set numberwidth=2
 set number
@@ -57,8 +71,8 @@ set winheight=999
 
 " MAPPINGS
 
+" cmd+enter opens a new line
 imap <D-cr> <c-o>o
-
 
 let mapleader = ","
 
@@ -175,6 +189,8 @@ noremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
 noremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
+" Airline
+let g:airline_powerline_fonts = 1
 
 " LOCAL CONFIG
 
