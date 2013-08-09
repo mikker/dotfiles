@@ -38,6 +38,8 @@ set hlsearch " highlight results
 
 " No swap files
 set noswapfile
+set backupdir-=.
+set backupdir^=~/tmp,/tmp
 
 " LOOKS
 
