@@ -7,21 +7,23 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-sensible'
-Bundle 'kien/ctrlp.vim'
-Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-dispatch'
+Bundle 'kien/ctrlp.vim'
+Bundle 'bling/vim-airline'
 Bundle 'skalnik/vim-vroom'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'vim-scripts/BufOnly.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'maxbrunsfeld/vim-yankstack'
 
+Bundle 'othree/html5.vim'
 Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
 Bundle 'tpope/vim-liquid'
@@ -29,6 +31,8 @@ Bundle 'kchmck/vim-coffee-script'
 
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'Lokaltog/vim-distinguished'
+Bundle 'sickill/vim-sunburst'
+Bundle '29decibel/codeschool-vim-theme'
 
 filetype plugin indent on " turn filetype back on
 
@@ -59,7 +63,7 @@ set hlsearch " highlight results
 
 " LOOKS
 
-colorscheme Tomorrow-Night
+colorscheme codeschool
 " Line numbers
 set numberwidth=2
 set number
@@ -191,6 +195,10 @@ noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
 " Airline
 let g:airline_powerline_fonts = 1
+" Yankstack without meta-key on DK mac keyboard
+let g:yankstack_map_keys = 0
+nmap ∏ <Plug>yankstack_substitute_newer_paste
+nmap π <Plug>yankstack_substitute_older_paste
 
 " LOCAL CONFIG
 
