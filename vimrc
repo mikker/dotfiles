@@ -9,29 +9,27 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-dispatch'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
-Bundle 'skalnik/vim-vroom'
-Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
-Bundle 'vim-scripts/BufOnly.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'skalnik/vim-vroom'
+Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/BufOnly.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
+Bundle 'tpope/vim-surround'
 
 Bundle 'othree/html5.vim'
 Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
-Bundle 'tpope/vim-liquid'
 Bundle 'kchmck/vim-coffee-script'
 
+Bundle 'mikker/Spacedust-theme.vim'
 Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle 'Lokaltog/vim-distinguished'
-Bundle 'sickill/vim-sunburst'
 Bundle '29decibel/codeschool-vim-theme'
 
 filetype plugin indent on " turn filetype back on
@@ -63,7 +61,7 @@ set hlsearch " highlight results
 
 " LOOKS
 
-colorscheme codeschool
+colorscheme Tomorrow-Night
 " Line numbers
 set numberwidth=2
 set number
