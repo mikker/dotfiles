@@ -3,3 +3,4 @@ vim/backup/*.swp
 .netrwhist
 doc/tags
 vim.backup
+vim/bundle/.vundle
