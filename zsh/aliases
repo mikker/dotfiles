@@ -11,8 +11,8 @@ alias s="screen -R"
 
 # Git
 alias st='git status'
-alias ci='git commit -m'
 alias ga='git add --all'
+alias gci='git commit -m'
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gd='git diff'
 alias gl='git tree'
