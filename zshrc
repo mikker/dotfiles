@@ -1,41 +1,42 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/dotfiles/oh-my-zsh
-ZSH_CUSTOM=$HOME/dotfiles/zsh/custom
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="mikker"
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-# Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow svn osx terminalapp brew gem git-extras)
-
-source $ZSH/oh-my-zsh.sh
-
-source $HOME/.zsh/aliases
-source $HOME/.zsh/functions
-
-# Customize to your needs...
+# Path
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 export PATH="$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+
+# completion
+autoload -U compinit
+compinit
+
+# case-insensitive (all),partial-word and then substring completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' list-colors ''
+
+# up-down searches history
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+# automatically enter directories without cd
+setopt auto_cd
+
+# use vim as the visual editor
+export VISUAL=vim
+export EDITOR=$VISUAL
+
+# use incremental search
+bindkey "^R" history-incremental-search-backward
+
+# save history to a file
+HISTFILE=$HOME/.zsh_history
+
+# ignore duplicate history entries
+setopt histignoredups
+
+# keep TONS of history
+export HISTSIZE=4096
+
+# source some more sauce
+[[ -f ~/.zsh/prompt ]] && . ~/.zsh/prompt
+[[ -f ~/.zsh/functions ]] && . ~/.zsh/functions
+[[ -f ~/.zsh/aliases ]] && . ~/.zsh/aliases
 
 # Local modifications
 [[ -f ~/.local.rc ]] && .  ~/.local.rc

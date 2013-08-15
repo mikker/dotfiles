@@ -26,3 +26,7 @@ nb() {
 _nb() { reply=($(git branch | tr -d '* ' | xargs echo)) }
 compctl -K _nb nb
 
+# simplest date
+sdate() { date +%Y.%m.%d }
+# make a dir, cd into it
+mdc() { mkdir -p "$1" && cd "$1" }
