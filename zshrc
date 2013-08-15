@@ -13,6 +13,8 @@ zstyle ':completion:*' list-colors ''
 # up-down searches history
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
+bindkey '^[b' backward-word
+bindkey '^[f' forward-word
 
 # automatically enter directories without cd
 setopt auto_cd
