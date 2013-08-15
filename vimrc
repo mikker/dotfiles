@@ -1,82 +1,63 @@
 set nocompatible
-filetype off " turn filetype off before loading pathogen
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-dispatch'
-Bundle 'kien/ctrlp.vim'
-Bundle 'bling/vim-airline'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'mikker/sparkup', {'rtp': 'vim/'}
-Bundle 'mileszs/ack.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'skalnik/vim-vroom'
-Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/BufOnly.vim'
-Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'tpope/vim-surround'
-
-Bundle 'othree/html5.vim'
-Bundle 'tpope/vim-haml'
-Bundle 'slim-template/vim-slim'
-Bundle 'kchmck/vim-coffee-script'
-
-Bundle 'mikker/Spacedust-theme.vim'
-Bundle 'chriskempson/vim-tomorrow-theme'
-Bundle '29decibel/codeschool-vim-theme'
-
-filetype plugin indent on " turn filetype back on
-
-" Prevent Vim from clobbering the scrollback buffer.
-" See http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-set shell=bash " zsh doesn't work so well
-
+set nobackup
+set nowritebackup
 set noswapfile
-set backupdir-=.
-set backupdir^=~/tmp,/tmp
+
+set ruler
+set showcmd
+set incsearch
+set laststatus=2
+
+let mapleader = ","
+
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
+
+filetype plugin indent on
+
 set hidden " allow buffers in background
 
 " Indentation
 set tabstop=2
 set shiftwidth=2
-set softtabstop=2
 set expandtab
+
 set wildmode=longest,list " auto-completion
 
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
 " Search
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase " search is case insensitive
 set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
-" LOOKS
-
+" Color scheme
 colorscheme Tomorrow-Night
+
 " Line numbers
-set numberwidth=2
 set number
+set numberwidth=5
+
 " Windows
-set winwidth=84
-set winheight=3
-set winminheight=3
-set winheight=999
+" set winwidth=84
+" set winheight=3
+" set winminheight=3
+" set winheight=999
 
 " MAPPINGS
 
-" cmd+enter opens a new line
-imap <D-cr> <c-o>o
-
-let mapleader = ","
+" Always use \v search
+nnoremap / /\v
+vnoremap / /\v
 
 " Quickly jump between two recent files
 nnoremap <leader><leader> <c-^>
@@ -94,11 +75,9 @@ nnoremap * *<c-o>
 " Danish keyboards are different
 map æ :
 noremap - /\v
-vnoremap - /\v
-noremap _ ^
 onoremap _ ^
 
-" I'm too fast for myself
+" I'm too fast for my own good
 command! W :w
 
 " Multi-purpose tab-key
@@ -137,17 +116,9 @@ map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
 
-" Rename current file
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'))
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-map <leader>n :call RenameFile()<cr>
+" Open new split panes to right and bottom
+set splitbelow
+set splitright
 
 " Easy buffer navigation
 noremap <C-h>  <C-w>h
@@ -165,12 +136,12 @@ vnoremap <silent> * :<C-U>
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" FILETYPES
+" File types
 
 au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
 au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
 
-" PLUGINS
+" Plugins
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings=0
@@ -179,7 +150,7 @@ map <leader>c <Plug>NERDCommenterToggle
 " NERDTree
 map <leader>d :NERDTreeToggle<CR>
 let g:NERDTreeWinPos = "right"
-" Command-T
+" CtrlP
 noremap <leader>f :CtrlP<cr>
 noremap <leader>F :CtrlP %%<cr>
 " Map keys to go to specific files
@@ -192,15 +163,13 @@ noremap <leader>gp :CtrlP public<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
 " Airline
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 " Yankstack without meta-key on DK mac keyboard
 let g:yankstack_map_keys = 0
 nmap ∏ <Plug>yankstack_substitute_newer_paste
 nmap π <Plug>yankstack_substitute_older_paste
 
-" LOCAL CONFIG
-
-" Source a global configuration file if available
+" Local config
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
