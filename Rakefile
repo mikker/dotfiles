@@ -8,7 +8,7 @@ task :install do
   system "git submodule update --init"
 
   Dir['*'].each do |file|
-    next if %w[Rakefile README].include? file
+    next if %w[Rakefile README osx].include? file
 
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if replace_all
