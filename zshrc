@@ -1,6 +1,6 @@
 # Path
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
-export PATH="$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
 
 # completion
 autoload -U compinit

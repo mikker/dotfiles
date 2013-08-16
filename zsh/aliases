@@ -10,21 +10,23 @@ alias la='ls -a'
 alias s="screen -R"
 
 # Git
-alias st='git status'
+alias g='git'
+alias gp='git push'
+alias gu='git pull'
 alias ga='git add --all'
-alias gci='git commit -m'
-alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gd='git diff'
 alias gl='git tree'
 alias gla='git tree --all'
-alias gpu='git push -u'
 alias gdt='git difftool'
 alias gmt='git mergetool'
 alias gco='git checkout'
-alias gb='hub browse'
-alias gpr='hub pull-request'
 alias ms='git checkout master'
 alias up='git checkout master && git pull && git checkout -'
+alias st='git status'
+alias ci='git commit -m'
+# Hub
+alias gb='hub browse'
+alias gpr='hub pull-request'
 
 # Rack
 alias re='touch tmp/restart.txt'
@@ -43,4 +45,5 @@ alias tl='tail -f log/development.log'
 alias mm='bundle exec middleman'
 # Irb
 alias irb='irb --readline'
+# Foreman
 alias fs='bundle exec foreman start'
