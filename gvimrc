@@ -3,12 +3,13 @@ set vb
 
 " Looks
 set guioptions-=T " No toolbar
-" set guioptions-=r " Removes right hand scroll bar
-" set go-=L " Removes left hand scroll bar
+set guioptions-=r " Removes right hand scroll bar
+set go-=L " Removes left hand scroll bar
 
 " Font
 if has('mac')
   set guifont=Literation\ Mono\ Powerline:h16
+  colorscheme codeschool
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif

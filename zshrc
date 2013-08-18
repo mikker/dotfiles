@@ -26,14 +26,21 @@ export EDITOR=$VISUAL
 # use incremental search
 bindkey "^R" history-incremental-search-backward
 
-# save history to a file
-HISTFILE=$HOME/.zsh_history
-
 # ignore duplicate history entries
-setopt histignoredups
+setopt hist_ignore_all_dups
+
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
 
 # keep TONS of history
-export HISTSIZE=4096
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+# Report CPU usage for commands running longer than 10 seconds
+REPORTTIME=10
 
 # source some more sauce
 [[ -f ~/.zsh/prompt ]] && . ~/.zsh/prompt
