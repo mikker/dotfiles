@@ -47,3 +47,4 @@ alias mm='bundle exec middleman'
 alias irb='irb --readline'
 # Foreman
 alias fs='bundle exec foreman start'
+alias t="tmux -u"

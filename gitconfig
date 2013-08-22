@@ -16,7 +16,7 @@
   co = checkout
   rb = rebase
   tree = "log --graph --decorate --abbrev=commit"
-  ; l = "!source ~/.githelpers && pretty_git_log"
+  pr = "!hub pull-request"
 [core]
   excludesfile = ~/.gitignore
   editor = vim

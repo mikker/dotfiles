@@ -48,10 +48,10 @@ set number
 set numberwidth=5
 
 " Windows
-" set winwidth=84
-" set winheight=3
-" set winminheight=3
-" set winheight=999
+set winwidth=84
+set winheight=3
+set winminheight=3
+set winheight=999
 
 " MAPPINGS
 
@@ -115,10 +115,6 @@ map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 " Map ,e to open files in the same directory as the current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
-
-" Open new split panes to right and bottom
-set splitbelow
-set splitright
 
 " Easy buffer navigation
 noremap <C-h>  <C-w>h

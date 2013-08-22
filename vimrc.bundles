@@ -21,6 +21,8 @@ Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'tpope/vim-surround'
 Bundle 'danro/rename.vim'
+Bundle 'tpope/vim-ragtag'
+Bundle 'christoomey/vim-tmux-navigator'
 
 Bundle 'othree/html5.vim'
 Bundle 'tpope/vim-haml'
