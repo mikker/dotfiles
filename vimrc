@@ -32,6 +32,8 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " ack.vim searches with ag
+  let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
 " Search
@@ -41,14 +43,14 @@ set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
 " Color scheme
-colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Eighties
 
 " Line numbers
 set number
 set numberwidth=5
 
 " Windows
-set winwidth=84
+" set winwidth=84
 set winheight=3
 set winminheight=3
 set winheight=999
@@ -165,7 +167,21 @@ let g:yankstack_map_keys = 0
 nmap ∏ <Plug>yankstack_substitute_newer_paste
 nmap π <Plug>yankstack_substitute_older_paste
 
+" Rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
 " Local config
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
+
+let g:airline_powerline_fonts = 1
