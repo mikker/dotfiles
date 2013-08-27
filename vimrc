@@ -24,7 +24,8 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-set wildmode=longest,list " auto-completion
+set wildmenu
+set wildmode=longest:full,full
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
