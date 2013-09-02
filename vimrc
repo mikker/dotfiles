@@ -9,6 +9,9 @@ set showcmd
 set incsearch
 set laststatus=2
 
+" highlight current line
+set cursorline
+
 let mapleader = ","
 
 if filereadable(expand("~/.vimrc.bundles"))
@@ -25,7 +28,7 @@ set shiftwidth=2
 set expandtab
 
 set wildmenu
-set wildmode=longest:full,full
+set wildmode=list:longest
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -135,6 +138,9 @@ vnoremap <silent> * :<C-U>
   \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+" ,cf to go to nonexisting gf file
+map <leader>gf :e <cfile><cr>
+
 " File types
 
 au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
@@ -186,3 +192,5 @@ if filereadable(expand("$HOME/.vimrc.local"))
 endif
 
 let g:airline_powerline_fonts = 1
+
+map <leader>O :BufOnly<cr>
