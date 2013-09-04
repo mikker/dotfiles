@@ -173,6 +173,8 @@ noremap <leader>gg :topleft 100 :split Gemfile<cr>
 let g:yankstack_map_keys = 0
 nmap ∏ <Plug>yankstack_substitute_newer_paste
 nmap π <Plug>yankstack_substitute_older_paste
+imap ∏ <Plug>yankstack_substitute_newer_paste
+imap π <Plug>yankstack_substitute_older_paste
 
 " Rename current file
 function! RenameFile()
@@ -192,5 +194,7 @@ if filereadable(expand("$HOME/.vimrc.local"))
 endif
 
 let g:airline_powerline_fonts = 1
+
+let g:seoul256_background = 234
 
 map <leader>O :BufOnly<cr>

@@ -1,13 +1,11 @@
 # General
-alias v='mvim'
 alias so='source'
-alias mkdir='mkdir -p'
 alias l='ls'
 alias ll='ls -l'
 alias la='ls -a'
 
-# Screen
-alias s="screen -R"
+# tmux
+alias t="tmux -u"
 
 # Git
 alias g='git'
@@ -19,7 +17,6 @@ alias gl='git tree'
 alias gla='git tree --all'
 alias gdt='git difftool'
 alias gmt='git mergetool'
-alias gco='git checkout'
 alias ms='git checkout master'
 alias up='git checkout master && git pull && git checkout -'
 alias st='git status'
@@ -43,8 +40,9 @@ alias remigrate='bundle exec rake db:migrate:redo db:test:prepare'
 alias tl='tail -f log/development.log'
 # Gems
 alias mm='bundle exec middleman'
-# Irb
-alias irb='irb --readline'
 # Foreman
 alias fs='bundle exec foreman start'
-alias t="tmux -u"
+
+if [ is_mac ]; then
+  alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
+fi

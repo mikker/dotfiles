@@ -21,9 +21,11 @@ Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-ragtag'
-" Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'mileszs/ack.vim'
 Bundle 'bling/vim-airline'
+
+Bundle 'msanders/cocoa.vim'
+Bundle 'eraserhd/vim-ios'
 
 Bundle 'othree/html5.vim'
 Bundle 'tpope/vim-haml'
