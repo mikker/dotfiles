@@ -24,7 +24,8 @@ alias ci='git commit -m'
 # Hub
 alias gb='hub browse'
 alias gpr='hub pull-request'
-alias last_commit_message="git --no-pager log -1 --pretty=%B | tr -d '\s\n'"
+alias last_commit_message="git --no-pager log -1 --pretty=%B | sed -e 's/^ *//g' -e 's/ *$//g' | tr -d '\n'"
+alias prl="gp -u && gpr '\`last_commit_message\`' | pbcopy && open \`pbpaste\`"
 
 # Rack
 alias re='touch tmp/restart.txt'

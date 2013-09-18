@@ -47,7 +47,7 @@ set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
 " Color scheme
-colorscheme Tomorrow-Night-Eighties
+colorscheme seoul256
 
 " Line numbers
 set number
