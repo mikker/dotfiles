@@ -32,6 +32,7 @@ task :install do
     end
   end
 
+  system "git clone https://github.com/gmarik/vundle.git vim/bundle/vundle"
   system "vim +BundleInstall +qall"
 end
 
