@@ -31,6 +31,8 @@ task :install do
       link_file(file)
     end
   end
+
+  system "vim +BundleInstall +qall"
 end
 
 task :default => [:install]
