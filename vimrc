@@ -6,8 +6,11 @@ set noswapfile
 
 set ruler
 set showcmd
-set incsearch
 set laststatus=2
+
+" Allow mouse in terminal vim
+set ttymouse=xterm2
+set mouse=a
 
 " highlight current line
 set cursorline
@@ -27,10 +30,12 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+" Completion
 set wildmenu
 set wildmode=list:longest
 
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+" Use The Silver Searcher
+" https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -41,6 +46,7 @@ if executable('ag')
 endif
 
 " Search
+set incsearch
 set ignorecase " search is case insensitive
 set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
@@ -58,8 +64,6 @@ set numberwidth=5
 set winheight=3
 set winminheight=3
 set winheight=999
-
-" MAPPINGS
 
 " Always use \v search
 nnoremap / /\v
@@ -83,11 +87,14 @@ map æ :
 noremap - /\v
 onoremap _ ^
 
+" qq to record, Q to replay - uppercase Q is weird anyways
+nnoremap Q @q
+
 " I'm too fast for my own good
 command! W :w
 
 " Multi-purpose tab-key
-" Indent if beginning of line, else do completion
+" Insert tab if beginning of line or after space, else do completion
 function! InsertTabWrapper()
   let col = col('.') - 1
   if !col || getline('.')[col - 1] !~ '\k'
@@ -108,7 +115,7 @@ map <c-w>S :topleft :split<cr>
 command! -nargs=1 F set filetype=<args>
 command! FR set filetype=ruby
 
-" Automatically strip trailing whitespace
+" Function to strip trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
@@ -122,7 +129,7 @@ map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
 
-" Easy buffer navigation
+" Easy window navigation
 noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
@@ -131,20 +138,20 @@ noremap <C-l>  <C-w>l
 " Allow . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
 
-" Search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-
 " ,cf to go to nonexisting gf file
 map <leader>gf :e <cfile><cr>
 
-" File types
-
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
-au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
+" Rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'))
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <leader>n :call RenameFile()<cr>
 
 " Plugins
 
@@ -165,36 +172,57 @@ noremap <leader>gh :CtrlP app/helpers<cr>
 noremap <leader>gv :CtrlP app/views<cr>
 noremap <leader>gm :CtrlP app/models<cr>
 noremap <leader>gp :CtrlP public<cr>
+noremap <leader>gt :CtrlP test<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
 " Airline
-" let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'ubaryd'
+let g:airline_section_warning = ''
+" AirlineTheme ubaryd
 " Yankstack without meta-key on DK mac keyboard
 let g:yankstack_map_keys = 0
 nmap ∏ <Plug>yankstack_substitute_newer_paste
 nmap π <Plug>yankstack_substitute_older_paste
 imap ∏ <Plug>yankstack_substitute_newer_paste
 imap π <Plug>yankstack_substitute_older_paste
-
-" Rename current file
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'))
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-map <leader>n :call RenameFile()<cr>
+" seoul256 theme
+let g:seoul256_background = 234
 
 " Local config
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
 
-let g:airline_powerline_fonts = 1
+map <leader>T :TagbarToggle<cr>
 
-let g:seoul256_background = 234
+set foldmethod=syntax " fold by syntax
+set foldlevel=20 " folds come expanded
+set foldlevelstart=20 " ... every time
 
-map <leader>O :BufOnly<cr>
+set showbreak=↪\
+
+" yank to system clipboard
+map <leader>y "*y
+
+augroup vimrcEx
+  autocmd!
+
+  " File types
+  au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
+  au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
+
+  " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+  au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+
+  " mark Jekyll YAML frontmatter as comment
+  au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
+
+  " magic markers: enable using `H/S/J/C to jump back to
+  " last HTML, stylesheet, JS or Ruby code buffer
+  au BufLeave *.{erb,html}      exe "normal! mH"
+  au BufLeave *.{css,scss,sass} exe "normal! mS"
+  au BufLeave *.{js,coffee}     exe "normal! mJ"
+  au BufLeave *.{rb}            exe "normal! mC"
+
+augroup END
