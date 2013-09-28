@@ -200,8 +200,6 @@ set foldmethod=syntax " fold by syntax
 set foldlevel=20 " folds come expanded
 set foldlevelstart=20 " ... every time
 
-set showbreak=↪\
-
 " yank to system clipboard
 map <leader>y "*y
 
