@@ -48,3 +48,4 @@ alias fs='bundle exec foreman start'
 if [ is_mac ]; then
   alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
 fi
+alias mailsize="du -hs ~/Library/mail"
