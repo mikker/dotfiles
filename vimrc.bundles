@@ -20,7 +20,7 @@ Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'tpope/vim-surround'
 Bundle 'mileszs/ack.vim'
-Bundle 'bling/vim-airline'
+" Bundle 'bling/vim-airline'
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-ragtag'
 Bundle 'ecomba/vim-ruby-refactoring'
