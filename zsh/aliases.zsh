@@ -49,3 +49,5 @@ if [ is_mac ]; then
   alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
 fi
 alias mailsize="du -hs ~/Library/mail"
+alias delete_merged_branches='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+

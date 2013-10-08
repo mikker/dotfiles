@@ -21,10 +21,14 @@ mkcd() {
 # nb()
 # Checkout new (or existing) branch of name ...
 nb() {
-  if [[ $(git branch | tr -d '* ' | grep "$1") != "" ]]; then
-    git checkout $1
+  if [[ $# > 0 ]]; then
+    if [[ $(git branch | tr -d '* ' | grep "$1") != "" ]]; then
+      git checkout $1
+    else
+      git checkout master && git checkout -b $1
+    fi
   else
-    git checkout master && git checkout -b $1
+    git branch | tr -d '* '
   fi
 }
 _nb() { reply=($(git branch | tr -d '* ' | xargs echo)) }

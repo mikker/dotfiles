@@ -106,6 +106,10 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
+fun! Z(cmd)
+  echom system("zsh -c " . a:cmd)
+endfun
+
 " Open splits at top level
 map <c-w>V :botright :vertical :split<cr>
 map <c-w>S :topleft :split<cr>
@@ -209,8 +213,9 @@ augroup vimrcEx
   " File types
   au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
   au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
+  au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
 
-  " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+  au FileType gitcommit setlocal winheight=18 
   au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
   " mark Jekyll YAML frontmatter as comment
@@ -224,3 +229,5 @@ augroup vimrcEx
   au BufLeave *.{rb}            exe "normal! mC"
 
 augroup END
+
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
