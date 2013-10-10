@@ -211,7 +211,7 @@ augroup vimrcEx
   autocmd!
 
   " File types
-  au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru} set ft=ruby
+  au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
   au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
   au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
 
@@ -231,3 +231,8 @@ augroup vimrcEx
 augroup END
 
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+command! GP Git push
+command! GU Git pull
+command! GB !hub browse
+

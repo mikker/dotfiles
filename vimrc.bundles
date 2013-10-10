@@ -30,6 +30,7 @@ Bundle 'nelstrom/vim-visual-star-search'
 " Bundle 'skammer/vim-css-color'
 
 Bundle 'JulesWang/css.vim'
+Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
 " Bundle 'tpope/vim-haml'
