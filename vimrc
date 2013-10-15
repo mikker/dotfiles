@@ -236,3 +236,4 @@ command! GP Git push
 command! GU Git pull
 command! GB !hub browse
 
+inoremap <F6> <C-o>:set paste!<cr>

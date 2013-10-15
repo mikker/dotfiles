@@ -1,3 +1,5 @@
+bindkey "\e[3~" delete-char
+
 # up-down searches history
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
