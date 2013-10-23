@@ -223,14 +223,14 @@ augroup vimrcEx
 
   " magic markers: enable using `H/S/J/C to jump back to
   " last HTML, stylesheet, JS or Ruby code buffer
-  au BufLeave *.{erb,html}      exe "normal! mH"
-  au BufLeave *.{css,scss,sass} exe "normal! mS"
-  au BufLeave *.{js,coffee}     exe "normal! mJ"
-  au BufLeave *.{rb}            exe "normal! mC"
+  au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
+  au BufLeave *.{css,scss,sass}       exe "normal! mS"
+  au BufLeave *.{js,coffee}           exe "normal! mJ"
+  au BufLeave *.{rb}                  exe "normal! mC"
 
 augroup END
 
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=\ %P
 
 command! GP Git push
 command! GU Git pull
