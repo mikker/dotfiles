@@ -7,6 +7,7 @@ set noswapfile
 set ruler
 set showcmd
 set laststatus=2
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=\ %P " status line with git stuff
 
 " Allow mouse in terminal vim
 set ttymouse=xterm2
@@ -79,6 +80,16 @@ map <cr> :nohl<cr>
 vnoremap < <gv
 vnoremap > >gv
 
+" fold by syntax
+set foldmethod=syntax " fold by syntax
+set foldlevel=20 " folds come expanded
+set foldlevelstart=20 " ... every time
+" space toggles current fold
+nmap <space> za
+
+" yank to system clipboard
+map <leader>y "*y
+
 " Don't move on *
 nnoremap * *<c-o>
 
@@ -92,6 +103,21 @@ nnoremap Q @q
 
 " I'm too fast for my own good
 command! W :w
+command! Wq :wq
+
+" re-read current file from disk
+nmap <F5> :e %<cr>
+
+" toggle paste mode
+set pastetoggle=<F6>
+
+" one-show buffer selector
+nmap <c-b> :ls<cr>:b 
+
+" git shortcuts
+command! GP Git push
+command! GU Git pull
+command! GB !hub browse
 
 " Multi-purpose tab-key
 " Insert tab if beginning of line or after space, else do completion
@@ -105,10 +131,6 @@ function! InsertTabWrapper()
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
-
-fun! Z(cmd)
-  echom system("zsh -c " . a:cmd)
-endfun
 
 " Open splits at top level
 map <c-w>V :botright :vertical :split<cr>
@@ -157,6 +179,29 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
+" file type specifics
+augroup vimrcEx
+  autocmd!
+
+  " File types
+  au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
+  au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
+  au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
+
+  au FileType gitcommit setlocal winheight=18 
+  au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+
+  " mark Jekyll YAML frontmatter as comment
+  au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
+
+  " magic markers: enable using `H/S/J/C to jump back to
+  " last HTML, stylesheet, JS or Ruby code buffer
+  au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
+  au BufLeave *.{css,scss,sass}       exe "normal! mS"
+  au BufLeave *.{js,coffee}           exe "normal! mJ"
+  au BufLeave *.{rb}                  exe "normal! mC"
+augroup END
+
 " Plugins
 
 " NERDCommenter
@@ -198,54 +243,12 @@ if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
 
-map <leader>T :TagbarToggle<cr>
-
-set foldmethod=syntax " fold by syntax
-set foldlevel=20 " folds come expanded
-set foldlevelstart=20 " ... every time
-
-" yank to system clipboard
-map <leader>y "*y
-
-augroup vimrcEx
-  autocmd!
-
-  " File types
-  au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
-  au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
-  au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
-
-  au FileType gitcommit setlocal winheight=18 
-  au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-
-  " mark Jekyll YAML frontmatter as comment
-  au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
-
-  " magic markers: enable using `H/S/J/C to jump back to
-  " last HTML, stylesheet, JS or Ruby code buffer
-  au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
-  au BufLeave *.{css,scss,sass}       exe "normal! mS"
-  au BufLeave *.{js,coffee}           exe "normal! mJ"
-  au BufLeave *.{rb}                  exe "normal! mC"
-
-augroup END
-
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=\ %P
-
-command! GP Git push
-command! GU Git pull
-command! GB !hub browse
-
-nmap <F5> :e %<cr>
-set pastetoggle=<F6>
-nmap <space> za
-nmap <c-b> :ls<cr>:b 
-
+" optimization, maybe?
 let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
 set noshowmatch         " Don't match parentheses/brackets
-set nocursorline        " Don't paint cursor line
+" set nocursorline        " Don't paint cursor line
 set nocursorcolumn      " Don't paint cursor column
-set lazyredraw          " Wait to redraw
-set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-let html_no_rendering=1 " Don't render italic, bold, links in HTML
+" set lazyredraw          " Wait to redraw
+" set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+" let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
