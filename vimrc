@@ -112,7 +112,7 @@ nmap <F5> :e %<cr>
 set pastetoggle=<F6>
 
 " one-show buffer selector
-nmap <c-b> :ls<cr>:b 
+nmap <c-b> :ls<cr>:b
 
 " git shortcuts
 command! GP Git push
@@ -188,7 +188,7 @@ augroup vimrcEx
   au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
   au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
 
-  au FileType gitcommit setlocal winheight=18 
+  au FileType gitcommit setlocal winheight=18
   au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
   " mark Jekyll YAML frontmatter as comment
