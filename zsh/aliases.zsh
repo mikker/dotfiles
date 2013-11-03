@@ -51,3 +51,6 @@ alias mailsize="du -hs ~/Library/mail"
 alias delete_merged_branches='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 
 alias tk='tmux kill-session'
+
+alias pu='pushd'
+alias po='popd'
