@@ -21,6 +21,8 @@ Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'mileszs/ack.vim'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-rbenv'
+Bundle 'vim-ruby/vim-ruby'
 
 Bundle 'JulesWang/css.vim'
 Bundle 'cakebaker/scss-syntax.vim'
@@ -28,7 +30,6 @@ Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'tpope/vim-haml'
 " Bundle 'msanders/cocoa.vim'
-" Bundle 'vim-ruby/vim-ruby'
 Bundle 'pangloss/vim-javascript'
 Bundle 'slim-template/vim-slim'
 

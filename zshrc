@@ -12,15 +12,5 @@ source ~/.zsh/history.zsh
 # Report CPU usage for commands running longer than 10 seconds
 REPORTTIME=10
 
-# if rbenv is present, configure it for use
-if which rbenv &> /dev/null; then
-  # Put the rbenv entry at the front of the line
-  export RBENV_ROOT=/usr/local/var/rbenv
-  export PATH="$HOME/.rbenv/bin:$PATH"
-
-  # enable shims and auto-completion
-  eval "$(rbenv init -)"
-fi
-
 # Local modifications
 [[ -f ~/.local.rc ]] && .  ~/.local.rc

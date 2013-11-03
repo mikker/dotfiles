@@ -4,6 +4,12 @@ p() { cd ~/Projects/$1; }
 _p() { _files -W ~/Projects -/; }
 compdef _p p
 
+# p()
+# Quickly navigate to a project - with autocorrect
+c() { cd ~/Developer/code/$1; }
+_c() { _files -W ~/Developer/code -/; }
+compdef _c c
+
 # o()
 # Open a file or the current directory
 o() {

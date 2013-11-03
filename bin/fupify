@@ -5,7 +5,7 @@ require 'date'
 
 # Variables
 distributor = "Fup i Farvandet"
-image_path = "/Users/mikkelmalmberg/Projects/Fup I Farvandet/Media/FIF.jpg"
+image_path = "/Users/mikker/Projects/Fup I Farvandet/Media/FIF.jpg"
 genre = "Comedy"
 
 # Format arguments
