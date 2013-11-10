@@ -112,7 +112,7 @@ nmap <F5> :e %<cr>
 set pastetoggle=<F6>
 
 " one-show buffer selector
-nmap <c-b> :ls<cr>:b
+nmap <leader>b :ls<cr>:b
 
 " git shortcuts
 command! GP Git push
