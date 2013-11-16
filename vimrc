@@ -224,17 +224,6 @@ noremap <leader>gp :CtrlP public<cr>
 noremap <leader>gt :CtrlP test<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
-" Airline
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'ubaryd'
-let g:airline_section_warning = ''
-" AirlineTheme ubaryd
-" Yankstack without meta-key on DK mac keyboard
-let g:yankstack_map_keys = 0
-nmap ∏ <Plug>yankstack_substitute_newer_paste
-nmap π <Plug>yankstack_substitute_older_paste
-imap ∏ <Plug>yankstack_substitute_newer_paste
-imap π <Plug>yankstack_substitute_older_paste
 " seoul256 theme
 let g:seoul256_background = 234
 
@@ -244,11 +233,7 @@ if filereadable(expand("$HOME/.vimrc.local"))
 endif
 
 " optimization, maybe?
-let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
 set noshowmatch         " Don't match parentheses/brackets
-" set nocursorline        " Don't paint cursor line
 set nocursorcolumn      " Don't paint cursor column
-" set lazyredraw          " Wait to redraw
-" set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-" let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
