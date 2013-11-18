@@ -11,10 +11,13 @@ class Object
   def local_methods(obj = self)
     (obj.methods - obj.class.superclass.instance_methods).sort
   end
+  def additional_methods(obj = self)
+    (obj.methods - Object.new.instance_methods).sort
+  end
 end
 
-def copy(str); IO.popen('pbcopy', 'w') { |f| f << str.to_s }; end
-def paste; `pbpaste`; end
+def pbcopy(str); IO.popen('pbcopy', 'w') { |f| f << str.to_s }; end
+def pbpaste; `pbpaste`; end
 
 # Project-specific .irbrc
 if Dir.pwd != File.expand_path("~")

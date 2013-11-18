@@ -20,8 +20,6 @@
 [core]
   excludesfile = ~/.gitignore
   editor = vim
-; [apply]
-  ; whitespace = nowarn
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [branch "master"]

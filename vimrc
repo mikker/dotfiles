@@ -7,7 +7,6 @@ set noswapfile
 set ruler
 set showcmd
 set laststatus=2
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=\ %P " status line with git stuff
 
 " Allow mouse in terminal vim
 set ttymouse=xterm2
@@ -18,8 +17,8 @@ set cursorline
 
 let mapleader = ","
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+if filereadable(expand("~/.vim/bundles"))
+  source ~/.vim/bundles
 endif
 
 filetype plugin indent on
