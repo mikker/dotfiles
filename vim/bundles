@@ -24,6 +24,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-rbenv'
 Bundle 'tpope/vim-bundler'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'henrik/vim-ruby-runner'
 
 Bundle 'JulesWang/css.vim'
 Bundle 'cakebaker/scss-syntax.vim'
