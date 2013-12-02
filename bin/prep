@@ -1,4 +1,7 @@
 #!/bin/sh -x
+
+set -e
+
 CURRENT=`git branch | grep '\*' | awk '{print $2}'`
 if [[ $CURRENT != "develop" && $CURRENT != "master" ]]; then
   if [ `git branch | grep develop` ]; then
