@@ -169,7 +169,9 @@ augroup vimrcEx
   " File types
   au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
   au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
-  au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
+
+  " Foldmethod
+  au BufNewFile,BufReadPost *.{coffee,rb} setl foldmethod=indent
 
   " mark Jekyll YAML frontmatter as comment
   au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
