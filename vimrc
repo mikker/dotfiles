@@ -1,27 +1,20 @@
 set nocompatible
 
+if filereadable(expand("~/.vim/bundles.vim"))
+  source ~/.vim/bundles.vim
+endif
+
+filetype plugin indent on
+
 set nobackup
 set nowritebackup
 set noswapfile
-
-set ruler
-set showcmd
-set laststatus=2
-
-" Allow mouse in terminal vim
-set ttymouse=xterm2
-set mouse=a
+set undofile
 
 " highlight current line
 set cursorline
 
 let mapleader = ","
-
-if filereadable(expand("~/.vim/bundles"))
-  source ~/.vim/bundles
-endif
-
-filetype plugin indent on
 
 set hidden " allow buffers in background
 
@@ -31,8 +24,8 @@ set shiftwidth=2
 set expandtab
 
 " Completion
-set wildmenu
-set wildmode=list:longest
+set wildmode=longest:full,full
+set wildignore+=tags
 
 " Use The Silver Searcher
 " https://github.com/ggreer/the_silver_searcher
@@ -46,7 +39,6 @@ if executable('ag')
 endif
 
 " Search
-set incsearch
 set ignorecase " search is case insensitive
 set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
@@ -57,17 +49,16 @@ colorscheme seoul256
 
 " Line numbers
 set number
-set numberwidth=5
+set numberwidth=3
 
 " Windows
-" set winwidth=84
 set winheight=3
 set winminheight=3
 set winheight=999
 
 " Always use \v search
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 
 " Quickly jump between two recent files
 nnoremap <leader><leader> <c-^>
@@ -94,7 +85,7 @@ nnoremap * *<c-o>
 
 " Danish keyboards are different
 map æ :
-noremap - /\v
+noremap - /
 onoremap _ ^
 
 " qq to record, Q to replay - uppercase Q is weird anyways
@@ -109,9 +100,6 @@ nmap <F5> :e %<cr>
 
 " toggle paste mode
 set pastetoggle=<F6>
-
-" one-show buffer selector
-nmap <leader>b :ls<cr>:b
 
 " git shortcuts
 command! GP Git push
@@ -147,7 +135,6 @@ fun! <SID>StripTrailingWhitespaces()
   %s/\s\+$//e
   call cursor(l, c)
 endfun
-" autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
 " Map ,e to open files in the same directory as the current file
@@ -162,9 +149,6 @@ noremap <C-l>  <C-w>l
 
 " Allow . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
-
-" ,cf to go to nonexisting gf file
-map <leader>gf :e <cfile><cr>
 
 " Rename current file
 function! RenameFile()
@@ -187,9 +171,6 @@ augroup vimrcEx
   au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
   au BufNewFile,BufReadPost *.coffee setl foldmethod=indent
 
-  au FileType gitcommit setlocal winheight=18
-  au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-
   " mark Jekyll YAML frontmatter as comment
   au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
 
@@ -208,11 +189,11 @@ let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
 " NERDTree
-map <leader>d :NERDTreeToggle<CR>
-let g:NERDTreeWinPos = "right"
+" map <leader>d :NERDTreeToggle<CR>
+" let g:NERDTreeWinPos = "right"
 " CtrlP
 noremap <leader>f :CtrlP<cr>
-noremap <leader>F :CtrlP %%<cr>
+" noremap <leader>F :CtrlP %%<cr>
 " Map keys to go to specific files
 noremap <leader>ga :CtrlP app/assets<cr>
 noremap <leader>gc :CtrlP app/controllers<cr>
@@ -225,14 +206,10 @@ noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
 " seoul256 theme
 let g:seoul256_background = 234
+" LiteDFM
+nnoremap <Leader>z :LiteDFMToggle<CR>:silent !tmux set status > /dev/null 2>&1<CR>:redraw!<CR>
 
 " Local config
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
-
-" optimization, maybe?
-" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-set noshowmatch         " Don't match parentheses/brackets
-set nocursorcolumn      " Don't paint cursor column
-

@@ -54,3 +54,4 @@ alias tk='tmux kill-session'
 
 alias pu='pushd'
 alias po='popd'
+alias aria='aria2c -c -x 6'
