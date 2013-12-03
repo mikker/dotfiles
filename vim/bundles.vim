@@ -27,15 +27,13 @@ Bundle 'nelstrom/vim-visual-star-search'
 
 Bundle 'bilalq/lite-dfm'
 
-" Bundle 'vim-scripts/BufOnly.vim'
-" Bundle 'mikker/sparkup', {'rtp': 'vim/'}
-" Bundle 'scrooloose/nerdtree'
-" Bundle 'tpope/vim-rbenv'
-" Bundle 'tpope/vim-bundler'
-" Bundle 'henrik/vim-ruby-runner'
-" Bundle 'othree/html5.vim'
-" Bundle 'JulesWang/css.vim'
-" Bundle 'msanders/cocoa.vim'
+Bundle 'mikker/sparkup', {'rtp': 'vim/'}
+Bundle 'vim-scripts/BufOnly.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'henrik/vim-ruby-runner'
+Bundle 'othree/html5.vim'
+Bundle 'JulesWang/css.vim'
+Bundle 'msanders/cocoa.vim'
 
 Bundle 'vim-scripts/xoria256.vim'
 Bundle 'chriskempson/vim-tomorrow-theme'

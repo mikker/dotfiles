@@ -6,10 +6,11 @@ endif
 
 filetype plugin indent on
 
-set nobackup
-set nowritebackup
-set noswapfile
+" set nobackup
+" set nowritebackup
+" set noswapfile
 set undofile
+set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 
 " highlight current line
 set cursorline
