@@ -39,4 +39,6 @@ Bundle 'vim-scripts/xoria256.vim'
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
 
+Bundle 'bling/vim-airline'
+
 filetype on

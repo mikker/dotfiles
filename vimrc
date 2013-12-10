@@ -17,6 +17,8 @@ set cursorline
 
 let mapleader = ","
 
+set mouse=a
+
 set hidden " allow buffers in background
 
 " Indentation
@@ -216,3 +218,6 @@ nnoremap <Leader>z :LiteDFMToggle<CR>:silent !tmux set status > /dev/null 2>&1<C
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
+
+let g:airline_powerline_fonts=1
+let g:airline_theme='bubblegum'
