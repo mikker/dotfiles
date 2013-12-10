@@ -25,8 +25,6 @@ Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'nelstrom/vim-visual-star-search'
 
-Bundle 'bilalq/lite-dfm'
-
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'vim-scripts/BufOnly.vim'
 Bundle 'scrooloose/nerdtree'
