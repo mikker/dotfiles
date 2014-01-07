@@ -210,7 +210,7 @@ noremap <leader>gt :CtrlP test<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft 100 :split Gemfile<cr>
 " seoul256 theme
-let g:seoul256_background = 234
+let g:seoul256_background = 235
 " LiteDFM
 nnoremap <Leader>z :LiteDFMToggle<CR>:silent !tmux set status > /dev/null 2>&1<CR>:redraw!<CR>
 
