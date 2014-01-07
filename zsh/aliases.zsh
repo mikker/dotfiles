@@ -55,3 +55,7 @@ alias tk='tmux kill-session'
 alias pu='pushd'
 alias po='popd'
 alias aria='aria2c -c -x 6'
+
+alias pyg='pygmentize -g'
+alias md='open -a Marked'
+alias json='python -mjson.tool'

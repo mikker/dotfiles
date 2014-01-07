@@ -9,7 +9,7 @@ filetype plugin indent on
 " set nobackup
 " set nowritebackup
 " set noswapfile
-set undofile
+" set undofile
 set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 
 " highlight current line
@@ -55,9 +55,9 @@ set number
 set numberwidth=3
 
 " Windows
-set winheight=3
-set winminheight=3
-set winheight=999
+" set winheight=3
+" set winminheight=3
+" set winheight=999
 
 " Always use \v search
 " nnoremap / /\v
@@ -194,8 +194,8 @@ let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
 " NERDTree
-" map <leader>d :NERDTreeToggle<CR>
-" let g:NERDTreeWinPos = "right"
+map <leader>d :NERDTreeToggle<CR>
+let g:NERDTreeWinPos = "right"
 " CtrlP
 noremap <leader>f :CtrlP<cr>
 " noremap <leader>F :CtrlP %%<cr>
