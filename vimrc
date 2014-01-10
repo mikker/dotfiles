@@ -55,9 +55,9 @@ set number
 set numberwidth=3
 
 " Windows
-" set winheight=3
-" set winminheight=3
-" set winheight=999
+set winheight=3
+set winminheight=3
+set winheight=999
 
 " Always use \v search
 " nnoremap / /\v
@@ -221,3 +221,5 @@ endif
 
 let g:airline_powerline_fonts=1
 let g:airline_theme='bubblegum'
+
+map <leader>w :Bdelete<cr>
