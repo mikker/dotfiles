@@ -6,18 +6,18 @@ endif
 
 filetype plugin indent on
 
-" set nobackup
-" set nowritebackup
-" set noswapfile
-" set undofile
-set dir=~/.vimswap//,/var/tmp//,/tmp//,.
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undofile
+set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " highlight current line
 set cursorline
 
 let mapleader = ","
 
-set mouse=a
+" set mouse=a
 
 set hidden " allow buffers in background
 
@@ -27,11 +27,12 @@ set shiftwidth=2
 set expandtab
 
 " Completion
-set wildmode=longest:full,full
-set wildignore+=tags
+set wildmode=longest:list,full
+" set wildignore+=tags
 
-" Use The Silver Searcher
-" https://github.com/ggreer/the_silver_searcher
+set showcmd
+
+" ag for ack
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -48,7 +49,8 @@ set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
 " Color scheme
-colorscheme seoul256
+" let g:hybrid_use_iTerm_colors = 1
+colorscheme hybrid
 
 " Line numbers
 set number
@@ -174,7 +176,7 @@ augroup vimrcEx
   au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
 
   " Foldmethod
-  au BufNewFile,BufReadPost *.{coffee,rb} setl foldmethod=indent
+  au BufNewFile,BufReadPost *.{coffee,rb} setlocal foldmethod=indent
 
   " mark Jekyll YAML frontmatter as comment
   au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
@@ -193,9 +195,6 @@ augroup END
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
-" NERDTree
-map <leader>d :NERDTreeToggle<CR>
-let g:NERDTreeWinPos = "right"
 " CtrlP
 noremap <leader>f :CtrlP<cr>
 " noremap <leader>F :CtrlP %%<cr>
@@ -208,18 +207,15 @@ noremap <leader>gm :CtrlP app/models<cr>
 noremap <leader>gp :CtrlP public<cr>
 noremap <leader>gt :CtrlP test<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
-noremap <leader>gg :topleft 100 :split Gemfile<cr>
+noremap <leader>gg :topleft :split Gemfile<cr>
 " seoul256 theme
-let g:seoul256_background = 235
-" LiteDFM
-nnoremap <Leader>z :LiteDFMToggle<CR>:silent !tmux set status > /dev/null 2>&1<CR>:redraw!<CR>
+" let g:seoul256_background = 235
 
 " Local config
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
 
-let g:airline_powerline_fonts=1
-let g:airline_theme='bubblegum'
-
 map <leader>w :Bdelete<cr>
+
+nmap ø <Plug>VinegarUp
