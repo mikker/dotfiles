@@ -9,8 +9,10 @@ filetype plugin indent on
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set undofile
-set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+if exists("+undofile")
+  set undofile
+  set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+endif
 
 " highlight current line
 set cursorline
