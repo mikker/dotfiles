@@ -49,8 +49,7 @@ set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
 " Color scheme
-" let g:hybrid_use_iTerm_colors = 1
-colorscheme hybrid
+colorscheme seoul256-light
 
 " Line numbers
 set number

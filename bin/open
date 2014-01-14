@@ -5,7 +5,7 @@ for last; do true; done
 if [ "$last" == '-' ]; then
   arg=`cat`
   cmd=`echo $@ | sed -e "s/-$/${arg}/"`
-  /usr/bin/open $cmd
+  /usr/bin/open "$cmd"
 else
-  /usr/bin/open $@
+  /usr/bin/open "$@"
 fi

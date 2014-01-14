@@ -24,7 +24,7 @@ alias ci='git commit -m'
 # Hub
 alias gb='hub browse'
 alias gpr='hub pull-request'
-alias prl='gp -u && gpr "`last_commit_message`" | pbcopy && open `pbpaste`'
+alias prl='gp -u && gpr -m "`last_commit_message`" | open -' # http://github.com/mikker/open-with-stdin
 
 # Rack
 alias re='touch tmp/restart.txt'
