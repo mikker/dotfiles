@@ -218,5 +218,6 @@ if filereadable(expand("$HOME/.vimrc.local"))
 endif
 
 map <leader>w :Bdelete<cr>
-
 nmap ø <Plug>VinegarUp
+let g:netrw_liststyle=3
+

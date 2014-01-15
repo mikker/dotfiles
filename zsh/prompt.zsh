@@ -16,9 +16,9 @@ local left="$(parse_ssh_connection)%{$fg[red]%}${char}%{$reset_color%} "
 
 git_info_for_prompt() {
   local git_where="$(parse_git_branch)"
-  [ -n "$git_where" ] && echo "%{$fg[yellow]%}[${git_where#(refs/heads/|tags/)}$(parse_git_dirty)]%{$reset_color%} "
+  [ -n "$git_where" ] && echo "%{$fg[yellow]%}[${git_where#(refs/heads/|tags/)}$(parse_git_dirty)]%{$reset_color%}"
 }
 
 PROMPT='${left}'
-RPROMPT='$(git_info_for_prompt)%{$fg[cyan]%}%~%{$reset_color%}'
+RPROMPT='%{$fg[cyan]%}%~%{$reset_color%}$(git_info_for_prompt)'
 
