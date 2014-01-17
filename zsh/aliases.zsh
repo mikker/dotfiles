@@ -38,7 +38,7 @@ alias rd='bundle exec rails destroy'
 # Rails
 alias migrate='bundle exec rake db:migrate db:test:prepare'
 alias remigrate='bundle exec rake db:migrate:redo db:test:prepare'
-alias tl='tail -f log/development.log'
+alias tl='tail -F log/development.log'
 # Gems
 alias mm='bundle exec middleman'
 # Foreman
