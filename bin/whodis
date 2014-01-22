@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'sonos'
+
+# override to set log: false
+module Sonos::Endpoint::AVTransport
+  def transport_client
+    @transport_client ||= Savon.client endpoint: "http://#{self.group_master.ip}:#{Sonos::PORT}#{TRANSPORT_ENDPOINT}", namespace: Sonos::NAMESPACE, log_level: :error, log: false
+  end
+end
+
+system = Sonos::System.new
+shaef = system.speakers.select { |s| s.name == "SHAEF" }.first
+track = shaef.now_playing
+print "#{track[:artist]} - #{track[:title]} (#{track[:album]})"
