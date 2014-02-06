@@ -37,5 +37,8 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
 Bundle 'w0ng/vim-hybrid'
 
+Bundle 'junegunn/vim-easy-align'
+Bundle 'tpope/vim-tbone'
+Bundle 'tpope/vim-markdown'
 
 filetype on
