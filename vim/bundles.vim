@@ -26,6 +26,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'moll/vim-bbye'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
+Bundle 'AndrewRadev/splitjoin.vim'
 
 " filetypes and syntax
 Bundle 'vim-ruby/vim-ruby'
