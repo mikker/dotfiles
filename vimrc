@@ -220,3 +220,23 @@ endif
 map <leader>w :Bdelete<cr>
 nmap ø <Plug>VinegarUp
 let g:netrw_liststyle=4
+
+
+set iskeyword+=-
+" in command-line mode, C-a jumps to beginning (to match C-e).
+cnoremap <C-a> <Home>
+noremap <Up> gk
+noremap <Down> gj
+noremap k gk
+noremap j gj
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+
+let g:ctrlp_max_height = 20
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_max_files = 0
+let g:ctrlp_switch_buffer = 0
+
+" Only cache if we're over this number of files.
+let g:ctrlp_use_caching = 2000
+
