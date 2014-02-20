@@ -62,3 +62,4 @@ alias md='open -a Marked'
 alias json='python -mjson.tool'
 alias ta='tmux a'
 alias pweb='python -m SimpleHTTPServer'
+alias batt="pmset -g batt | sed '1d' | sed -e 's/-InternalBattery-0//' | awk '{\$1=\$1}1'"

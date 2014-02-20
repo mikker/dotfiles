@@ -209,6 +209,8 @@ noremap <leader>gp :CtrlP public<cr>
 noremap <leader>gt :CtrlP test<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
+noremap <leader>b :CtrlPBuffer<cr>
+
 " seoul256 theme
 " let g:seoul256_background = 235
 
