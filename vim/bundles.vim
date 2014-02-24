@@ -16,6 +16,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-tbone'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-dispatch'
 
 " things
 Bundle 'kien/ctrlp.vim'
