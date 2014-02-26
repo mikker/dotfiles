@@ -1,0 +1,26 @@
+#!/bin/sh
+DOINGFILE="/Users/mikker/Dropbox/Notes/?? What was I doing.md"
+
+if [[ $# -eq 0 ]]; then
+  awk '{\
+  if (currently==1)
+    if (match($0,/^[^\t]/))
+      currently=0
+    else {
+      if ($0 !~ /@done/) {
+        sub(/^[ \t]+/,"")
+        print
+      }
+    }
+  else
+    if (match($0,"Currently:"))
+      currently=1
+  }' "$DOINGFILE"
+else
+  input="$@"
+  head=`awk 'NR < 3' "$DOINGFILE"`
+  tail=`awk 'NR > 2' "$DOINGFILE"`
+  datestamp=`date +'%Y-%m-%d %H:%M'`
+  echo -e "$head\n\t- $datestamp | $input\n$tail" > "$DOINGFILE"
+fi
+

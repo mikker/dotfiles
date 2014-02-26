@@ -190,6 +190,15 @@ augroup vimrcEx
   au BufLeave *.{rb}                  exe "normal! mC"
 augroup END
 
+let g:pencil#wrapModeDefault = 'soft'
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown call pencil#init()
+  autocmd FileType markdown setlocal nonumber
+  autocmd FileType text call pencil#init()
+augroup END
+
 " Plugins
 
 " NERDCommenter

@@ -8,7 +8,7 @@ set go-=L " Removes left hand scroll bar
 
 " Font
 if has('mac')
-  set guifont=Inconsolata\ for\ Powerline:h16
+  set guifont=Liberation\ Mono:h18
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif
@@ -23,3 +23,5 @@ if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif
 
+colorscheme pencil
+set background=light

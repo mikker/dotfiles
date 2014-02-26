@@ -48,6 +48,10 @@ Bundle 'w0ng/vim-hybrid'
 Bundle 'morhetz/gruvbox'
 Bundle 'zeis/vim-kolor'
 Bundle 'endel/vim-github-colorscheme'
-Bundle 'daylerees/colour-schemes', { "rtp": "vim-themes/" }
+
+Bundle 'reedes/vim-pencil'
+Bundle 'reedes/vim-colors-pencil'
+Bundle 'reedes/vim-wordy'
+Bundle 'reedes/vim-wheel'
 
 filetype on
