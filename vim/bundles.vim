@@ -29,6 +29,7 @@ Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'vim-scripts/renamer.vim'
+Bundle 'junegunn/goyo.vim'
 
 " filetypes and syntax
 Bundle 'vim-ruby/vim-ruby'
@@ -45,10 +46,9 @@ Bundle 'msanders/cocoa.vim'
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
 Bundle 'w0ng/vim-hybrid'
-Bundle 'morhetz/gruvbox'
 Bundle 'zeis/vim-kolor'
-Bundle 'endel/vim-github-colorscheme'
 
+" writing
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-colors-pencil'
 Bundle 'reedes/vim-wordy'

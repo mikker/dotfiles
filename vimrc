@@ -14,6 +14,14 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
+set statusline=
+set statusline+=\[%n\]\              " buffer num and flags
+set statusline+=%<%f                         " relative path
+set statusline+=%m                           " modified flag
+set statusline+=%=                           " flexible space
+set statusline+=\ %{fugitive#statusline()}   " git status
+set statusline+=%y%*%*                       " filetype
+
 " highlight current line
 set cursorline
 
