@@ -40,6 +40,7 @@ set statusline+=\[%n\]\   " buffer num and flags
 set statusline+=%<%f      " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
+set statusline+=%{fugitive#statusline()}
 set statusline+=%y%*%*    " filetype
 
 set background=dark
@@ -53,6 +54,8 @@ set winminheight=3
 set winheight=999
 
 set iskeyword+=-
+
+set foldlevel=999
 
 " }}}
 " {{{ Mappings
@@ -175,6 +178,8 @@ com! Marked call Marked()
 " {{{ File types
 augroup vimrcEx
   autocmd!
+
+  au BufRead,BufNewFile *.{html,xml} set foldmethod=indent
 
   " Ruby
   au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
