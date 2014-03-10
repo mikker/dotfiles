@@ -17,6 +17,7 @@ Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-tbone'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-unimpaired'
 
 " things
 Bundle 'kien/ctrlp.vim'
@@ -28,8 +29,8 @@ Bundle 'moll/vim-bbye'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'vim-scripts/renamer.vim'
 Bundle 'junegunn/goyo.vim'
+Bundle 'mikker/vim-osx-colorpicker'
 
 " filetypes and syntax
 Bundle 'vim-ruby/vim-ruby'

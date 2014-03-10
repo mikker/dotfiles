@@ -1,10 +1,13 @@
+" vim: fdm=marker foldlevel=0
 set nocompatible
 
 if filereadable(expand("~/.vim/bundles.vim"))
   source ~/.vim/bundles.vim
 endif
 
-filetype plugin indent on
+" filetype plugin indent on
+
+" {{{ Directories
 
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
@@ -14,105 +17,109 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
-set statusline=
-set statusline+=\[%n\]\              " buffer num and flags
-set statusline+=%<%f " {pathshorten(expand('%'))}                         " relative path
-set statusline+=%m                           " modified flag
-set statusline+=%=                           " flexible space
-set statusline+=%y%*%*                       " filetype
+" }}}
+" {{{ Basics
 
-" highlight current line
-set cursorline
-
-let mapleader = ","
-
-" set mouse=a
+set mouse=nvi " enable mouse
+set cursorline " highlight current line
 
 set hidden " allow buffers in background
-
-" Indentation
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
-" Completion
 set wildmode=longest:list,full
-" set wildignore+=tags
+set wildignore+=tags
 
-set showcmd
-
-" ag for ack
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ack.vim searches with ag
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-endif
-
-" Search
 set ignorecase " search is case insensitive
 set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
-" Color scheme
+set statusline=
+set statusline+=\[%n\]\   " buffer num and flags
+set statusline+=%<%f      " relative path
+set statusline+=%m        " modified flag
+set statusline+=%=        " flexible space
+set statusline+=%y%*%*    " filetype
+
+set background=dark
 colorscheme seoul256
 
-" Line numbers
 set number
 set numberwidth=3
 
-" Windows
 set winheight=3
 set winminheight=3
 set winheight=999
 
-" Always use \v search
-" nnoremap / /\v
-" vnoremap / /\v
+set iskeyword+=-
 
-" Quickly jump between two recent files
-nnoremap <leader><leader> <c-^>
+" }}}
+" {{{ Mappings
 
-" Un-highlight search results
+let mapleader = ","
+
 map <cr> :nohl<cr>
 
-" Make < > shifts keep selection
-vnoremap < <gv
-vnoremap > >gv
+" jumping
+nnoremap <leader><leader> <c-^>
+nnoremap <Home> :bp<CR>
+nnoremap <End> :bn<CR>
 
-" fold by syntax
-set foldmethod=syntax " fold by syntax
-set foldlevel=20 " folds come expanded
-set foldlevelstart=20 " ... every time
 " space toggles current fold
 nmap <space> za
-
 " yank to system clipboard
 map <leader>y "*y
-
 " Don't move on *
 nnoremap * *<c-o>
-
 " Danish keyboards are different
-map æ :
+noremap æ [
+noremap ø ]
 noremap - /
 onoremap _ ^
-
-" qq to record, Q to replay - uppercase Q is weird anyways
+" qq to record, Q to replay
 nnoremap Q @q
+" re-read current file from disk
+nmap <F5> :e %<cr>
+" toggle paste mode
+set pastetoggle=<F6>
+
+" Open splits at top level
+map <c-w>V :botright :vertical :split<cr>
+map <c-w>S :topleft :split<cr>
+
+" Map ,e to open files in the same directory as the current file
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+
+" Easy window navigation
+noremap <C-h>  <C-w>h
+noremap <C-j>  <C-w>j
+noremap <C-k>  <C-w>k
+noremap <C-l>  <C-w>l
+
+" Allow . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
+
+" visual moving
+noremap <Up> gk
+noremap <Down> gj
+noremap k gk
+noremap j gj
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+
+map <leader>w :Bdelete<cr>
+nmap å <Plug>VinegarUp
+nnoremap Y y$
+
+" }}}
+" {{{ Functions and commands
 
 " I'm too fast for my own good
 command! W :w
 command! Wq :wq
-
-" re-read current file from disk
-nmap <F5> :e %<cr>
-
-" toggle paste mode
-set pastetoggle=<F6>
+command! Qa :qa
 
 " git shortcuts
 command! GP Git push
@@ -132,10 +139,6 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
-" Open splits at top level
-map <c-w>V :botright :vertical :split<cr>
-map <c-w>S :topleft :split<cr>
-
 " Quicker filetype setting:
 "   :F html
 command! -nargs=1 F set filetype=<args>
@@ -150,41 +153,35 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
-" Map ,e to open files in the same directory as the current file
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>e :edit %%
-
-" Easy window navigation
-noremap <C-h>  <C-w>h
-noremap <C-j>  <C-w>j
-noremap <C-k>  <C-w>k
-noremap <C-l>  <C-w>l
-
-" Allow . to execute once for each line of a visual selection
-vnoremap . :normal .<CR>
-
 " Rename current file
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'))
   if new_name != '' && new_name != old_name
     exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
+    exec ':silent call system("rm ' . old_name . '")'
     redraw!
   endif
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-" file type specifics
+" Open current file in Marked
+fun! Marked()
+  call system("open -a Marked " . expand("%"))
+endfun
+com! Marked call Marked()
+
+" }}}
+" {{{ File types
 augroup vimrcEx
   autocmd!
 
-  " File types
+  " Ruby
   au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
-  au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
 
-  " Foldmethod
-  au BufNewFile,BufReadPost *.{coffee,rb} setlocal foldmethod=indent
+  " Markdown
+  au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
+  au FileType markdown noremap <buffer> <leader>r :Marked<cr>
 
   " mark Jekyll YAML frontmatter as comment
   au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
@@ -197,16 +194,15 @@ augroup vimrcEx
   au BufLeave *.{rb}                  exe "normal! mC"
 augroup END
 
-let g:pencil#wrapModeDefault = 'soft'
-
 augroup pencil
   autocmd!
   autocmd FileType markdown call pencil#init()
-  autocmd FileType markdown setlocal nonumber
+  autocmd FileType markdown let g:pencil#wrapModeDefault = 'soft'
   autocmd FileType text call pencil#init()
 augroup END
 
-" Plugins
+" }}}
+" Plugins {{{
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings=0
@@ -223,38 +219,30 @@ noremap <leader>gv :CtrlP app/views<cr>
 noremap <leader>gm :CtrlP app/models<cr>
 noremap <leader>gp :CtrlP public<cr>
 noremap <leader>gt :CtrlP test<cr>
+noremap <leader>gs :CtrlP spec<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
 noremap <leader>b :CtrlPBuffer<cr>
-
 " seoul256 theme
-" let g:seoul256_background = 235
+" let g:seoul256_background = 236
 
-" Local config
+" ag for ack
+" brew install the-silver-searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " ack.vim searches with ag
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
+
+" }}}
+
 if filereadable(expand("$HOME/.vimrc.local"))
   source $HOME/.vimrc.local
 endif
 
-map <leader>w :Bdelete<cr>
-nmap ø <Plug>VinegarUp
-let g:netrw_liststyle=4
-
-
-set iskeyword+=-
-" in command-line mode, C-a jumps to beginning (to match C-e).
-cnoremap <C-a> <Home>
-noremap <Up> gk
-noremap <Down> gj
-noremap k gk
-noremap j gj
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
-
-let g:ctrlp_max_height = 20
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_max_files = 0
-let g:ctrlp_switch_buffer = 0
-
-" Only cache if we're over this number of files.
-let g:ctrlp_use_caching = 2000
+" let g:netrw_liststyle = 4
+let g:colorpicker_app = 'iTerm.app'
 
