@@ -44,7 +44,7 @@ set statusline+=%{fugitive#statusline()}
 set statusline+=%y%*%*    " filetype
 
 set background=dark
-colorscheme seoul256
+colorscheme Tomorrow-Night
 
 set number
 set numberwidth=3
@@ -95,6 +95,14 @@ map <c-w>S :topleft :split<cr>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
 
+" visual moving
+noremap <Up> gk
+noremap <Down> gj
+noremap k gk
+noremap j gj
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+
 " Easy window navigation
 noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
@@ -104,17 +112,11 @@ noremap <C-l>  <C-w>l
 " Allow . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
 
-" visual moving
-noremap <Up> gk
-noremap <Down> gj
-noremap k gk
-noremap j gj
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
-
 map <leader>w :Bdelete<cr>
 nmap å <Plug>VinegarUp
 nnoremap Y y$
+
+map <leader>r :%s--
 
 " }}}
 " {{{ Functions and commands
