@@ -17,20 +17,15 @@ Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-tbone'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-unimpaired'
 
 " things
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-scripts/BufOnly.vim'
-Bundle 'junegunn/vim-easy-align'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'mileszs/ack.vim'
-Bundle 'moll/vim-bbye'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'junegunn/goyo.vim'
-Bundle 'mikker/vim-osx-colorpicker'
+Bundle 'moll/vim-bbye'
 
 " filetypes and syntax
 Bundle 'vim-ruby/vim-ruby'
@@ -46,13 +41,19 @@ Bundle 'msanders/cocoa.vim'
 " stupid themes
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
+Bundle 'croaker/mustang-vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'zeis/vim-kolor'
+Bundle 'reedes/vim-colors-pencil'
 
 " writing
-Bundle 'reedes/vim-pencil'
-Bundle 'reedes/vim-colors-pencil'
-Bundle 'reedes/vim-wordy'
-Bundle 'reedes/vim-wheel'
+" Bundle 'reedes/vim-pencil'
+" Bundle 'reedes/vim-wordy'
+" Bundle 'reedes/vim-wheel'
+
+" Bundle 'junegunn/vim-easy-align'
+" Bundle 'mileszs/ack.vim'
+" Bundle 'junegunn/goyo.vim'
+" Bundle 'mikker/vim-osx-colorpicker'
 
 filetype on

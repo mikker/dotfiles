@@ -5,7 +5,7 @@ if filereadable(expand("~/.vim/bundles.vim"))
   source ~/.vim/bundles.vim
 endif
 
-" filetype plugin indent on
+filetype plugin indent on
 
 " {{{ Directories
 
@@ -44,7 +44,7 @@ set statusline+=%{fugitive#statusline()}
 set statusline+=%y%*%*    " filetype
 
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme DimmedMonokai
 
 set number
 set numberwidth=3
@@ -66,8 +66,10 @@ map <cr> :nohl<cr>
 
 " jumping
 nnoremap <leader><leader> <c-^>
-nnoremap <Home> :bp<CR>
-nnoremap <End> :bn<CR>
+nnoremap <PageUp> :bp<CR>
+nnoremap <PageDown> :bn<CR>
+nnoremap <Home> :tabp<cr>
+nnoremap <End> :tabn<cr>
 
 " space toggles current fold
 nmap <space> za
@@ -76,8 +78,8 @@ map <leader>y "*y
 " Don't move on *
 nnoremap * *<c-o>
 " Danish keyboards are different
-noremap æ [
-noremap ø ]
+onoremap æ [
+onoremap ø ]
 noremap - /
 onoremap _ ^
 " qq to record, Q to replay
@@ -181,7 +183,11 @@ com! Marked call Marked()
 augroup vimrcEx
   autocmd!
 
-  au BufRead,BufNewFile *.{html,xml} set foldmethod=indent
+  " {HT,X}ML
+  au BufRead,BufNewFile *.{html,xml} <buffer> set foldmethod=indent
+
+  " JS
+  au FileType javascript <buffer> set foldmethod=syntax
 
   " Ruby
   au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
@@ -217,7 +223,7 @@ let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
 " CtrlP
 noremap <leader>f :CtrlP<cr>
-" noremap <leader>F :CtrlP %%<cr>
+noremap <leader>F :CtrlP %%<cr>
 " Map keys to go to specific files
 noremap <leader>ga :CtrlP app/assets<cr>
 noremap <leader>gc :CtrlP app/controllers<cr>
@@ -252,4 +258,25 @@ endif
 
 " let g:netrw_liststyle = 4
 let g:colorpicker_app = 'iTerm.app'
+
+let g:notes_directory = '~/Dropbox/Notes/'
+
+fun! NoteComplete(arg, line, pos)
+  return split(system('ls ' . g:notes_directory), "\n")
+endfun
+
+fun! Note(...)
+  let l:dir = g:notes_directory
+
+  if a:0 > 0 " at least one argument
+    let l:file = l:dir . join(a:000, " ")
+  else " no arguments
+    let l:timestamp = system('date +"%Y-%m-%d" | tr -d "\n"')
+    let l:file = l:dir . l:timestamp . '.md'
+  end
+
+  echom 'tabedit ' . l:file
+endfun
+
+command! -nargs=? Note call Note(expand('<args>'))
 
