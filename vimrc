@@ -7,7 +7,7 @@ endif
 
 filetype plugin indent on
 
-" {{{ Directories
+" {{{ Basics
 
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
@@ -17,18 +17,17 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
-" }}}
-" {{{ Basics
-
 set mouse=nvi " enable mouse
+
 set cursorline " highlight current line
 
 set hidden " allow buffers in background
+
 set tabstop=2
 set shiftwidth=2
-set expandtab
+set expandtab " use spaces for tabs
+
 set wildmode=longest:list,full
-set wildignore+=tags
 
 set ignorecase " search is case insensitive
 set smartcase " ... unless you use upper case
@@ -53,21 +52,15 @@ set winheight=3
 set winminheight=3
 set winheight=999
 
-set iskeyword+=-
-
-set foldlevel=999
-
 " }}}
 " {{{ Mappings
 
 let mapleader = ","
 
-map <cr> :nohl<cr>
+nnoremap <cr> :nohl<cr>
 
 " jumping
 nnoremap <leader><leader> <c-^>
-nnoremap <PageUp> :bp<CR>
-nnoremap <PageDown> :bn<CR>
 nnoremap <Home> :tabp<cr>
 nnoremap <End> :tabn<cr>
 
@@ -78,8 +71,8 @@ map <leader>y "*y
 " Don't move on *
 nnoremap * *<c-o>
 " Danish keyboards are different
-onoremap æ [
-onoremap ø ]
+map æ [
+map ø ]
 noremap - /
 onoremap _ ^
 " qq to record, Q to replay
@@ -114,11 +107,8 @@ noremap <C-l>  <C-w>l
 " Allow . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
 
-map <leader>w :Bdelete<cr>
-nmap å <Plug>VinegarUp
+" Y behaves like other capital letters
 nnoremap Y y$
-
-map <leader>r :%s--
 
 " }}}
 " {{{ Functions and commands
@@ -127,11 +117,6 @@ map <leader>r :%s--
 command! W :w
 command! Wq :wq
 command! Qa :qa
-
-" git shortcuts
-command! GP Git push
-command! GU Git pull
-command! GB !hub browse
 
 " Multi-purpose tab-key
 " Insert tab if beginning of line or after space, else do completion
@@ -172,31 +157,12 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-" Open current file in Marked
-fun! Marked()
-  call system("open -a Marked " . expand("%"))
-endfun
-com! Marked call Marked()
-
 " }}}
-" {{{ File types
+" {{{ Autocommands
 augroup vimrcEx
   autocmd!
 
-  " {HT,X}ML
-  au BufRead,BufNewFile *.{html,xml} <buffer> set foldmethod=indent
-
-  " JS
-  au FileType javascript <buffer> set foldmethod=syntax
-
-  " Ruby
-  au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
-
-  " Markdown
-  au BufRead,BufNewFile *.{markdown,mdown,md} set ft=markdown
-  au FileType markdown noremap <buffer> <leader>r :Marked<cr>
-
-  " mark Jekyll YAML frontmatter as comment
+  " YAML front-matter
   au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
 
   " magic markers: enable using `H/S/J/C to jump back to
@@ -207,15 +173,8 @@ augroup vimrcEx
   au BufLeave *.{rb}                  exe "normal! mC"
 augroup END
 
-augroup pencil
-  autocmd!
-  autocmd FileType markdown call pencil#init()
-  autocmd FileType markdown let g:pencil#wrapModeDefault = 'soft'
-  autocmd FileType text call pencil#init()
-augroup END
-
 " }}}
-" Plugins {{{
+" Plugin config and maps {{{
 
 " NERDCommenter
 let g:NERDCreateDefaultMappings=0
@@ -223,7 +182,6 @@ let g:NERDSpaceDelims=1
 map <leader>c <Plug>NERDCommenterToggle
 " CtrlP
 noremap <leader>f :CtrlP<cr>
-noremap <leader>F :CtrlP %%<cr>
 " Map keys to go to specific files
 noremap <leader>ga :CtrlP app/assets<cr>
 noremap <leader>gc :CtrlP app/controllers<cr>
@@ -236,11 +194,9 @@ noremap <leader>gs :CtrlP spec<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
 noremap <leader>b :CtrlPBuffer<cr>
-" seoul256 theme
-" let g:seoul256_background = 236
 
 " ag for ack
-" brew install the-silver-searcher
+" brew install the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -250,14 +206,14 @@ if executable('ag')
   let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
-" }}}
-
-if filereadable(expand("$HOME/.vimrc.local"))
-  source $HOME/.vimrc.local
-endif
-
-" let g:netrw_liststyle = 4
 let g:colorpicker_app = 'iTerm.app'
+
+map <leader>w :Bd<cr>
+map <leader>W :BufOnly<cr>
+
+let g:wildfire_fuel_map = "<PageUp>"
+
+" }}}
 
 let g:notes_directory = '~/Dropbox/Notes/'
 

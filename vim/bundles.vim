@@ -17,6 +17,7 @@ Bundle 'tpope/vim-vinegar'
 Bundle 'tpope/vim-tbone'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-unimpaired'
 
 " things
 Bundle 'kien/ctrlp.vim'
@@ -46,14 +47,15 @@ Bundle 'w0ng/vim-hybrid'
 Bundle 'zeis/vim-kolor'
 Bundle 'reedes/vim-colors-pencil'
 
-" writing
-" Bundle 'reedes/vim-pencil'
+Bundle 'gcmt/wildfire.vim'
+
+Bundle 'reedes/vim-pencil'
+Bundle 'mikker/vim-osx-colorpicker'
+Bundle 'junegunn/vim-easy-align'
+Bundle 'junegunn/goyo.vim'
+
 " Bundle 'reedes/vim-wordy'
 " Bundle 'reedes/vim-wheel'
-
-" Bundle 'junegunn/vim-easy-align'
 " Bundle 'mileszs/ack.vim'
-" Bundle 'junegunn/goyo.vim'
-" Bundle 'mikker/vim-osx-colorpicker'
 
 filetype on
