@@ -52,6 +52,8 @@ set winheight=3
 set winminheight=3
 set winheight=999
 
+set foldlevel=9
+
 " }}}
 " {{{ Mappings
 
@@ -218,21 +220,25 @@ let g:wildfire_fuel_map = "<PageUp>"
 let g:notes_directory = '~/Dropbox/Notes/'
 
 fun! NoteComplete(arg, line, pos)
-  return split(system('ls ' . g:notes_directory), "\n")
+  l:grep = ''
+  if a:arg
+    l:grep = ' | grep ' . a:arg
+  end
+  return split(system('ls ' . g:notes_directory . l:grep), "\n")
 endfun
 
 fun! Note(...)
   let l:dir = g:notes_directory
 
-  if a:0 > 0 " at least one argument
-    let l:file = l:dir . join(a:000, " ")
+  if a:1 != '' " at least one argument
+    let l:file = l:dir . a:1 . '.md'
   else " no arguments
     let l:timestamp = system('date +"%Y-%m-%d" | tr -d "\n"')
     let l:file = l:dir . l:timestamp . '.md'
   end
 
-  echom 'tabedit ' . l:file
+  execute 'tabedit ' . l:file
 endfun
 
-command! -nargs=? Note call Note(expand('<args>'))
+command! -nargs=? -complete=customlist,NoteComplete Note call Note(expand('<args>'))
 
