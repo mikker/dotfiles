@@ -18,6 +18,7 @@ Bundle 'tpope/vim-tbone'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-eunuch'
 
 " things
 Bundle 'kien/ctrlp.vim'
@@ -51,5 +52,7 @@ Bundle 'croaker/mustang-vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'zeis/vim-kolor'
 Bundle 'reedes/vim-colors-pencil'
+
+Bundle 'vim-scripts/renamer.vim'
 
 filetype on

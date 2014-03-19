@@ -202,10 +202,11 @@ noremap <leader>b :CtrlPBuffer<cr>
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  " Use ag in CtrlP
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   " ack.vim searches with ag
-  let g:ackprg = 'ag --nogroup --nocolor --column'
+  let g:ackprg = 'ag'
+  let g:ack_wildignore = 0
 endif
 
 let g:colorpicker_app = 'iTerm.app'
@@ -218,14 +219,6 @@ let g:wildfire_fuel_map = "<PageUp>"
 " }}}
 
 let g:notes_directory = '~/Dropbox/Notes/'
-
-fun! NoteComplete(arg, line, pos)
-  l:grep = ''
-  if a:arg
-    l:grep = ' | grep ' . a:arg
-  end
-  return split(system('ls ' . g:notes_directory . l:grep), "\n")
-endfun
 
 fun! Note(...)
   let l:dir = g:notes_directory
@@ -240,5 +233,5 @@ fun! Note(...)
   execute 'tabedit ' . l:file
 endfun
 
-command! -nargs=? -complete=customlist,NoteComplete Note call Note(expand('<args>'))
+command! -nargs=? Note call Note(expand('<args>'))
 
