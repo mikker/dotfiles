@@ -8,9 +8,9 @@ Bundle 'gmarik/vundle'
 
 " tpope's the shit
 Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-vinegar'
@@ -19,6 +19,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-eunuch'
+Bundle 'tpope/vim-rbenv'
+Bundle 'tpope/vim-repeat'
 
 " things
 Bundle 'kien/ctrlp.vim'
@@ -35,9 +37,9 @@ Bundle 'junegunn/goyo.vim'
 Bundle 'sjl/vitality.vim'
 
 " filetypes and syntax
+Bundle 'tpope/vim-haml'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'pangloss/vim-javascript'
@@ -48,7 +50,6 @@ Bundle 'msanders/cocoa.vim'
 " stupid themes
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
-Bundle 'croaker/mustang-vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'zeis/vim-kolor'
 Bundle 'reedes/vim-colors-pencil'

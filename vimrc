@@ -234,4 +234,3 @@ fun! Note(...)
 endfun
 
 command! -nargs=? Note call Note(expand('<args>'))
-

@@ -3,8 +3,8 @@ set vb
 
 " Looks
 set guioptions-=T " No toolbar
-set guioptions-=r " Removes right hand scroll bar
-set go-=L " Removes left hand scroll bar
+set guioptions-=r " No right hand scroll bar
+set guioptions-=L " No left hand scroll bar
 
 " Font
 if has('mac')
@@ -22,6 +22,3 @@ endif
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif
-
-colorscheme pencil
-set background=light
