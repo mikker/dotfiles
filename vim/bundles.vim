@@ -21,6 +21,9 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-rbenv'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-git'
+Bundle 'tpope/vim-projectile'
+Bundle 'tpope/vim-abolish'
 
 " things
 Bundle 'kien/ctrlp.vim'
@@ -55,5 +58,6 @@ Bundle 'zeis/vim-kolor'
 Bundle 'reedes/vim-colors-pencil'
 
 Bundle 'vim-scripts/renamer.vim'
+Bundle 'wellle/targets.vim'
 
 filetype on

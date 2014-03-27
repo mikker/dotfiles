@@ -1,2 +1,1 @@
-setlocal winheight=999
 

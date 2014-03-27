@@ -37,22 +37,22 @@ set hlsearch " highlight results
 set statusline=
 set statusline+=\[%n\]\   " buffer num and flags
 set statusline+=%<%f      " relative path
-set statusline+=%m        " modified flag
-set statusline+=%=        " flexible space
-set statusline+=%{fugitive#statusline()}
-set statusline+=%y%*%*    " filetype
+" set statusline+=%m        " modified flag
+" set statusline+=%=        " flexible space
+" " set statusline+=%{fugitive#statusline()} " too slow
+" set statusline+=%y%*%*    " filetype
 
 set background=dark
-colorscheme DimmedMonokai
+colorscheme hybrid
 
 set number
 set numberwidth=3
 
-set winheight=3
-set winminheight=3
-set winheight=999
+" set winheight=3
+" set winminheight=3
+" set winheight=999
 
-set foldlevel=9
+set foldlevel=99
 
 " }}}
 " {{{ Mappings
@@ -79,6 +79,7 @@ noremap - /
 onoremap _ ^
 " qq to record, Q to replay
 nnoremap Q @q
+vnoremap Q :normal Q<cr>
 " re-read current file from disk
 nmap <F5> :e %<cr>
 " toggle paste mode
@@ -164,6 +165,9 @@ map <leader>n :call RenameFile()<cr>
 augroup vimrcEx
   autocmd!
 
+  " Auto-open quickfix window after grep cmds
+  autocmd QuickFixCmdPost *grep* cwindow
+
   " YAML front-matter
   au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
 
@@ -218,19 +222,5 @@ let g:wildfire_fuel_map = "<PageUp>"
 
 " }}}
 
-let g:notes_directory = '~/Dropbox/Notes/'
-
-fun! Note(...)
-  let l:dir = g:notes_directory
-
-  if a:1 != '' " at least one argument
-    let l:file = l:dir . a:1 . '.md'
-  else " no arguments
-    let l:timestamp = system('date +"%Y-%m-%d" | tr -d "\n"')
-    let l:file = l:dir . l:timestamp . '.md'
-  end
-
-  execute 'tabedit ' . l:file
-endfun
-
-command! -nargs=? Note call Note(expand('<args>'))
+nmap å <Plug>VinegarUp
+nmap <leader>r :Dispatch<cr>
