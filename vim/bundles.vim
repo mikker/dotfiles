@@ -18,6 +18,7 @@ Bundle 'tpope/vim-tbone'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-eunuch'
 Bundle 'tpope/vim-rbenv'
 Bundle 'tpope/vim-repeat'
@@ -27,17 +28,21 @@ Bundle 'tpope/vim-abolish'
 
 " things
 Bundle 'kien/ctrlp.vim'
-Bundle 'vim-scripts/BufOnly.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'AndrewRadev/splitjoin.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'mikker/sparkup', {'rtp': 'vim/'}
 Bundle 'moll/vim-bbye'
+Bundle 'vim-scripts/renamer.vim'
+
 Bundle 'reedes/vim-pencil'
 Bundle 'mikker/vim-osx-colorpicker'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'junegunn/goyo.vim'
-Bundle 'sjl/vitality.vim'
+
+" Bundle 'vim-scripts/BufOnly.vim'
+" Bundle 'nelstrom/vim-visual-star-search'
+" Bundle 'sjl/vitality.vim'
+" Bundle 'wellle/targets.vim'
 
 " filetypes and syntax
 Bundle 'tpope/vim-haml'
@@ -54,10 +59,6 @@ Bundle 'msanders/cocoa.vim'
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
 Bundle 'w0ng/vim-hybrid'
-Bundle 'zeis/vim-kolor'
 Bundle 'reedes/vim-colors-pencil'
-
-Bundle 'vim-scripts/renamer.vim'
-Bundle 'wellle/targets.vim'
 
 filetype on

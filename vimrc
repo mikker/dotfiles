@@ -39,7 +39,7 @@ set statusline+=\[%n\]\   " buffer num and flags
 set statusline+=%<%f      " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
-" " set statusline+=%{fugitive#statusline()} " too slow
+set statusline+=%{fugitive#statusline()} " too slow
 set statusline+=%y    " filetype
 
 set background=dark
@@ -224,3 +224,20 @@ let g:wildfire_fuel_map = "<PageUp>"
 
 nmap å <Plug>VinegarUp
 nmap <leader>r :Dispatch<cr>
+
+map ' `
+
+" select last paste in visual mode
+nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+
+" populate the argument list with each of the files named in the quickfix list
+function! QuickfixFilenames()
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
+
