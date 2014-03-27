@@ -37,10 +37,10 @@ set hlsearch " highlight results
 set statusline=
 set statusline+=\[%n\]\   " buffer num and flags
 set statusline+=%<%f      " relative path
-" set statusline+=%m        " modified flag
-" set statusline+=%=        " flexible space
+set statusline+=%m        " modified flag
+set statusline+=%=        " flexible space
 " " set statusline+=%{fugitive#statusline()} " too slow
-" set statusline+=%y%*%*    " filetype
+set statusline+=%y    " filetype
 
 set background=dark
 colorscheme hybrid
