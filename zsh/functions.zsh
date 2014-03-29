@@ -77,3 +77,5 @@ ex() {
 abspath() {
   find `pwd` -name "$@"
 }
+
+fun cdgem() { pushd `bundle list $1` && vim . && popd }

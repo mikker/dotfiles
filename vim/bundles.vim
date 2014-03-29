@@ -30,7 +30,7 @@ Bundle 'tpope/vim-abolish'
 Bundle 'kien/ctrlp.vim'
 Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'mikker/sparkup', {'rtp': 'vim/'}
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'moll/vim-bbye'
 Bundle 'vim-scripts/renamer.vim'
 
@@ -60,5 +60,6 @@ Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'junegunn/seoul256.vim'
 Bundle 'w0ng/vim-hybrid'
 Bundle 'reedes/vim-colors-pencil'
+" Bundle 'mikker/Spacedust-theme.vim'
 
 filetype on

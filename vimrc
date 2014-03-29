@@ -43,7 +43,7 @@ set statusline+=%{fugitive#statusline()} " too slow
 set statusline+=%y    " filetype
 
 set background=dark
-colorscheme hybrid
+colorscheme spacedust
 
 set number
 set numberwidth=3
@@ -240,4 +240,7 @@ function! QuickfixFilenames()
   endfor
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
+
+map <PageUp> :bp<cr>
+map <PageDown> :bn<cr>
 

@@ -4,8 +4,8 @@ set -e
 
 CURRENT=`git branch | grep '\*' | awk '{print $2}'`
 if [[ $CURRENT != "develop" && $CURRENT != "master" ]]; then
-  if [ `git branch | grep develop` ]; then
-    TARGET="develop"
+  if [ $1 ]; then
+    TARGET="$1"
   else
     TARGET="master"
   fi
