@@ -10,7 +10,7 @@ alias t="tmux -u"
 # Git
 alias g='git'
 alias gp='git push'
-alias gu='git pull'
+alias gu='git fetch && git rebase origin'
 alias ga='git add --all'
 alias gd='git diff'
 alias gl='git log'
@@ -20,7 +20,7 @@ alias gta='git tree --all'
 alias gdt='git difftool'
 alias gmt='git mergetool'
 alias ms='git checkout master'
-alias up='git checkout master && git pull && git checkout -'
+alias up='git checkout master && git fetch && git rebase origin && git checkout -'
 alias st='git status'
 alias ci='git commit -m'
 # Hub

@@ -42,8 +42,8 @@ set statusline+=%=        " flexible space
 set statusline+=%{fugitive#statusline()} " too slow
 set statusline+=%y    " filetype
 
-set background=dark
-colorscheme spacedust
+let g:zenburn_high_Contrast = 1
+colorscheme zenburn
 
 set number
 set numberwidth=3
@@ -243,4 +243,13 @@ endfunction
 
 map <PageUp> :bp<cr>
 map <PageDown> :bn<cr>
+
+let g:ctrlp_max_height = 20
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_max_files = 0
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_use_caching = 2000
+
+set exrc   " Enable per-directory .vimrc files.
+set secure " Disable unsafe commands in per-directory .vimrc files.
 
