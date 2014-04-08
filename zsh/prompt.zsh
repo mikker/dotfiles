@@ -11,14 +11,15 @@ parse_ssh_connection() {
   [[ -n $SSH_CONNECTION ]] && echo "%m "
 }
 
-local char="$"
-local left="$(parse_ssh_connection)%{$fg[red]%}${char}%{$reset_color%} "
-
 git_info_for_prompt() {
   local git_where="$(parse_git_branch)"
   [ -n "$git_where" ] && echo "%{$fg[yellow]%}[${git_where#(refs/heads/|tags/)}$(parse_git_dirty)]%{$reset_color%}"
 }
 
+local char="$"
+local left="$(parse_ssh_connection)%(1j.%{$fg[magenta]%}[%j]%{$reset_color%}.)%{$fg[red]%}${char}%{$reset_color%} "
+local right="%{$fg[cyan]%}%~%{$reset_color%}$(git_info_for_prompt)"
+
 PROMPT='${left}'
-RPROMPT='%{$fg[cyan]%}%~%{$reset_color%}$(git_info_for_prompt)'
+RPROMPT='${right}'
 

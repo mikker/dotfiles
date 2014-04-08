@@ -40,6 +40,10 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'junegunn/goyo.vim'
 Plugin 'nelstrom/vim-visual-star-search'
 
+" text objects
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+
 " Plugin 'sjl/vitality.vim'
 " Plugin 'wellle/targets.vim'
 
@@ -53,12 +57,18 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'othree/html5.vim'
 Plugin 'JulesWang/css.vim'
 Plugin 'msanders/cocoa.vim'
+Plugin 'mklabs/grunt.vim'
 
 " stupid themes
 Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'junegunn/seoul256.vim'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'reedes/vim-colors-pencil'
-" Plugin 'mikker/Spacedust-theme.vim'
+Plugin 'croaker/mustang-vim'
+Plugin 'file:///Users/mikker/Developer/code/Spacedust-theme.vim'
+" Plugin 'romainl/Apprentice'
+Plugin 'file:///Users/mikker/Developer/code/Apprentice'
+
+Plugin 'ajh17/VimCompletesMe'
 
 filetype on

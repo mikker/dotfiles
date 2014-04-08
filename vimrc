@@ -43,7 +43,7 @@ set statusline+=%{fugitive#statusline()} " too slow
 set statusline+=%y    " filetype
 
 let g:zenburn_high_Contrast = 1
-colorscheme zenburn
+colorscheme apprentice
 
 set number
 set numberwidth=3
@@ -65,23 +65,26 @@ nnoremap <cr> :nohl<cr>
 nnoremap <leader><leader> <c-^>
 nnoremap <Home> :tabp<cr>
 nnoremap <End> :tabn<cr>
+nnoremap <PageUp> :bp<cr>
+nnoremap <PageDown> :bn<cr>
 
 " space toggles current fold
-nmap <space> za
+nnoremap <space> za
 " yank to system clipboard
 map <leader>y "*y
 " Don't move on *
 nnoremap * *<c-o>
+
 " Danish keyboards are different
 map æ [
 map ø ]
 noremap - /
 onoremap _ ^
+
 " qq to record, Q to replay
 nnoremap Q @q
 vnoremap Q :normal Q<cr>
-" re-read current file from disk
-nmap <F5> :e %<cr>
+
 " toggle paste mode
 set pastetoggle=<F6>
 
@@ -113,6 +116,16 @@ vnoremap . :normal .<CR>
 " Y behaves like other capital letters
 nnoremap Y y$
 
+" always jump to char (and not just line)
+map ' `
+
+" Indenting visual selection keeps selection
+vnoremap < <gv
+vnoremap > >gv
+
+" This one's a thing - open current file in Quicksilver
+map ,q :call system("qs ".expand("%"))<cr>
+
 " }}}
 " {{{ Functions and commands
 
@@ -121,18 +134,18 @@ command! W :w
 command! Wq :wq
 command! Qa :qa
 
-" Multi-purpose tab-key
-" Insert tab if beginning of line or after space, else do completion
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+" " Multi-purpose tab-key
+" " Insert tab if beginning of line or after space, else do completion
+" function! InsertTabWrapper()
+"   let col = col('.') - 1
+"   if !col || getline('.')[col - 1] !~ '\k'
+"     return "\<tab>"
+"   else
+"     return "\<c-p>"
+"   endif
+" endfunction
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <s-tab> <c-n>
 
 " Quicker filetype setting:
 "   :F html
@@ -169,7 +182,7 @@ augroup vimrcEx
   autocmd QuickFixCmdPost *grep* cwindow
 
   " YAML front-matter
-  au BufNewFile,BufRead *.{md,markdown,html,xml} sy match Comment /\%^---\_.\{-}---$/
+  au BufNewFile,BufRead *.{md,markdown,html,xml,erb} sy match Comment /\%^---\_.\{-}---$/
 
   " magic markers: enable using `H/S/J/C to jump back to
   " last HTML, stylesheet, JS or Ruby code buffer
@@ -182,10 +195,6 @@ augroup END
 " }}}
 " Plugin config and maps {{{
 
-" NERDCommenter
-let g:NERDCreateDefaultMappings=0
-let g:NERDSpaceDelims=1
-map <leader>c <Plug>NERDCommenterToggle
 " CtrlP
 noremap <leader>f :CtrlP<cr>
 " Map keys to go to specific files
@@ -200,6 +209,12 @@ noremap <leader>gs :CtrlP spec<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
 noremap <leader>b :CtrlPBuffer<cr>
+
+let g:ctrlp_max_height = 20
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_max_files = 0
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_use_caching = 2000
 
 " ag for ack
 " brew install the_silver_searcher
@@ -218,20 +233,16 @@ let g:colorpicker_app = 'iTerm.app'
 map <leader>w :Bd<cr>
 map <leader>W :BufOnly<cr>
 
-let g:wildfire_fuel_map = "<PageUp>"
-
-" }}}
-
 nmap å <Plug>VinegarUp
 nmap <leader>r :Dispatch<cr>
 
-map ' `
+" }}}
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+" Add quickfix-files to args
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-
 " populate the argument list with each of the files named in the quickfix list
 function! QuickfixFilenames()
   let buffer_numbers = {}
@@ -241,15 +252,12 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
-map <PageUp> :bp<cr>
-map <PageDown> :bn<cr>
+" syntax scope of the current char
+fun! SyntaxScope()
+  echo map(synstack(line('.'), col('.')),'synIDattr(v:val, "name")')
+endfun
+com! SyntaxScope call SyntaxScope()
 
-let g:ctrlp_max_height = 20
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_max_files = 0
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_use_caching = 2000
+com! RE call system("touch tmp/restart.txt")
 
-set exrc   " Enable per-directory .vimrc files.
-set secure " Disable unsafe commands in per-directory .vimrc files.
-
+set autoread

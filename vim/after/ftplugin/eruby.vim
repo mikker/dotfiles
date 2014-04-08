@@ -1,2 +1,2 @@
-imap <buffer> t( t(".")<esc>hi
+" imap <buffer> t( t(".")<esc>hi
 

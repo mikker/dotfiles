@@ -78,10 +78,6 @@ abspath() {
   find `pwd` -name "$@"
 }
 
-fun vimgem() {
-  vim `bundle list $1`
-}
-
 fun dsay() {
   wget -q -U Mozilla -O output.mp3 "http://translate.google.com/translate_tts?ie=UTF-8&tl=da&q=$*"
   open output.mp3
