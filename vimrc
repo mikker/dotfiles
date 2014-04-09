@@ -223,9 +223,6 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ack.vim searches with ag
-  let g:ackprg = 'ag'
-  let g:ack_wildignore = 0
 endif
 
 let g:colorpicker_app = 'iTerm.app'
@@ -261,3 +258,6 @@ com! SyntaxScope call SyntaxScope()
 com! RE call system("touch tmp/restart.txt")
 
 set autoread
+
+set exrc
+set secure
