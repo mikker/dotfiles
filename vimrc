@@ -261,3 +261,5 @@ set autoread
 
 set exrc
 set secure
+
+set listchars=tab:»·,trail:·
