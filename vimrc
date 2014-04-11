@@ -263,3 +263,9 @@ set exrc
 set secure
 
 set listchars=tab:»·,trail:·
+
+imap <c-e> <c-o>ve
+
+set history=10000
+set undolevels=10000
+
