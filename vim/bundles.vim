@@ -70,6 +70,4 @@ Plugin 'file:///Users/mikker/Developer/code/Spacedust-theme.vim'
 " Plugin 'romainl/Apprentice'
 Plugin 'file:///Users/mikker/Developer/code/Apprentice'
 
-Plugin 'ajh17/VimCompletesMe'
-
 filetype on

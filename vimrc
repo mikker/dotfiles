@@ -269,3 +269,15 @@ imap <c-e> <c-o>ve
 set history=10000
 set undolevels=10000
 
+" Multi-purpose tab-key
+" Insert tab if beginning of line or after space, else do completion
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
