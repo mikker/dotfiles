@@ -21,7 +21,7 @@ alias gdt='git difftool'
 alias gmt='git mergetool'
 alias ms='git checkout master'
 alias up='git checkout master && git fetch && git rebase origin && git checkout -'
-alias st='git status'
+alias st='git status -sb'
 alias ci='git commit -m'
 # Hub
 alias gb='hub browse'

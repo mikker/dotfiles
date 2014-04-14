@@ -20,12 +20,10 @@ endif
 set mouse=nvi " enable mouse
 
 set cursorline " highlight current line
-
 set hidden " allow buffers in background
+set number " line numbers
 
-set tabstop=2
-set shiftwidth=2
-set expandtab " use spaces for tabs
+set listchars=tab:»·,trail:· " invisible chars
 
 set wildmode=longest:list,full
 
@@ -35,58 +33,37 @@ set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
 set statusline=
-set statusline+=\[%n\]\   " buffer num and flags
-set statusline+=%<%f      " relative path
+set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
-set statusline+=%{fugitive#statusline()} " too slow
-set statusline+=%y    " filetype
+set statusline+=%{fugitive#statusline()} " git
+set statusline+=%{&ft}\   " filetype
 
-let g:zenburn_high_Contrast = 1
+set history=10000
+set undolevels=10000
+
 colorscheme apprentice
-
-set number
-set numberwidth=3
-
-" set winheight=3
-" set winminheight=3
-" set winheight=999
-
-set foldlevel=99
 
 " }}}
 " {{{ Mappings
 
-let mapleader = ","
-
-nnoremap <cr> :nohl<cr>
+nmap <cr> :nohl<cr>
 
 " jumping
-nnoremap <leader><leader> <c-^>
-nnoremap <Home> :tabp<cr>
-nnoremap <End> :tabn<cr>
-nnoremap <PageUp> :bp<cr>
-nnoremap <PageDown> :bn<cr>
+nmap <leader><leader> <c-^>
+nmap <PageUp> :bp<cr>
+nmap <PageDown> :bn<cr>
 
 " space toggles current fold
-nnoremap <space> za
+nmap <space> za
 " yank to system clipboard
-map <leader>y "*y
+vmap <leader>y "*y
 " Don't move on *
 nnoremap * *<c-o>
-
-" Danish keyboards are different
-map æ [
-map ø ]
-noremap - /
-onoremap _ ^
 
 " qq to record, Q to replay
 nnoremap Q @q
 vnoremap Q :normal Q<cr>
-
-" toggle paste mode
-set pastetoggle=<F6>
 
 " Open splits at top level
 map <c-w>V :botright :vertical :split<cr>
@@ -97,21 +74,14 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
 
 " visual moving
-noremap <Up> gk
-noremap <Down> gj
 noremap k gk
 noremap j gj
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
 
 " Easy window navigation
 noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
-
-" Allow . to execute once for each line of a visual selection
-vnoremap . :normal .<CR>
 
 " Y behaves like other capital letters
 nnoremap Y y$
@@ -129,23 +99,18 @@ map ,q :call system("qs ".expand("%"))<cr>
 " }}}
 " {{{ Functions and commands
 
-" I'm too fast for my own good
-command! W :w
-command! Wq :wq
-command! Qa :qa
-
-" " Multi-purpose tab-key
-" " Insert tab if beginning of line or after space, else do completion
-" function! InsertTabWrapper()
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"     return "\<tab>"
-"   else
-"     return "\<c-p>"
-"   endif
-" endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-" inoremap <s-tab> <c-n>
+" Multi-purpose tab-key
+" Insert tab if beginning of line or after space, else do completion
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
 
 " Quicker filetype setting:
 "   :F html
@@ -192,6 +157,14 @@ augroup vimrcEx
   au BufLeave *.{rb}                  exe "normal! mC"
 augroup END
 
+" syntax scope of the current char
+fun! SyntaxScope()
+  echo map(synstack(line('.'), col('.')),'synIDattr(v:val, "name")')
+endfun
+com! SyntaxScope call SyntaxScope()
+
+com! RE call system("touch tmp/restart.txt")
+
 " }}}
 " Plugin config and maps {{{
 
@@ -227,16 +200,9 @@ endif
 
 let g:colorpicker_app = 'iTerm.app'
 
-map <leader>w :Bd<cr>
-map <leader>W :BufOnly<cr>
-
-nmap å <Plug>VinegarUp
 nmap <leader>r :Dispatch<cr>
 
 " }}}
-
-" select last paste in visual mode
-nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Add quickfix-files to args
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
@@ -249,35 +215,9 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
-" syntax scope of the current char
-fun! SyntaxScope()
-  echo map(synstack(line('.'), col('.')),'synIDattr(v:val, "name")')
-endfun
-com! SyntaxScope call SyntaxScope()
-
-com! RE call system("touch tmp/restart.txt")
-
 set autoread
 
-set exrc
-set secure
-
-set listchars=tab:»·,trail:·
+set exrc " auto load local .vimrc files
+set secure " but lets keep it secure
 
 imap <c-e> <c-o>ve
-
-set history=10000
-set undolevels=10000
-
-" Multi-purpose tab-key
-" Insert tab if beginning of line or after space, else do completion
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>

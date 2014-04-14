@@ -27,26 +27,15 @@ Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-sleuth'
 
 " things
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
 
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'moll/vim-bbye'
-Plugin 'vim-scripts/renamer.vim'
-Plugin 'reedes/vim-pencil'
 Plugin 'mikker/vim-osx-colorpicker'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'junegunn/goyo.vim'
 Plugin 'nelstrom/vim-visual-star-search'
-
-" text objects
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-
-" Plugin 'sjl/vitality.vim'
-Plugin 'wellle/targets.vim'
 
 " filetypes and syntax
 Plugin 'tpope/vim-haml'
@@ -57,17 +46,11 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/html5.vim'
 Plugin 'JulesWang/css.vim'
-Plugin 'msanders/cocoa.vim'
-Plugin 'mklabs/grunt.vim'
 
 " stupid themes
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'junegunn/seoul256.vim'
+" Plugin 'junegunn/seoul256.vim'
 Plugin 'w0ng/vim-hybrid'
-Plugin 'reedes/vim-colors-pencil'
-Plugin 'croaker/mustang-vim'
-Plugin 'file:///Users/mikker/Developer/code/Spacedust-theme.vim'
-" Plugin 'romainl/Apprentice'
-Plugin 'file:///Users/mikker/Developer/code/Apprentice'
+" Plugin 'reedes/vim-colors-pencil'
+Plugin 'romainl/Apprentice'
 
 filetype on
