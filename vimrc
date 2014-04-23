@@ -32,6 +32,11 @@ set smartcase " ... unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+
 set statusline=
 set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
@@ -42,17 +47,21 @@ set statusline+=%{&ft}\   " filetype
 set history=10000
 set undolevels=10000
 
+set foldlevel=9
+
 colorscheme apprentice
 
 " }}}
 " {{{ Mappings
 
-nmap <cr> :nohl<cr>
+nmap <c-_> :nohl<cr>
 
 " jumping
 nmap <leader><leader> <c-^>
 nmap <PageUp> :bp<cr>
 nmap <PageDown> :bn<cr>
+
+omap _ ^
 
 " space toggles current fold
 nmap <space> za
@@ -221,3 +230,6 @@ set exrc " auto load local .vimrc files
 set secure " but lets keep it secure
 
 imap <c-e> <c-o>ve
+
+" apprentice theme
+" hi link rubySymbol Type

@@ -17,9 +17,6 @@ git_info_for_prompt() {
 }
 
 local char="$"
-local left="$(parse_ssh_connection)%(1j.%{$fg[magenta]%}[%j]%{$reset_color%}.)%{$fg[red]%}${char}%{$reset_color%} "
-local right="%{$fg[cyan]%}%~%{$reset_color%}$(git_info_for_prompt)"
-
-PROMPT='${left}'
-RPROMPT='${right}'
+PROMPT="$(parse_ssh_connection)%(1j.%{$fg[magenta]%}[%j]%{$reset_color%}.)%{$fg[red]%}${char}%{$reset_color%} "
+RPROMPT="%{$fg[cyan]%}%~%{$reset_color%}$(git_info_for_prompt)"
 
