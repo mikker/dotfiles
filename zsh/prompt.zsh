@@ -22,6 +22,6 @@ precmd () {
 
 setopt prompt_subst
 
-PROMPT='${parse_ssh_connection}%c %(?/%F{blue}/%F{red})$%f '
+PROMPT='${parse_ssh_connection}%c %(1j.%{$fg[magenta]%}[%j]%{$reset_color%}.)%(?/%F{blue}/%F{red})$%f '
 RPROMPT='%F{blue}${vcs_info_msg_0_}%f'
 
