@@ -1,3 +1,5 @@
+fpath=( "$HOME/.zsh/functions" $fpath )
+
 source ~/.zsh/checks.zsh
 source ~/.zsh/colors.zsh
 source ~/.zsh/setopt.zsh

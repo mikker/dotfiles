@@ -23,7 +23,7 @@
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [branch "master"]
-  remote = origin
+  remote = origin,decorate
   merge = refs/heads/master
 [push]
   default = current

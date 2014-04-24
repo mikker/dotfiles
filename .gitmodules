@@ -1,3 +1,6 @@
 [submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule "zsh/vendor/pure"]
+	path = zsh/vendor/pure
+	url = git@github.com:mikker/pure.git
