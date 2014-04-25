@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-apps = %w{ Billings BreakTime }
+apps = %w{ BreakTime }
 
 def bracketize(str = "")
   str.gsub(/^([A-Z])/, '[\1]')

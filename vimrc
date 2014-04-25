@@ -41,7 +41,7 @@ set statusline=
 set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
-set statusline+=%{fugitive#statusline()} " git
+" set statusline+=%{fugitive#statusline()} " git
 set statusline+=%{&ft}\   " filetype
 
 set history=10000

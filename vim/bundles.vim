@@ -48,9 +48,9 @@ Plugin 'othree/html5.vim'
 Plugin 'JulesWang/css.vim'
 
 " stupid themes
-" Plugin 'junegunn/seoul256.vim'
+Plugin 'junegunn/seoul256.vim'
 Plugin 'w0ng/vim-hybrid'
-" Plugin 'reedes/vim-colors-pencil'
+Plugin 'reedes/vim-colors-pencil'
 Plugin 'romainl/Apprentice'
 
 filetype on
