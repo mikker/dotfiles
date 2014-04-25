@@ -1,7 +1,7 @@
 # General
 alias so='source'
 alias l='ls'
-alias ll='ls -l'
+alias ll='ls -lh'
 alias la='ls -a'
 
 # tmux
