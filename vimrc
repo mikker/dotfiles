@@ -42,7 +42,7 @@ set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
 " set statusline+=%{fugitive#statusline()} " git
-set statusline+=%{&ft}\   " filetype
+set statusline+=\ %{&ft}\   " filetype
 
 set history=10000
 set undolevels=10000
@@ -126,7 +126,7 @@ inoremap <s-tab> <c-n>
 command! -nargs=1 F set filetype=<args>
 command! FR set filetype=ruby
 
-" Function to strip trailing whitespace
+" search and replace
 fun! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
@@ -231,5 +231,6 @@ set secure " but lets keep it secure
 
 imap <c-e> <c-o>ve
 
-" apprentice theme
-" hi link rubySymbol Type
+let g:UltiSnipsExpandTrigger="<c-@>"
+let g:UltiSnipsJumpForwardTrigger="<c-@>"
+

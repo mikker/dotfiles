@@ -14,7 +14,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-projectile'
+Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-commentary'
 " ... I mean come on?
@@ -27,12 +27,11 @@ Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-sleuth'
+" Plugin 'tpope/vim-sleuth'
 
 " things
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
-
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'mikker/vim-osx-colorpicker'
 Plugin 'nelstrom/vim-visual-star-search'
@@ -52,5 +51,8 @@ Plugin 'junegunn/seoul256.vim'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'reedes/vim-colors-pencil'
 Plugin 'romainl/Apprentice'
+
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets.git'
 
 filetype on
