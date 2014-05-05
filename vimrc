@@ -9,9 +9,9 @@ filetype plugin indent on
 
 " {{{ Basics
 
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 if exists("+undofile")
   set undofile
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -27,8 +27,8 @@ set listchars=tab:»·,trail:· " invisible chars
 
 set wildmode=longest:list,full
 
-set ignorecase " search is case insensitive
-set smartcase " ... unless you use upper case
+" search is case insensitive unless you use upper case
+set ignorecase smartcase
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 

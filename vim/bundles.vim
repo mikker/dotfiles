@@ -53,6 +53,6 @@ Plugin 'reedes/vim-colors-pencil'
 Plugin 'romainl/Apprentice'
 
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets.git'
+" Plugin 'honza/vim-snippets.git'
 
 filetype on
