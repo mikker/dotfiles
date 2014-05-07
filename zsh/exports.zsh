@@ -4,7 +4,7 @@ export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
 
-export LESS='--ignore-case --raw-control-chars'
+export LESS='-FRX'
 export PAGER='less'
 
 export VISUAL=vim
