@@ -11,3 +11,4 @@ com! Marked call Marked()
 
 nnoremap <buffer> <leader>r :Marked<cr>
 
+xmap <leader>lc S]f]a(<c-r>*)<esc>

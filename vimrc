@@ -72,8 +72,8 @@ vmap <leader>y "*y
 nnoremap * *<c-o>
 
 " qq to record, Q to replay
-nnoremap Q @q
-vnoremap Q :normal Q<cr>
+nmap Q @q
+vmap Q :normal Q<cr>
 
 " Open splits at top level
 map <c-w>V :botright :vertical :split<cr>
