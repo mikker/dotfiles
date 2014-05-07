@@ -36,6 +36,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set autoindent
+set expandtab
 
 set statusline=
 set statusline+=\ %<%f    " relative path
@@ -233,4 +234,6 @@ imap <c-e> <c-o>ve
 
 let g:UltiSnipsExpandTrigger="<c-@>"
 let g:UltiSnipsJumpForwardTrigger="<c-@>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
 
