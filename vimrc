@@ -55,6 +55,8 @@ colorscheme apprentice
 " }}}
 " {{{ Mappings
 
+let mapleader = ","
+
 nmap <c-_> :nohl<cr>
 
 " jumping
@@ -237,3 +239,5 @@ let g:UltiSnipsJumpForwardTrigger="<c-@>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
+command! GP Git push
+command! GB Gbrowse

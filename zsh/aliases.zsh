@@ -6,10 +6,12 @@ alias la='ls -a'
 
 # tmux
 alias t="tmux -u"
+alias ta='tmux a'
 
 # Git
 alias g='git'
 alias gp='git push'
+alias gf='git fetch'
 alias gu='git fetch && git rebase origin'
 alias ga='git add --all'
 alias gd='git diff'
@@ -59,10 +61,9 @@ alias po='popd'
 alias pyg='pygmentize -g'
 alias md='open -a Marked'
 alias json='python -mjson.tool'
-alias ta='tmux a'
 alias pweb='python -m SimpleHTTPServer'
 alias batt="pmset -g batt | sed '1d' | sed -e 's/-InternalBattery-0//' | awk '{\$1=\$1}1'"
 
 alias safari_address="osascript -e 'tell application \"Safari\" to return URL of current tab of front window'"
 
-alias tmux-set-title="tmux rename-session `basename $(pwd)`"
+alias tmux-set-title="tmux rename-session \`basename \$(pwd)\`"

@@ -2,8 +2,16 @@ snippet f "function"
 function($1) {$0}
 endsnippet
 
+snippet fn "function with name"
+function ${1:Name}($2) {$0}
+endsnippet
+
 snippet .then "Then"
 then(function($1) {
-  $0
+	$0
 })
+endsnippet
+
+snippet cl "Console log"
+console.log(${1:"${2:thing}"})$0
 endsnippet
