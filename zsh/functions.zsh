@@ -78,7 +78,17 @@ abspath() {
   find `pwd` -name "$@"
 }
 
-fun dsay() {
+dsay() {
   wget -q -U Mozilla -O output.mp3 "http://translate.google.com/translate_tts?ie=UTF-8&tl=da&q=$*"
   open output.mp3
+}
+
+# Open argument in Dash
+dash() {
+  open "dash://$*"
+}
+
+# Make a new tmux window and run $@ in it
+nw() {
+  tmux new-window && tmux send-keys "$*" C-m
 }

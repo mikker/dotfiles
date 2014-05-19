@@ -1,0 +1,3 @@
+au Syntax clojure RainbowParenthesesActivate
+au Syntax clojure RainbowParenthesesLoadRound
+

@@ -8,16 +8,17 @@ Plugin 'gmarik/vundle'
 
 " tpope's the shit
 Plugin 'tpope/vim-sensible'
+" Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-commentary'
-" ... I mean come on?
+" " ... I mean come on?
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-ragtag'
@@ -27,27 +28,27 @@ Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-liquid'
-Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-characterize'
 
 " things
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'mikker/vim-osx-colorpicker'
-Plugin 'nelstrom/vim-visual-star-search'
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Plugin 'mikker/vim-osx-colorpicker'
+" Plugin 'nelstrom/vim-visual-star-search'
 
-" filetypes and syntax
+" " filetypes and syntax
+" Plugin 'vim-ruby/vim-ruby'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'tpope/vim-liquid'
+Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-haml'
-Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'slim-template/vim-slim'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/html5.vim'
 Plugin 'JulesWang/css.vim'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'othree/html5.vim'
 
 " stupid themes
 Plugin 'junegunn/seoul256.vim'
@@ -56,6 +57,13 @@ Plugin 'reedes/vim-colors-pencil'
 Plugin 'romainl/Apprentice'
 
 Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets.git'
+Plugin 'honza/vim-snippets.git'
+
+" " clojure
+Plugin 'guns/vim-clojure-static'
+" Plugin 'tpope/vim-classpath'
+Plugin 'tpope/vim-leiningen'
+Plugin 'tpope/vim-fireplace'
+Plugin 'kien/rainbow_parentheses.vim'
 
 filetype on

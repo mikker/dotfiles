@@ -17,45 +17,50 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
-set mouse=nvi " enable mouse
-
+set mouse=nvi " enable mouse in normal mode
 set cursorline " highlight current line
 set hidden " allow buffers in background
 set number " line numbers
-
 set listchars=tab:»·,trail:· " invisible chars
+set list
 
 set wildmode=longest:list,full
 
-" search is case insensitive unless you use upper case
-set ignorecase smartcase
+set ignorecase smartcase " search is case insensitive unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
 set hlsearch " highlight results
 
+set expandtab " spaces for tabs
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set autoindent
-set expandtab
+
+set laststatus=2
+
+set switchbuf=useopen
 
 set statusline=
 set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
-" set statusline+=%{fugitive#statusline()} " git
+set statusline+=%{fugitive#statusline()} " git
 set statusline+=\ %{&ft}\   " filetype
 
-set history=10000
-set undolevels=10000
+set history=1000
+set undolevels=1000
 
-set foldlevel=9
+set foldlevel=999 " folds come expanded
 
 colorscheme apprentice
 
+set autoread
+
+set exrc " auto load local .vimrc files
+set secure " but lets keep it secure
+
 " }}}
 " {{{ Mappings
-
-let mapleader = ","
 
 nmap <c-_> :nohl<cr>
 
@@ -63,8 +68,6 @@ nmap <c-_> :nohl<cr>
 nmap <leader><leader> <c-^>
 nmap <PageUp> :bp<cr>
 nmap <PageDown> :bn<cr>
-
-omap _ ^
 
 " space toggles current fold
 nmap <space> za
@@ -77,12 +80,9 @@ nnoremap * *<c-o>
 nmap Q @q
 vmap Q :normal Q<cr>
 
-" Open splits at top level
-map <c-w>V :botright :vertical :split<cr>
-map <c-w>S :topleft :split<cr>
-
-" Map ,e to open files in the same directory as the current file
+" %% Expands to dir of current file in cmd mode
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
+" Map <leader>e to open files in the same directory as the current file
 map <leader>e :edit %%
 
 " visual moving
@@ -106,7 +106,14 @@ vnoremap < <gv
 vnoremap > >gv
 
 " This one's a thing - open current file in Quicksilver
-map ,q :call system("qs ".expand("%"))<cr>
+map <leader>q :call system("qs ".expand("%"))<cr>
+
+" I SAID CLOSE THAT WINDOW
+nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
+
+" Visual select the next word from insert mode
+imap <c-e> <c-o>ve
+
 
 " }}}
 " {{{ Functions and commands
@@ -138,17 +145,16 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
-" Rename current file
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'))
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent call system("rm ' . old_name . '")'
-    redraw!
-  endif
+" Add quickfix-files to args
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+" populate the argument list with each of the files named in the quickfix list
+function! QuickfixFilenames()
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
-map <leader>n :call RenameFile()<cr>
 
 " }}}
 " {{{ Autocommands
@@ -214,26 +220,6 @@ let g:colorpicker_app = 'iTerm.app'
 
 nmap <leader>r :Dispatch<cr>
 
-" }}}
-
-" Add quickfix-files to args
-command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-" populate the argument list with each of the files named in the quickfix list
-function! QuickfixFilenames()
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
-endfunction
-
-set autoread
-
-set exrc " auto load local .vimrc files
-set secure " but lets keep it secure
-
-imap <c-e> <c-o>ve
-
 let g:UltiSnipsExpandTrigger="<c-@>"
 let g:UltiSnipsJumpForwardTrigger="<c-@>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -241,3 +227,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 command! GP Git push
 command! GB Gbrowse
+
+" }}}
+
