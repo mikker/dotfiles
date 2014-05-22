@@ -33,7 +33,7 @@ Plugin 'tpope/vim-characterize'
 " things
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Plugin 'mikker/vim-osx-colorpicker'
 " Plugin 'nelstrom/vim-visual-star-search'
 

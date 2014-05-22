@@ -13,5 +13,40 @@ then(function($1) {
 endsnippet
 
 snippet cl "Console log"
-console.log(${1:"${2:thing}"})$0
+console.log(${1:"${2:thing}"})
 endsnippet
+
+# angular
+
+snippet inj "angular-mock inject"
+inject(function($1) {
+	$0
+})
+endsnippet
+
+# jasmine
+
+snippet desc "jasmine describe"
+describe("${1:thing}", function() {
+	$0
+});
+endsnippet
+
+snippet it "jasmine it"
+it("${1:does}", function() {
+	$0
+});
+endsnippet
+
+snippet bef "jasmine beforeEach"
+beforeEach(${1:function() {
+	$2
+}});
+endsnippet
+
+snippet aft "jasmine afterEach"
+afterEach(${1:function() {
+	$2
+}});
+endsnippet
+

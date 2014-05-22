@@ -7,6 +7,8 @@ endif
 
 filetype plugin indent on
 
+let mapleader=","
+
 " {{{ Basics
 
 set backup
@@ -229,4 +231,34 @@ command! GP Git push
 command! GB Gbrowse
 
 " }}}
+
+fun! s:set_mark(args) abort
+  let g:focus=expand(a:args)
+  echo "Focus: ".g:focus.""
+endfun
+
+fun! s:run_mark() abort
+  if !exists("g:focus")
+    echo "No focus set yet"
+  else
+    execute g:focus
+  endif
+endfun
+
+command! -nargs=* Mark call s:set_mark(<q-args>)
+command! -nargs=0 Run call s:run_mark()
+
+augroup mapCREx
+  au!
+  " Leave the return key alone when in command line windows, since it's used
+  " to run commands there.
+  autocmd! CmdwinEnter * :unmap <cr>
+  autocmd! CmdwinLeave * :call MapCR()
+  autocmd! FileType quickfix nnoremap <buffer> <cr> <cr>
+augroup END
+
+fun! MapCR()
+  map <cr> :Run<cr>
+endfun
+call MapCR()
 
