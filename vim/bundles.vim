@@ -8,7 +8,6 @@ Plugin 'gmarik/vundle'
 
 " tpope's the shit
 Plugin 'tpope/vim-sensible'
-" Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-endwise'
@@ -33,12 +32,13 @@ Plugin 'tpope/vim-characterize'
 " things
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'file:///Users/mikker/Developer/code/sparkup', {'rtp': 'vim/'}
 " Plugin 'mikker/vim-osx-colorpicker'
-" Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'vim-scripts/scratch.vim'
 
 " " filetypes and syntax
-" Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tpope/vim-liquid'
 Plugin 'tpope/vim-markdown'
