@@ -61,7 +61,7 @@ Plugin 'honza/vim-snippets.git'
 
 " " clojure
 Plugin 'guns/vim-clojure-static'
-" Plugin 'tpope/vim-classpath'
+Plugin 'tpope/vim-classpath'
 Plugin 'tpope/vim-leiningen'
 Plugin 'tpope/vim-fireplace'
 Plugin 'kien/rainbow_parentheses.vim'

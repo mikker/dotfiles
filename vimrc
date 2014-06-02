@@ -245,8 +245,8 @@ fun! s:run_mark() abort
   endif
 endfun
 
-command! -nargs=* Mark call s:set_mark(<q-args>)
-command! -nargs=0 Run call s:run_mark()
+command! -nargs=* -complete=command Mark call s:set_mark(<q-args>)
+command! -nargs=0 RunMark call s:run_mark()
 
 augroup mapCREx
   au!
@@ -254,7 +254,7 @@ augroup mapCREx
   " to run commands there.
   autocmd! CmdwinEnter * :unmap <cr>
   autocmd! CmdwinLeave * :call MapCR()
-  autocmd! FileType quickfix nnoremap <buffer> <cr> <cr>
+  autocmd! FileType qf nnoremap <buffer> <cr> <cr>
 augroup END
 
 fun! MapCR()

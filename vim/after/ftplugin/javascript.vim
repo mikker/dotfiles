@@ -2,5 +2,5 @@ setlocal foldmethod=syntax
 setlocal foldlevel=9
 setlocal iskeyword+=$
 
-setlocal shiftwidth=2
+map <buffer> <leader>B i_.bind(<esc>f{%a, this)<esc>
 

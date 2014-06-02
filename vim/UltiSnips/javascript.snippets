@@ -24,6 +24,23 @@ inject(function($1) {
 })
 endsnippet
 
+snippet directive "angular directive"
+${1:app}.directive('${2:name}', function($3) {
+	return {
+		restrict: '${4:EA}',
+		${5:scope: {$0}}
+	};
+});
+endsnippet
+
+snippet filter "angular filter"
+${1:app}.filter('${2:name}', function($3) {
+	return function(${4:input}) {
+		return ${5:output};
+	};
+});
+endsnippet
+
 # jasmine
 
 snippet desc "jasmine describe"
