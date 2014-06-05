@@ -1,4 +1,4 @@
-export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$HOME/.bin:$PATH"
 
 # Enable color in grep
 export GREP_OPTIONS='--color=auto'

@@ -16,3 +16,4 @@ REPORTTIME=10
 
 # Local modifications
 [[ -f ~/.local.rc ]] && .  ~/.local.rc
+

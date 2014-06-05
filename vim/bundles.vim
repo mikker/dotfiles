@@ -32,12 +32,11 @@ Plugin 'tpope/vim-characterize'
 " things
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'file:///Users/mikker/Developer/code/sparkup', {'rtp': 'vim/'}
-" Plugin 'mikker/vim-osx-colorpicker'
+Plugin 'mikker/sparkup', {'rtp': 'vim/'}
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'vim-scripts/scratch.vim'
 
-" " filetypes and syntax
+" filetypes and syntax
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tpope/vim-liquid'
@@ -55,9 +54,10 @@ Plugin 'junegunn/seoul256.vim'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'reedes/vim-colors-pencil'
 Plugin 'romainl/Apprentice'
+Plugin 'noahfrederick/vim-hemisu'
 
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets.git'
+" Plugin 'honza/vim-snippets.git'
 
 " " clojure
 Plugin 'guns/vim-clojure-static'
