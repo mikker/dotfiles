@@ -16,6 +16,12 @@ snippet cl "Console log"
 console.log(${1:"${2:thing}"})
 endsnippet
 
+snippet fs "Private scope"
+(function() {
+	$0
+})();
+endsnippet
+
 # angular
 
 snippet inj "angular-mock inject"
@@ -61,9 +67,23 @@ beforeEach(${1:function() {
 }});
 endsnippet
 
+snippet befm "jasmine angular module"
+beforeEach(module('${1:name}'));
+endsnippet
+
+snippet befi "jasmine angular inject"
+beforeEach(inject(function($1) {
+	$0
+}));
+endsnippet
+
 snippet aft "jasmine afterEach"
 afterEach(${1:function() {
 	$2
 }});
+endsnippet
+
+snippet exp "jasmine expect"
+expect($1).${2:toEqual(${3:thing})};
 endsnippet
 
