@@ -262,3 +262,6 @@ fun! MapCR()
 endfun
 call MapCR()
 
+let g:slime_target = "tmux"
+
+map <leader>q :bufdo bd<cr>

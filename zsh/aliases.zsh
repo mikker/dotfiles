@@ -7,12 +7,14 @@ alias la='ls -a'
 # tmux
 alias t="tmux -u"
 alias ta='tmux a'
+alias tk='tmux kill-session'
+alias tmux-set-title="tmux rename-session \`basename \$(pwd)\`"
 
 # Git
 alias g='git'
 alias gp='git push'
 alias gf='git fetch'
-alias gu='git fetch && git rebase origin'
+alias gu='git pull'
 alias ga='git add --all'
 alias gd='git diff'
 alias gl='git log'
@@ -21,10 +23,11 @@ alias gt='git tree'
 alias gta='git tree --all'
 alias gdt='git difftool'
 alias gmt='git mergetool'
-alias ms='git checkout master'
-alias up='git checkout master && git fetch && git rebase origin && git checkout -'
 alias st='git status -sb'
 alias ci='git commit -m'
+alias ms='git checkout master'
+alias up='git checkout master && git fetch && git rebase origin && git checkout -'
+alias delete_merged_branches='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 # Hub
 alias gb='hub browse'
 alias gpr='hub pull-request'
@@ -42,8 +45,7 @@ alias rd='bundle exec rails destroy'
 alias migrate='bundle exec rake db:migrate db:test:prepare'
 alias remigrate='bundle exec rake db:migrate:redo db:test:prepare'
 alias tl='tail -F log/development.log'
-# Gems
-alias mm='bundle exec middleman'
+alias tp='tail -F log/production.log'
 # Foreman
 alias fs='bundle exec foreman start'
 
@@ -51,9 +53,6 @@ if [ is_mac ]; then
   alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
 fi
 alias mailsize="du -hs ~/Library/mail"
-alias delete_merged_branches='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
-
-alias tk='tmux kill-session'
 
 alias pu='pushd'
 alias po='popd'
@@ -66,4 +65,3 @@ alias batt="pmset -g batt | sed '1d' | sed -e 's/-InternalBattery-0//' | awk '{\
 
 alias safari_address="osascript -e 'tell application \"Safari\" to return URL of current tab of front window'"
 
-alias tmux-set-title="tmux rename-session \`basename \$(pwd)\`"

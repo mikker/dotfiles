@@ -48,6 +48,7 @@ Plugin 'slim-template/vim-slim'
 Plugin 'JulesWang/css.vim'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'othree/html5.vim'
+Plugin 'wting/rust.vim'
 
 " stupid themes
 Plugin 'junegunn/seoul256.vim'
@@ -59,7 +60,9 @@ Plugin 'noahfrederick/vim-hemisu'
 Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets.git'
 
-" " clojure
+Plugin 'jpalardy/vim-slime'
+
+" clojure
 Plugin 'guns/vim-clojure-static'
 Plugin 'tpope/vim-classpath'
 Plugin 'tpope/vim-leiningen'
