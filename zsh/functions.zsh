@@ -10,11 +10,16 @@ compdef _c c
 
 # Open a file or the current directory
 o() {
-  if [[ $# > 0 ]]; then open $@ else open . fi
+  if [[ $# > 0 ]]; then
+    open $@
+  else
+    open .
+  fi
 }
 
-# make a dir and cd into it
-mkcd() { mkdir -p "$@" && cd "$@" }
+mkcd() {
+  mkdir -p "$@" && cd "$@"
+}
 
 # nb()
 # Checkout new (or existing) branch of name ...

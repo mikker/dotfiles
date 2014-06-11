@@ -33,6 +33,7 @@ Plugin 'tpope/vim-characterize'
 Plugin 'kien/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'mikker/sparkup', {'rtp': 'vim/'}
+Plugin 'junegunn/vim-easy-align'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'vim-scripts/scratch.vim'
 
@@ -51,11 +52,11 @@ Plugin 'othree/html5.vim'
 Plugin 'wting/rust.vim'
 
 " stupid themes
+Plugin 'godlygeek/csapprox'
 Plugin 'junegunn/seoul256.vim'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'reedes/vim-colors-pencil'
 Plugin 'romainl/Apprentice'
-Plugin 'noahfrederick/vim-hemisu'
 
 Plugin 'SirVer/ultisnips'
 " Plugin 'honza/vim-snippets.git'
