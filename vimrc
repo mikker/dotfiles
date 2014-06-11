@@ -1,8 +1,8 @@
 " vim: fdm=marker foldlevel=0
 set nocompatible
 
-if filereadable(expand("~/.vim/bundles.vim"))
-  source ~/.vim/bundles.vim
+if filereadable(expand("~/.vim/plugins.vim"))
+  source ~/.vim/plugins.vim
 endif
 
 filetype plugin indent on
