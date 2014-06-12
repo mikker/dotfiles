@@ -32,9 +32,9 @@ task :install do
     end
   end
 
-  system "[[ -d vim/bundle/vundle/.git ]] || git clone https://github.com/gmarik/vundle.git vim/bundle/vundle"
-  system "vim +BundleInstall +qall"
-  system %{find vim/bundle -name exclude -type f -exec bash -c 'echo "doc/tags" >> {}' \\;}
+  system "mkdir -p ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim"
+  system "vim +PlugInstall +qall"
+  system %{find vim/plugged -name exclude -type f -exec bash -c 'echo "doc/tags" >> {}' \\;}
 end
 
 task :default => [:install]

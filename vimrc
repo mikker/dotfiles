@@ -227,6 +227,9 @@ let g:UltiSnipsJumpForwardTrigger="<c-@>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
+let g:seoul256_background = 234
+let g:zenburn_high_Contrast = 1
+
 command! GP Git push
 command! GB Gbrowse
 

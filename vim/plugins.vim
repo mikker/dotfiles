@@ -51,18 +51,16 @@ Plug 'wting/rust.vim'
 Plug 'godlygeek/csapprox'
 Plug 'junegunn/seoul256.vim'
 Plug 'w0ng/vim-hybrid'
-Plug 'reedes/vim-colors-pencil'
 Plug 'romainl/Apprentice'
 
 Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets.git'
 
-Plug 'jpalardy/vim-slime'
-
 " clojure
+" Plug 'jpalardy/vim-slime'
+" Plug 'tpope/vim-classpath'
+" Plug 'tpope/vim-leiningen'
 Plug 'guns/vim-clojure-static'
-Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-leiningen'
 Plug 'tpope/vim-fireplace'
 Plug 'kien/rainbow_parentheses.vim'
 
