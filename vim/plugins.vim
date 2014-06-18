@@ -50,8 +50,10 @@ Plug 'wting/rust.vim'
 " stupid themes
 Plug 'godlygeek/csapprox'
 Plug 'junegunn/seoul256.vim'
-Plug 'w0ng/vim-hybrid'
 Plug 'romainl/Apprentice'
+Plug 'w0ng/vim-hybrid'
+Plug 'sk1418/last256'
+Plug 'cocopon/iceberg.vim'
 
 Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets.git'
@@ -63,6 +65,9 @@ Plug 'SirVer/ultisnips'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
 Plug 'kien/rainbow_parentheses.vim'
+
+Plug 'itchyny/lightline.vim'
+Plug 'cocopon/lightline-hybrid.vim'
 
 call plug#end()
 

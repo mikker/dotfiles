@@ -1,5 +1,9 @@
 fpath=( "$HOME/.zsh/functions" $fpath )
 
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export RBENV_ROOT="/usr/local/var/rbenv"
+eval "$(rbenv init -)"
+
 source ~/.zsh/checks.zsh
 source ~/.zsh/colors.zsh
 source ~/.zsh/setopt.zsh

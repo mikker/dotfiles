@@ -4,3 +4,4 @@ vim/backup/*.swp
 doc/tags
 vim.backup
 vim/bundle/.vundle
+vim/autoload/plug.vim.old

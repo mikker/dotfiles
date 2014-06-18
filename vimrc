@@ -235,12 +235,12 @@ command! GB Gbrowse
 
 " }}}
 
-fun! s:set_mark(args) abort
+fun! s:set_mark(args)
   let g:focus=expand(a:args)
   echo "Focus: ".g:focus.""
 endfun
 
-fun! s:run_mark() abort
+fun! s:run_mark()
   if !exists("g:focus")
     echo "No focus set yet"
   else
@@ -261,10 +261,15 @@ augroup mapCREx
 augroup END
 
 fun! MapCR()
-  map <cr> :Run<cr>
+  map <cr> :RunMark<cr>
 endfun
 call MapCR()
 
 let g:slime_target = "tmux"
 
 map <leader>q :bufdo bd<cr>
+
+let g:lightline = {}
+let g:lightline.colorscheme = 'hybrid'
+" let g:lightline_hybrid_style = 'plain'
+
