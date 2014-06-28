@@ -56,7 +56,6 @@ Plug 'sk1418/last256'
 Plug 'cocopon/iceberg.vim'
 
 Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets.git'
 
 " clojure
 " Plug 'jpalardy/vim-slime'
@@ -65,9 +64,6 @@ Plug 'SirVer/ultisnips'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
 Plug 'kien/rainbow_parentheses.vim'
-
-Plug 'itchyny/lightline.vim'
-Plug 'cocopon/lightline-hybrid.vim'
 
 call plug#end()
 

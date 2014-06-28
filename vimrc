@@ -227,7 +227,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-@>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
-let g:seoul256_background = 234
+let g:seoul256_background = 235
 let g:zenburn_high_Contrast = 1
 
 command! GP Git push
@@ -273,3 +273,4 @@ let g:lightline = {}
 let g:lightline.colorscheme = 'hybrid'
 " let g:lightline_hybrid_style = 'plain'
 
+map <leader>c :call system('ctags . -R')<cr>
