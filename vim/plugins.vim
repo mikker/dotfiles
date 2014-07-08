@@ -16,7 +16,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-rbenv'
@@ -24,6 +23,7 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-ragtag', { 'for': 'html' }
 
 " things
 Plug 'kien/ctrlp.vim'
@@ -58,12 +58,10 @@ Plug 'cocopon/iceberg.vim'
 Plug 'SirVer/ultisnips'
 
 " clojure
-" Plug 'jpalardy/vim-slime'
-" Plug 'tpope/vim-classpath'
-" Plug 'tpope/vim-leiningen'
-Plug 'guns/vim-clojure-static'
-Plug 'tpope/vim-fireplace'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'kien/rainbow_parentheses.vim', { 'for': 'clojure' }
 
 call plug#end()
 

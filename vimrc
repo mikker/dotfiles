@@ -11,6 +11,8 @@ let mapleader=","
 
 " {{{ Basics
 
+set sh=/bin/bash
+
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -269,8 +271,7 @@ let g:slime_target = "tmux"
 
 map <leader>q :bufdo bd<cr>
 
-let g:lightline = {}
-let g:lightline.colorscheme = 'hybrid'
-" let g:lightline_hybrid_style = 'plain'
-
 map <leader>c :call system('ctags . -R')<cr>
+
+vmap [e [egv
+vmap ]e ]egv
