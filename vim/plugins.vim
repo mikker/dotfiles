@@ -23,7 +23,7 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-ragtag', { 'for': 'html' }
+Plug 'tpope/vim-ragtag'
 
 " things
 Plug 'kien/ctrlp.vim'
@@ -45,7 +45,6 @@ Plug 'slim-template/vim-slim'
 Plug 'JulesWang/css.vim'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/html5.vim'
-Plug 'wting/rust.vim'
 
 " stupid themes
 Plug 'godlygeek/csapprox'

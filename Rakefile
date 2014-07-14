@@ -8,7 +8,7 @@ task :install do
   system "git submodule update --init"
 
   Dir['*'].each do |file|
-    next if %w[Rakefile README osx].include? file
+    next if %w[Rakefile README.md osx].include? file
 
     if File.exist?(File.join(ENV['HOME'], ".#{file.sub('.erb', '')}"))
       if replace_all
@@ -32,9 +32,8 @@ task :install do
     end
   end
 
-  system "mkdir -p ~/.vim/autoload && curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim"
   system "vim +PlugInstall +qall"
-  system %{find vim/plugged -name exclude -type f -exec bash -c 'echo "doc/tags" >> {}' \\;}
+  # system %{find vim/plugged -name exclude -type f -exec bash -c 'echo "doc/tags" >> {}' \\;}
 end
 
 task :default => [:install]

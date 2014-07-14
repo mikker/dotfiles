@@ -1,9 +1,13 @@
 " vim: fdm=marker foldlevel=0
 set nocompatible
 
-if filereadable(expand("~/.vim/plugins.vim"))
-  source ~/.vim/plugins.vim
+let g:plugins_file_path = "~/.vim/plugins.vim"
+
+if filereadable(expand(g:plugins_file_path))
+  exe ":source " . g:plugins_file_path
 endif
+
+com! EPlugs exe ":vsplit " . g:plugins_file_path
 
 filetype plugin indent on
 
@@ -56,7 +60,10 @@ set undolevels=1000
 
 set foldlevel=999 " folds come expanded
 
-colorscheme apprentice
+let g:seoul256_background = 235
+" let g:zenburn_high_Contrast = 1
+
+colorscheme seoul256
 
 set autoread
 
@@ -228,9 +235,6 @@ let g:UltiSnipsExpandTrigger="<c-@>"
 let g:UltiSnipsJumpForwardTrigger="<c-@>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
-
-let g:seoul256_background = 235
-let g:zenburn_high_Contrast = 1
 
 command! GP Git push
 command! GB Gbrowse

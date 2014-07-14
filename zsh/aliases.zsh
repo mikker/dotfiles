@@ -64,4 +64,5 @@ alias pweb='python -m SimpleHTTPServer'
 alias batt="pmset -g batt | sed '1d' | sed -e 's/-InternalBattery-0//' | awk '{\$1=\$1}1'"
 
 alias safari_address="osascript -e 'tell application \"Safari\" to return URL of current tab of front window'"
+alias mm='bundle exec middleman'
 

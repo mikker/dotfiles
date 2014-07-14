@@ -141,16 +141,17 @@ function! plug#end()
       for cmd in commands
         if cmd =~ '^<Plug>.\+'
           if empty(mapcheck(cmd)) && empty(mapcheck(cmd, 'i'))
-            for [mode, prefix] in [['i', "<C-O>"], ['', '']]
+            for [mode, map_prefix, key_prefix] in
+                  \ [['i', "<C-O>", ''], ['n', '', ''], ['v', '', 'gv'], ['o', '', '']]
               execute printf(
-              \ "%snoremap <silent> %s %s:call <SID>lod_map(%s, %s)<CR>",
-              \ mode, cmd, prefix, string(cmd), string(plug))
+              \ "%snoremap <silent> %s %s:<C-U>call <SID>lod_map(%s, %s, '%s')<CR>",
+              \ mode, cmd, map_prefix, string(cmd), string(name), key_prefix)
             endfor
           endif
         elseif !exists(':'.cmd)
           execute printf(
           \ "command! -nargs=* -range -bang %s call s:lod_cmd(%s, '<bang>', <line1>, <line2>, <q-args>, %s)",
-          \ cmd, string(cmd), string(plug))
+          \ cmd, string(cmd), string(name))
         endif
       endfor
     endif
@@ -178,13 +179,32 @@ function! plug#end()
   syntax on
 endfunction
 
-function! s:rtp(spec)
-  let rtp = s:dirpath(a:spec.dir . get(a:spec, 'rtp', ''))
-  if s:is_win
-    let rtp = substitute(rtp, '\\*$', '', '')
-  endif
-  return rtp
-endfunction
+if s:is_win
+  function! s:rtp(spec)
+    let rtp = s:dirpath(a:spec.dir . get(a:spec, 'rtp', ''))
+    return substitute(rtp, '\\*$', '', '')
+  endfunction
+
+  function! s:path(path)
+    return substitute(substitute(a:path, '/', '\', 'g'), '[/\\]*$', '', '')
+  endfunction
+
+  function! s:dirpath(path)
+    return s:path(a:path) . '\'
+  endfunction
+else
+  function! s:rtp(spec)
+    return s:dirpath(a:spec.dir . get(a:spec, 'rtp', ''))
+  endfunction
+
+  function! s:path(path)
+    return substitute(a:path, '[/\\]*$', '', '')
+  endfunction
+
+  function! s:dirpath(path)
+    return s:path(a:path) . '/'
+  endfunction
+endif
 
 function! s:esc(path)
   return substitute(a:path, ' ', '\\ ', 'g')
@@ -192,8 +212,9 @@ endfunction
 
 function! s:add_rtp(rtp)
   execute "set rtp^=".s:esc(a:rtp)
-  if isdirectory(a:rtp.'after')
-    execute "set rtp+=".s:esc(a:rtp.'after')
+  let after = globpath(a:rtp, 'after')
+  if isdirectory(after)
+    execute "set rtp+=".s:esc(after)
   endif
 endfunction
 
@@ -215,16 +236,16 @@ function! s:lod_ft(pat, names)
   silent! doautocmd filetypeplugin FileType
 endfunction
 
-function! s:lod_cmd(cmd, bang, l1, l2, args, plug)
+function! s:lod_cmd(cmd, bang, l1, l2, args, name)
   execute 'delc '.a:cmd
-  call s:lod(a:plug, ['plugin', 'ftdetect', 'after'])
+  call s:lod(g:plugs[a:name], ['plugin', 'ftdetect', 'after'])
   execute printf("%s%s%s %s", (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
-function! s:lod_map(map, plug)
+function! s:lod_map(map, name, prefix)
   execute 'unmap '.a:map
   execute 'iunmap '.a:map
-  call s:lod(a:plug, ['plugin', 'ftdetect', 'after'])
+  call s:lod(g:plugs[a:name], ['plugin', 'ftdetect', 'after'])
   let extra = ''
   while 1
     let c = getchar(0)
@@ -233,7 +254,7 @@ function! s:lod_map(map, plug)
     endif
     let extra .= nr2char(c)
   endwhile
-  call feedkeys(substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
+  call feedkeys(a:prefix . substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
 endfunction
 
 function! s:add(...)
@@ -256,6 +277,9 @@ function! s:add(...)
     return
   endif
 
+  let name = substitute(split(plugin, '/')[-1], '\.git$', '', '')
+  if !force && has_key(g:plugs, name) | return | endif
+
   if plugin =~ ':'
     let uri = plugin
   else
@@ -264,9 +288,6 @@ function! s:add(...)
     endif
     let uri = 'https://git:@github.com/' . plugin . '.git'
   endif
-
-  let name = substitute(split(plugin, '/')[-1], '\.git$', '', '')
-  if !force && has_key(g:plugs, name) | return | endif
 
   let dir  = s:dirpath( fnamemodify(join([g:plug_home, name], '/'), ':p') )
   let spec = extend(opts, { 'dir': dir, 'uri': uri })
@@ -302,7 +323,11 @@ function! s:syntax()
   syn match plugBracket /[[\]]/ contained
   syn match plugX /x/ contained
   syn match plugDash /^-/
+  syn match plugPlus /^+/
+  syn match plugStar /^*/
   syn match plugName /\(^- \)\@<=[^:]*/
+  syn match plugInstall /\(^+ \)\@<=[^:]*/
+  syn match plugUpdate /\(^* \)\@<=[^:]*/
   syn match plugCommit /^  [0-9a-z]\{7} .*/ contains=plugRelDate,plugSha
   syn match plugSha /\(^  \)\@<=[0-9a-z]\{7}/ contained
   syn match plugRelDate /([^)]*)$/ contained
@@ -313,8 +338,15 @@ function! s:syntax()
   hi def link plugX       Exception
   hi def link plugBracket Structure
   hi def link plugNumber  Number
+
   hi def link plugDash    Special
+  hi def link plugPlus    Constant
+  hi def link plugStar    Boolean
+
   hi def link plugName    Label
+  hi def link plugInstall Function
+  hi def link plugUpdate  Type
+
   hi def link plugError   Error
   hi def link plugRelDate Comment
   hi def link plugSha     Identifier
@@ -408,7 +440,21 @@ function! s:update_impl(pull, args) abort
 
   let len = len(g:plugs)
   if has('ruby') && threads > 1
-    call s:update_parallel(a:pull, todo, threads)
+    try
+      call s:update_parallel(a:pull, todo, threads)
+    catch
+      let lines = getline(4, '$')
+      let printed = {}
+      silent 4,$d
+      for line in lines
+        let name = get(matchlist(line, '^. \([^:]\+\):'), 1, '')
+        if empty(name) || !has_key(printed, name)
+          let printed[name] = 1
+          call append('$', line)
+        endif
+      endfor
+      echoerr v:exception
+    endtry
   else
     call s:update_serial(a:pull, todo)
   endif
@@ -423,7 +469,7 @@ function! s:extend(names)
   try
     command! -nargs=+ Plug call s:add(0, <args>)
     for name in a:names
-      let plugfile = s:rtp(g:plugs[name]) . s:plug_file
+      let plugfile = globpath(s:rtp(g:plugs[name]), s:plug_file)
       if filereadable(plugfile)
         execute "source ". s:esc(plugfile)
       endif
@@ -470,7 +516,6 @@ function! s:update_serial(pull, todo)
         if !isdirectory(base)
           call mkdir(base, 'p')
         endif
-        execute 'cd '.base
         let result = s:system(
               \ printf('git clone --recursive %s -b %s %s 2>&1 && cd %s && git submodule update --init --recursive 2>&1',
               \ s:shellesc(spec.uri),
@@ -499,6 +544,23 @@ endfunction
 
 function! s:update_parallel(pull, todo, threads)
   ruby << EOF
+  module PlugStream
+    SEP = ["\r", "\n", nil]
+    def get_line
+      buffer = ''
+      loop do
+        char = readchar rescue return
+        if SEP.include? char.chr
+          buffer << $/
+          break
+        else
+          buffer << char
+        end
+      end
+      buffer
+    end
+  end unless defined?(PlugStream)
+
   def esc arg
     %["#{arg.gsub('"', '\"')}"]
   end
@@ -514,55 +576,70 @@ function! s:update_parallel(pull, todo, threads)
   all   = VIM::evaluate('copy(a:todo)')
   limit = VIM::evaluate('get(g:, "plug_timeout", 60)')
   nthr  = VIM::evaluate('a:threads').to_i
+  maxy  = VIM::evaluate('winheight(".")').to_i
   cd    = iswin ? 'cd /d' : 'cd'
-  done  = {}
   tot   = 0
   bar   = ''
   skip  = 'Already installed'
   mtx   = Mutex.new
   take1 = proc { mtx.synchronize { running && all.shift } }
   logh  = proc {
-    cnt = done.length
+    cnt = $curbuf[2][1...-1].strip.length
     tot = VIM::evaluate('len(a:todo)') || tot
     $curbuf[1] = "#{pull ? 'Updating' : 'Installing'} plugins (#{cnt}/#{tot})"
     $curbuf[2] = '[' + bar.ljust(tot) + ']'
     VIM::command('normal! 2G')
     VIM::command('redraw') unless iswin
   }
-  log = proc { |name, result, ok|
+  where = proc { |name| (1..($curbuf.length)).find { |l| $curbuf[l] =~ /^[-+x*] #{name}:/ } }
+  log   = proc { |name, result, type|
     mtx.synchronize do
-      bar += ok ? '=' : 'x'
-      done[name] = true
+      ing  = ![true, false].include?(type)
+      bar += type ? '=' : 'x' unless ing
+      b = case type
+          when :install  then '+' when :update then '*'
+          when true, nil then '-' else 'x' end
       result =
-        if ok
-          ["- #{name}: #{result.lines.to_a.last.strip}"]
+        if type || type.nil?
+          ["#{b} #{name}: #{result.lines.to_a.last}"]
         elsif result =~ /^Interrupted|^Timeout/
-          ["x #{name}: #{result}"]
+          ["#{b} #{name}: #{result}"]
         else
-          ["x #{name}"] + result.lines.map { |l| "    " << l }
+          ["#{b} #{name}"] + result.lines.map { |l| "    " << l }
         end
+      if lnum = where.call(name)
+        $curbuf.delete lnum
+        lnum = 4 if ing && lnum > maxy
+      end
       result.each_with_index do |line, offset|
-        $curbuf.append 3 + offset, line.chomp
+        $curbuf.append((lnum || 4) - 1 + offset, line.gsub(/\e\[./, '').chomp)
       end
       logh.call
     end
   }
-  bt = proc { |cmd|
+  bt = proc { |cmd, name, type|
     begin
       fd = nil
-      Timeout::timeout(limit) do
-        if iswin
+      data = ''
+      if iswin
+        Timeout::timeout(limit) do
           tmp = VIM::evaluate('tempname()')
           system("#{cmd} > #{tmp}")
           data = File.read(tmp).chomp
           File.unlink tmp rescue nil
-        else
-          fd = IO.popen(cmd)
-          data = fd.read.chomp
-          fd.close
         end
-        [$? == 0, data]
+      else
+        fd = IO.popen(cmd).extend(PlugStream)
+        first_line = true
+        log_prob = 1.0 / nthr
+        while line = Timeout::timeout(limit) { fd.get_line }
+          data << line
+          log.call name, line.chomp, type if name && (first_line || rand < log_prob)
+          first_line = false
+        end
+        fd.close
       end
+      [$? == 0, data.chomp]
     rescue Timeout::Error, Interrupt => e
       if fd && !fd.closed?
         pids = [fd.pid]
@@ -570,7 +647,7 @@ function! s:update_parallel(pull, todo, threads)
           children = pids
           until children.empty?
             children = children.map { |pid|
-              `pgrep -P #{pid}`.lines.map(&:chomp)
+              `pgrep -P #{pid}`.lines.map { |l| l.chomp }
             }.flatten
             pids += children
           end
@@ -595,6 +672,7 @@ function! s:update_parallel(pull, todo, threads)
     main.kill
   }
 
+  progress = iswin ? '' : '--progress'
   until all.empty?
     names = all.keys
     [names.length, nthr].min.times do
@@ -604,10 +682,11 @@ function! s:update_parallel(pull, todo, threads)
             name = pair.first
             dir, uri, branch = pair.last.values_at *%w[dir uri branch]
             branch = esc branch
+            subm = "git submodule update --init --recursive 2>&1"
             ok, result =
               if File.directory? dir
                 dir = esc dir
-                ret, data = bt.call "#{cd} #{dir} && git rev-parse --abbrev-ref HEAD 2>&1 && git config remote.origin.url"
+                ret, data = bt.call "#{cd} #{dir} && git rev-parse --abbrev-ref HEAD 2>&1 && git config remote.origin.url", nil, nil
                 current_uri = data.lines.to_a.last
                 if !ret
                   if data =~ /^Interrupted|^Timeout/
@@ -621,7 +700,8 @@ function! s:update_parallel(pull, todo, threads)
                            "PlugClean required."].join($/)]
                 else
                   if pull
-                    bt.call "#{cd} #{dir} && git checkout -q #{branch} 2>&1 && git pull origin #{branch} 2>&1 && git submodule update --init --recursive 2>&1"
+                    log.call name, 'Updating ...', :update
+                    bt.call "#{cd} #{dir} && git checkout -q #{branch} 2>&1 && (git pull origin #{branch} #{progress} 2>&1 && #{subm})", name, :update
                   else
                     [true, skip]
                   end
@@ -629,14 +709,15 @@ function! s:update_parallel(pull, todo, threads)
               else
                 FileUtils.mkdir_p(base)
                 d = esc dir.sub(%r{[\\/]+$}, '')
-                bt.call "#{cd} #{base} && git clone --recursive #{uri} -b #{branch} #{d} 2>&1 && cd #{esc dir} && git submodule update --init --recursive 2>&1"
+                log.call name, 'Installing ...', :install
+                bt.call "(git clone #{progress} --recursive #{uri} -b #{branch} #{d} 2>&1 && cd #{esc dir} && #{subm})", name, :install
               end
             log.call name, result, ok
           end
         } if running
       end
     end
-    threads.each(&:join)
+    threads.each { |t| t.join rescue nil }
     mtx.synchronize { threads.clear }
     all.merge!(VIM::evaluate("s:extend(#{names.inspect})") || {})
     logh.call
@@ -644,20 +725,6 @@ function! s:update_parallel(pull, todo, threads)
   watcher.kill
   $curbuf[1] = "Updated. Elapsed time: #{"%.6f" % (Time.now - st)} sec."
 EOF
-endfunction
-
-function! s:path(path)
-  return substitute(s:is_win ? substitute(a:path, '/', '\', 'g') : a:path,
-        \ '[/\\]*$', '', '')
-endfunction
-
-function! s:dirpath(path)
-  let path = s:path(a:path)
-  if s:is_win
-    return path !~ '\\$' ? path.'\' : path
-  else
-    return path !~ '/$' ? path.'/' : path
-  endif
 endfunction
 
 function! s:shellesc(arg)
