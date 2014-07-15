@@ -229,7 +229,7 @@ endif
 
 let g:colorpicker_app = 'iTerm.app'
 
-nmap <leader>r :Dispatch<cr>
+" nmap <leader>r :Dispatch<cr>
 
 let g:UltiSnipsExpandTrigger="<c-@>"
 let g:UltiSnipsJumpForwardTrigger="<c-@>"
@@ -242,7 +242,10 @@ command! GB Gbrowse
 " }}}
 
 fun! s:set_mark(args)
-  let g:focus=expand(a:args)
+  let l:focus = expand(a:args)
+  if l:focus != ""
+    let g:focus=l:focus
+  endif
   echo "Focus: ".g:focus.""
 endfun
 
