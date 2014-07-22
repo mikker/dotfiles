@@ -7,8 +7,6 @@ if filereadable(expand(g:plugins_file_path))
   exe ":source " . g:plugins_file_path
 endif
 
-com! EPlugs exe ":vsplit " . g:plugins_file_path
-
 filetype plugin indent on
 
 let mapleader=","
@@ -17,13 +15,13 @@ let mapleader=","
 
 set sh=/bin/bash
 
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set backup
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-if exists("+undofile")
-  set undofile
-  set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-endif
+" if exists("+undofile")
+"   set undofile
+"   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" endif
 
 set mouse=nvi " enable mouse in normal mode
 set cursorline " highlight current line
@@ -274,11 +272,19 @@ fun! MapCR()
 endfun
 call MapCR()
 
-let g:slime_target = "tmux"
-
-map <leader>q :bufdo bd<cr>
-
+map <leader>q :silent bufdo bd<cr>
 map <leader>c :call system('ctags . -R')<cr>
+map <c-w><c-t> :tabn<cr>
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
+com! EPlugs exe ":vsplit " . g:plugins_file_path
 
-vmap [e [egv
-vmap ]e ]egv
+
+map <leader>mc :silent Mark call system('reload-chrome')<cr>
+map <leader>ml :silent Mark !rspec <c-r>=expand('%').':'.line('.')<cr><cr>
+map <leader>mf :silent Mark !rspec <c-r>=expand('%')<cr><cr>
+
+map <leader>A :!rspec<cr>
+map <leader>F :!rspec spec/features<cr>
+map <leader>U :!rspec spec/{controllers,helpers,lib,models}<cr>
+

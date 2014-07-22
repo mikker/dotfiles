@@ -58,6 +58,7 @@ set cpo&vim
 let s:plug_source = 'https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 let s:plug_file = 'Plugfile'
 let s:plug_buf = -1
+let s:mac_gui = has('gui_macvim') && has('gui_running')
 let s:is_win = has('win32') || has('win64')
 let s:me = expand('<sfile>:p')
 
@@ -175,6 +176,7 @@ function! plug#end()
             \ key, string(key), string(reverse(names)))
     augroup END
   endfor
+  call s:reorg_rtp()
   filetype plugin indent on
   syntax on
 endfunction
@@ -218,6 +220,17 @@ function! s:add_rtp(rtp)
   endif
 endfunction
 
+function! s:reorg_rtp()
+  if !empty(s:first_rtp)
+    execute 'set rtp-='.s:first_rtp
+    execute 'set rtp^='.s:first_rtp
+  endif
+  if s:last_rtp !=# s:first_rtp
+    execute 'set rtp-='.s:last_rtp
+    execute 'set rtp+='.s:last_rtp
+  endif
+endfunction
+
 function! s:lod(plug, types)
   let rtp = s:rtp(a:plug)
   call s:add_rtp(rtp)
@@ -232,6 +245,7 @@ function! s:lod_ft(pat, names)
   for name in a:names
     call s:lod(g:plugs[name], ['plugin', 'after'])
   endfor
+  call s:reorg_rtp()
   execute 'autocmd! PlugLOD FileType ' . a:pat
   silent! doautocmd filetypeplugin FileType
 endfunction
@@ -239,6 +253,7 @@ endfunction
 function! s:lod_cmd(cmd, bang, l1, l2, args, name)
   execute 'delc '.a:cmd
   call s:lod(g:plugs[a:name], ['plugin', 'ftdetect', 'after'])
+  call s:reorg_rtp()
   execute printf("%s%s%s %s", (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
@@ -246,6 +261,7 @@ function! s:lod_map(map, name, prefix)
   execute 'unmap '.a:map
   execute 'iunmap '.a:map
   call s:lod(g:plugs[a:name], ['plugin', 'ftdetect', 'after'])
+  call s:reorg_rtp()
   let extra = ''
   while 1
     let c = getchar(0)
@@ -257,17 +273,19 @@ function! s:lod_map(map, name, prefix)
   call feedkeys(a:prefix . substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
 endfunction
 
-function! s:add(...)
-  let force = a:1
-  let opts = { 'branch': 'master' }
-  if a:0 == 2
-    let plugin = a:2
-  elseif a:0 == 3
-    let plugin = a:2
-    if type(a:3) == 1
-      let opts.branch = a:3
-    elseif type(a:3) == 4
-      call extend(opts, a:3)
+function! s:add(force, ...)
+  let opts = { 'branch': 'master', 'frozen': 0 }
+  if a:0 == 1
+    let plugin = a:1
+  elseif a:0 == 2
+    let plugin = a:1
+    if type(a:2) == 1
+      let opts.branch = a:2
+    elseif type(a:2) == 4
+      call extend(opts, a:2)
+      if has_key(opts, 'tag')
+        let opts.branch = remove(opts, 'tag')
+      endif
     else
       echoerr "Invalid argument type (expected: string or dictionary)"
       return
@@ -277,21 +295,32 @@ function! s:add(...)
     return
   endif
 
+  let plugin = substitute(plugin, '[/\\]*$', '', '')
   let name = substitute(split(plugin, '/')[-1], '\.git$', '', '')
-  if !force && has_key(g:plugs, name) | return | endif
-
-  if plugin =~ ':'
-    let uri = plugin
-  else
-    if plugin !~ '/'
-      let plugin = 'vim-scripts/'. plugin
-    endif
-    let uri = 'https://git:@github.com/' . plugin . '.git'
+  if !a:force && has_key(g:plugs, name)
+    let s:extended[name] = g:plugs[name]
+    return
   endif
 
-  let dir  = s:dirpath( fnamemodify(join([g:plug_home, name], '/'), ':p') )
-  let spec = extend(opts, { 'dir': dir, 'uri': uri })
+  if plugin[0] =~ '[/$~]' || plugin =~? '^[a-z]:'
+    let spec = extend(opts, { 'dir': s:dirpath(expand(plugin)) })
+  else
+    if plugin =~ ':'
+      let uri = plugin
+    else
+      if plugin !~ '/'
+        let plugin = 'vim-scripts/'. plugin
+      endif
+      let uri = 'https://git:@github.com/' . plugin . '.git'
+    endif
+    let dir = s:dirpath( fnamemodify(join([g:plug_home, name], '/'), ':p') )
+    let spec = extend(opts, { 'dir': dir, 'uri': uri })
+  endif
+
   let g:plugs[name] = spec
+  if !a:force
+    let s:extended[name] = spec
+  endif
   let g:plugs_order += [name]
 endfunction
 
@@ -307,7 +336,7 @@ function! s:apply()
   for spec in values(g:plugs)
     let docd = join([spec.dir, 'doc'], '/')
     if isdirectory(docd)
-      execute "helptags ". join([spec.dir, 'doc'], '/')
+      silent! execute "helptags ". join([spec.dir, 'doc'], '/')
     endif
   endfor
   runtime! plugin/*.vim
@@ -413,8 +442,12 @@ function! s:finish(pull)
   endif
 endfunction
 
+function! s:is_managed(name)
+  return has_key(g:plugs[a:name], 'uri')
+endfunction
+
 function! s:names(...)
-  return filter(keys(g:plugs), 'stridx(v:val, a:1) == 0')
+  return filter(keys(g:plugs), 'stridx(v:val, a:1) == 0 && s:is_managed(v:val)')
 endfunction
 
 function! s:update_impl(pull, args) abort
@@ -422,8 +455,9 @@ function! s:update_impl(pull, args) abort
   let threads = (len(args) > 0 && args[-1] =~ '^[1-9][0-9]*$') ?
                   \ remove(args, -1) : get(g:, 'plug_threads', 16)
 
-  let todo = empty(args) ? g:plugs :
-                \ filter(copy(g:plugs), 'index(args, v:key) >= 0')
+  let managed = filter(copy(g:plugs), 's:is_managed(v:key)')
+  let todo = empty(args) ? filter(managed, '!get(v:val, "frozen", 0)') :
+                         \ filter(managed, 'index(args, v:key) >= 0')
 
   if empty(todo)
     echohl WarningMsg
@@ -441,6 +475,10 @@ function! s:update_impl(pull, args) abort
   let len = len(g:plugs)
   if has('ruby') && threads > 1
     try
+      let imd = &imd
+      if s:mac_gui
+        set noimd
+      endif
       call s:update_parallel(a:pull, todo, threads)
     catch
       let lines = getline(4, '$')
@@ -454,6 +492,8 @@ function! s:update_impl(pull, args) abort
         endif
       endfor
       echoerr v:exception
+    finally
+      let &imd = imd
     endtry
   else
     call s:update_serial(a:pull, todo)
@@ -465,7 +505,7 @@ function! s:update_impl(pull, args) abort
 endfunction
 
 function! s:extend(names)
-  let prev = copy(g:plugs)
+  let s:extended = {}
   try
     command! -nargs=+ Plug call s:add(0, <args>)
     for name in a:names
@@ -477,7 +517,7 @@ function! s:extend(names)
   finally
     command! -nargs=+ Plug call s:add(1, <args>)
   endtry
-  return filter(copy(g:plugs), '!has_key(prev, v:key)')
+  return s:extended
 endfunction
 
 function! s:update_progress(pull, cnt, bar, total)
@@ -512,6 +552,7 @@ function! s:update_serial(pull, todo)
           let result = msg
           let error = 1
         endif
+        cd -
       else
         if !isdirectory(base)
           call mkdir(base, 'p')
@@ -524,14 +565,14 @@ function! s:update_serial(pull, todo)
               \ s:shellesc(spec.dir)))
         let error = v:shell_error != 0
       endif
-      cd -
       let bar .= error ? 'x' : '='
       call append(3, s:format_message(!error, name, result))
       call s:update_progress(a:pull, len(done), bar, total)
     endfor
 
-    if !empty(s:extend(keys(todo)))
-      let todo = filter(copy(g:plugs), '!has_key(done, v:key)')
+    let extended = s:extend(keys(todo))
+    if !empty(extended)
+      let todo = filter(extended, '!has_key(done, v:key)')
       let total += len(todo)
       call s:update_progress(a:pull, len(done), bar, total)
     else
@@ -565,11 +606,12 @@ function! s:update_parallel(pull, todo, threads)
     %["#{arg.gsub('"', '\"')}"]
   end
 
-  st    = Time.now
+  require 'set'
   require 'thread'
   require 'fileutils'
   require 'timeout'
   running = true
+  st    = Time.now
   iswin = VIM::evaluate('s:is_win').to_i == 1
   pull  = VIM::evaluate('a:pull').to_i == 1
   base  = VIM::evaluate('g:plug_home')
@@ -578,14 +620,13 @@ function! s:update_parallel(pull, todo, threads)
   nthr  = VIM::evaluate('a:threads').to_i
   maxy  = VIM::evaluate('winheight(".")').to_i
   cd    = iswin ? 'cd /d' : 'cd'
-  tot   = 0
+  tot   = VIM::evaluate('len(a:todo)') || 0
   bar   = ''
   skip  = 'Already installed'
   mtx   = Mutex.new
   take1 = proc { mtx.synchronize { running && all.shift } }
   logh  = proc {
-    cnt = $curbuf[2][1...-1].strip.length
-    tot = VIM::evaluate('len(a:todo)') || tot
+    cnt = bar.length
     $curbuf[1] = "#{pull ? 'Updating' : 'Installing'} plugins (#{cnt}/#{tot})"
     $curbuf[2] = '[' + bar.ljust(tot) + ']'
     VIM::command('normal! 2G')
@@ -671,10 +712,21 @@ function! s:update_parallel(pull, todo, threads)
     threads.each { |t| t.join rescue nil }
     main.kill
   }
+  refresh = Thread.new {
+    while true
+      mtx.synchronize do
+        break unless running
+        VIM::command('noautocmd normal! a')
+      end
+      sleep 0.2
+    end
+  } if VIM::evaluate('s:mac_gui') == 1
 
+  processed = Set.new
   progress = iswin ? '' : '--progress'
   until all.empty?
     names = all.keys
+    processed.merge names
     [names.length, nthr].min.times do
       mtx.synchronize do
         threads << Thread.new {
@@ -719,9 +771,14 @@ function! s:update_parallel(pull, todo, threads)
     end
     threads.each { |t| t.join rescue nil }
     mtx.synchronize { threads.clear }
-    all.merge!(VIM::evaluate("s:extend(#{names.inspect})") || {})
+    extended = Hash[(VIM::evaluate("s:extend(#{names.inspect})") || {}).reject { |k, _|
+      processed.include? k
+    }]
+    tot += extended.length
+    all.merge!(extended)
     logh.call
   end
+  refresh.kill if refresh
   watcher.kill
   $curbuf[1] = "Updated. Elapsed time: #{"%.6f" % (Time.now - st)} sec."
 EOF
@@ -804,8 +861,9 @@ function! s:clean(force)
 
   " List of valid directories
   let dirs = []
-  let [cnt, total] = [0, len(g:plugs)]
-  for spec in values(g:plugs)
+  let managed = filter(copy(g:plugs), 's:is_managed(v:key)')
+  let [cnt, total] = [0, len(managed)]
+  for spec in values(managed)
     if s:git_valid(spec, 0, 1)[0]
       call add(dirs, spec.dir)
     endif
@@ -906,10 +964,18 @@ function! s:status()
   let ecnt = 0
   let [cnt, total] = [0, len(g:plugs)]
   for [name, spec] in items(g:plugs)
-    if isdirectory(spec.dir)
-      let [valid, msg] = s:git_valid(spec, 1, 1)
+    if has_key(spec, 'uri')
+      if isdirectory(spec.dir)
+        let [valid, msg] = s:git_valid(spec, 1, 1)
+      else
+        let [valid, msg] = [0, 'Not found. Try PlugInstall.']
+      endif
     else
-      let [valid, msg] = [0, 'Not found. Try PlugInstall.']
+      if isdirectory(spec.dir)
+        let [valid, msg] = [1, 'OK']
+      else
+        let [valid, msg] = [0, 'Not found.']
+      endif
     endif
     let cnt += 1
     let ecnt += !valid
@@ -973,7 +1039,7 @@ function! s:diff()
 
   let cnt = 0
   for [k, v] in items(g:plugs)
-    if !isdirectory(v.dir)
+    if !isdirectory(v.dir) || !s:is_managed(k)
       continue
     endif
 
@@ -994,6 +1060,9 @@ function! s:diff()
   nnoremap <silent> <buffer> <cr> :silent! call <SID>preview_commit()<cr>
   normal! gg
 endfunction
+
+let s:first_rtp = s:esc(get(split(&rtp, ','), 0, ''))
+let s:last_rtp = s:esc(get(split(&rtp, ','), -1, ''))
 
 let &cpo = s:cpo_save
 unlet s:cpo_save

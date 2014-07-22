@@ -6,7 +6,8 @@ alias la='ls -a'
 
 # tmux
 alias t="tmux -u"
-alias ta='tmux a'
+alias ta='tmux attach'
+alias tat='tmux new-session -As `basename $PWD`'
 alias tk='tmux kill-session'
 alias tmux-set-title="tmux rename-session \`basename \$(pwd)\`"
 
