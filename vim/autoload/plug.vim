@@ -9,19 +9,29 @@
 "
 " Edit your .vimrc
 "
-"   call plug#begin()
+"   call plug#begin('~/.vim/plugged')
 "
+"   " Make sure you use single quotes
 "   Plug 'junegunn/seoul256.vim'
 "   Plug 'junegunn/vim-easy-align'
-"   Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-"   " Plug 'user/repo1', 'branch_or_tag'
-"   " Plug 'user/repo2', { 'rtp': 'vim/plugin/dir', 'branch': 'branch_or_tag' }
-"   " ...
+"
+"   " On-demand loading
+"   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"   Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"
+"   " Using git URL
+"   Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+"
+"   " Plugin options
+"   Plug 'nsf/gocode', { 'tag': 'go.weekly.2012-03-13', 'rtp': 'vim' }
+"
+"   " Locally-managed plugin
+"   Plug '~/.fzf'
 "
 "   call plug#end()
 "
-" Then :PlugInstall to install plugins. (default: ~/.vim/plugged)
-" You can change the location of the plugins with plug#begin(path) call.
+" Then reload .vimrc and :PlugInstall to install plugins.
+" Visit https://github.com/junegunn/vim-plug for more information.
 "
 "
 " Copyright (c) 2014 Junegunn Choi
@@ -61,6 +71,12 @@ let s:plug_buf = -1
 let s:mac_gui = has('gui_macvim') && has('gui_running')
 let s:is_win = has('win32') || has('win64')
 let s:me = expand('<sfile>:p')
+let s:TYPE = {
+\   'string': type(""),
+\   'list': type([]),
+\   'dict': type({}),
+\   'funcref': type(function("call"))
+\ }
 
 function! plug#begin(...)
   if a:0 > 0
@@ -104,7 +120,7 @@ function! plug#begin(...)
 endfunction
 
 function! s:to_a(v)
-  return type(a:v) == 3 ? a:v : [a:v]
+  return type(a:v) == s:TYPE.list ? a:v : [a:v]
 endfunction
 
 function! plug#end()
@@ -279,9 +295,9 @@ function! s:add(force, ...)
     let plugin = a:1
   elseif a:0 == 2
     let plugin = a:1
-    if type(a:2) == 1
+    if type(a:2) == s:TYPE.string
       let opts.branch = a:2
-    elseif type(a:2) == 4
+    elseif type(a:2) == s:TYPE.dict
       call extend(opts, a:2)
       if has_key(opts, 'tag')
         let opts.branch = remove(opts, 'tag')
@@ -354,7 +370,8 @@ function! s:syntax()
   syn match plugDash /^-/
   syn match plugPlus /^+/
   syn match plugStar /^*/
-  syn match plugName /\(^- \)\@<=[^:]*/
+  syn match plugMessage /\(^- \)\@<=.*/
+  syn match plugName /\(^- \)\@<=[^ ]*:/
   syn match plugInstall /\(^+ \)\@<=[^:]*/
   syn match plugUpdate /\(^* \)\@<=[^:]*/
   syn match plugCommit /^  [0-9a-z]\{7} .*/ contains=plugRelDate,plugSha
@@ -372,6 +389,7 @@ function! s:syntax()
   hi def link plugPlus    Constant
   hi def link plugStar    Boolean
 
+  hi def link plugMessage Function
   hi def link plugName    Label
   hi def link plugInstall Function
   hi def link plugUpdate  Type
@@ -403,6 +421,7 @@ function! s:prepare()
   else
     vertical topleft new
     nnoremap <silent> <buffer> q  :if b:plug_preview==1<bar>pc<bar>endif<bar>q<cr>
+    nnoremap <silent> <buffer> R  :silent! call <SID>retry()<cr>
     nnoremap <silent> <buffer> D  :PlugDiff<cr>
     nnoremap <silent> <buffer> S  :PlugStatus<cr>
     nnoremap <silent> <buffer> ]] :silent! call <SID>section('')<cr>
@@ -429,6 +448,43 @@ function! s:assign_name()
   silent! execute "f ".fnameescape(name)
 endfunction
 
+function! s:do(pull, todo)
+  for [name, spec] in items(a:todo)
+    if !isdirectory(spec.dir)
+      continue
+    endif
+    execute 'cd '.s:esc(spec.dir)
+    let installed = has_key(s:prev_update.new, name)
+    if installed || (a:pull &&
+      \ !empty(s:system_chomp('git log --pretty=format:"%h" "HEAD...HEAD@{1}"')))
+      call append(3, '- Post-update hook for '. name .' ... ')
+      let type = type(spec.do)
+      if type == s:TYPE.string
+        try
+          " FIXME: Escaping is incomplete. We could use shellescape with eval,
+          "        but it won't work on Windows.
+          let g:_plug_do = '!'.escape(spec.do, '#!%')
+          execute "normal! :execute g:_plug_do\<cr>\<cr>"
+        finally
+          let result = v:shell_error ? ('Exit status: '.v:shell_error) : 'Done!'
+          unlet g:_plug_do
+        endtry
+      elseif type == s:TYPE.funcref
+        try
+          call spec.do({ 'name': name, 'status': (installed ? 'installed' : 'updated') })
+          let result = 'Done!'
+        catch
+          let result = 'Error: ' . v:exception
+        endtry
+      else
+        let result = 'Error: Invalid type!'
+      endif
+      call setline(4, getline(4) . result)
+    endif
+    cd -
+  endfor
+endfunction
+
 function! s:finish(pull)
   call append(3, '- Finishing ... ')
   redraw
@@ -437,9 +493,22 @@ function! s:finish(pull)
   call setline(4, getline(4) . 'Done!')
   normal! gg
   redraw
-  if a:pull
-    echo "Press 'D' to see the updated changes."
+  let msgs = []
+  if !empty(s:prev_update.errors)
+    call add(msgs, "Press 'R' to retry.")
   endif
+  if a:pull
+    call add(msgs, "Press 'D' to see the updated changes.")
+  endif
+  echo join(msgs, ' ')
+endfunction
+
+function! s:retry()
+  if empty(s:prev_update.errors)
+    return
+  endif
+  call s:update_impl(s:prev_update.pull,
+        \ extend(copy(s:prev_update.errors), [s:prev_update.threads]))
 endfunction
 
 function! s:is_managed(name)
@@ -451,6 +520,7 @@ function! s:names(...)
 endfunction
 
 function! s:update_impl(pull, args) abort
+  let st = reltime()
   let args = copy(a:args)
   let threads = (len(args) > 0 && args[-1] =~ '^[1-9][0-9]*$') ?
                   \ remove(args, -1) : get(g:, 'plug_threads', 16)
@@ -472,7 +542,11 @@ function! s:update_impl(pull, args) abort
   normal! 2G
   redraw
 
+  if !isdirectory(g:plug_home)
+    call mkdir(g:plug_home, 'p')
+  endif
   let len = len(g:plugs)
+  let s:prev_update = { 'errors': [], 'pull': a:pull, 'new': {}, 'threads': threads }
   if has('ruby') && threads > 1
     try
       let imd = &imd
@@ -487,21 +561,27 @@ function! s:update_impl(pull, args) abort
       for line in lines
         let name = get(matchlist(line, '^. \([^:]\+\):'), 1, '')
         if empty(name) || !has_key(printed, name)
-          let printed[name] = 1
           call append('$', line)
+          if !empty(name)
+            let printed[name] = 1
+            if line[0] == 'x' && index(s:prev_update.errors, name) < 0
+              call add(s:prev_update.errors, name)
+            end
+          endif
         endif
       endfor
-      echoerr v:exception
     finally
       let &imd = imd
     endtry
   else
     call s:update_serial(a:pull, todo)
   endif
+  call s:do(a:pull, filter(copy(todo), 'has_key(v:val, "do")'))
   if len(g:plugs) > len
     call plug#end()
   endif
   call s:finish(a:pull)
+  call setline(1, "Updated. Elapsed time: " . split(reltimestr(reltime(st)))[0] . ' sec.')
 endfunction
 
 function! s:extend(names)
@@ -529,7 +609,6 @@ function! s:update_progress(pull, cnt, bar, total)
 endfunction
 
 function! s:update_serial(pull, todo)
-  let st    = reltime()
   let base  = g:plug_home
   let todo  = copy(a:todo)
   let total = len(todo)
@@ -554,9 +633,6 @@ function! s:update_serial(pull, todo)
         endif
         cd -
       else
-        if !isdirectory(base)
-          call mkdir(base, 'p')
-        endif
         let result = s:system(
               \ printf('git clone --recursive %s -b %s %s 2>&1 && cd %s && git submodule update --init --recursive 2>&1',
               \ s:shellesc(spec.uri),
@@ -564,8 +640,12 @@ function! s:update_serial(pull, todo)
               \ s:shellesc(substitute(spec.dir, '[\/]\+$', '', '')),
               \ s:shellesc(spec.dir)))
         let error = v:shell_error != 0
+        if !error | let s:prev_update.new[name] = 1 | endif
       endif
       let bar .= error ? 'x' : '='
+      if error
+        call add(s:prev_update.errors, name)
+      endif
       call append(3, s:format_message(!error, name, result))
       call s:update_progress(a:pull, len(done), bar, total)
     endfor
@@ -579,8 +659,6 @@ function! s:update_serial(pull, todo)
       break
     endif
   endwhile
-
-  call setline(1, "Updated. Elapsed time: " . split(reltimestr(reltime(st)))[0] . ' sec.')
 endfunction
 
 function! s:update_parallel(pull, todo, threads)
@@ -611,12 +689,12 @@ function! s:update_parallel(pull, todo, threads)
   require 'fileutils'
   require 'timeout'
   running = true
-  st    = Time.now
   iswin = VIM::evaluate('s:is_win').to_i == 1
   pull  = VIM::evaluate('a:pull').to_i == 1
   base  = VIM::evaluate('g:plug_home')
   all   = VIM::evaluate('copy(a:todo)')
   limit = VIM::evaluate('get(g:, "plug_timeout", 60)')
+  tries = VIM::evaluate('get(g:, "plug_retries", 2)') + 1
   nthr  = VIM::evaluate('a:threads').to_i
   maxy  = VIM::evaluate('winheight(".")').to_i
   cd    = iswin ? 'cd /d' : 'cd'
@@ -639,7 +717,10 @@ function! s:update_parallel(pull, todo, threads)
       bar += type ? '=' : 'x' unless ing
       b = case type
           when :install  then '+' when :update then '*'
-          when true, nil then '-' else 'x' end
+          when true, nil then '-' else
+            VIM::command("call add(s:prev_update.errors, '#{name}')")
+            'x'
+          end
       result =
         if type || type.nil?
           ["#{b} #{name}: #{result.lines.to_a.last}"]
@@ -659,11 +740,14 @@ function! s:update_parallel(pull, todo, threads)
     end
   }
   bt = proc { |cmd, name, type|
+    tried = timeout = 0
     begin
+      tried += 1
+      timeout += limit
       fd = nil
       data = ''
       if iswin
-        Timeout::timeout(limit) do
+        Timeout::timeout(timeout) do
           tmp = VIM::evaluate('tempname()')
           system("#{cmd} > #{tmp}")
           data = File.read(tmp).chomp
@@ -673,7 +757,7 @@ function! s:update_parallel(pull, todo, threads)
         fd = IO.popen(cmd).extend(PlugStream)
         first_line = true
         log_prob = 1.0 / nthr
-        while line = Timeout::timeout(limit) { fd.get_line }
+        while line = Timeout::timeout(timeout) { fd.get_line }
           data << line
           log.call name, line.chomp, type if name && (first_line || rand < log_prob)
           first_line = false
@@ -695,6 +779,15 @@ function! s:update_parallel(pull, todo, threads)
         end
         pids.each { |pid| Process.kill 'TERM', pid.to_i rescue nil }
         fd.close
+      end
+      if e.is_a?(Timeout::Error) && tried < tries
+        3.downto(1) do |countdown|
+          s = countdown > 1 ? 's' : ''
+          log.call name, "Timeout. Will retry in #{countdown} second#{s} ...", type
+          sleep 1
+        end
+        log.call name, 'Retrying ...', type
+        retry
       end
       [false, e.is_a?(Interrupt) ? "Interrupted!" : "Timeout!"]
     end
@@ -735,8 +828,9 @@ function! s:update_parallel(pull, todo, threads)
             dir, uri, branch = pair.last.values_at *%w[dir uri branch]
             branch = esc branch
             subm = "git submodule update --init --recursive 2>&1"
+            exists = File.directory? dir
             ok, result =
-              if File.directory? dir
+              if exists
                 dir = esc dir
                 ret, data = bt.call "#{cd} #{dir} && git rev-parse --abbrev-ref HEAD 2>&1 && git config remote.origin.url", nil, nil
                 current_uri = data.lines.to_a.last
@@ -759,11 +853,11 @@ function! s:update_parallel(pull, todo, threads)
                   end
                 end
               else
-                FileUtils.mkdir_p(base)
                 d = esc dir.sub(%r{[\\/]+$}, '')
                 log.call name, 'Installing ...', :install
                 bt.call "(git clone #{progress} --recursive #{uri} -b #{branch} #{d} 2>&1 && cd #{esc dir} && #{subm})", name, :install
               end
+            mtx.synchronize { VIM::command("let s:prev_update.new['#{name}'] = 1") } if !exists && ok
             log.call name, result, ok
           end
         } if running
@@ -780,7 +874,6 @@ function! s:update_parallel(pull, todo, threads)
   end
   refresh.kill if refresh
   watcher.kill
-  $curbuf[1] = "Updated. Elapsed time: #{"%.6f" % (Time.now - st)} sec."
 EOF
 endfunction
 
@@ -1044,7 +1137,7 @@ function! s:diff()
     endif
 
     execute 'cd '.s:esc(v.dir)
-    let diff = system('git log --pretty=format:"%h %s (%cr)" "HEAD@{0}...HEAD@{1}"')
+    let diff = system('git log --pretty=format:"%h %s (%cr)" "HEAD...HEAD@{1}"')
     if !v:shell_error && !empty(diff)
       call append(1, '')
       call append(2, '- '.k.':')
