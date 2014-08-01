@@ -45,6 +45,8 @@ Plug 'slim-template/vim-slim'
 Plug 'JulesWang/css.vim'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/html5.vim'
+Plug 'davidoc/taskpaper.vim'
+Plug 'ingydotnet/yaml-vim'
 
 " stupid themes
 Plug 'godlygeek/csapprox'
@@ -61,8 +63,6 @@ Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'kien/rainbow_parentheses.vim', { 'for': 'clojure' }
-
-Plug 'davidoc/taskpaper.vim'
 
 call plug#end()
 

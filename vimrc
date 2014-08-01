@@ -34,7 +34,7 @@ set wildmode=longest:list,full
 
 set ignorecase smartcase " search is case insensitive unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
-set hlsearch " highlight results
+set nohlsearch " highlight results
 
 set expandtab " spaces for tabs
 set tabstop=2
@@ -61,7 +61,7 @@ set foldlevel=999 " folds come expanded
 let g:seoul256_background = 235
 " let g:zenburn_high_Contrast = 1
 
-colorscheme seoul256
+colorscheme apprentice
 
 set autoread
 
@@ -71,7 +71,7 @@ set secure " but lets keep it secure
 " }}}
 " {{{ Mappings
 
-nmap <c-_> :nohl<cr>
+map <c-_> :set hlsearch!<cr>
 
 " jumping
 nmap <leader><leader> <c-^>
@@ -288,3 +288,5 @@ map <leader>A :!rspec<cr>
 map <leader>F :!rspec spec/features<cr>
 map <leader>U :!rspec spec/{controllers,helpers,lib,models}<cr>
 
+map ¬ zR
+map ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
