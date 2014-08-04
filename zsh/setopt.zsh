@@ -25,3 +25,4 @@ unsetopt menu_complete # do not autoselect the first completion entry
 setopt prompt_subst # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
 setopt transient_rprompt # only show the rprompt on the current prompt
 
+setopt extendedglob

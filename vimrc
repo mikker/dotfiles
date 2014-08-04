@@ -9,19 +9,22 @@ endif
 
 filetype plugin indent on
 
+com! EPlugs exe ":vsplit " . g:plugins_file_path
+au! BufWritePost g:plugins_file_path exe "source %"
+
 let mapleader=","
 
 " {{{ Basics
 
 set sh=/bin/bash
 
-" set backup
-" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" if exists("+undofile")
-"   set undofile
-"   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-" endif
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
+if exists("+undofile")
+  set undofile
+  set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+endif
 
 set mouse=nvi " enable mouse in normal mode
 set cursorline " highlight current line
@@ -58,9 +61,11 @@ set undolevels=1000
 
 set foldlevel=999 " folds come expanded
 
+let g:solarized_termcolors=256
 let g:seoul256_background = 235
 " let g:zenburn_high_Contrast = 1
 
+set background=dark
 colorscheme apprentice
 
 set autoread
@@ -123,6 +128,12 @@ nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
 " Visual select the next word from insert mode
 imap <c-e> <c-o>ve
 
+map ¬ :set foldlevel=9999<cr>
+map ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
+
+map <leader>q :silent bufdo bd<cr>
+map <leader>c :call system('ctags . -R')<cr>
+map <c-w><c-t> :tabn<cr>
 
 " }}}
 " {{{ Functions and commands
@@ -225,9 +236,11 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-let g:colorpicker_app = 'iTerm.app'
+" minimal silver search 'plugin'
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
 
-" nmap <leader>r :Dispatch<cr>
+let g:colorpicker_app = 'iTerm.app'
 
 let g:UltiSnipsExpandTrigger="<c-@>"
 let g:UltiSnipsJumpForwardTrigger="<c-@>"
@@ -272,21 +285,11 @@ fun! MapCR()
 endfun
 call MapCR()
 
-map <leader>q :silent bufdo bd<cr>
-map <leader>c :call system('ctags . -R')<cr>
-map <c-w><c-t> :tabn<cr>
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<SPACE>
-com! EPlugs exe ":vsplit " . g:plugins_file_path
-
-
 map <leader>mc :silent Mark call system('reload-chrome')<cr>
 map <leader>ml :silent Mark !rspec <c-r>=expand('%').':'.line('.')<cr><cr>
 map <leader>mf :silent Mark !rspec <c-r>=expand('%')<cr><cr>
 
 map <leader>A :!rspec<cr>
 map <leader>F :!rspec spec/features<cr>
-map <leader>U :!rspec spec/{controllers,helpers,lib,models}<cr>
+map <leader>U :!rspec spec/^(features\|*\.*)<cr>
 
-map ¬ zR
-map ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>

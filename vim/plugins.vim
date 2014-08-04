@@ -47,6 +47,7 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/html5.vim'
 Plug 'davidoc/taskpaper.vim'
 Plug 'ingydotnet/yaml-vim'
+Plug 'puppetlabs/puppet-syntax-vim'
 
 " stupid themes
 Plug 'godlygeek/csapprox'
@@ -55,6 +56,7 @@ Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 Plug 'sk1418/last256'
 Plug 'cocopon/iceberg.vim'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'SirVer/ultisnips'
 
