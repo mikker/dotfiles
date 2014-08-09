@@ -66,7 +66,8 @@ let g:seoul256_background = 235
 " let g:zenburn_high_Contrast = 1
 
 set background=dark
-colorscheme apprentice
+colorscheme iceberg
+hi normal ctermbg=235
 
 set autoread
 

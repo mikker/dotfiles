@@ -92,13 +92,6 @@ function! plug#begin(...)
     return s:err('Unable to determine plug home. Try calling plug#begin() with a path argument.')
   endif
 
-  if !isdirectory(home)
-    try
-      call mkdir(home, 'p')
-    catch
-      return s:err('Invalid plug directory: '. home)
-    endtry
-  endif
   if !executable('git')
     return s:err('`git` executable not found. vim-plug requires git.')
   endif
@@ -108,15 +101,18 @@ function! plug#begin(...)
   " we want to keep track of the order plugins where registered.
   let g:plugs_order = []
 
-  command! -nargs=+ -bar Plug   call s:add(<args>)
-  command! -nargs=* -complete=customlist,s:names PlugInstall call s:install(<f-args>)
-  command! -nargs=* -complete=customlist,s:names PlugUpdate  call s:update(<f-args>)
-  command! -nargs=0 -bang PlugClean call s:clean('<bang>' == '!')
-  command! -nargs=0 PlugUpgrade if s:upgrade() | call s:upgrade_specs() | execute 'source '. s:me | endif
-  command! -nargs=0 PlugStatus  call s:status()
-  command! -nargs=0 PlugDiff    call s:diff()
-
+  call s:define_commands()
   return 1
+endfunction
+
+function! s:define_commands()
+  command! -nargs=+ -bar Plug   call s:add(<args>)
+  command! -nargs=* -bar -bang -complete=customlist,s:names PlugInstall call s:install('<bang>' == '!', <f-args>)
+  command! -nargs=* -bar -bang -complete=customlist,s:names PlugUpdate  call s:update('<bang>' == '!', <f-args>)
+  command! -nargs=0 -bar -bang PlugClean call s:clean('<bang>' == '!')
+  command! -nargs=0 -bar PlugUpgrade if s:upgrade() | execute 'source '. s:me | endif
+  command! -nargs=0 -bar PlugStatus  call s:status()
+  command! -nargs=0 -bar PlugDiff    call s:diff()
 endfunction
 
 function! s:to_a(v)
@@ -270,6 +266,26 @@ function! s:reorg_rtp()
   endif
 endfunction
 
+function! plug#load(...)
+  if a:0 == 0
+    return s:err('Argument missing: plugin name(s) required')
+  endif
+  if !exists('g:plugs')
+    return s:err('plug#begin was not called')
+  endif
+  let unknowns = filter(copy(a:000), '!has_key(g:plugs, v:val)')
+  if !empty(unknowns)
+    let s = len(unknowns) > 1 ? 's' : ''
+    return s:err(printf('Unknown plugin%s: %s', s, join(unknowns, ', ')))
+  end
+  for name in a:000
+    call s:lod(g:plugs[name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+  endfor
+  call s:reorg_rtp()
+  silent! doautocmd BufRead
+  return 1
+endfunction
+
 function! s:lod(plug, types)
   let rtp = s:rtp(a:plug)
   call s:add_rtp(rtp)
@@ -365,21 +381,25 @@ function! s:infer_properties(name, repo)
   endif
 endfunction
 
-function! s:install(...)
-  call s:update_impl(0, a:000)
+function! s:install(force, ...)
+  call s:update_impl(0, a:force, a:000)
 endfunction
 
-function! s:update(...)
-  call s:update_impl(1, a:000)
+function! s:update(force, ...)
+  call s:update_impl(1, a:force, a:000)
 endfunction
 
-function! s:helptags()
+function! plug#helptags()
+  if !exists('g:plugs')
+    return s:err('plug#begin was not called')
+  endif
   for spec in values(g:plugs)
     let docd = join([spec.dir, 'doc'], '/')
     if isdirectory(docd)
-      silent! execute 'helptags '. join([spec.dir, 'doc'], '/')
+      silent! execute 'helptags '. s:esc(docd)
     endif
   endfor
+  return 1
 endfunction
 
 function! s:syntax()
@@ -470,15 +490,16 @@ function! s:assign_name()
   silent! execute 'f '.fnameescape(name)
 endfunction
 
-function! s:do(pull, todo)
+function! s:do(pull, force, todo)
   for [name, spec] in items(a:todo)
     if !isdirectory(spec.dir)
       continue
     endif
     execute 'cd '.s:esc(spec.dir)
     let installed = has_key(s:prev_update.new, name)
-    if installed || (a:pull &&
-      \ !empty(s:system_chomp('git log --pretty=format:"%h" "HEAD...HEAD@{1}"')))
+    let updated = installed ? 0 :
+      \ (a:pull && !empty(s:system_chomp('git log --pretty=format:"%h" "HEAD...HEAD@{1}"')))
+    if a:force || installed || updated
       call append(3, '- Post-update hook for '. name .' ... ')
       let type = type(spec.do)
       if type == s:TYPE.string
@@ -493,7 +514,8 @@ function! s:do(pull, todo)
         endtry
       elseif type == s:TYPE.funcref
         try
-          call spec.do({ 'name': name, 'status': (installed ? 'installed' : 'updated') })
+          let status = installed ? 'installed' : (updated ? 'updated' : 'unchanged')
+          call spec.do({ 'name': name, 'status': status, 'force': a:force })
           let result = 'Done!'
         catch
           let result = 'Error: ' . v:exception
@@ -510,7 +532,7 @@ endfunction
 function! s:finish(pull)
   call append(3, '- Finishing ... ')
   redraw
-  call s:helptags()
+  call plug#helptags()
   call plug#end()
   call setline(4, getline(4) . 'Done!')
   normal! gg
@@ -530,7 +552,7 @@ function! s:retry()
   if empty(s:prev_update.errors)
     return
   endif
-  call s:update_impl(s:prev_update.pull,
+  call s:update_impl(s:prev_update.pull, s:prev_update.force,
         \ extend(copy(s:prev_update.errors), [s:prev_update.threads]))
 endfunction
 
@@ -542,7 +564,7 @@ function! s:names(...)
   return filter(keys(g:plugs), 'stridx(v:val, a:1) == 0 && s:is_managed(v:val)')
 endfunction
 
-function! s:update_impl(pull, args) abort
+function! s:update_impl(pull, force, args) abort
   let st = reltime()
   let args = copy(a:args)
   let threads = (len(args) > 0 && args[-1] =~ '^[1-9][0-9]*$') ?
@@ -559,16 +581,22 @@ function! s:update_impl(pull, args) abort
     return
   endif
 
+  if !isdirectory(g:plug_home)
+    try
+      call mkdir(g:plug_home, 'p')
+    catch
+      return s:err(printf('Invalid plug directory: %s.'
+                        \ 'Try to call plug#begin with a valid directory', g:plug_home))
+    endtry
+  endif
+
   call s:prepare()
   call append(0, a:pull ? 'Updating plugins' : 'Installing plugins')
   call append(1, '['. s:lpad('', len(todo)) .']')
   normal! 2G
   redraw
 
-  if !isdirectory(g:plug_home)
-    call mkdir(g:plug_home, 'p')
-  endif
-  let s:prev_update = { 'errors': [], 'pull': a:pull, 'new': {}, 'threads': threads }
+  let s:prev_update = { 'errors': [], 'pull': a:pull, 'force': a:force, 'new': {}, 'threads': threads }
   if has('ruby') && threads > 1
     try
       let imd = &imd
@@ -598,7 +626,7 @@ function! s:update_impl(pull, args) abort
   else
     call s:update_serial(a:pull, todo)
   endif
-  call s:do(a:pull, filter(copy(todo), 'has_key(v:val, "do")'))
+  call s:do(a:pull, a:force, filter(copy(todo), 'has_key(v:val, "do")'))
   call s:finish(a:pull)
   call setline(1, 'Updated. Elapsed time: ' . split(reltimestr(reltime(st)))[0] . ' sec.')
 endfunction
@@ -1002,16 +1030,13 @@ function! s:upgrade()
     call system(printf(
       \ 'curl -fLo %s %s && '.cp.' %s %s.old && '.mv.' %s %s',
       \ new, s:plug_source, mee, mee, new, mee))
-    if v:shell_error == 0
-      unlet g:loaded_plug
-      echo 'Downloaded '. s:plug_source
-      return 1
-    else
+    if v:shell_error
       return s:err('Error upgrading vim-plug')
     endif
   elseif has('ruby')
     echo 'Downloading '. s:plug_source
-    ruby << EOF
+    try
+      ruby << EOF
       require 'open-uri'
       require 'fileutils'
       me  = VIM::evaluate('s:me')
@@ -1023,12 +1048,16 @@ function! s:upgrade()
       FileUtils.cp me, old
       File.rename  new, me
 EOF
-    unlet g:loaded_plug
-    echo 'Downloaded '. s:plug_source
-    return 1
+    catch
+      return s:err('Error upgrading vim-plug')
+    endtry
   else
     return s:err('curl executable or ruby support not found')
   endif
+
+  unlet g:loaded_plug
+  echo 'Downloaded '. s:plug_source
+  return 1
 endfunction
 
 function! s:upgrade_specs()
@@ -1144,6 +1173,12 @@ endfunction
 
 let s:first_rtp = s:esc(get(split(&rtp, ','), 0, ''))
 let s:last_rtp = s:esc(get(split(&rtp, ','), -1, ''))
+
+if exists('g:plugs')
+  let g:plugs_order = get(g:, 'plugs_order', keys(g:plugs))
+  call s:upgrade_specs()
+  call s:define_commands()
+endif
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
