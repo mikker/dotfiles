@@ -126,9 +126,6 @@ map <leader>q :call system("qs ".expand("%"))<cr>
 " I SAID CLOSE THAT WINDOW
 nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
 
-" Visual select the next word from insert mode
-imap <c-e> <c-o>ve
-
 map ¬ :set foldlevel=9999<cr>
 map ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
 
