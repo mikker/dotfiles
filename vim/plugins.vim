@@ -32,6 +32,7 @@ Plug 'mikker/sparkup', {'rtp': 'vim/'}
 Plug 'junegunn/vim-easy-align'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'vim-scripts/scratch.vim'
+Plug 'thoughtbot/vim-rspec'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
