@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# install:
+# $ brew install imguru imagesnap
+# $ cd /usr/local/bin && curl http://downloads.rabien.com/imguru.tar.gz | tar xzvf -
+# Ask @vangberg or @mikker for a Hipchat-token and put it in ~/.hipchat_token
+
+img=~/.Trash/snapme-`date +%y%m%d%H%M%S.png`
+
+# take a picture
+imagesnap -q $img
+
+# resize and crop it
+sips $img --resampleHeight 320 > /dev/null
+sips $img --cropToHeightWidth 240 320 > /dev/null
+
+# inspect it
+# open $img
+
+# upload it to imgur
+url=$(imguru $img)
+
+# send it to hipchat
+curl -d "auth_token=$(cat $HOME/.hipchat_token | tr -d '\n')&room_id=33440&from=PAPARAZZI&format=html&message=<img src='$url'>" "https://api.hipchat.com/v1/rooms/message" > /dev/null 2>&1
+
