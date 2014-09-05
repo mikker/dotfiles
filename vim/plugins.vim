@@ -49,6 +49,7 @@ Plug 'othree/html5.vim'
 Plug 'davidoc/taskpaper.vim'
 Plug 'ingydotnet/yaml-vim'
 Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'briancollins/vim-jst'
 
 " stupid themes
 Plug 'godlygeek/csapprox'
