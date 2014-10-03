@@ -66,7 +66,7 @@ let g:seoul256_background = 235
 " let g:zenburn_high_Contrast = 1
 
 set background=dark
-colorscheme hybrid
+colorscheme seoul256
 hi normal ctermbg=235
 
 set autoread

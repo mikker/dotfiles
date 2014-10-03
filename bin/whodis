@@ -10,6 +10,6 @@ module Sonos::Endpoint::AVTransport
 end
 
 system = Sonos::System.new
-shaef = system.speakers.select { |s| s.name == "SHAEF" }.first
+shaef = system.speakers.select { |s| s.name == "Forkontoret" }.first
 track = shaef.now_playing
 print "#{track[:artist]} - #{track[:title]} (#{track[:album]})"

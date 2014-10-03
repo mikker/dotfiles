@@ -69,3 +69,4 @@ alias mm='bundle exec middleman'
 
 alias temp="/Applications/TemperatureMonitor.app/Contents/MacOS/tempmonitor -c -l -a"
 alias vlc="open -a VLC"
+alias z=zeus
