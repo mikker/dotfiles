@@ -63,11 +63,9 @@ set foldlevel=999 " folds come expanded
 
 let g:solarized_termcolors=256
 let g:seoul256_background = 235
-" let g:zenburn_high_Contrast = 1
 
 set background=dark
-colorscheme seoul256
-hi normal ctermbg=235
+colorscheme zenburn
 
 set autoread
 
@@ -77,28 +75,28 @@ set secure " but lets keep it secure
 " }}}
 " {{{ Mappings
 
-map <c-_> :set hlsearch!<cr>
+noremap <c-_> :set hlsearch!<cr>
 
 " jumping
-nmap <leader><leader> <c-^>
-nmap <PageUp> :bp<cr>
-nmap <PageDown> :bn<cr>
+nnoremap <leader><leader> <c-^>
+nnoremap <PageUp> :bp<cr>
+nnoremap <PageDown> :bn<cr>
 
 " space toggles current fold
-nmap <space> za
+nnoremap <space> za
 " yank to system clipboard
-vmap <leader>y "*y
+vnoremap <leader>y "*y
 " Don't move on *
 nnoremap * *<c-o>
 
 " qq to record, Q to replay
-nmap Q @q
-vmap Q :normal Q<cr>
+nnoremap Q @q
+vnoremap Q :normal Q<cr>
 
 " %% Expands to dir of current file in cmd mode
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 " Map <leader>e to open files in the same directory as the current file
-map <leader>e :edit %%
+noremap <leader>e :edit %%
 
 " visual moving
 noremap k gk
@@ -114,24 +112,24 @@ noremap <C-l>  <C-w>l
 nnoremap Y y$
 
 " always jump to char (and not just line)
-map ' `
+noremap ' `
 
 " Indenting visual selection keeps selection
 vnoremap < <gv
 vnoremap > >gv
 
 " This one's a thing - open current file in Quicksilver
-map <leader>q :call system("qs ".expand("%"))<cr>
+noremap <leader>q :call system("qs ".expand("%"))<cr>
 
 " I SAID CLOSE THAT WINDOW
 nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
 
-map ¬ :set foldlevel=9999<cr>
-map ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
+noremap ¬ :set foldlevel=9999<cr>
+noremap ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
 
-map <leader>q :silent bufdo bd<cr>
-map <leader>c :call system('ctags . -R')<cr>
-map <c-w><c-t> :tabn<cr>
+noremap <leader>q :silent bufdo bd<cr>
+noremap <leader>c :call system('ctags . -R')<cr>
+noremap <c-w><c-t> :tabn<cr>
 
 " }}}
 " {{{ Functions and commands
@@ -161,7 +159,7 @@ fun! <SID>StripTrailingWhitespaces()
   %s/\s\+$//e
   call cursor(l, c)
 endfun
-map <leader>S :call <SID>StripTrailingWhitespaces()<cr>
+noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
 " Add quickfix-files to args
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
@@ -279,15 +277,15 @@ augroup mapCREx
 augroup END
 
 fun! MapCR()
-  map <cr> :RunMark<cr>
+  noremap <cr> :RunMark<cr>
 endfun
 call MapCR()
 
-map <leader>mc :silent Mark call system('reload-chrome')<cr>
-map <leader>ml :silent Mark !rspec <c-r>=expand('%').':'.line('.')<cr><cr>
-map <leader>mf :silent Mark !rspec <c-r>=expand('%')<cr><cr>
+noremap <leader>mc :silent Mark call system('reload-chrome')<cr>
+noremap <leader>ml :silent Mark !rspec <c-r>=expand('%').':'.line('.')<cr><cr>
+noremap <leader>mf :silent Mark !rspec <c-r>=expand('%')<cr><cr>
 
-map <leader>A :!rspec<cr>
-map <leader>F :!rspec spec/features<cr>
-map <leader>U :!rspec spec/^(features\|*\.*)<cr>
+noremap <leader>A :!rspec<cr>
+noremap <leader>F :!rspec spec/features<cr>
+noremap <leader>U :!rspec spec/^(features\|*\.*)<cr>
 

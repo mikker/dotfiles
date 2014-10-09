@@ -61,7 +61,7 @@
 set background=dark
 hi clear          
 if exists("syntax_on")
-    syntax reset
+  syntax reset
 endif
 let g:colors_name="zenburn"
 
@@ -129,146 +129,116 @@ hi SpellLocal guisp=#7cac7c guifg=#9ccc9c
 
 " Entering Kurt zone
 if &t_Co > 255
-    hi Boolean         ctermfg=181  
-    hi Character       ctermfg=181   cterm=bold
-    hi Comment         ctermfg=108   
-    hi Conditional     ctermfg=223   cterm=bold
-    hi Constant        ctermfg=181   cterm=bold
-    hi Cursor          ctermfg=233   ctermbg=109     cterm=bold
-    hi Debug           ctermfg=181   cterm=bold
-    hi Define          ctermfg=223   cterm=bold
-    hi Delimiter       ctermfg=245  
-    hi DiffAdd         ctermfg=66    ctermbg=237     cterm=bold
-    hi DiffChange      ctermbg=236  
-    hi DiffDelete      ctermfg=236   ctermbg=238    
-    hi DiffText        ctermfg=217   ctermbg=237     cterm=bold
-    hi Directory       ctermfg=188   cterm=bold
-    hi ErrorMsg        ctermfg=115   ctermbg=236     cterm=bold
-    hi Exception       ctermfg=249   cterm=bold
-    hi Float           ctermfg=251  
-    hi FoldColumn      ctermfg=109   ctermbg=238    
-    hi Folded          ctermfg=109   ctermbg=238    
-    hi Function        ctermfg=228  
-    hi Identifier      ctermfg=223  
-    hi IncSearch       ctermbg=228   ctermfg=238    
-    hi Keyword         ctermfg=223   cterm=bold
-    hi Label           ctermfg=187   cterm=underline
-    hi LineNr          ctermfg=248   ctermbg=235    
-    hi Macro           ctermfg=223   cterm=bold
-    hi ModeMsg         ctermfg=223   cterm=none
-    hi MoreMsg         ctermfg=15    cterm=bold
-    hi NonText         ctermfg=238  
-    hi Number          ctermfg=116  
-    hi Operator        ctermfg=230  
-    hi PreCondit       ctermfg=180   cterm=bold
-    hi PreProc         ctermfg=223   cterm=bold
-    hi Question        ctermfg=15    cterm=bold
-    hi Repeat          ctermfg=223   cterm=bold
-    hi Search          ctermfg=230   ctermbg=236    
-    hi SpecialChar     ctermfg=181   cterm=bold
-    hi SpecialComment  ctermfg=108   cterm=bold
-    hi Special         ctermfg=181  
-    hi SpecialKey      ctermfg=151  
-    hi Statement       ctermfg=187   ctermbg=234     cterm=none
-    hi StatusLine      ctermfg=236   ctermbg=186    
-    hi StatusLineNC    ctermfg=235   ctermbg=108    
-    hi StorageClass    ctermfg=249   cterm=bold
-    hi String          ctermfg=174  
-    hi Structure       ctermfg=229   cterm=bold
-    hi Tag             ctermfg=181   cterm=bold
-    hi Title           ctermfg=7     ctermbg=234     cterm=bold
-    hi Todo            ctermfg=108   ctermbg=234     cterm=bold
-    hi Typedef         ctermfg=253   cterm=bold
-    hi Type            ctermfg=187   cterm=bold
-    hi Underlined      ctermfg=188   ctermbg=234     cterm=bold
-    hi VertSplit       ctermfg=236   ctermbg=65 
-    hi VisualNOS       ctermfg=236   ctermbg=210     cterm=bold
-    hi WarningMsg      ctermfg=15    ctermbg=236     cterm=bold
-    hi WildMenu        ctermbg=236   ctermfg=194     cterm=bold
-    hi CursorLine      ctermbg=236   cterm=none
+  hi Boolean         ctermfg=181  
+  hi Character       ctermfg=181   cterm=bold
+  hi Comment         ctermfg=108   
+  hi Conditional     ctermfg=223   cterm=bold
+  hi Constant        ctermfg=181   cterm=bold
+  hi Cursor          ctermfg=233   ctermbg=109     cterm=bold
+  hi Debug           ctermfg=181   cterm=bold
+  hi Define          ctermfg=223   cterm=bold
+  hi Delimiter       ctermfg=245  
+  hi DiffAdd         ctermfg=66    ctermbg=237     cterm=bold
+  hi DiffChange      ctermbg=236  
+  hi DiffDelete      ctermfg=236   ctermbg=238    
+  hi DiffText        ctermfg=217   ctermbg=237     cterm=bold
+  hi Directory       ctermfg=188   cterm=bold
+  hi ErrorMsg        ctermfg=115   ctermbg=236     cterm=bold
+  hi Exception       ctermfg=249   cterm=bold
+  hi Float           ctermfg=251  
+  hi FoldColumn      ctermfg=109   ctermbg=238    
+  hi Folded          ctermfg=109   ctermbg=238    
+  hi Function        ctermfg=228  
+  hi Identifier      ctermfg=223  
+  hi IncSearch       ctermbg=228   ctermfg=238    
+  hi Keyword         ctermfg=223   cterm=bold
+  hi Label           ctermfg=187   cterm=underline
+  hi LineNr          ctermfg=248   ctermbg=235    
+  hi Macro           ctermfg=223   cterm=bold
+  hi ModeMsg         ctermfg=223   cterm=none
+  hi MoreMsg         ctermfg=15    cterm=bold
+  hi NonText         ctermfg=238  
+  hi Number          ctermfg=116  
+  hi Operator        ctermfg=230  
+  hi PreCondit       ctermfg=180   cterm=bold
+  hi PreProc         ctermfg=223   cterm=bold
+  hi Question        ctermfg=15    cterm=bold
+  hi Repeat          ctermfg=223   cterm=bold
+  hi Search          ctermfg=230   ctermbg=236    
+  hi SpecialChar     ctermfg=181   cterm=bold
+  hi SpecialComment  ctermfg=108   cterm=bold
+  hi Special         ctermfg=181  
+  hi SpecialKey      ctermfg=151  
+  hi Statement       ctermfg=187   ctermbg=234     cterm=none
+  hi StatusLine      ctermfg=236   ctermbg=186    
+  hi StatusLineNC    ctermfg=235   ctermbg=108    
+  hi StorageClass    ctermfg=249   cterm=bold
+  hi String          ctermfg=174  
+  hi Structure       ctermfg=229   cterm=bold
+  hi Tag             ctermfg=181   cterm=bold
+  hi Title           ctermfg=7     ctermbg=234     cterm=bold
+  hi Todo            ctermfg=108   ctermbg=234     cterm=bold
+  hi Typedef         ctermfg=253   cterm=bold
+  hi Type            ctermfg=187   cterm=bold
+  hi Underlined      ctermfg=188   ctermbg=234     cterm=bold
+  hi VertSplit       ctermfg=236   ctermbg=65 
+  hi VisualNOS       ctermfg=236   ctermbg=210     cterm=bold
+  hi WarningMsg      ctermfg=15    ctermbg=236     cterm=bold
+  hi WildMenu        ctermbg=236   ctermfg=194     cterm=bold
+  hi CursorLine      ctermbg=236   cterm=none
 
-    if exists("g:zenburn_high_Contrast")
-        hi Normal ctermfg=188 ctermbg=234
-    else
-        hi Normal ctermfg=188 ctermbg=237
-        hi Cursor          ctermbg=109
-        hi diffadd         ctermbg=237
-        hi diffdelete      ctermbg=238
-        hi difftext        ctermbg=237
-        hi errormsg        ctermbg=237
-        hi foldcolumn      ctermbg=238
-        hi folded          ctermbg=238
-        hi incsearch       ctermbg=228
-        hi linenr          ctermbg=238  
-        hi search          ctermbg=238
-        hi statement       ctermbg=237
-        hi statusline      ctermbg=144
-        hi statuslinenc    ctermbg=108
-        hi title           ctermbg=237
-        hi todo            ctermbg=237
-        hi underlined      ctermbg=237
-        hi vertsplit       ctermbg=65 
-        hi visualnos       ctermbg=210
-        hi warningmsg      ctermbg=236
-        hi wildmenu        ctermbg=236
-    endif
+  hi Normal ctermfg=188 ctermbg=235
+  hi Cursor          ctermbg=109
+  hi diffadd         ctermbg=237
+  hi diffdelete      ctermbg=238
+  hi difftext        ctermbg=237
+  hi errormsg        ctermbg=237
+  hi foldcolumn      ctermbg=238
+  hi folded          ctermbg=238
+  hi incsearch       ctermbg=228
+  hi linenr          ctermbg=238  
+  hi search          ctermbg=238
+  hi statement       ctermbg=237
+  hi statusline      ctermbg=144
+  hi statuslinenc    ctermbg=108
+  hi title           ctermbg=237
+  hi todo            ctermbg=237
+  hi underlined      ctermbg=237
+  hi vertsplit       ctermbg=65 
+  hi visualnos       ctermbg=210
+  hi warningmsg      ctermbg=236
+  hi wildmenu        ctermbg=236
 endif
 
-if exists("g:zenburn_high_Contrast")
-    " use new darker background
-    hi Normal          guifg=#dcdccc guibg=#1f1f1f
-    hi CursorLine      guibg=#121212 gui=bold
-    hi Pmenu           guibg=#242424 guifg=#ccccbc
-    hi PMenuSel        guibg=#353a37 guifg=#ccdc90 gui=bold
-    hi PmenuSbar       guibg=#2e3330 guifg=#000000
-    hi PMenuThumb      guibg=#a0afa0 guifg=#040404 
-    hi MatchParen      guifg=#f0f0c0 guibg=#383838 gui=bold
-    hi SignColumn      guifg=#9fafaf guibg=#181818 gui=bold
-    hi TabLineFill     guifg=#cfcfaf guibg=#181818 gui=bold
-    hi TabLineSel      guifg=#efefef guibg=#1c1c1b gui=bold
-    hi TabLine         guifg=#b6bf98 guibg=#181818 gui=bold
-    hi CursorColumn    guifg=#dcdccc guibg=#2b2b2b
-else
-    " Original, lighter background
-    hi Normal          guifg=#dcdccc guibg=#3f3f3f
-    hi CursorLine      guibg=#434443
-    hi Pmenu           guibg=#2c2e2e guifg=#9f9f9f
-    hi PMenuSel        guibg=#242424 guifg=#d0d0a0 gui=bold
-    hi PmenuSbar       guibg=#2e3330 guifg=#000000
-    hi PMenuThumb      guibg=#a0afa0 guifg=#040404 
-    hi MatchParen      guifg=#b2b2a0 guibg=#2e2e2e gui=bold
-    hi SignColumn      guifg=#9fafaf guibg=#343434 gui=bold
-    hi TabLineFill     guifg=#cfcfaf guibg=#353535 gui=bold
-    hi TabLineSel      guifg=#efefef guibg=#3a3a39 gui=bold
-    hi TabLine         guifg=#b6bf98 guibg=#353535 gui=bold
-    hi CursorColumn    guifg=#dcdccc guibg=#4f4f4f
-endif
-    
-
-if exists("g:zenburn_alternate_Visual")
-    " Visual with more contrast, thanks to Steve Hall & Cream posse
-    " gui=none fixes weird highlight problem in at least GVim 7.0.66, thanks to Kurt Maier
-    hi Visual          guifg=#000000 guibg=#71d3b4 gui=none
-    hi VisualNOS       guifg=#000000 guibg=#71d3b4 gui=none
-else
-    " use default visual
-    hi Visual          guifg=#233323 guibg=#71d3b4 gui=none
-    hi VisualNOS       guifg=#233323 guibg=#71d3b4 gui=none
-endif
+hi Normal          guifg=#dcdccc guibg=#3f3f3f
+hi CursorLine      guibg=#434443
+hi Pmenu           guibg=#2c2e2e guifg=#9f9f9f
+hi PMenuSel        guibg=#242424 guifg=#d0d0a0 gui=bold
+hi PmenuSbar       guibg=#2e3330 guifg=#000000
+hi PMenuThumb      guibg=#a0afa0 guifg=#040404 
+hi MatchParen      guifg=#b2b2a0 guibg=#2e2e2e gui=bold
+hi SignColumn      guifg=#9fafaf guibg=#343434 gui=bold
+hi TabLineFill     guifg=#cfcfaf guibg=#353535 gui=bold
+hi TabLineSel      guifg=#efefef guibg=#3a3a39 gui=bold
+hi TabLine         guifg=#b6bf98 guibg=#353535 gui=bold
+hi CursorColumn    guifg=#dcdccc guibg=#4f4f4f
 
 if exists("g:zenburn_alternate_Error")
-    " use a bit different Error
-    hi Error           guifg=#ef9f9f guibg=#201010 gui=bold  
+  " use a bit different Error
+  hi Error           guifg=#ef9f9f guibg=#201010 gui=bold  
 else
-    " default
-    hi Error           guifg=#e37170 guibg=#332323 gui=none
+  " default
+  hi Error           guifg=#e37170 guibg=#332323 gui=none
 endif
 
 if exists("g:zenburn_alternate_Include")
-    " original setting
-    hi Include         guifg=#ffcfaf gui=bold
+  " original setting
+  hi Include         guifg=#ffcfaf gui=bold
 else
-    " new, less contrasted one
-    hi Include         guifg=#dfaf8f gui=bold
+  " new, less contrasted one
+  hi Include         guifg=#dfaf8f gui=bold
 endif
-    " TODO check for more obscure syntax groups that they're ok
+" TODO check for more obscure syntax groups that they're ok
+
+hi Visual           ctermbg=110  ctermfg=235  guibg=#8fafd7 guifg=#262626 cterm=NONE           gui=NONE
+hi VisualNOS        ctermbg=NONE ctermfg=NONE guibg=NONE    guifg=NONE    cterm=bold,underline gui=bold,underline

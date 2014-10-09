@@ -7,9 +7,9 @@ alias la='ls -a'
 # tmux
 alias t="tmux -u"
 alias ta='tmux attach'
-alias tat='tmux new-session -As `basename $PWD`'
+alias tat='tmux new-session -As `basename $PWD | sed -e "s/\./-/g"`'
 alias tk='tmux kill-session'
-alias tmux-set-title="tmux rename-session \`basename \$(pwd)\`"
+alias tmux-set-title='tmux rename-session `basename $PWD | sed -e "s/\./-/g"`'
 
 # Git
 alias g='git'
