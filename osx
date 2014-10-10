@@ -7,10 +7,13 @@ defaults write com.apple.dashboard mcx-disabled -bool true
 echo 'Menu bar: disable transparency'
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false
 
+echo 'Use Yosemite Dark mode'
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
 echo 'Increase window resize speed for Cocoa applications'
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
-echo 'Expand save panel by default'
+echo 'Expand save and print panel by default'
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
@@ -54,8 +57,8 @@ defaults write com.apple.finder FXPreferredViewStyle Clmv
 echo 'Avoid creating .DS_Store files on network volumes'
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-echo 'Disable the warning before emptying the Trash'
-defaults write com.apple.finder WarnOnEmptyTrash -bool false
+# echo 'Disable the warning before emptying the Trash'
+# defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 echo 'Enable AirDrop over Ethernet and on unsupported Macs running Lion'
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
@@ -122,14 +125,14 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
-echo "Hiding Safari's bookmarks bar by default"
-defaults write com.apple.Safari ShowFavoritesBar -bool false
+# echo "Hiding Safari's bookmarks bar by default"
+# defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 echo "Disabling Safari's thumbnail cache for History and Top Sites"
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
-echo "Removing useless icons from Safari's bookmarks bar"
-defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+# echo "Removing useless icons from Safari's bookmarks bar"
+# defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
 echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
