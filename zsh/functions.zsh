@@ -1,11 +1,6 @@
 # Quickly navigate to a project - with autocorrect
-p() { cd ~/Projects/$1; }
-_p() { _files -W ~/Projects -/; }
-compdef _p p
-
-# Quickly navigate to a project - with autocorrect
-c() { cd ~/Developer/code/$1; }
-_c() { _files -W ~/Developer/code -/; }
+c() { cd ~/Developer/$1; }
+_c() { _files -W ~/Developer -/; }
 compdef _c c
 
 # Open a file or the current directory
