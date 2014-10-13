@@ -1,5 +1,5 @@
 autoload -Uz vcs_info
- 
+
 zstyle ':vcs_info:*' stagedstr '%F{28}●'
 zstyle ':vcs_info:*' unstagedstr '%F{11}●'
 zstyle ':vcs_info:*' check-for-changes true

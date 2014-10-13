@@ -1,7 +1,3 @@
-.DS_Store
-vim/backup/*.swp
-.netrwhist
 doc/tags
-vim.backup
-vim/bundle/.vundle
-vim/autoload/plug.vim.old
+.netrwhist
+/vim/autoload/plug.vim.old

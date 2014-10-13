@@ -33,7 +33,6 @@ task :install do
   end
 
   system "vim +PlugInstall +qall"
-  # system %{find vim/plugged -name exclude -type f -exec bash -c 'echo "doc/tags" >> {}' \\;}
 end
 
 task :default => [:install]

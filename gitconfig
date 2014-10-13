@@ -1,6 +1,6 @@
 [user]
-	name = Mikkel Malmberg
-	email = mikkelmalmberg@me.com
+  name = Mikkel Malmberg
+  email = mikkelmalmberg@me.com
 [color]
   diff = auto
   status = auto
@@ -28,6 +28,8 @@
 [push]
   default = current
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
+
+; vim: set ft=gitconfig

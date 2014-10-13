@@ -12,5 +12,5 @@ bindkey "^R" history-incremental-search-backward
 # edit current command in $EDITOR
 autoload edit-command-line
 zle -N edit-command-line
-bindkey '^Xe' edit-command-line
+bindkey '^F' edit-command-line
 

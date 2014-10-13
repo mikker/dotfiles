@@ -5,17 +5,16 @@ set vb
 set guioptions-=T " No toolbar
 set guioptions-=r " No right hand scroll bar
 set guioptions-=L " No left hand scroll bar
+if has("gui_macvim")
+  " Fullscreen takes up entire screen
+  set fuoptions=maxhorz,maxvert
+endif
 
 " Font
 if has('mac')
   set guifont=Inconsolata:h20
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
-endif
-
-if has("gui_macvim")
-  " Fullscreen takes up entire screen
-  set fuoptions=maxhorz,maxvert
 endif
 
 " Include user's local vim config

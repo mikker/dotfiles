@@ -1,1 +1,1 @@
-The -best- now of all the stupid hacks I've found.
+<del>The best of</del> all the stupid hacks I've found.

@@ -5,7 +5,7 @@ nnoremap <buffer> <leader>q I><space><esc>
 
 " Open current file in Marked
 fun! Marked()
-  call system("open -a Marked " . expand("%"))
+  call system("open -a Marked\ 2 " . expand("%"))
 endfun
 com! Marked call Marked()
 

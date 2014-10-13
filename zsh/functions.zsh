@@ -38,10 +38,8 @@ sdate() { date +%Y-%m-%d }
 # prints the absolute path of a file
 abspath() { find `pwd` -name "$@" }
 
-dsay() {
-  wget -q -U Mozilla -O output.mp3 "http://translate.google.com/translate_tts?ie=UTF-8&tl=da&q=$*"
-  open output.mp3
-}
+# Make your Mac say things (in Danish)
+dsay() { say -v Sara $@ }
 
 # Open argument in Dash
 dash() { open "dash://$*" }
@@ -49,5 +47,5 @@ dash() { open "dash://$*" }
 # Make a new tmux window and run $@ in it
 nw() { tmux new-window && tmux send-keys "$*" C-m }
 
-# Download pasteboard
+# Download pasteboard using aria2 download thing
 aripb() { aria2c "`pbpaste`" }
