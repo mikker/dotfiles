@@ -1,6 +1,6 @@
 set nocompatible
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/bundle')
 
 " tpope's the shit
 Plug 'tpope/vim-sensible'
@@ -31,7 +31,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mikker/sparkup', {'rtp': 'vim/'}
 Plug 'junegunn/vim-easy-align'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'vim-scripts/scratch.vim'
+Plug 'mtth/scratch.vim'
 Plug 'thoughtbot/vim-rspec'
 
 " filetypes and syntax
@@ -60,8 +60,6 @@ Plug 'w0ng/vim-hybrid'
 Plug 'sk1418/last256'
 Plug 'cocopon/iceberg.vim'
 Plug 'altercation/vim-colors-solarized'
-
-Plug 'SirVer/ultisnips'
 
 " clojure
 Plug 'tpope/vim-leiningen', { 'for': 'clojure' }

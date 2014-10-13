@@ -90,13 +90,13 @@ vnoremap <leader>y "*y
 nnoremap * *<c-o>
 
 " qq to record, Q to replay
-nnoremap Q @q
-vnoremap Q :normal Q<cr>
+nmap Q @q
+vmap Q :normal Q<cr>
 
 " %% Expands to dir of current file in cmd mode
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
+cmap %% <C-R>=expand('%:h').'/'<cr>
 " Map <leader>e to open files in the same directory as the current file
-noremap <leader>e :edit %%
+nmap <leader>e :edit %%
 
 " visual moving
 noremap k gk

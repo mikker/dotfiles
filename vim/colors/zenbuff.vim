@@ -20,16 +20,16 @@ if &t_Co >= 256 || has('gui_running')
   hi Comment          ctermbg=NONE ctermfg=65
   hi Constant         ctermbg=NONE ctermfg=132
   hi Error            ctermbg=NONE ctermfg=131
-  hi Identifier       ctermbg=NONE ctermfg=222
+  hi Identifier       ctermbg=NONE ctermfg=67
   hi Ignore           ctermbg=NONE ctermfg=235
   hi PreProc          ctermbg=NONE ctermfg=216
   hi Special          ctermbg=NONE ctermfg=65
   hi Statement        ctermbg=NONE ctermfg=180
   hi String           ctermbg=NONE ctermfg=174
   hi Todo             ctermbg=NONE ctermfg=NONE cterm=reverse
-  hi Type             ctermbg=NONE ctermfg=66   cterm=NONE
+  hi Type             ctermbg=NONE ctermfg=65   cterm=NONE
   hi Underlined       ctermbg=NONE ctermfg=222  cterm=underline
-  hi Function         ctermbg=NONE ctermfg=228  cterm=NONE
+  hi Function         ctermbg=NONE ctermfg=102  cterm=NONE
 
   hi LineNr           ctermbg=234  ctermfg=242  cterm=NONE
   hi NonText          ctermbg=NONE ctermfg=240  cterm=NONE

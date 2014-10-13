@@ -8,7 +8,7 @@ set guioptions-=L " No left hand scroll bar
 
 " Font
 if has('mac')
-  set guifont=Inconsolata\ For\ Powerline:h20
+  set guifont=Inconsolata:h20
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif
