@@ -31,7 +31,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'mikker/sparkup', {'rtp': 'vim/'}
 Plug 'junegunn/vim-easy-align'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'mtth/scratch.vim'
 Plug 'thoughtbot/vim-rspec'
 
 " filetypes and syntax
