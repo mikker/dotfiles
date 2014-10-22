@@ -289,9 +289,10 @@ function! s:reorg_rtp()
   let s:middle = get(s:, 'middle', &rtp)
   let rtps     = map(s:loaded_names(), 's:rtp(g:plugs[v:val])')
   let afters   = filter(map(copy(rtps), 'globpath(v:val, "after")'), 'isdirectory(v:val)')
-  let &rtp     = join(map(rtps, 's:escrtp(v:val)'), ',')
-                 \ . substitute(','.s:middle.',', '^,,$', ',', '')
+  let rtp      = join(map(rtps, 's:escrtp(v:val)'), ',')
+                 \ . ','.s:middle.','
                  \ . join(map(afters, 's:escrtp(v:val)'), ',')
+  let &rtp     = substitute(substitute(rtp, ',,*', ',', 'g'), '^,\|,$', '', 'g')
   let s:prtp   = &rtp
 
   if !empty(s:first_rtp)
@@ -315,7 +316,7 @@ function! plug#load(...)
   for name in a:000
     call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   endfor
-  silent! doautocmd BufRead
+  doautocmd BufRead
   return 1
 endfunction
 
@@ -336,8 +337,8 @@ endfunction
 function! s:lod_ft(pat, names)
   call s:lod(a:names, ['plugin', 'after/plugin'])
   execute 'autocmd! PlugLOD FileType' a:pat
-  silent! doautocmd filetypeplugin FileType
-  silent! doautocmd filetypeindent FileType
+  doautocmd filetypeplugin FileType
+  doautocmd filetypeindent FileType
 endfunction
 
 function! s:lod_cmd(cmd, bang, l1, l2, args, name)
@@ -613,6 +614,11 @@ function! s:do(pull, force, todo)
 endfunction
 
 function! s:finish(pull)
+  let new_frozen = len(filter(keys(s:update.new), 'g:plugs[v:val].frozen'))
+  if new_frozen
+    let s = new_frozen > 1 ? 's' : ''
+    call append(3, printf('- Installed %d frozen plugin%s', new_frozen, s))
+  endif
   call append(3, '- Finishing ... ')
   redraw
   call plug#helptags()
@@ -652,7 +658,7 @@ function! s:update_impl(pull, force, args) abort
                   \ remove(args, -1) : get(g:, 'plug_threads', 16)
 
   let managed = filter(copy(g:plugs), 's:is_managed(v:key)')
-  let todo = empty(args) ? filter(managed, '!v:val.frozen') :
+  let todo = empty(args) ? filter(managed, '!v:val.frozen || !isdirectory(v:val.dir)') :
                          \ filter(managed, 'index(args, v:key) >= 0')
 
   if empty(todo)
@@ -1268,12 +1274,7 @@ function! s:upgrade()
         throw get(s:lines(output), -1, v:shell_error)
       endif
     elseif has('ruby')
-      ruby << EOF
-      require 'open-uri'
-      File.open(VIM::evaluate('new'), 'w') do |f|
-        f << open(VIM::evaluate('s:plug_src')).read
-      end
-EOF
+      call s:upgrade_using_ruby(new)
     else
       return s:err('curl executable or ruby support not found')
     endif
@@ -1292,6 +1293,15 @@ EOF
     echo 'vim-plug is upgraded'
     return 1
   endif
+endfunction
+
+function! s:upgrade_using_ruby(new)
+  ruby << EOF
+  require 'open-uri'
+  File.open(VIM::evaluate('a:new'), 'w') do |f|
+    f << open(VIM::evaluate('s:plug_src')).read
+  end
+EOF
 endfunction
 
 function! s:upgrade_specs()
