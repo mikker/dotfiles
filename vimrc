@@ -65,7 +65,7 @@ let g:solarized_termcolors=256
 let g:seoul256_background = 235
 
 set background=dark
-colorscheme zenbuff
+colorscheme xoria256
 
 set autoread
 
