@@ -289,3 +289,7 @@ noremap <leader>A :!rspec<cr>
 noremap <leader>F :!rspec spec/features<cr>
 noremap <leader>U :!rspec spec/^(features\|*\.*)<cr>
 
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
