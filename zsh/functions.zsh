@@ -49,3 +49,25 @@ nw() { tmux new-window && tmux send-keys "$*" C-m }
 
 # Download pasteboard using aria2 download thing
 aripb() { aria2c "`pbpaste`" }
+
+dokku() {
+  if [[ $# < 1 ]]; then
+    echo "Usage: dokku CMD"; return 1
+  fi
+  if [ -e $DOKKU_HOST ]; then
+    echo "No \$DOKKU_HOST"; return 1
+  fi
+
+  cmd=$1
+  shift
+
+  if [ ! -e .app ]; then
+    name=$(basename `pwd`)
+    echo "Notice: Setting app to $name"
+    echo $name > .app
+  fi
+
+  app=`cat .app`
+
+  ssh -t $DOKKU_HOST $cmd $app $@
+}
