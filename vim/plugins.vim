@@ -33,6 +33,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'thoughtbot/vim-rspec'
 Plug 'git@github.com:mikker/snipmate.vim.git'
+Plug 'Konfekt/FastFold'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
@@ -53,13 +54,13 @@ Plug 'briancollins/vim-jst'
 Plug 'Keithbsmiley/swift.vim'
 
 " stupid themes
-Plug 'godlygeek/csapprox'
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 Plug 'sk1418/last256'
 Plug 'cocopon/iceberg.vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'sjl/badwolf'
 
 " clojure
 Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
