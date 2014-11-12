@@ -50,7 +50,7 @@ nw() { tmux new-window && tmux send-keys "$*" C-m }
 # Download pasteboard using aria2 download thing
 aripb() { aria2c "`pbpaste`" }
 
-dokku() {
+dokku-fn() {
   if [[ $# < 1 ]]; then
     echo "Usage: dokku CMD"; return 1
   fi

@@ -17,6 +17,7 @@
   rb = rebase
   tree = "log --graph --decorate --abbrev=commit"
   pr = "!hub pull-request"
+  empty-msg = commit --allow-empty-message --message=
 [core]
   excludesfile = ~/.gitignore
   editor = vim
