@@ -65,7 +65,8 @@ let g:solarized_termcolors=256
 let g:seoul256_background = 235
 
 set background=dark
-colorscheme xoria256
+colorscheme iceberg
+hi Normal ctermbg=235
 
 set autoread
 
@@ -290,3 +291,6 @@ noremap <leader>F :!rspec spec/features<cr>
 noremap <leader>U :!rspec spec/^(features\|*\.*)<cr>
 
 nnoremap <leader>O :call system('open .')<cr>
+
+let g:vimwiki_list = [{'path': '~/Dropbox/Notes/', 'ext': '.md'}]
+

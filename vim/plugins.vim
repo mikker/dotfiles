@@ -33,7 +33,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'thoughtbot/vim-rspec'
 Plug 'git@github.com:mikker/snipmate.vim.git'
-Plug 'Konfekt/FastFold'
+Plug 'vimwiki/vimwiki', {'on': 'VimwikiIndex'}
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
