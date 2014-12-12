@@ -61,6 +61,7 @@ Plug 'sk1418/last256'
 Plug 'cocopon/iceberg.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'sjl/badwolf'
+Plug 'chriskempson/base16-vim'
 
 " clojure
 Plug 'tpope/vim-leiningen', { 'for': 'clojure' }

@@ -6,9 +6,10 @@ colors
 export CLICOLOR=1
 
 # Clear LSCOLORS
-unset LSCOLORS
+# unset LSCOLORS
+# alias ls='ls --color=always'
 
 # Main change, you can see directories on a dark background
 # export LSCOLORS=gxfxcxdxbxegedabagacad
-export LS_COLORS=exfxcxdxbxegedabagacad
+# export LS_COLORS=exfxcxdxbxegedabagacad
 
