@@ -53,6 +53,8 @@ Plug 'ingydotnet/yaml-vim'
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'briancollins/vim-jst'
 Plug 'Keithbsmiley/swift.vim'
+Plug 'wting/rust.vim'
+Plug 'elixir-lang/vim-elixir'
 
 " stupid themes
 Plug 'junegunn/seoul256.vim'

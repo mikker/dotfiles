@@ -181,6 +181,8 @@ augroup vimrcEx
   " Auto-open quickfix window after grep cmds
   autocmd QuickFixCmdPost *grep* cwindow
 
+  au BufNewFile,BufRead TODO set ft=taskpaper
+
   " YAML front-matter
   au BufNewFile,BufRead *.{md,markdown,html,xml,erb} sy match Comment /\%^---\_.\{-}---$/
 
