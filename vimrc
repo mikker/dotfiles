@@ -65,7 +65,7 @@ let g:solarized_termcolors=256
 let g:seoul256_background = 235
 
 set background=dark
-colorscheme apprentice
+colorscheme zenbuff
 " hi Normal ctermbg=235
 
 set autoread
@@ -298,3 +298,7 @@ let g:vimwiki_list = [{'path': '~/Dropbox/Notes/', 'ext': '.md'}]
 map <leader>W :VimwikiIndex<cr>
 
 map <F5> :Gst<cr>D
+
+map <C-c> <esc>
+vmap <C-c> <esc>
+

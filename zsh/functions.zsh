@@ -1,5 +1,11 @@
 # Quickly navigate to a project - with autocorrect
-c() { cd ~/Developer/$1; }
+c() {
+  if [[ $# == 0 ]]; then
+    cd $(find ~/Developer -d -maxdepth 3 | selecta)
+  else
+    cd ~/Developer/$1;
+  fi
+}
 _c() { _files -W ~/Developer -/; }
 compdef _c c
 

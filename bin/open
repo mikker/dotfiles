@@ -3,7 +3,7 @@
 # usage: echo . | open -
 for last; do true; done
 if [ "$last" == '-' ]; then
-  arg=`cat`
+  arg=`cat | sed -E 's/^[ ]+|[ ]+$//g'`
   cmd=`echo $@ | sed -e "s/-$/${arg}/"`
   /usr/bin/open "$cmd"
 else
