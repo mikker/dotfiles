@@ -1,6 +1,7 @@
 # Quickly navigate to a project - with autocorrect
 c() {
   if [[ $# == 0 ]]; then
+    # brew install selecta
     cd $(find ~/Developer -d -maxdepth 3 | selecta)
   else
     cd ~/Developer/$1;
