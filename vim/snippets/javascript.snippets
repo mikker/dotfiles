@@ -2,6 +2,14 @@ snippet cl
 	console.log(${1});
 snippet f
 	function(${1}) {${2}}
+snippet fn
+	function ${1}() {
+		${2}
+	}
+snippet fs
+	function *(${1}) {${2}}
+snippet fns
+	function *${1}(${2}) {${3}}
 snippet iife
 	(function() {
 		'use strict';
@@ -28,10 +36,6 @@ snippet befi
 	beforeEach(inject(function(${1}) {
 	  ${2}
 	}));
-snippet fn
-	function ${1}() {
-		${2}
-	}
 snippet ts
 	this.state.
 snippet rcc

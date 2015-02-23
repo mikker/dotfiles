@@ -2,3 +2,5 @@ doc/tags
 .netrwhist
 /vim/autoload/plug.vim.old
 /vim/bundle
+/weechat/**/*.log
+/weechat/sec.conf
