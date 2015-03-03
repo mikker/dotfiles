@@ -4,3 +4,4 @@ doc/tags
 /vim/bundle
 /weechat/**/*.log
 /weechat/sec.conf
+/weechat/logs/*

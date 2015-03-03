@@ -57,6 +57,7 @@ Plug 'briancollins/vim-jst'
 Plug 'Keithbsmiley/swift.vim'
 Plug 'wting/rust.vim'
 Plug 'elixir-lang/vim-elixir'
+Plug 'digitaltoad/vim-jade'
 
 " stupid themes
 Plug 'junegunn/seoul256.vim'
