@@ -65,8 +65,8 @@ let g:solarized_termcolors=256
 let g:seoul256_background = 235
 
 set background=dark
-colorscheme zenbuff
-" hi Normal ctermbg=235
+colorscheme iceberg
+hi Normal ctermbg=235
 
 set autoread
 
