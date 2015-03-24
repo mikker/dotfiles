@@ -73,7 +73,7 @@ let s:plug_tab = get(s:, 'plug_tab', -1)
 let s:plug_buf = get(s:, 'plug_buf', -1)
 let s:mac_gui = has('gui_macvim') && has('gui_running')
 let s:is_win = has('win32') || has('win64')
-let s:py2 = has('python') && !s:is_win
+let s:py2 = has('python') && !s:is_win && !has('win32unix')
 let s:ruby = has('ruby') && (v:version >= 703 || v:version == 702 && has('patch374'))
 let s:nvim = has('nvim') && !s:is_win
 let s:me = resolve(expand('<sfile>:p'))
@@ -710,7 +710,7 @@ endfunction
 function! s:update_impl(pull, force, args) abort
   let args = copy(a:args)
   let threads = (len(args) > 0 && args[-1] =~ '^[1-9][0-9]*$') ?
-                  \ remove(args, -1) : get(g:, 'plug_threads', 16)
+                  \ remove(args, -1) : get(g:, 'plug_threads', s:is_win ? 1 : 16)
 
   let managed = filter(copy(g:plugs), 's:is_managed(v:key)')
   let todo = empty(args) ? filter(managed, '!v:val.frozen || !isdirectory(v:val.dir)') :
@@ -849,7 +849,7 @@ function! s:job_handler(name) abort
     call s:reap(a:name)
     call s:tick()
   else
-    let job.result .= s:to_s(v:job_data[2])
+    let job.result .= substitute(s:to_s(v:job_data[2]), '[\r\n]', '', 'g') . "\n"
     " To reduce the number of buffer updates
     let job.tick = get(job, 'tick', -1) + 1
     if job.tick % len(s:jobs) == 0
@@ -1749,9 +1749,9 @@ function! s:upgrade()
       if v:shell_error
         throw get(s:lines(output), -1, v:shell_error)
       endif
-    elseif s:ruby
+    elseif has('ruby')
       call s:upgrade_using_ruby(new)
-    elseif s:py2
+    elseif has('python')
       call s:upgrade_using_python(new)
     else
       return s:err('Missing: curl executable, ruby support or python support')

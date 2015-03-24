@@ -61,12 +61,14 @@ set undolevels=1000
 
 set foldlevel=999 " folds come expanded
 
-let g:solarized_termcolors=256
-let g:seoul256_background = 235
+" let g:solarized_termcolors=256
+" let g:seoul256_background = 235
 
 set background=dark
-colorscheme iceberg
-hi Normal ctermbg=235
+colorscheme apprentice
+" hi Normal ctermbg=235
+" hi LineNr ctermfg=243
+" hi VertSplit ctermbg=236
 
 set autoread
 
@@ -109,6 +111,9 @@ noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
 
+" next tab
+noremap <c-w><c-t> :tabn<cr>
+
 " Y behaves like other capital letters
 nnoremap Y y$
 
@@ -122,15 +127,21 @@ vnoremap > >gv
 " This one's a thing - open current file in Quicksilver
 noremap <leader>q :call system("qs ".expand("%"))<cr>
 
+" Open cwd in Finder.app
+nnoremap <leader>O :call system('open .')<cr>
+
 " I SAID CLOSE THAT WINDOW
 nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
 
+" poor mans meta key is to map alt-characters
 noremap ¬ :set foldlevel=9999<cr>
 noremap ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
 
+" kill all buffers
 noremap <leader>q :silent bufdo bd<cr>
-noremap <leader>c :call system('ctags . -R')<cr>
-noremap <c-w><c-t> :tabn<cr>
+
+" git status and diff
+map <F5> :Gst<cr>D
 
 " }}}
 " {{{ Functions and commands
@@ -181,6 +192,7 @@ augroup vimrcEx
   " Auto-open quickfix window after grep cmds
   autocmd QuickFixCmdPost *grep* cwindow
 
+  au BufNewFile,BufRead *.boot set ft=clojure
   au BufNewFile,BufRead TODO set ft=taskpaper
 
   " YAML front-matter
@@ -249,56 +261,15 @@ let g:UltiSnipsEditSplit="vertical"
 command! GP Git push
 command! GB Gbrowse
 
+let g:task_paper_follow_move = 0
+
 " }}}
 
-fun! s:set_mark(args)
-  let l:focus = expand(a:args)
-  if l:focus != ""
-    let g:focus=l:focus
-  endif
-  echo "Focus: ".g:focus.""
-endfun
+noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
 
-fun! s:run_mark()
-  if !exists("g:focus")
-    echo "No focus set yet"
-  else
-    execute g:focus
-  endif
-endfun
+let g:lightline = {
+      \ 'colorscheme': 'apprentice',
+      \ }
 
-command! -nargs=* -complete=command Mark call s:set_mark(<q-args>)
-command! -nargs=0 RunMark call s:run_mark()
-
-augroup mapCREx
-  au!
-  " Leave the return key alone when in command line windows, since it's used
-  " to run commands there.
-  autocmd! CmdwinEnter * :unmap <cr>
-  autocmd! CmdwinLeave * :call MapCR()
-  autocmd! FileType qf nnoremap <buffer> <cr> <cr>
-augroup END
-
-fun! MapCR()
-  noremap <cr> :RunMark<cr>
-endfun
-call MapCR()
-
-noremap <leader>mc :silent Mark call system('reload-chrome')<cr>
-noremap <leader>ml :silent Mark !rspec <c-r>=expand('%').':'.line('.')<cr><cr>
-noremap <leader>mf :silent Mark !rspec <c-r>=expand('%')<cr><cr>
-
-noremap <leader>A :!rspec<cr>
-noremap <leader>F :!rspec spec/features<cr>
-noremap <leader>U :!rspec spec/^(features\|*\.*)<cr>
-
-nnoremap <leader>O :call system('open .')<cr>
-
-let g:vimwiki_list = [{'path': '~/Dropbox/Notes/', 'ext': '.md'}]
-map <leader>W :VimwikiIndex<cr>
-
-map <F5> :Gst<cr>D
-
-map <C-c> <esc>
-vmap <C-c> <esc>
+vmap <c-c> <esc>
 

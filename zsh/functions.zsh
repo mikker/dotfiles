@@ -2,7 +2,7 @@
 c() {
   if [[ $# == 0 ]]; then
     # brew install selecta
-    cd $(find ~/Developer -type d -maxdepth 3 | selecta)
+    cd $(find ~/Developer -type d -maxdepth 3 | pick)
   else
     cd ~/Developer/$1;
   fi
@@ -55,7 +55,7 @@ dash() { open "dash://$*" }
 nw() { tmux new-window && tmux send-keys "$*" C-m }
 
 # Download pasteboard using aria2 download thing
-aripb() { aria2c "`pbpaste`" }
+aripb() { echo `pbpaste` && aria2c "`pbpaste`" }
 
 dokku-fn() {
   if [[ $# < 1 ]]; then
