@@ -1,1 +1,4 @@
-script/plugins.xml.gz
+/script/plugins.xml.gz
+/**/*.log
+/sec.conf
+/logs/*
