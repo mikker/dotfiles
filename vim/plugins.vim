@@ -79,6 +79,9 @@ Plug 'kossnocorp/perfect.vim'
 Plug 'jordwalke/flatlandia'
 Plug 'goatslacker/mango.vim'
 Plug 'Lokaltog/vim-distinguished'
+Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plug 'ajh17/Spacegray.vim'
+Plug 'vyshane/vydark-vim-color'
 
 " clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
@@ -90,6 +93,10 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
+
+Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+
+Plug 'mikker/Spacedust-theme.vim'
 
 call plug#end()
 

@@ -272,4 +272,5 @@ let g:lightline = {
       \ }
 
 vmap <c-c> <esc>
+set shell=zsh " nvim ftw
 
