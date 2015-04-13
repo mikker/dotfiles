@@ -16,7 +16,8 @@ let mapleader=","
 
 " {{{ Basics
 
-set sh=/bin/bash
+" set sh=/bin/bash
+set shell=zsh " nvim ftw
 
 set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -65,10 +66,8 @@ set foldlevel=999 " folds come expanded
 " let g:seoul256_background = 235
 
 set background=dark
-colorscheme apprentice
+colorscheme hybrid
 " hi Normal ctermbg=235
-" hi LineNr ctermfg=243
-" hi VertSplit ctermbg=236
 
 set autoread
 
@@ -142,6 +141,8 @@ noremap <leader>q :silent bufdo bd<cr>
 
 " git status and diff
 map <F5> :Gst<cr>D
+
+vmap <c-c> <esc>
 
 " }}}
 " {{{ Functions and commands
@@ -217,47 +218,31 @@ com! RE call system("touch tmp/restart.txt")
 " }}}
 " Plugin config and maps {{{
 
-" CtrlP
-noremap <leader>f :CtrlP<cr>
+" FZF
+noremap <leader>f :FZF<cr>
 " Map keys to go to specific files
-noremap <leader>ga :CtrlP app/assets<cr>
-noremap <leader>gc :CtrlP app/controllers<cr>
-noremap <leader>gh :CtrlP app/helpers<cr>
-noremap <leader>gv :CtrlP app/views<cr>
-noremap <leader>gm :CtrlP app/models<cr>
-noremap <leader>gp :CtrlP public<cr>
-noremap <leader>gt :CtrlP test<cr>
-noremap <leader>gs :CtrlP spec<cr>
+noremap <leader>ga :FZF app/assets<cr>
+noremap <leader>gc :FZF app/controllers<cr>
+noremap <leader>gh :FZF app/helpers<cr>
+noremap <leader>gv :FZF app/views<cr>
+noremap <leader>gm :FZF app/models<cr>
+noremap <leader>gp :FZF public<cr>
+noremap <leader>gt :FZF test<cr>
+noremap <leader>gs :FZF spec<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
-noremap <leader>b :CtrlPBuffer<cr>
-
-let g:ctrlp_max_height = 20
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_max_files = 0
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_use_caching = 2000
 
 " ag for ack
 " brew install the_silver_searcher
 if executable('ag')
-  " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 " minimal silver search 'plugin'
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
 
-let g:colorpicker_app = 'iTerm.app'
-
-let g:UltiSnipsExpandTrigger="<c-@>"
-let g:UltiSnipsJumpForwardTrigger="<c-@>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-
+" git shortcuts
 command! GP Git push
 command! GB Gbrowse
 
@@ -266,11 +251,4 @@ let g:task_paper_follow_move = 0
 " }}}
 
 noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
-
-let g:lightline = {
-      \ 'colorscheme': 'apprentice',
-      \ }
-
-vmap <c-c> <esc>
-set shell=zsh " nvim ftw
 

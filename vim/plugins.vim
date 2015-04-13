@@ -32,7 +32,9 @@ Plug 'tpope/vim-rhubarb'
 " things
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'thoughtbot/vim-rspec'
@@ -78,7 +80,6 @@ Plug 'vim-scripts/strange'
 Plug 'kossnocorp/perfect.vim'
 Plug 'jordwalke/flatlandia'
 Plug 'goatslacker/mango.vim'
-Plug 'Lokaltog/vim-distinguished'
 Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 Plug 'ajh17/Spacegray.vim'
 Plug 'vyshane/vydark-vim-color'
