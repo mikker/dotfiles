@@ -221,14 +221,14 @@ com! RE call system("touch tmp/restart.txt")
 " FZF
 noremap <leader>f :FZF<cr>
 " Map keys to go to specific files
-noremap <leader>ga :FZF app/assets<cr>
-noremap <leader>gc :FZF app/controllers<cr>
-noremap <leader>gh :FZF app/helpers<cr>
-noremap <leader>gv :FZF app/views<cr>
-noremap <leader>gm :FZF app/models<cr>
-noremap <leader>gp :FZF public<cr>
-noremap <leader>gt :FZF test<cr>
-noremap <leader>gs :FZF spec<cr>
+noremap <leader>ga :FZF<cr>
+noremap <leader>gc :FZF<cr>
+noremap <leader>gh :FZF<cr>
+noremap <leader>gv :FZF<cr>
+noremap <leader>gm :FZF<cr>
+noremap <leader>gp :FZF<cr>
+noremap <leader>gt :FZF<cr>
+noremap <leader>gs :FZF<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
 

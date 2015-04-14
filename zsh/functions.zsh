@@ -2,7 +2,7 @@
 c() {
   if [[ $# == 0 ]]; then
     # brew install selecta
-    cd $(find ~/Developer -type d -maxdepth 3 | pick)
+    cd $(find ~/Developer -type d -maxdepth 3 | fzf)
   else
     cd ~/Developer/$1;
   fi
