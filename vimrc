@@ -66,7 +66,7 @@ set foldlevel=999 " folds come expanded
 " let g:seoul256_background = 235
 
 set background=dark
-colorscheme hybrid
+colorscheme apprentice
 " hi Normal ctermbg=235
 
 set autoread
