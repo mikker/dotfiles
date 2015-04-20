@@ -71,3 +71,4 @@ alias temp="/Applications/TemperatureMonitor.app/Contents/MacOS/tempmonitor -c -
 alias vlc="open -a VLC"
 alias zs=zeus
 alias wget-dump="wget -mpck --user-agent="" -e robots=off"
+alias heroku='hk'

@@ -62,12 +62,10 @@ set undolevels=1000
 
 set foldlevel=999 " folds come expanded
 
-" let g:solarized_termcolors=256
-" let g:seoul256_background = 235
+let g:seoul256_background = 235
 
 set background=dark
-colorscheme apprentice
-" hi Normal ctermbg=235
+colorscheme zenbuff
 
 set autoread
 
@@ -218,23 +216,24 @@ com! RE call system("touch tmp/restart.txt")
 " }}}
 " Plugin config and maps {{{
 
-" FZF
-noremap <leader>f :FZF<cr>
+" CtrlP
+noremap <leader>f :CtrlP<cr>
 " Map keys to go to specific files
-noremap <leader>ga :FZF<cr>
-noremap <leader>gc :FZF<cr>
-noremap <leader>gh :FZF<cr>
-noremap <leader>gv :FZF<cr>
-noremap <leader>gm :FZF<cr>
-noremap <leader>gp :FZF<cr>
-noremap <leader>gt :FZF<cr>
-noremap <leader>gs :FZF<cr>
+noremap <leader>ga :CtrlP app/assets<cr>
+noremap <leader>gc :CtrlP app/controllers<cr>
+noremap <leader>gh :CtrlP app/helpers<cr>
+noremap <leader>gv :CtrlP app/views<cr>
+noremap <leader>gm :CtrlP app/models<cr>
+noremap <leader>gt :CtrlP test<cr>
+noremap <leader>gs :CtrlP spec<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
 
 " ag for ack
 " brew install the_silver_searcher
 if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_use_caching = 0
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
