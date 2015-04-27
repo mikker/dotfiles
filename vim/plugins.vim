@@ -89,6 +89,7 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
+Plug 'romainl/vim-qf'
 
 call plug#end()
 
