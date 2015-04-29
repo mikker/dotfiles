@@ -77,7 +77,8 @@ Plug 'nowk/genericdc'
 Plug 'romainl/Apprentice'
 Plug 'vyshane/vydark-vim-color'
 Plug 'w0ng/vim-hybrid'
-Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plug 'junegunn/jellybeans.vim'
+Plug 'junegunn/Zenburn'
 
 " clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
@@ -90,6 +91,10 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
 Plug 'romainl/vim-qf'
+Plug 'rgrinberg/vim-ocaml'
+Plug 'junegunn/vim-journal'
+Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
