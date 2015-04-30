@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 
+# Start/stop postgresql
+# usage: pgd start|stop
+
 base = "pg_ctl -D /usr/local/var/postgres"
 
-case ARGV.first
+case ARGV.shift
 when "start"
   system "#{base} -l /usr/local/var/postgres/server.log start"
 when "stop"

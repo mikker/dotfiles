@@ -1,7 +1,15 @@
 #!/usr/bin/env ruby
 
+# KRAK on the command line
+
+begin
+  require 'nokogiri'
+rescue LoadError => e
+  puts "$ gem install nokogiri"
+  exit 1
+end
+
 require 'open-uri'
-require 'nokogiri'
 require 'json'
 
 class String

@@ -1,24 +1,21 @@
 #!/bin/sh -x
 
+# Interactively rebase current branch against the relevant "master".
+# * If you're on master rebase against origin/master.
+# * If you're on any other local branch rebase against master
+#   or a branch specified as an argument.
+
 set -e
 
 CURRENT=`git branch | grep '\*' | awk '{print $2}'`
-if [[ $CURRENT != "develop" && $CURRENT != "master" ]]; then
-  if [ $1 ]; then
-    TARGET="$1"
-  else
-    TARGET="master"
-  fi
-  git rebase -i $TARGET
-  exit
-fi
-
-if [[ $CURRENT == "develop" ]]; then
-  git rebase -i master
-  exit
-fi
 
 if [[ $CURRENT == "master" ]]; then
   git rebase -i origin/master
-  exit
+else
+  if [ $1 ]; then
+    git rebase -i $1
+  else
+    git rebase -i master
+  fi
 fi
+

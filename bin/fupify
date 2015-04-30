@@ -38,4 +38,3 @@ TagLib::MPEG::File.open(input_file) do |file|
   file.save
 end
 
-# system "mv '#{input_file}' 'FIF_#{Date.today.strftime("%Y-%m-%d")}_.mp3'"

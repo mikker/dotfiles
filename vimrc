@@ -295,4 +295,16 @@ augroup auGoyo
   autocmd User GoyoLeave Limelight!
 augroup END
 
+" ----------------------------------------------------------------------------
+" Readline-style key bindings in command-line (excerpt from rsi.vim)
+" ----------------------------------------------------------------------------
+cnoremap        <C-A> <Home>
+cnoremap        <C-B> <Left>
+cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
+cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
+cnoremap        <M-b> <S-Left>
+cnoremap        <M-f> <S-Right>
+silent! exe "set <S-Left>=\<Esc>b"
+silent! exe "set <S-Right>=\<Esc>f"
+
 

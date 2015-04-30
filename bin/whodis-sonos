@@ -1,6 +1,14 @@
 #!/usr/bin/ruby
 require 'rubygems'
-require 'sonos'
+
+begin
+  require 'sonos'
+rescue LoadError => e
+  puts "$ gem install sonos"
+  exit 1
+end
+
+SPEAKESPEAKER "Forkontoret"
 
 # override to set log: false
 module Sonos::Endpoint::AVTransport
@@ -10,6 +18,6 @@ module Sonos::Endpoint::AVTransport
 end
 
 system = Sonos::System.new
-shaef = system.speakers.select { |s| s.name == "Forkontoret" }.first
-track = shaef.now_playing
+speaker = system.speakers.select { |s| s.name == SPEAKER }.first
+track = speaker.now_playing
 print "#{track[:artist]} - #{track[:title]} (#{track[:album]})"

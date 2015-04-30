@@ -1,5 +1,0 @@
-#!/bin/sh -x
-git checkout master
-git pull --ff
-git checkout -
-git rebase master --merge

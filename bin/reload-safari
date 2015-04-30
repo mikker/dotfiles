@@ -1,5 +1,7 @@
 #!/bin/sh
-osascript -e 'tell application "Safari"
-  set _url to URL of current tab of front window
-  set URL of current tab of front window to _url
+osascripe -e '
+tell application "Safari"
+  activate
+  delay 0.5
+  tell application "System Events" to keystroke "r" using command down
 end tell'

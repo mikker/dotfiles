@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
-words = <<-TEXT
+print DATA.read.split.sample
+
+__END__
 aahed aalii aargh abaca abaci aback abaft abaka abamp abase abash abate
 abaya abbas abbes abbey abbot abeam abele abets abhor abide abled abler
 ables abmho abode abohm aboil aboma aboon abort about above abris abuse
@@ -748,4 +750,3 @@ zoeae zoeal zoeas zombi zonae zonal zoned zoner zones zonks zooey zooid
 zooks zooms zoons zooty zoril zoris zouks zowie zuzim zymes
 TEXT
 
-print words.split.sample
