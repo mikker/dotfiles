@@ -1,6 +1,8 @@
 " vim: fdm=marker foldlevel=0
 set nocompatible
 
+" {{{ Plugins
+
 let g:plugins_file_path = "~/.vim/plugins.vim"
 
 if filereadable(expand(g:plugins_file_path))
@@ -10,17 +12,14 @@ endif
 filetype plugin indent on
 
 com! EPlugs exe ":vsplit " . g:plugins_file_path
-au! BufWritePost g:plugins_file_path exe "source %"
 
-let mapleader=","
-
+" }}}
 " {{{ Basics
 
-" set sh=/bin/bash
-set shell=zsh " nvim ftw
+set shell=zsh
 
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set nobackup
+set noswapfile
 set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
 if exists("+undofile")
   set undofile
@@ -32,23 +31,25 @@ set cursorline " highlight current line
 set hidden " allow buffers in background
 set number " line numbers
 set listchars=tab:»·,trail:· " invisible chars
-set list
+set list " show tabs and trailing whitespace
 
-set wildmode=longest:list,full
+set wildmode=longest:list,full " tab completion
+set laststatus=2 " always show status bar
 
 set ignorecase smartcase " search is case insensitive unless you use upper case
 set gdefault " global search by default; /g for first-per-row only.
-set nohlsearch " highlight results
 
+set autoindent " indent to current depth on new lines
 set expandtab " spaces for tabs
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set autoindent
 
-set laststatus=2
+set switchbuf=usetab " switch to existing buffer if there is one
+set autoread " update files when coming back
 
-set switchbuf=useopen
+set history=1000 " more history
+set undolevels=1000 " more undolevels
 
 set statusline=
 set statusline+=\ %<%f    " relative path
@@ -57,17 +58,7 @@ set statusline+=%=        " flexible space
 set statusline+=%{fugitive#statusline()} " git
 set statusline+=\ %{&ft}\   " filetype
 
-set history=1000
-set undolevels=1000
-
 set foldlevel=999 " folds come expanded
-
-let g:seoul256_background = 235
-
-set background=dark
-colorscheme seoul256-light
-
-set autoread
 
 set exrc " auto load local .vimrc files
 set secure " but lets keep it secure
@@ -75,12 +66,12 @@ set secure " but lets keep it secure
 " }}}
 " {{{ Mappings
 
+let mapleader=","
+
 noremap <c-_> :set hlsearch!<cr>
 
 " jumping
 nnoremap <leader><leader> <c-^>
-nnoremap <PageUp> :bp<cr>
-nnoremap <PageDown> :bn<cr>
 
 " space toggles current fold
 nnoremap <space> za
@@ -93,9 +84,9 @@ nnoremap * *<c-o>
 nmap Q @q
 vmap Q :normal Q<cr>
 
-" %% Expands to dir of current file in cmd mode
+" %% expands to dir of current file in cmd mode
 cmap %% <C-R>=expand('%:h').'/'<cr>
-" Map <leader>e to open files in the same directory as the current file
+" edit file in the same directory as the current file
 nmap <leader>e :edit %%
 
 " visual moving
@@ -108,7 +99,7 @@ noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
 
-" next tab
+" cycle tab
 noremap <c-w><c-t> :tabn<cr>
 
 " Y behaves like other capital letters
@@ -121,25 +112,22 @@ noremap ' `
 vnoremap < <gv
 vnoremap > >gv
 
-" This one's a thing - open current file in Quicksilver
-noremap <leader>q :call system("qs ".expand("%"))<cr>
-
 " Open cwd in Finder.app
 nnoremap <leader>O :call system('open .')<cr>
 
 " I SAID CLOSE THAT WINDOW
 nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
 
-" poor mans meta key is to map alt-characters
+" poor mans meta key is to map unicode-chars
 noremap ¬ :set foldlevel=9999<cr>
 noremap ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
 
-" kill all buffers
-noremap <leader>q :silent bufdo bd<cr>
-
 " git status and diff
-map <F5> :Gst<cr>D
+nnoremap <f5> :Gst<cr>
+" remove fluff
+nnoremap <f10> :Goyo<cr>
 
+" c-c in visual mode acts like <esc>
 vmap <c-c> <esc>
 
 " }}}
@@ -147,23 +135,47 @@ vmap <c-c> <esc>
 
 " Multi-purpose tab-key
 " Insert tab if beginning of line or after space, else do completion
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
+" function! InsertTabWrapper()
+"   let col = col('.') - 1
+"   if !col || getline('.')[col - 1] !~ '\k'
+"     return "\<tab>"
+"   else
+"     return "\<c-p>"
+"   endif
+" endfunction
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <s-tab> <c-n>
+function! s:super_duper_tab(k, o)
+  if pumvisible()
+    return a:k
   endif
+
+  let line = getline('.')
+  let col = col('.') - 2
+  if empty(line) || line[col] !~ '\k\|[/~.]' || line[col + 1] =~ '\k'
+    return a:o
+  endif
+
+  let prefix = expand(matchstr(line[0:col], '\S*$'))
+  if prefix =~ '^[~/.]'
+    return "\<c-x>\<c-f>"
+  endif
+  if !empty(&completefunc) && call(&completefunc, [1, prefix]) >= 0
+    return "\<c-x>\<c-u>"
+  endif
+  return a:k
 endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
+
+inoremap <expr> <tab>   <SID>super_duper_tab("\<c-n>", "\<tab>")
+inoremap <expr> <s-tab> <SID>super_duper_tab("\<c-p>", "\<s-tab>")
 
 " Quicker filetype setting:
 "   :F html
 command! -nargs=1 F set filetype=<args>
 command! FR set filetype=ruby
+command! FJ set filetype=javascript
 
-" search and replace
+" find and delete all trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
@@ -182,6 +194,11 @@ function! QuickfixFilenames()
   endfor
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
+
+" git shortcuts
+command! -nargs=* GP Git push <args>
+command! -nargs=* GU Git pull <args>
+command! -nargs=* GB Gbrowse <args>
 
 " }}}
 " {{{ Autocommands
@@ -205,18 +222,10 @@ augroup vimrcEx
   au BufLeave *.{rb}                  exe "normal! mC"
 augroup END
 
-" syntax scope of the current char
-fun! SyntaxScope()
-  echo map(synstack(line('.'), col('.')),'synIDattr(v:val, "name")')
-endfun
-com! SyntaxScope call SyntaxScope()
-
-com! RE call system("touch tmp/restart.txt")
-
 " }}}
 " Plugin config and maps {{{
 
-" CtrlP
+" FZF
 noremap <leader>f :FZF<cr>
 " Map keys to go to specific files
 noremap <leader>ga :FZF app/assets<cr>
@@ -229,25 +238,28 @@ noremap <leader>gs :FZF spec<cr>
 noremap <leader>gr :topleft :split config/routes.rb<cr>
 noremap <leader>gg :topleft :split Gemfile<cr>
 
+" Ctrl-P
+let g:ctrlp_use_caching = 0
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+endif
+
 " ag for ack
 " brew install the_silver_searcher
 if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-  let g:ctrlp_use_caching = 0
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" minimal silver search 'plugin'
+" minimal silver search command
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
-
-" git shortcuts
-command! GP Git push
-command! GB Gbrowse
 
 let g:task_paper_follow_move = 0
 
 " }}}
+
+set background=dark
+colorscheme seoul256-light
 
 noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
 
@@ -273,7 +285,6 @@ nnoremap <F8> :call <SID>rotate_colors()<cr>
 " HL | Find out syntax group
 " ----------------------------------------------------------------------------
 function! s:hl()
-  " echo synIDattr(synID(line('.'), col('.'), 0), 'name')
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
 endfunction
 command! HL call <SID>hl()
