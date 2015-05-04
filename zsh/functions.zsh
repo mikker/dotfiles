@@ -78,3 +78,4 @@ dokku-fn() {
 
   ssh -t $DOKKU_HOST $cmd $app $@
 }
+

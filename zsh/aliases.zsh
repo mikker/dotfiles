@@ -72,3 +72,5 @@ alias vlc="open -a VLC"
 alias zs=zeus
 alias wget-dump="wget -mpck --user-agent="" -e robots=off"
 alias heroku='hk'
+
+alias ddate='date +"%Y-%m-%d"'
