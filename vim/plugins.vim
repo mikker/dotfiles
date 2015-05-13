@@ -96,5 +96,7 @@ Plug 'junegunn/vim-journal'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/limelight.vim'
 
+Plug 'scrooloose/syntastic'
+
 call plug#end()
 
