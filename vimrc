@@ -259,7 +259,7 @@ let g:task_paper_follow_move = 0
 " }}}
 
 set background=dark
-colorscheme seoul256-light
+colorscheme apprentice
 
 noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
 
@@ -301,15 +301,5 @@ augroup END
 cnoremap        <C-A> <Home>
 silent! exe "set <S-Left>=\<Esc>b"
 silent! exe "set <S-Right>=\<Esc>f"
-
-let g:syntastic_javascript_checkers = ['standard']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
 
 set hidden

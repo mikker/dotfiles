@@ -13,7 +13,7 @@ set background=dark
 let colors_name = 'zenbuff'
 
 if &t_Co >= 256 || has('gui_running')
-  hi Normal           ctermbg=235  ctermfg=250 cterm=NONE guifg=#BCBCBC guibg=#262626 gui=NONE
+  hi Normal           ctermbg=236  ctermfg=250 cterm=NONE guifg=#BCBCBC guibg=#262626 gui=NONE
 
   set background=dark
 
