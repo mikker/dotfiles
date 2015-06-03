@@ -27,6 +27,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-afterimage'
 
 " things
 Plug 'kien/ctrlp.vim'
@@ -92,10 +93,14 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
-Plug 'romainl/vim-qf'
+" Plug 'romainl/vim-qf'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/limelight.vim'
 Plug 'chrisbra/unicode.vim'
+Plug 'scrooloose/syntastic', { 'for': 'javascript' }
+
+Plug 'vim-scripts/BufClose.vim'
+Plug 'grassdog/tagman.vim'
 
 call plug#end()
 

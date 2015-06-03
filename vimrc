@@ -18,6 +18,7 @@ com! EPlugs exe ":vsplit " . g:plugins_file_path
 
 set shell=zsh
 
+" no regrets
 set nobackup
 set noswapfile
 set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
@@ -25,6 +26,8 @@ if exists("+undofile")
   set undofile
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
+
+set hidden " allow backgrounding edited buffers
 
 set mouse=nvi " enable mouse in normal mode
 set cursorline " highlight current line
@@ -130,6 +133,11 @@ nnoremap <f10> :Goyo<cr>
 " c-c in visual mode acts like <esc>
 vmap <c-c> <esc>
 
+" Readline-style key bindings in command-line
+cnoremap        <C-A> <Home>
+silent! exe "set <S-Left>=\<Esc>b"
+silent! exe "set <S-Right>=\<Esc>f"
+
 " }}}
 " {{{ Functions and commands
 
@@ -200,6 +208,33 @@ command! -nargs=* GP Git push <args>
 command! -nargs=* GU Git pull <args>
 command! -nargs=* GB Gbrowse <args>
 
+noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
+
+" Rotate user-installed colorschems with <f8>
+function! s:rotate_colors()
+  if !exists('s:colors_list')
+    let s:colors_list =
+    \ sort(map(
+    \   filter(split(globpath(&rtp, "colors/*.vim"), "\n"), 'v:val !~ "^/usr/"'),
+    \   "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"))
+  endif
+  if !exists('s:colors_index')
+    let s:colors_index = index(s:colors_list, g:colors_name)
+  endif
+  let s:colors_index = (s:colors_index + 1) % len(s:colors_list)
+  let name = s:colors_list[s:colors_index]
+  execute 'colorscheme' name
+  redraw
+  echo name
+endfunction
+nnoremap <F8> :call <SID>rotate_colors()<cr>
+
+" What is this syntax colored as?
+function! s:hl()
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+endfunction
+command! HL call <SID>hl()
+
 " }}}
 " {{{ Autocommands
 augroup vimrcEx
@@ -256,50 +291,41 @@ nnoremap \ :Ag<SPACE>
 
 let g:task_paper_follow_move = 0
 
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_wq = 0
+" (syntastic is only on for js)
+
 " }}}
 
 set background=dark
-colorscheme apprentice
+colorscheme youprentice
 
-noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
-
-function! s:rotate_colors()
-  if !exists('s:colors_list')
-    let s:colors_list =
-    \ sort(map(
-    \   filter(split(globpath(&rtp, "colors/*.vim"), "\n"), 'v:val !~ "^/usr/"'),
-    \   "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"))
-  endif
-  if !exists('s:colors_index')
-    let s:colors_index = index(s:colors_list, g:colors_name)
-  endif
-  let s:colors_index = (s:colors_index + 1) % len(s:colors_list)
-  let name = s:colors_list[s:colors_index]
-  execute 'colorscheme' name
-  redraw
-  echo name
+" fzf buffers
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
 endfunction
-nnoremap <F8> :call <SID>rotate_colors()<cr>
 
-" ----------------------------------------------------------------------------
-" HL | Find out syntax group
-" ----------------------------------------------------------------------------
-function! s:hl()
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
-command! HL call <SID>hl()
 
-augroup auGoyo
-  autocmd!
-  autocmd User GoyoEnter Limelight
-  autocmd User GoyoLeave Limelight!
-augroup END
+nnoremap <silent> <Leader>b :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
 
-" ----------------------------------------------------------------------------
-" Readline-style key bindings in command-line (excerpt from rsi.vim)
-" ----------------------------------------------------------------------------
-cnoremap        <C-A> <Home>
-silent! exe "set <S-Left>=\<Esc>b"
-silent! exe "set <S-Right>=\<Esc>f"
+" fzf tags
+command! FZFTag if !empty(tagfiles()) | call fzf#run({
+\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
+\   'sink':   'tag',
+\ }) | else | echo 'No tags' | endif
+nnoremap <silent> <leader>t :FZFTag<cr>
 
-set hidden
+xnoremap <cr> :EasyAlign<cr>
+
