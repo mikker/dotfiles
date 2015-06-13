@@ -37,8 +37,11 @@ Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'thoughtbot/vim-rspec'
-Plug 'git@github.com:mikker/sparkup', {'rtp': 'vim/'}
-Plug 'git@github.com:mikker/snipmate.vim.git'
+" Plug 'git@github.com:mikker/sparkup', {'rtp': 'vim/'}
+" Plug 'git@github.com:mikker/snipmate.vim.git'
+Plug 'mattn/emmet-vim'
+Plug 'SirVer/ultisnips'
+
 
 " filetypes and syntax
 Plug 'tpope/vim-haml'
@@ -97,10 +100,11 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/limelight.vim'
 Plug 'chrisbra/unicode.vim'
-Plug 'scrooloose/syntastic', { 'for': 'javascript' }
+Plug 'scrooloose/syntastic'
 
 Plug 'vim-scripts/BufClose.vim'
 Plug 'grassdog/tagman.vim'
+Plug 'terryma/vim-expand-region'
 
 call plug#end()
 

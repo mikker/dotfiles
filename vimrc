@@ -69,7 +69,7 @@ set secure " but lets keep it secure
 " }}}
 " {{{ Mappings
 
-let mapleader=","
+let mapleader="\<Space>"
 
 noremap <c-_> :set hlsearch!<cr>
 
@@ -77,7 +77,7 @@ noremap <c-_> :set hlsearch!<cr>
 nnoremap <leader><leader> <c-^>
 
 " space toggles current fold
-nnoremap <space> za
+" nnoremap <space> za
 " yank to system clipboard
 vnoremap <leader>y "*y
 " Don't move on *
@@ -131,7 +131,7 @@ nnoremap <f5> :Gst<cr>
 nnoremap <f10> :Goyo<cr>
 
 " c-c in visual mode acts like <esc>
-vmap <c-c> <esc>
+xnoremap <c-c> <esc>
 
 " Readline-style key bindings in command-line
 cnoremap        <C-A> <Home>
@@ -291,6 +291,7 @@ nnoremap \ :Ag<SPACE>
 
 let g:task_paper_follow_move = 0
 
+let g:syntastic_html_checkers=['']
 let g:syntastic_javascript_checkers = ['standard']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
@@ -327,5 +328,15 @@ command! FZFTag if !empty(tagfiles()) | call fzf#run({
 \ }) | else | echo 'No tags' | endif
 nnoremap <silent> <leader>t :FZFTag<cr>
 
-xnoremap <cr> :EasyAlign<cr>
+xmap <cr> :EasyAlign<cr>
 
+let g:UltiSnipsExpandTrigger       = "<c-l>"
+let g:UltiSnipsListSnippets        = "<c-q>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+
+let g:user_emmet_leader_key='<c-e>'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+nmap <leader>w :w<cr>

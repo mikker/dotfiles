@@ -8,30 +8,29 @@ hs.alert.show(" ✔︎")
 
 -- window movement {{{
 
+hs.grid.GRIDHEIGHT = 10
+hs.grid.GRIDWIDTH = 10
+hs.grid.MARGINX = 0
+hs.grid.MARGINY = 0
+
 hs.hotkey.bind(hyper, "H", function()
   local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
-  win:setFrame(f)
+  hs.grid.set(win, {x = 0, y = 0, w = 5, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "L", function()
   local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
+  hs.grid.set(win, {x = 5, y = 0, w = 5, h = 10}, win:screen())
+end)
 
-  f.x = max.x + (max.w / 2)
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
-  win:setFrame(f)
+hs.hotkey.bind(hyper, "O", function()
+  local win = hs.window.focusedWindow()
+  hs.grid.set(win, {x = 4, y = 0, w = 6, h = 10}, win:screen())
+end)
+
+hs.hotkey.bind(hyper, "N", function()
+  local win = hs.window.focusedWindow()
+  hs.grid.set(win, {x = 0, y = 0, w = 4, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "1", function()
@@ -41,15 +40,7 @@ end)
 
 hs.hotkey.bind(hyper, "2", function()
   local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x + (max.w / 8)
-  f.y = max.y
-  f.w = max.w / 8 * 6
-  f.h = max.h
-  win:setFrame(f)
+  hs.grid.set(win, {x = 1, y = 0, w = 8, h = 10}, win:screen())
 end)
 
 --- }}}

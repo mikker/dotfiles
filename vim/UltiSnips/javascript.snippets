@@ -1,0 +1,97 @@
+snippet cl "console.log(...)" i
+console.log($0)
+endsnippet
+snippet cw "console.warn(...)" i
+console.warn($0)
+endsnippet
+snippet ce "console.error(...)" i
+console.error($0)
+endsnippet
+snippet f "function() {...}" i
+function(${1}) {$0}
+endsnippet
+snippet fn "function name() {...}" i
+function ${1}() {
+	$0
+}
+endsnippet
+snippet fg "" i
+function *(${1}) {${2}}
+endsnippet
+snippet fgn "" i
+function *${1}(${2}) {${3}}
+endsnippet
+snippet iife "" b
+(function() {
+	'use strict'
+
+	$0
+})()
+endsnippet
+snippet desc
+describe("${1}", function() {
+	$0
+})
+endsnippet
+snippet it
+it("${1}", function() {
+	$0
+})
+endsnippet
+snippet bef
+beforeEach(function() {
+	$0
+})
+endsnippet
+snippet aft
+afterEach(function() {
+	$0
+})
+endsnippet
+snippet befi
+beforeEach(inject(function(${1}) {
+  $0
+}))
+endsnippet
+snippet ts
+this.state.
+endsnippet
+snippet rcc
+React.createClass({
+	render: function() {
+		return (
+			$0
+		)
+	}
+})
+endsnippet
+snippet comp
+class ${1:Component} extends React.Component {
+	render () {
+		return (
+			$0
+		)
+	}
+}
+endsnippet
+snippet exp "export default ..."
+export ${1:default }$0
+endsnippet
+snippet ccomp "React component"
+import React, { Component } from 'react'
+
+export default class ${1:Name} extends Component {
+	static get displayName () { return '$1' }
+
+	render () {
+		return (
+			<${2:div}>$0</$2>
+		)
+	}
+}
+endsnippet
+snippet prom
+new Promise((resolve, reject) => {
+	$0
+})
+endsnippet
