@@ -85,6 +85,8 @@ Plug 'romainl/Apprentice'
 Plug 'vyshane/vydark-vim-color'
 Plug 'w0ng/vim-hybrid'
 Plug 'wimstefan/Lightning'
+Plug 'romainl/Disciple'
+Plug 'NLKNguyen/papercolor-theme'
 
 " clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
@@ -93,6 +95,9 @@ Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
+
+
+
 
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
@@ -105,6 +110,8 @@ Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/BufClose.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'terryma/vim-expand-region'
+" Plug 'tpope/vim-flagship'
+Plug 'lambdatoast/elm.vim'
 
 call plug#end()
 

@@ -74,3 +74,4 @@ alias wget-dump="wget -mpck --user-agent="" -e robots=off"
 alias heroku='hk'
 
 alias ddate='date +"%Y-%m-%d"'
+alias ytdl='cd ~/Movies && youtube-dl `pbpaste`'

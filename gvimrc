@@ -5,6 +5,7 @@ set vb
 set guioptions-=T " No toolbar
 set guioptions-=r " No right hand scroll bar
 set guioptions-=L " No left hand scroll bar
+set guioptions-=e " Use built-in tabs
 if has("gui_macvim")
   " Fullscreen takes up entire screen
   set fuoptions=maxhorz,maxvert

@@ -43,6 +43,16 @@ hs.hotkey.bind(hyper, "2", function()
   hs.grid.set(win, {x = 1, y = 0, w = 8, h = 10}, win:screen())
 end)
 
+hs.hotkey.bind(hyper, "=", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+
+  f.y = 0
+  f.h = screen:frame().h
+  win:setFrame(f)
+end)
+
 --- }}}
 -- application hotkeys {{{
 
@@ -51,7 +61,7 @@ local charsToApps = {
   e = "Mail",
   f = "Finder",
   m = "Messages",
-  r = "Rdio",
+  r = "iTunes",
   s = "Safari",
   t = "Tweetbot",
   z = "Slack",

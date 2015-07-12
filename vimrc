@@ -210,7 +210,7 @@ command! -nargs=* GB Gbrowse <args>
 
 noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
 
-" Rotate user-installed colorschems with <f8>
+" Rotate user-installed colorschemes with <f8>
 function! s:rotate_colors()
   if !exists('s:colors_list')
     let s:colors_list =
@@ -297,11 +297,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 " (syntastic is only on for js)
 
-" }}}
-
-set background=dark
-colorscheme youprentice
-
 " fzf buffers
 function! s:buflist()
   redir => ls
@@ -328,6 +323,11 @@ command! FZFTag if !empty(tagfiles()) | call fzf#run({
 \ }) | else | echo 'No tags' | endif
 nnoremap <silent> <leader>t :FZFTag<cr>
 
+" }}}
+
+set background=dark
+colorscheme PaperColor
+
 xmap <cr> :EasyAlign<cr>
 
 let g:UltiSnipsExpandTrigger       = "<c-l>"
@@ -336,7 +336,14 @@ let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
 let g:user_emmet_leader_key='<c-e>'
+
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 nmap <leader>w :w<cr>
+
+fun! s:openMarked()
+  call system('open -a Marked\ 2 "' . expand("%") . '"')
+endfun
+command! Marked call s:openMarked()
+
