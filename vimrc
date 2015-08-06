@@ -326,7 +326,7 @@ nnoremap <silent> <leader>t :FZFTag<cr>
 " }}}
 
 set background=dark
-colorscheme zenbuff
+colorscheme apprentice
 
 xmap <cr> :EasyAlign<cr>
 

@@ -101,7 +101,6 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
-" Plug 'romainl/vim-qf'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/limelight.vim'
 Plug 'chrisbra/unicode.vim'
@@ -110,7 +109,7 @@ Plug 'scrooloose/syntastic'
 Plug 'vim-scripts/BufClose.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'terryma/vim-expand-region'
-" Plug 'tpope/vim-flagship'
+Plug 'tpope/vim-flagship'
 Plug 'lambdatoast/elm.vim'
 
 call plug#end()
