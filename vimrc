@@ -58,7 +58,7 @@ set statusline=
 set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
-set statusline+=%{fugitive#statusline()} " git
+" set statusline+=%{fugitive#statusline()} " git
 set statusline+=\ %{&ft}\   " filetype
 
 set foldlevel=999 " folds come expanded
@@ -297,31 +297,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 " (syntastic is only on for js)
 
-" fzf buffers
-function! s:buflist()
-  redir => ls
-  silent ls
-  redir END
-  return split(ls, '\n')
-endfunction
-
-function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <Leader>b :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
-
-" fzf tags
-command! FZFTag if !empty(tagfiles()) | call fzf#run({
-\   'source': "sed '/^\\!/d;s/\t.*//' " . join(tagfiles()) . ' | uniq',
-\   'sink':   'tag',
-\ }) | else | echo 'No tags' | endif
-nnoremap <silent> <leader>t :FZFTag<cr>
+nnoremap <silent> <Leader>b :Buffers<cr>
+nnoremap <silent> <leader>t :Tags<cr>
 
 " }}}
 
@@ -346,4 +323,7 @@ fun! s:openMarked()
   call system('open -a Marked\ 2 "' . expand("%") . '"')
 endfun
 command! Marked call s:openMarked()
+
+" expand G to Git in commandmode
+cnoreabbrev G Git
 

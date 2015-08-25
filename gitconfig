@@ -18,7 +18,7 @@
   tree = "log --graph --decorate --abbrev=commit"
   pr = "!hub pull-request"
   empty-msg = commit --allow-empty-message --message=
-  save = !git add -A && git commit -m 'QUICKSAVE'
+  save = "!f() { git add -A && git commit -m \"$@\"; }; f"
   wip = !git add -u && git commit -m "WIP"
   undo = reset HEAD~1 --mixed
   amend = commit -a --amend

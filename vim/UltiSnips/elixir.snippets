@@ -13,3 +13,34 @@ defmodule ${1} do
 
 end
 endsnippet
+snippet genserver
+defmodule ${1} do
+	use GenServer
+
+	@initial_state ${2:nil}
+
+	# Public API
+
+	def start_link(opts \\ []) do
+		GenServer.start_link __MODULE__, :ok, opts
+	end
+
+	# GenServer callback
+
+	def init(:ok) do
+		{:ok, @initial_state}
+	end
+
+	def handle_call(_action, _from, state) do
+		{:reply, state}
+	end
+
+	def handle_cast({_action, _val}, state) do
+		{:noreply, state}
+	end
+
+	def handle_info(_msg, state) do
+		{:noreply, state}
+	end
+end
+endsnippet

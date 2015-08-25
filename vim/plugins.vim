@@ -32,6 +32,7 @@ Plug 'tpope/vim-afterimage'
 " things
 Plug 'kien/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
@@ -86,7 +87,6 @@ Plug 'vyshane/vydark-vim-color'
 Plug 'w0ng/vim-hybrid'
 Plug 'wimstefan/Lightning'
 Plug 'romainl/Disciple'
-Plug 'NLKNguyen/papercolor-theme'
 
 " clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }

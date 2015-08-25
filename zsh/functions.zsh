@@ -79,3 +79,7 @@ dokku-fn() {
   ssh -t $DOKKU_HOST $cmd $app $@
 }
 
+git-new () {
+  ssh git@brnbw "mkdir -p $1 && cd \$_ && git init --bare"
+}
+
