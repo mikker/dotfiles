@@ -110,7 +110,7 @@ Plug 'vim-scripts/BufClose.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-flagship'
-Plug 'lambdatoast/elm.vim'
+Plug 'elmcast/elm-vim'
 
 call plug#end()
 
