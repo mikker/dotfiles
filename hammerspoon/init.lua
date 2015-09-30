@@ -15,36 +15,43 @@ hs.grid.MARGINY = 0
 
 hs.hotkey.bind(hyper, "H", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   hs.grid.set(win, {x = 0, y = 0, w = 5, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "L", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   hs.grid.set(win, {x = 5, y = 0, w = 5, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "O", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   hs.grid.set(win, {x = 4, y = 0, w = 6, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "N", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   hs.grid.set(win, {x = 0, y = 0, w = 4, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "1", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   win:setFrame(win:screen():frame())
 end)
 
 hs.hotkey.bind(hyper, "2", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   hs.grid.set(win, {x = 1, y = 0, w = 8, h = 10}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "=", function()
   local win = hs.window.focusedWindow()
+  if not win then return end
   local f = win:frame()
   local screen = win:screen()
 
@@ -76,6 +83,7 @@ end
 -- caffeine {{{
 
 local caffeine = hs.menubar.new()
+
 function setCaffeineDisplay(state)
   if state then
     caffeine:setIcon("awake.pdf")
@@ -92,6 +100,8 @@ if caffeine then
   caffeine:setClickCallback(caffeineClicked)
   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
+
+caffeineClicked() -- caffeine starts on
 
 -- }}}
 
