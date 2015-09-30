@@ -314,9 +314,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
 let g:user_emmet_leader_key='<c-e>'
 
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
 nmap <leader>w :w<cr>
 
 fun! s:openMarked()
