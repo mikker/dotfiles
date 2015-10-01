@@ -11,7 +11,7 @@ snippet f "function() {...}" i
 function(${1}) {$0}
 endsnippet
 snippet fn "function name() {...}" i
-function ${1}() {
+function ${1} () {
 	$0
 }
 endsnippet
@@ -22,7 +22,7 @@ snippet fgn "" i
 function *${1}(${2}) {${3}}
 endsnippet
 snippet iife "" b
-(function() {
+(function () {
 	'use strict'
 
 	$0
@@ -75,17 +75,21 @@ class ${1:Component} extends React.Component {
 }
 endsnippet
 snippet exp "export default ..."
-export ${1:default }$0
+export default $0
 endsnippet
 snippet ccomp "React component"
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 export default class ${1:Name} extends Component {
-	static get displayName () { return '$1' }
+	static get propTypes () {
+		return {
+			$2
+		}
+	}
 
 	render () {
 		return (
-			<${2:div}>$0</$2>
+			<${3:div}>$0</$3>
 		)
 	}
 }
