@@ -10,31 +10,31 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # SYSTEM {{{
 
-echo 'Set the timezone; see `sudo systemsetup -listtimezones` for other values'
-sudo systemsetup -settimezone "Europe/Copenhagen" > /dev/null
+# echo 'Set the timezone; see `sudo systemsetup -listtimezones` for other values'
+# sudo systemsetup -settimezone "Europe/Copenhagen" > /dev/null
 
-echo "Disable Resume system-wide"
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+# echo "Disable Resume system-wide"
+# defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
-echo "Disable the sound effects on boot"
-sudo nvram SystemAudioVolume=" "
+# echo "Disable the sound effects on boot"
+# sudo nvram SystemAudioVolume=" "
 
-echo "Disable hibernation (speeds up entering sleep mode)"
-sudo pmset -a hibernatemode 0
+# echo "Disable hibernation (speeds up entering sleep mode)"
+# sudo pmset -a hibernatemode 0
 
-echo "Remove the sleep image file to save disk space"
-sudo rm /Private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /Private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /Private/var/vm/sleepimage
+# echo "Remove the sleep image file to save disk space"
+# sudo rm /Private/var/vm/sleepimage
+# # Create a zero-byte file instead…
+# sudo touch /Private/var/vm/sleepimage
+# # …and make sure it can’t be rewritten
+# sudo chflags uchg /Private/var/vm/sleepimage
 
 echo "Requiring password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-echo "Disable the sudden motion sensor as it’s not useful for SSDs"
-sudo pmset -a sms 0
+# echo "Disable the sudden motion sensor as it’s not useful for SSDs"
+# sudo pmset -a sms 0
 
 # echo "Disable Notification Center and remove the menu bar icon"
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
@@ -53,10 +53,10 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 echo "Disabling local Time Machine backups"
 hash tmutil &> /dev/null && sudo tmutil disablelocal
 
-echo 'Trackpad: enable tap to click for this user and for the login screen'
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# echo 'Trackpad: enable tap to click for this user and for the login screen'
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 echo 'Completely turn off Dashboard'
 defaults write com.apple.dashboard mcx-disabled -bool true
@@ -84,14 +84,11 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 echo 'Use Yosemite Dark mode'
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
-echo "Disable transparency in the menu bar and elsewhere on Yosemite"
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# echo "Disable transparency in the menu bar and elsewhere on Yosemite"
+# defaults write com.apple.universalaccess reduceTransparency -bool true
 
 echo "Set sidebar icon size to small"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
-
-echo "Increase window resize speed for Cocoa applications"
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -108,18 +105,18 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
 echo 'Hot corners'
-echo 'Top left screen corner → Mission Control'
+echo 'Top left / Bottom right screen corner → Mission Control'
 defaults write com.apple.dock wvous-tl-corner -int 2
 defaults write com.apple.dock wvous-tl-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 2
 defaults write com.apple.dock wvous-br-modifier -int 0
-echo 'Top right screen corner → Desktop'
+echo 'Bottom left screen corner → Desktop'
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
 echo 'Put Dock in bottom right corner'
 defaults write com.apple.dock orientation -string "right"
-defaults write com.apple.dock pinning -string "end"
+# defaults write com.apple.dock pinning -string "end"
 
 # }}}
 # DIALOGS {{{
@@ -139,12 +136,12 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 # }}}
 # INPUT {{{
 
-echo 'Disable auto-correct'
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+# echo 'Disable auto-correct'
+# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-echo "Disable smart quotes and smart dashes as they're annoying when typing code"
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+# echo "Disable smart quotes and smart dashes as they're annoying when typing code"
+# defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # }}}
 # FINDER {{{
@@ -158,23 +155,23 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 echo "When performing a search, search the current folder by default"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
-echo "Use list view in all Finder windows by default"
+echo "Use column view in all Finder windows by default"
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Clmv"
 
 echo "Show the ~/Library folder"
 chflags nohidden ~/Library
 
-echo "Remove Dropbox’s green checkmark icons in Finder"
-file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
-[ -e "${file}" ] && mv -f "${file}" "${file}.bak"
+# echo "Remove Dropbox’s green checkmark icons in Finder"
+# file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
+# [ -e "${file}" ] && mv -f "${file}" "${file}.bak"
 
 echo "Expand the following File Info panes:"
 echo "  “General”, “Open with”, and “Sharing & Permissions”"
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
   General -bool true \
-  OpenWith -bool true # \
-  # Privileges -bool true
+  OpenWith -bool true \
+  Privileges -bool true
 
 echo "Showing status bar in Finder by default"
 defaults write com.apple.finder ShowStatusBar -bool true
@@ -194,17 +191,17 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 echo 'Disable the warning before emptying the Trash'
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
-echo 'Enable AirDrop over Ethernet and on unsupported Macs running Lion'
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+# echo 'Enable AirDrop over Ethernet and on unsupported Macs running Lion'
+# defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # }}}
 # SAFARI {{{
 
-echo "Prevent Safari from opening ‘safe’ files automatically after downloading"
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+# echo "Prevent Safari from opening ‘safe’ files automatically after downloading"
+# defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
-echo "Set Safari’s home page to 'about:blank' for faster loading"
-defaults write com.apple.Safari HomePage -string "about:blank"
+# echo "Set Safari’s home page to 'about:blank' for faster loading"
+# defaults write com.apple.Safari HomePage -string "about:blank"
 
 echo "Show the full URL in the address bar (note: this still hides the scheme)"
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
@@ -219,8 +216,8 @@ defaults write com.apple.Safari ShowSidebarInTopSites -bool false
 echo "Hiding Safari's bookmarks bar by default"
 defaults write com.apple.Safari ShowFavoritesBar -bool false
 
-echo "Disabling Safari's thumbnail cache for History and Top Sites"
-defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+# echo "Disabling Safari's thumbnail cache for History and Top Sites"
+# defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
 echo 'Enable Safari’s debug menu'
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
@@ -235,51 +232,51 @@ defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.Web
 
 echo "Display emails in threaded mode, sorted by date (oldest at the top)"
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
-# defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
 defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
 
-echo "Disable automatic spell checking"
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+# echo "Disable automatic spell checking"
+# defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
-echo 'Disable send and reply animations in Mail.app'
-defaults write com.apple.Mail DisableReplyAnimations -bool true
-defaults write com.apple.Mail DisableSendAnimations -bool true
+# echo 'Disable send and reply animations in Mail.app'
+# defaults write com.apple.Mail DisableReplyAnimations -bool true
+# defaults write com.apple.Mail DisableSendAnimations -bool true
 
 # }}}
 # APPS {{{
 
 echo "TextEdit: Use plain text mode for new documents"
 defaults write com.apple.TextEdit RichText -int 0
+
 echo "TextEdit: Open and save files as UTF-8"
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
-echo "DiskUtillity: Enable the debug menu"
-defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
-defaults write com.apple.DiskUtility advanced-image-options -bool true
+# echo "DiskUtillity: Enable the debug menu"
+# defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
+# defaults write com.apple.DiskUtility advanced-image-options -bool true
 
-echo "Messages: Disable smart quotes as it’s annoying for messages that contain code"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
+# echo "Messages: Disable smart quotes as it’s annoying for messages that contain code"
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
 
-echo "Messages: Disable continuous spell checking"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
+# echo "Messages: Disable continuous spell checking"
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool false
 
 # }}}
 # SHORTCUTS {{{
 
-echo "All apps: Print to pdf with cmd+p then cmd+p"
-defaults write -g NSUserKeyEquivalents -dict-add "Save as PDF..." -string "@P"
-defaults write -g NSUserKeyEquivalents -dict-add "Mail PDF" -string "@~P"
+# echo "All apps: Print to pdf with cmd+p then cmd+p"
+# defaults write -g NSUserKeyEquivalents -dict-add "Save as PDF..." -string "@P"
+# defaults write -g NSUserKeyEquivalents -dict-add "Mail PDF" -string "@~P"
 
-echo "Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app"
-defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9"
+# echo "Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app"
+# defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9"
 
-echo "Safari: Show/Hide toolbar with cmd+alt+t"
-defaults write com.apple.Safari NSUserKeyEquivalents -dict-add "Hide toolbar" -string "@~T"
-defaults write com.apple.Safari NSUserKeyEquivalents -dict-add "Show toolbar" -string "@~T"
+# echo "Safari: Show/Hide toolbar with cmd+alt+t"
+# defaults write com.apple.Safari NSUserKeyEquivalents -dict-add "Hide toolbar" -string "@~T"
+# defaults write com.apple.Safari NSUserKeyEquivalents -dict-add "Show toolbar" -string "@~T"
 
-echo "Finder: Set tags with ctrl+t"
-defaults write com.apple.Finder NSUserKeyEquivalents -dict-add "Tags..." -string "^T"
+# echo "Finder: Set tags with ctrl+t"
+# defaults write com.apple.Finder NSUserKeyEquivalents -dict-add "Tags..." -string "^T"
 
 # }}}
 
