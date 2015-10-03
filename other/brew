@@ -1,0 +1,38 @@
+brew install \
+       aria2 \
+       chruby \
+       ctags \
+       curl \
+       docker \
+       elixir \
+       ffmpeg \
+       gist \
+       git \
+       heroku-toolbelt \
+       hub \
+       imagemagick \
+       leiningen \
+       mysql \
+       nvm \
+       postgresql \
+       reattach-to-user-namespace \
+       redis \
+       ruby-install \
+       s3cmd \
+       sassc \
+       ssh-copy-id \
+       taglib \
+       the_silver_searcher \
+       tmux \
+       tree \
+       vim \
+       weechat \
+       wget \
+       youtube-dl \
+       zsh
+
+brew tap chrismytton/formula
+brew install --HEAD shoreman
+
+brew tap neovim/neovim
+brew install --HEAD neovim
