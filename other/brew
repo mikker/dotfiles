@@ -38,3 +38,18 @@ brew install --HEAD shoreman
 
 brew tap neovim/neovim
 brew install --HEAD neovim
+
+brew install caskroom/cask/brew-cask
+brew cask install \
+  appzapper \
+  dropbox \
+  grandperspective \
+  handbrake \
+  imageoptim \
+  karabiner \
+  macpar-deluxe \
+  nvalt \
+  rdio \
+  vlc \
+
+

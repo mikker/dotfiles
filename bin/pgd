@@ -3,11 +3,12 @@
 # Start/stop postgresql
 # usage: pgd start|stop
 
-base = "pg_ctl -D #{ENV['BREW_PATH']}/var/postgres"
+brew_path = ENV['BREW_PATH'] || '/usr/local'
+base = "pg_ctl -D #{brew_path}/var/postgres"
 
 case ARGV.shift
 when "start"
-  system "#{base} -l #{ENV['BREW_PATH']}/var/postgres/server.log start"
+  system "#{base} -l #{brew_path}/var/postgres/server.log start"
 when "stop"
   system "#{base} stop -s -m fast"
 else
