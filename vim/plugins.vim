@@ -65,6 +65,7 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'facebook/vim-flow', {'for': 'javascript'}
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
@@ -86,6 +87,8 @@ Plug 'vyshane/vydark-vim-color'
 Plug 'w0ng/vim-hybrid'
 Plug 'wimstefan/Lightning'
 Plug 'romainl/Disciple'
+Plug 'whatyouhide/vim-gotham'
+Plug 'KabbAmine/yowish.vim'
 
 " clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
@@ -96,19 +99,20 @@ Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 
-
-
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-journal'
 Plug 'junegunn/limelight.vim'
 Plug 'chrisbra/unicode.vim'
-Plug 'scrooloose/syntastic'
+
+" Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 
 Plug 'vim-scripts/BufClose.vim'
 Plug 'grassdog/tagman.vim'
-Plug 'tpope/vim-flagship'
+" Plug 'tpope/vim-flagship'
 Plug 'elmcast/elm-vim'
+Plug 'sjl/gundo.vim'
 
 call plug#end()
 

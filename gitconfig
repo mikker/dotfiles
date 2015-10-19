@@ -47,3 +47,7 @@
   prompt = false
 
 ; vim: set ft=gitconfig
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true

@@ -13,7 +13,7 @@ endif
 
 " Font
 if has('mac')
-  set guifont=Inconsolata:h20
+  set guifont=InputMono\ Thin:h16
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif

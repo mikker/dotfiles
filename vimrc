@@ -132,11 +132,16 @@ nnoremap <f10> :Goyo<cr>
 
 " c-c in visual mode acts like <esc>
 xnoremap <c-c> <esc>
+inoremap <c-c> <esc>
 
 " Readline-style key bindings in command-line
 cnoremap        <C-A> <Home>
 silent! exe "set <S-Left>=\<Esc>b"
 silent! exe "set <S-Right>=\<Esc>f"
+
+nmap <leader>ev :e $MYVIMRC<cr>
+nmap <leader>sv :so $MYVIMRC<cr>
+nmap <leader>ep :e <c-r>=g:plugins_file_path<cr><cr>
 
 " }}}
 " {{{ Functions and commands
@@ -255,6 +260,9 @@ augroup vimrcEx
   au BufLeave *.{css,scss,sass}       exe "normal! mS"
   au BufLeave *.{js,coffee}           exe "normal! mJ"
   au BufLeave *.{rb}                  exe "normal! mC"
+
+  au BufWritePost ~/.vim/plugins.vim so ~/.vim/plugins.vim
+  au BufWritePost ~/.vimrc so ~/.vimrc
 augroup END
 
 " }}}
@@ -323,4 +331,16 @@ command! Marked call s:openMarked()
 
 " expand G to Git in commandmode
 cnoreabbrev G Git
+
+fun! s:searchNotes()
+  :CtrlP ~/Dropbox/Notes
+endfun
+command! Notes call s:searchNotes()
+
+let g:flow#autoclose = 1
+autocmd! BufWritePost * Neomake
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+iab <expr> ddate strftime("%Y-%m-%d")
+iab <expr> ttime strftime("%H:%M")
 

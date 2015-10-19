@@ -66,7 +66,11 @@ React.createClass({
 })
 endsnippet
 snippet comp
-class ${1:Component} extends React.Component {
+class ${1:Name} extends Component {
+	static propTypes = {
+		$2
+	}
+
 	render () {
 		return (
 			$0
@@ -81,10 +85,8 @@ snippet ccomp "React component"
 import React, { Component, PropTypes } from 'react'
 
 export default class ${1:Name} extends Component {
-	static get propTypes () {
-		return {
-			$2
-		}
+	static propTypes = {
+		$2
 	}
 
 	render () {
@@ -98,4 +100,22 @@ snippet prom
 new Promise((resolve, reject) => {
 	$0
 })
+endsnippet
+snippet rcomp "React component for react-rails"
+(window => {
+	const { Component, PropTypes } = React
+
+	class ${1:Name} extends Component {
+		static propTypes = {
+			$2
+		}
+		render () {
+			return (
+				${3:<div>$0</div>}
+			)
+		}
+	}
+
+	window.$1 = $1
+})(window)
 endsnippet
