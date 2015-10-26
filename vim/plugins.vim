@@ -37,82 +37,38 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'thoughtbot/vim-rspec'
-" Plug 'git@github.com:mikker/sparkup', {'rtp': 'vim/'}
-" Plug 'git@github.com:mikker/snipmate.vim.git'
-Plug 'mattn/emmet-vim'
+Plug 'git@github.com:mikker/sparkup', {'rtp': 'vim/'}
 Plug 'SirVer/ultisnips'
-
+Plug 'git@github.com:mikker/vim-rerunner'
+Plug 'chrisbra/unicode.vim'
+Plug 'grassdog/tagman.vim'
+Plug 'tpope/vim-flagship'
 
 " filetypes and syntax
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-liquid'
-Plug 'tpope/vim-markdown'
-Plug 'groenewege/vim-less'
-Plug 'JulesWang/css.vim'
-Plug 'Keithbsmiley/swift.vim'
-Plug 'briancollins/vim-jst'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'cypok/vim-sml'
-Plug 'davidoc/taskpaper.vim'
-Plug 'digitaltoad/vim-jade'
-Plug 'elixir-lang/vim-elixir'
-Plug 'ingydotnet/yaml-vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'lluchs/vim-wren'
-Plug 'moll/vim-node'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'mxw/vim-jsx'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'facebook/vim-flow', {'for': 'javascript'}
-Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'slim-template/vim-slim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'wting/rust.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'elmcast/elm-vim'
 
 " stupid themes
 Plug 'ajh17/Spacegray.vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'cdmedia/itg_flat_vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'jordwalke/VimCleanColors'
-Plug 'jordwalke/flatlandia'
 Plug 'junegunn/Zenburn'
 Plug 'junegunn/jellybeans.vim'
 Plug 'junegunn/seoul256.vim'
-Plug 'nowk/genericdc'
 Plug 'romainl/Apprentice'
-Plug 'vyshane/vydark-vim-color'
 Plug 'w0ng/vim-hybrid'
-Plug 'wimstefan/Lightning'
 Plug 'romainl/Disciple'
-Plug 'whatyouhide/vim-gotham'
 Plug 'KabbAmine/yowish.vim'
 
 " clojure
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
-
-Plug 'git@github.com:mikker/vim-rerunner'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/vim-journal'
-Plug 'junegunn/limelight.vim'
-Plug 'chrisbra/unicode.vim'
-
-" Plug 'scrooloose/syntastic'
-Plug 'benekastah/neomake'
-
-Plug 'vim-scripts/BufClose.vim'
-Plug 'grassdog/tagman.vim'
-" Plug 'tpope/vim-flagship'
-Plug 'elmcast/elm-vim'
-Plug 'sjl/gundo.vim'
+Plug 'scrooloose/syntastic'
+" Plug 'benekastah/neomake'
 
 call plug#end()
 
