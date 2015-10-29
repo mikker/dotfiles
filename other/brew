@@ -28,10 +28,10 @@ brew install \
        tmux \
        tree \
        vim \
-       weechat \
        wget \
        youtube-dl \
        zsh
+brew install weechat --with-curl --with-lua --with-perl --with-python --with-ruby
 
 brew tap chrismytton/formula
 brew install --HEAD shoreman
