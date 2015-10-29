@@ -29,32 +29,24 @@ snippet iife "" b
 })()
 endsnippet
 snippet desc
-describe("${1}", function() {
+describe('${1}', () => {
 	$0
 })
 endsnippet
 snippet it
-it("${1}", function() {
+it('${1}', () => {
 	$0
 })
 endsnippet
 snippet bef
-beforeEach(function() {
+beforeEach(() => {
 	$0
 })
 endsnippet
 snippet aft
-afterEach(function() {
+afterEach(() => {
 	$0
 })
-endsnippet
-snippet befi
-beforeEach(inject(function(${1}) {
-  $0
-}))
-endsnippet
-snippet ts
-this.state.
 endsnippet
 snippet rcc
 React.createClass({

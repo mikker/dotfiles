@@ -333,14 +333,22 @@ command! Marked call s:openMarked()
 cnoreabbrev G Git
 
 fun! s:searchNotes()
-  :CtrlP ~/Dropbox/Notes
+  :FZF! ~/Dropbox/Notes
 endfun
 command! Notes call s:searchNotes()
 
 let g:flow#autoclose = 1
-autocmd! BufWritePost * Neomake
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 iab <expr> ddate strftime("%Y-%m-%d")
 iab <expr> ttime strftime("%H:%M")
+
+fun! s:setupAutoReloadChromeForRails()
+  augroup autoReloadChrome
+    autocmd!
+    au BufWritePost *.{erb,haml,slim,css,scss,js,jsx} call system('reload-chrome')
+    augroup END
+  augroup END
+endfun
+command! AutoReloadChromeForRails call s:setupAutoReloadChromeForRails()
 

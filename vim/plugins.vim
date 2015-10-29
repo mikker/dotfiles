@@ -43,10 +43,13 @@ Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'tpope/vim-flagship'
+Plug 'thoughtbot/vim-rspec'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'elmcast/elm-vim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'pangloss/vim-javascript'
 
 " stupid themes
 Plug 'ajh17/Spacegray.vim'
