@@ -24,7 +24,7 @@ setopt prompt_subst
 
 ti_status() {
   local ti=$(ti status 2> /dev/null | sed -E 's/.*on //' | sed -E 's/ for.*//' | sed $'s,\x1b\\[[0-9;]*[a-zA-Z],,g')
-  [[ $ti ]] && echo "%F{red}!$ti %f"
+  [[ -n $ti ]] && echo "%F{red}!$ti %f"
 }
 
 PROMPT='$(parse_ssh_connection)$(ti_status)%c %(1j.%F{magenta}[%j]%f.)%F{blue}$%f '
