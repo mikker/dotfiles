@@ -7,11 +7,14 @@ endsnippet
 snippet ce "console.error(...)" i
 console.error($0)
 endsnippet
+snippet ll "() => {}" i
+${1:($2)} => ${3:{$0}}
+endsnippet
 snippet f "function () {...}" i
-function(${1}) {$0}
+function (${1}) {$0}
 endsnippet
 snippet fn "function name() {...}" i
-function ${1} () {
+function ${1} ($2) {
 	$0
 }
 endsnippet
@@ -82,9 +85,9 @@ export default class ${1:Name} extends Component {
 	}
 
 	render () {
-		return (
-			<${3:div}>$0</$3>
-		)
+		return <${3:div}>
+			$0
+		</$3>
 	}
 }
 endsnippet

@@ -42,7 +42,6 @@ Plug 'SirVer/ultisnips'
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
 Plug 'grassdog/tagman.vim'
-Plug 'tpope/vim-flagship'
 Plug 'thoughtbot/vim-rspec'
 
 " filetypes and syntax
@@ -54,7 +53,6 @@ Plug 'pangloss/vim-javascript'
 " stupid themes
 Plug 'ajh17/Spacegray.vim'
 Plug 'cocopon/iceberg.vim'
-Plug 'jordwalke/VimCleanColors'
 Plug 'junegunn/Zenburn'
 Plug 'junegunn/jellybeans.vim'
 Plug 'junegunn/seoul256.vim'
@@ -70,8 +68,9 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
-Plug 'scrooloose/syntastic'
-" Plug 'benekastah/neomake'
+" Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
 
 call plug#end()
 

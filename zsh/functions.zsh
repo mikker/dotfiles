@@ -83,3 +83,6 @@ git-new () {
   ssh git@brnbw "mkdir -p $1 && cd \$_ && git init --bare"
 }
 
+vimgem () {
+  vim +"cd `bundle show $1`" +"e ."
+}

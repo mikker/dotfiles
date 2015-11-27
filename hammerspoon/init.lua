@@ -65,19 +65,25 @@ end)
 
 local charsToApps = {
   a = "iTerm",
+  d = "Dash",
   e = "Mail",
   f = "Finder",
+  i = "iTunes",
   m = "Messages",
   r = "Rdio",
   s = "Safari",
   t = "Tweetbot",
-  z = "Slack",
+  z = "Slack"
 }
 for key, app in pairs(charsToApps) do
   hs.hotkey.bind(hyper, key, function()
     hs.application.launchOrFocus(app)
   end)
 end
+
+hs.hotkey.bind(hyper, "u", function()
+  hs.itunes.displayCurrentTrack()
+end)
 
 -- }}}
 -- caffeine {{{

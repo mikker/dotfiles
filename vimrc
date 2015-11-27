@@ -352,3 +352,14 @@ fun! s:setupAutoReloadChromeForRails()
 endfun
 command! AutoReloadChromeForRails call s:setupAutoReloadChromeForRails()
 
+autocmd! BufWritePost *.{js,jsx,es6} Neomake
+let g:neomake_javascript_enabled_makers = ['standard']
+let g:neomake_jsx_enabled_makers = ['standard']
+
+set wildignorecase " ignore case when completing filenames in command mode
+
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_section_z = ''
+let g:airline_section_y = ''
+

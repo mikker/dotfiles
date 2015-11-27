@@ -52,25 +52,23 @@ alias fs='bundle exec foreman start'
 
 if [ is_mac ]; then
   alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
+  alias mailsize="du -hs ~/Library/mail"
+  alias md='open -a Marked'
+  alias safari_address="osascript -e 'tell application \"Safari\" to return URL of current tab of front window'"
+  alias temp="/Applications/TemperatureMonitor.app/Contents/MacOS/tempmonitor -c -l -a"
+  alias vlc="open -a VLC"
 fi
-alias mailsize="du -hs ~/Library/mail"
-
-alias pu='pushd'
-alias po='popd'
 
 alias pyg='pygmentize -g'
-alias md='open -a Marked'
 alias json='python -mjson.tool'
 alias pweb='python -m SimpleHTTPServer'
 alias batt="pmset -g batt | sed '1d' | sed -e 's/-InternalBattery-0//' | awk '{\$1=\$1}1'"
 
-alias safari_address="osascript -e 'tell application \"Safari\" to return URL of current tab of front window'"
 alias mm='bundle exec middleman'
 
-alias temp="/Applications/TemperatureMonitor.app/Contents/MacOS/tempmonitor -c -l -a"
-alias vlc="open -a VLC"
 alias zs=zeus
 alias wget-dump="wget -mpck --user-agent="" -e robots=off"
 
 alias ddate='date +"%Y-%m-%d"'
 alias ytdl='cd ~/Movies && youtube-dl `pbpaste`'
+alias doco='docker-compose'
