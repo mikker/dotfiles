@@ -1,1 +1,1 @@
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby
+au BufRead,BufNewFile {Gemfile*,Rakefile,Thorfile,Sitefile,Podfile,config.ru,*.thor} set ft=ruby

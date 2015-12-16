@@ -261,6 +261,11 @@ augroup vimrcEx
   au BufLeave *.{js,coffee}           exe "normal! mJ"
   au BufLeave *.{rb}                  exe "normal! mC"
 
+  if has('nvim')
+    " Close term buffers with <cr> after scrolling
+    au TermOpen * map <buffer> <cr> :bd!<cr>
+  end
+
   au BufWritePost ~/.vim/plugins.vim so ~/.vim/plugins.vim
   au BufWritePost ~/.vimrc so ~/.vimrc
 augroup END
@@ -356,10 +361,15 @@ autocmd! BufWritePost *.{js,jsx,es6} Neomake
 let g:neomake_javascript_enabled_makers = ['standard']
 let g:neomake_jsx_enabled_makers = ['standard']
 
-set wildignorecase " ignore case when completing filenames in command mode
+if exists("+wildignorecase")
+  set wildignorecase " ignore case when completing filenames in command mode
+end
 
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_section_z = ''
 let g:airline_section_y = ''
 
+let g:ragtag_global_maps = 1
+
+cabbrev E e
