@@ -357,9 +357,10 @@ fun! s:setupAutoReloadChromeForRails()
 endfun
 command! AutoReloadChromeForRails call s:setupAutoReloadChromeForRails()
 
-autocmd! BufWritePost *.{js,jsx,es6} Neomake
+autocmd! BufWritePost *.{js,jsx,es6,rb,rake} Neomake
 let g:neomake_javascript_enabled_makers = ['standard']
 let g:neomake_jsx_enabled_makers = ['standard']
+let g:neomake_ruby_enabled_makers = ['mri']
 
 if exists("+wildignorecase")
   set wildignorecase " ignore case when completing filenames in command mode

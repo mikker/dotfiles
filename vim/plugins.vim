@@ -39,6 +39,8 @@ Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'thoughtbot/vim-rspec'
+Plug 'bling/vim-airline'
+Plug 'davidoc/taskpaper.vim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
@@ -64,9 +66,11 @@ Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
-" Plug 'scrooloose/syntastic'
-Plug 'benekastah/neomake'
-Plug 'bling/vim-airline'
+if has("nvim")
+  Plug 'benekastah/neomake'
+else
+  Plug 'scrooloose/syntastic'
+endif
 
 call plug#end()
 
