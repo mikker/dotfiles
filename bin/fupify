@@ -38,3 +38,5 @@ TagLib::MPEG::File.open(input_file) do |file|
   file.save
 end
 
+puts "Done"
+

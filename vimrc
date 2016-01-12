@@ -304,19 +304,13 @@ nnoremap \ :Ag<SPACE>
 
 let g:task_paper_follow_move = 0
 
-let g:syntastic_html_checkers=['']
-let g:syntastic_javascript_checkers = ['standard']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
-" (syntastic is only on for js)
-
 nnoremap <silent> <Leader>b :Buffers<cr>
 nnoremap <silent> <leader>t :Tags<cr>
 
 " }}}
 
 set background=dark
-colorscheme apprentice
+colorscheme hybrid
 
 xmap <cr> :EasyAlign<cr>
 
@@ -357,9 +351,18 @@ fun! s:setupAutoReloadChromeForRails()
 endfun
 command! AutoReloadChromeForRails call s:setupAutoReloadChromeForRails()
 
-autocmd! BufWritePost *.{js,jsx,es6,rb,rake} Neomake
+" syntax checkers
+
+let g:syntastic_html_checkers=['']
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_wq = 0
+" (syntastic is only on for js)
+
+autocmd! BufWritePost *.{js,jsx,es6} Neomake
 let g:neomake_javascript_enabled_makers = ['standard']
 let g:neomake_jsx_enabled_makers = ['standard']
+autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
 let g:neomake_ruby_enabled_makers = ['mri']
 
 if exists("+wildignorecase")

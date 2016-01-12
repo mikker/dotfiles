@@ -19,4 +19,3 @@ REPORTTIME=10
 [[ -f ~/.localrc ]] && .  ~/.localrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
