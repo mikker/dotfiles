@@ -1,0 +1,7 @@
+gem install \
+  zeus \
+  taglib-ruby \
+  tmuxinator \
+  git-up \
+  gem-shut-the-fuck-up \
+  gem-ctags

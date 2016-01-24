@@ -359,11 +359,14 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 " (syntastic is only on for js)
 
-autocmd! BufWritePost *.{js,jsx,es6} Neomake
 let g:neomake_javascript_enabled_makers = ['standard']
 let g:neomake_jsx_enabled_makers = ['standard']
-autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
 let g:neomake_ruby_enabled_makers = ['mri']
+
+if has('nvim')
+  autocmd! BufWritePost *.{js,jsx,es6} Neomake
+  autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
+endif
 
 if exists("+wildignorecase")
   set wildignorecase " ignore case when completing filenames in command mode

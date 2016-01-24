@@ -72,5 +72,7 @@ else
   Plug 'scrooloose/syntastic'
 endif
 
+Plug 'junegunn/gv.vim'
+
 call plug#end()
 
