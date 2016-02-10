@@ -310,7 +310,7 @@ nnoremap <silent> <leader>t :Tags<cr>
 " }}}
 
 set background=dark
-colorscheme hybrid
+colorscheme apprentice
 
 xmap <cr> :EasyAlign<cr>
 
@@ -359,13 +359,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 " (syntastic is only on for js)
 
-let g:neomake_javascript_enabled_makers = ['standard']
-let g:neomake_jsx_enabled_makers = ['standard']
-let g:neomake_ruby_enabled_makers = ['mri']
-
 if has('nvim')
+  let g:neomake_javascript_enabled_makers = ['standard']
+  let g:neomake_jsx_enabled_makers = ['standard']
+  let g:neomake_ruby_enabled_makers = ['mri']
+  let g:neomake_elixir_enabled_makers = ['credo']
+
   autocmd! BufWritePost *.{js,jsx,es6} Neomake
   autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
+  autocmd! BufWritePost *.{ex,exs,eex} Neomake
 endif
 
 if exists("+wildignorecase")

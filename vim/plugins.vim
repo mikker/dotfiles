@@ -46,6 +46,8 @@ Plug 'davidoc/taskpaper.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
 Plug 'pangloss/vim-javascript'
+Plug 'mattreduce/vim-mix'
+Plug 'elixir-lang/vim-elixir'
 
 " stupid colorschemes
 Plug 'ajh17/Spacegray.vim'
@@ -58,6 +60,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'romainl/Disciple'
 Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
+Plug 'chriskempson/base16-vim'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
@@ -67,12 +70,14 @@ Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 if has("nvim")
-  Plug 'benekastah/neomake'
+  Plug '~/Developer/neomake'
+  " Plug 'benekastah/neomake'
 else
   Plug 'scrooloose/syntastic'
 endif
 
 Plug 'junegunn/gv.vim'
+Plug 'hail2u/vim-css3-syntax'
 
 call plug#end()
 

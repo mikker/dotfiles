@@ -4,4 +4,5 @@ gem install \
   tmuxinator \
   git-up \
   gem-shut-the-fuck-up \
-  gem-ctags
+  gem-ctags \
+  shotgun

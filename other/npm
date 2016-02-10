@@ -1,1 +1,1 @@
-npm install -g live-server webpack nodemon castnow phantomjs standard babel-eslint
+npm install -g live-server nodemon castnow standard babel-eslint jspm
