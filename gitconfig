@@ -45,9 +45,9 @@
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [mergetool]
   prompt = false
-
-; vim: set ft=gitconfig
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+; vim: set ft=gitconfig

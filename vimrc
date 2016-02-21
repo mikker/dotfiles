@@ -3,7 +3,7 @@ set nocompatible
 
 " {{{ Plugins
 
-let g:plugins_file_path = "~/.vim/plugins.vim"
+let g:plugins_file_path = "~/dotfiles/vim/plugins.vim"
 
 if filereadable(expand(g:plugins_file_path))
   exe ":source " . g:plugins_file_path
@@ -139,9 +139,8 @@ cnoremap        <C-A> <Home>
 silent! exe "set <S-Left>=\<Esc>b"
 silent! exe "set <S-Right>=\<Esc>f"
 
-nmap <leader>ev :e $MYVIMRC<cr>
-nmap <leader>sv :so $MYVIMRC<cr>
-nmap <leader>ep :e <c-r>=g:plugins_file_path<cr><cr>
+nmap <leader>vv :e $MYVIMRC<cr>
+nmap <leader>pp :e <c-r>=g:plugins_file_path<cr><cr>
 
 " }}}
 " {{{ Functions and commands
@@ -266,8 +265,8 @@ augroup vimrcEx
     au TermOpen * map <buffer> <cr> :bd!<cr>
   end
 
-  au BufWritePost ~/.vim/plugins.vim so ~/.vim/plugins.vim
-  au BufWritePost ~/.vimrc so ~/.vimrc
+  au BufWritePost ~/dofiles/vim/plugins.vim so ~/.vim/plugins.vim
+  au BufWritePost $MYVIMRC so $MYVIMRC | AirlineRefresh
 augroup END
 
 " }}}
@@ -309,8 +308,8 @@ nnoremap <silent> <leader>t :Tags<cr>
 
 " }}}
 
-set background=dark
-colorscheme apprentice
+set background=light
+colorscheme github
 
 xmap <cr> :EasyAlign<cr>
 
@@ -328,8 +327,6 @@ fun! s:openMarked()
 endfun
 command! Marked call s:openMarked()
 
-" expand G to Git in commandmode
-cnoreabbrev G Git
 
 fun! s:searchNotes()
   :FZF! ~/Dropbox/Notes
@@ -345,7 +342,7 @@ iab <expr> ttime strftime("%H:%M")
 fun! s:setupAutoReloadChromeForRails()
   augroup autoReloadChrome
     autocmd!
-    au BufWritePost *.{erb,haml,slim,css,scss,js,jsx} call system('reload-chrome')
+    au BufWritePost *.{html,erb,haml,slim,css,scss,js,jsx} call system('reload-chrome')
     augroup END
   augroup END
 endfun
@@ -378,7 +375,10 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_section_z = ''
 let g:airline_section_y = ''
+let g:airline_theme='hybrid'
 
 let g:ragtag_global_maps = 1
 
-cabbrev E e
+cnoreabbrev E e
+cnoreabbrev G Git
+

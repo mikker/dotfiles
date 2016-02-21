@@ -44,3 +44,17 @@ defmodule ${1} do
 	end
 end
 endsnippet
+snippet phc "A Phoenix controller"
+defmodule ${1:App}.${2}Controller do
+	use $1.Web, :controller
+
+	$0
+end
+endsnippet
+snippet phct "A Phoenix controller test"
+defmodule ${1:App}.${2}ControllerTest do
+	use $1.ConnCase
+
+	$0
+end
+endsnippet

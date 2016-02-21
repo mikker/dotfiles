@@ -39,7 +39,8 @@ Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'thoughtbot/vim-rspec'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'davidoc/taskpaper.vim'
 
 " filetypes and syntax
@@ -48,6 +49,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'pangloss/vim-javascript'
 Plug 'mattreduce/vim-mix'
 Plug 'elixir-lang/vim-elixir'
+Plug 'ElmCast/elm-vim'
 
 " stupid colorschemes
 Plug 'ajh17/Spacegray.vim'
@@ -70,8 +72,7 @@ Plug 'tpope/vim-salve', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 if has("nvim")
-  Plug '~/Developer/neomake'
-  " Plug 'benekastah/neomake'
+  Plug 'benekastah/neomake'
 else
   Plug 'scrooloose/syntastic'
 endif

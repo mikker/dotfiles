@@ -1,7 +1,33 @@
 #!/bin/sh
-osascripe -e '
+
+# -- version 1 --
+# Setting the current url to the itself
+# Has trouble with not really refreshing caches
+
+# osascript -e '
+# tell application "Safari"
+#   set sameURL to URL of current tab of front window
+#   set URL of current tab of front window to sameURL
+# end tell
+# '
+
+# -- version 2 --
+# Activate then send cmd+r
+# Too slow and annoying to loose focus
+
+# osascript -e '
+# tell application "Safari"
+#   activate
+#   delay 0.5
+#   tell application "System Events" to keystroke "r" using command down
+# end tell'
+
+# version 3 - using js
+# Reload by sending js command
+osascript -e '
 tell application "Safari"
-  activate
-  delay 0.5
-  tell application "System Events" to keystroke "r" using command down
-end tell'
+    tell window 1
+        do JavaScript "window.location.reload(true)" in current tab
+    end tell
+end tell
+' > /dev/null
