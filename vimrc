@@ -348,6 +348,15 @@ fun! s:setupAutoReloadChromeForRails()
 endfun
 command! AutoReloadChromeForRails call s:setupAutoReloadChromeForRails()
 
+fun! s:setupAutoReloadSafariForRails()
+  augroup autoReloadSafari
+    autocmd!
+    au BufWritePost *.{html,erb,haml,slim,css,scss,js,jsx} call system('reload-safari')
+    augroup END
+  augroup END
+endfun
+command! AutoReloadSafariForRails call s:setupAutoReloadSafariForRails()
+
 " syntax checkers
 
 let g:syntastic_html_checkers=['']

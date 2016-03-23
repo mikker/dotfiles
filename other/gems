@@ -1,4 +1,5 @@
 gem install \
+  bundler \
   zeus \
   taglib-ruby \
   tmuxinator \

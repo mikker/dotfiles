@@ -42,6 +42,7 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'davidoc/taskpaper.vim'
+Plug 'junegunn/gv.vim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
@@ -50,6 +51,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mattreduce/vim-mix'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ElmCast/elm-vim'
+Plug 'hail2u/vim-css3-syntax'
 
 " stupid colorschemes
 Plug 'ajh17/Spacegray.vim'
@@ -77,8 +79,7 @@ else
   Plug 'scrooloose/syntastic'
 endif
 
-Plug 'junegunn/gv.vim'
-Plug 'hail2u/vim-css3-syntax'
+Plug 'Olical/vim-enmasse'
 
 call plug#end()
 
