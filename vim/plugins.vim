@@ -64,7 +64,6 @@ Plug 'w0ng/vim-hybrid'
 Plug 'romainl/Disciple'
 Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
-Plug 'chriskempson/base16-vim'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
@@ -75,6 +74,7 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 if has("nvim")
   Plug 'benekastah/neomake'
+  Plug 'Shougo/deoplete.nvim'
 else
   Plug 'scrooloose/syntastic'
 endif
