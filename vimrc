@@ -11,12 +11,8 @@ endif
 
 filetype plugin indent on
 
-com! EPlugs exe ":vsplit " . g:plugins_file_path
-
 " }}}
 " {{{ Basics
-
-set shell=zsh
 
 " no regrets
 set nobackup
@@ -27,9 +23,11 @@ if exists("+undofile")
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
-set hidden " allow backgrounding edited buffers
+set history=1000 " more history
+set undolevels=1000 " more undolevels
 
-set mouse=nvi " enable mouse in normal mode
+set shell=zsh
+set mouse=nvi " enable mouse
 set cursorline " highlight current line
 set hidden " allow buffers in background
 set number " line numbers
@@ -39,7 +37,11 @@ set list " show tabs and trailing whitespace
 set wildmode=longest:list,full " tab completion
 set laststatus=2 " always show status bar
 
-set ignorecase smartcase " search is case insensitive unless you use upper case
+if exists("+wildignorecase")
+  set wildignorecase " ignore case when completing filenames in command mode
+end
+
+set ignorecase smartcase " search is case insensitive unless when upper case
 set gdefault " global search by default; /g for first-per-row only.
 
 set autoindent " indent to current depth on new lines
@@ -48,11 +50,8 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-set switchbuf=usetab " switch to existing buffer if there is one
+" set switchbuf=usetab " switch to existing buffer if there is one
 set autoread " update files when coming back
-
-set history=1000 " more history
-set undolevels=1000 " more undolevels
 
 set statusline=
 set statusline+=\ %<%f    " relative path
@@ -71,16 +70,21 @@ set secure " but lets keep it secure
 
 let mapleader="\<Space>"
 
-noremap <c-_> :set hlsearch!<cr>
-
 " jumping
 nnoremap <leader><leader> <c-^>
 
-" space toggles current fold
-" nnoremap <space> za
+" so fast save save save
+nmap <leader>w :w<cr>
+
+" / to search, <c-/> to clear search
+noremap <c-_> :set hlsearch!<cr>
+
+" old leader is the new project wide search
+nnoremap \ :grep<SPACE>
+
 " yank to system clipboard
 vnoremap <leader>y "*y
-" Don't move on *
+" Don't jump to next on *
 nnoremap * *<c-o>
 
 " qq to record, Q to replay
@@ -96,7 +100,7 @@ nmap <leader>e :edit %%
 noremap k gk
 noremap j gj
 
-" Easy window navigation
+" Easy split navigation
 noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
@@ -106,6 +110,7 @@ noremap <C-l>  <C-w>l
 noremap <c-w><c-t> :tabn<cr>
 
 " Y behaves like other capital letters
+" (yanks from here to end of line)
 nnoremap Y y$
 
 " always jump to char (and not just line)
@@ -118,12 +123,14 @@ vnoremap > >gv
 " Open cwd in Finder.app
 nnoremap <leader>O :call system('open .')<cr>
 
-" I SAID CLOSE THAT WINDOW
+" Just, you know, close the bottom window
 nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
 
-" poor mans meta key is to map unicode-chars
-noremap ¬ :set foldlevel=9999<cr>
+" close all folds to current depth
 noremap ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
+" open all folds
+noremap ¬ :set foldlevel=9999<cr>
+" poor mans meta key is to map unicode-chars
 
 " git status and diff
 nnoremap <f5> :Gst<cr>
@@ -131,32 +138,32 @@ nnoremap <f5> :Gst<cr>
 nnoremap <f10> :Goyo<cr>
 
 " c-c in visual mode acts like <esc>
+" eg. doesn't abort <c-v>I
 xnoremap <c-c> <esc>
 inoremap <c-c> <esc>
 
-" Readline-style key bindings in command-line
-cnoremap        <C-A> <Home>
-silent! exe "set <S-Left>=\<Esc>b"
-silent! exe "set <S-Right>=\<Esc>f"
+" Readline-style <c-a> in command-line mode
+cnoremap <c-a> <Home>
 
+" Shortcuts to configs
 nmap <leader>vv :e $MYVIMRC<cr>
 nmap <leader>pp :e <c-r>=g:plugins_file_path<cr><cr>
+
+" set <cr> to reload browsers
+" for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
+noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
+noremap <leader>ms :silent Rerun call system('reload-safari')<cr>
+
+" what time is it?
+iab <expr> ddate strftime("%Y-%m-%d")
+iab <expr> ttime strftime("%H:%M")
+
+cnoreabbrev E e
+cnoreabbrev G Git
 
 " }}}
 " {{{ Functions and commands
 
-" Multi-purpose tab-key
-" Insert tab if beginning of line or after space, else do completion
-" function! InsertTabWrapper()
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"     return "\<tab>"
-"   else
-"     return "\<c-p>"
-"   endif
-" endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-" inoremap <s-tab> <c-n>
 function! s:super_duper_tab(k, o)
   if pumvisible()
     return a:k
@@ -181,11 +188,15 @@ endfunction
 inoremap <expr> <tab>   <SID>super_duper_tab("\<c-n>", "\<tab>")
 inoremap <expr> <s-tab> <SID>super_duper_tab("\<c-p>", "\<s-tab>")
 
+" Open current file in Marked.app
+fun! s:openMarked()
+  call system('open -a Marked\ 2 "' . expand("%") . '"')
+endfun
+command! Marked call s:openMarked()
+
 " Quicker filetype setting:
 "   :F html
 command! -nargs=1 F set filetype=<args>
-command! FR set filetype=ruby
-command! FJ set filetype=javascript
 
 " find and delete all trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
@@ -211,8 +222,6 @@ endfunction
 command! -nargs=* GP Git push <args>
 command! -nargs=* GU Git pull <args>
 command! -nargs=* GB Gbrowse <args>
-
-noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
 
 " Rotate user-installed colorschemes with <f8>
 function! s:rotate_colors()
@@ -247,9 +256,6 @@ augroup vimrcEx
   " Auto-open quickfix window after grep cmds
   autocmd QuickFixCmdPost *grep* cwindow
 
-  au BufNewFile,BufRead *.boot set ft=clojure
-  au BufNewFile,BufRead TODO set ft=taskpaper
-
   " YAML front-matter
   au BufNewFile,BufRead *.{md,markdown,html,xml,erb} sy match Comment /\%^---\_.\{-}---$/
 
@@ -264,9 +270,6 @@ augroup vimrcEx
     " Close term buffers with <cr> after scrolling
     au TermOpen * map <buffer> <cr> :bd!<cr>
   end
-
-  au BufWritePost ~/dofiles/vim/plugins.vim so ~/.vim/plugins.vim
-  au BufWritePost $MYVIMRC so $MYVIMRC | AirlineRefresh
 augroup END
 
 " }}}
@@ -274,22 +277,8 @@ augroup END
 
 " FZF
 noremap <leader>f :FZF<cr>
-" Map keys to go to specific files
-noremap <leader>ga :FZF app/assets<cr>
-noremap <leader>gc :FZF app/controllers<cr>
-noremap <leader>gh :FZF app/helpers<cr>
-noremap <leader>gv :FZF app/views<cr>
-noremap <leader>gm :FZF app/models<cr>
-noremap <leader>gt :FZF test<cr>
-noremap <leader>gs :FZF spec<cr>
-noremap <leader>gr :topleft :split config/routes.rb<cr>
-noremap <leader>gg :topleft :split Gemfile<cr>
-
-" Ctrl-P
-let g:ctrlp_use_caching = 0
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-endif
+nnoremap <silent> <Leader>b :Buffers<cr>
+nnoremap <silent> <leader>t :Tags<cr>
 
 " ag for ack
 " brew install the_silver_searcher
@@ -297,74 +286,22 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" minimal silver search command
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<SPACE>
-
 let g:task_paper_follow_move = 0
-
-nnoremap <silent> <Leader>b :Buffers<cr>
-nnoremap <silent> <leader>t :Tags<cr>
-
-" }}}
-
-set background=light
-colorscheme github
 
 xmap <cr> :EasyAlign<cr>
 
 let g:UltiSnipsExpandTrigger       = "<c-l>"
 let g:UltiSnipsListSnippets        = "<c-q>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
-let g:user_emmet_leader_key='<c-e>'
-
-nmap <leader>w :w<cr>
-
-fun! s:openMarked()
-  call system('open -a Marked\ 2 "' . expand("%") . '"')
-endfun
-command! Marked call s:openMarked()
-
-
-fun! s:searchNotes()
-  :FZF! ~/Dropbox/Notes
-endfun
-command! Notes call s:searchNotes()
-
-let g:flow#autoclose = 1
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
-iab <expr> ddate strftime("%Y-%m-%d")
-iab <expr> ttime strftime("%H:%M")
-
-fun! s:setupAutoReloadChromeForRails()
-  augroup autoReloadChrome
-    autocmd!
-    au BufWritePost *.{html,erb,haml,slim,css,scss,js,jsx} call system('reload-chrome')
-    augroup END
-  augroup END
-endfun
-command! AutoReloadChromeForRails call s:setupAutoReloadChromeForRails()
-
-fun! s:setupAutoReloadSafariForRails()
-  augroup autoReloadSafari
-    autocmd!
-    au BufWritePost *.{html,erb,haml,slim,css,scss,js,jsx} call system('reload-safari')
-    augroup END
-  augroup END
-endfun
-command! AutoReloadSafariForRails call s:setupAutoReloadSafariForRails()
-
 " syntax checkers
-
 let g:syntastic_html_checkers=['']
 let g:syntastic_javascript_checkers = ['standard']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
-" (syntastic is only on for js)
-
 if has('nvim')
   let g:neomake_javascript_enabled_makers = ['standard']
   let g:neomake_jsx_enabled_makers = ['standard']
@@ -376,10 +313,7 @@ if has('nvim')
   autocmd! BufWritePost *.{ex,exs,eex} Neomake
 endif
 
-if exists("+wildignorecase")
-  set wildignorecase " ignore case when completing filenames in command mode
-end
-
+" minimal airline
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_section_z = ''
@@ -388,6 +322,33 @@ let g:airline_theme='hybrid'
 
 let g:ragtag_global_maps = 1
 
-cnoreabbrev E e
-cnoreabbrev G Git
+let g:polyglot_disabled = ['javascript', 'elm', 'ruby']
+
+" }}}
+
+set background=light
+colorscheme github
+
+" Search notes. nvAlt is still better
+fun! s:searchNotes()
+  :FZF! ~/Dropbox/Notes
+endfun
+command! Notes call s:searchNotes()
+nmap <leader>N :Notes<cr>
+
+" poor man's autoreload
+fun! s:setupAutoReloadChromeOrWhatever()
+  au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-chrome')
+endfun
+command! AutoReloadChromeOrWhatever call s:setupAutoReloadChromeOrWhatever()
+
+fun! s:setupAutoReloadSafariOrWhatever()
+  au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-safari')
+endfun
+command! AutoReloadSafariOrWhatever call s:setupAutoReloadSafariOrWhatever()
+
+
+let g:elm_detailed_complete = 1
+" let g:elm_format_autosave = 1
+let g:elm_syntastic_show_warnings = 1
 

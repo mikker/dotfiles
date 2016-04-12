@@ -43,6 +43,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'davidoc/taskpaper.vim'
 Plug 'junegunn/gv.vim'
+Plug 'junegunn/goyo.vim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
@@ -52,6 +53,7 @@ Plug 'mattreduce/vim-mix'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ElmCast/elm-vim'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'vim-ruby/vim-ruby'
 
 " stupid colorschemes
 Plug 'ajh17/Spacegray.vim'
@@ -64,6 +66,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'romainl/Disciple'
 Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
+Plug 'morhetz/gruvbox'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }

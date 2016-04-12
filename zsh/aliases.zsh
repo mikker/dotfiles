@@ -74,3 +74,9 @@ alias ddate='date +"%Y-%m-%d"'
 alias ytdl='cd ~/Movies && youtube-dl `pbpaste`'
 alias doco='docker-compose'
 
+
+
+
+
+
+alias rm_orig="find . -name '*.orig' -exec rm {} \;"

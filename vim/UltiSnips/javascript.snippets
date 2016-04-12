@@ -114,3 +114,13 @@ snippet rcomp "React component for react-rails"
 	window.$1 = $1
 })(window)
 endsnippet
+snippet fcomp "Dumb React component"
+import React, { PropTypes } from 'react'
+
+export default function ${1:Name} (${2:{}}) {
+	return $0
+}
+
+$1.propTypes = {
+}
+endsnippet
