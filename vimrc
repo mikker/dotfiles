@@ -106,9 +106,6 @@ noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
 
-" cycle tab
-noremap <c-w><c-t> :tabn<cr>
-
 " Y behaves like other capital letters
 " (yanks from here to end of line)
 nnoremap Y y$
@@ -351,4 +348,15 @@ command! AutoReloadSafariOrWhatever call s:setupAutoReloadSafariOrWhatever()
 let g:elm_detailed_complete = 1
 " let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
+
+command! GdiffInTab tabedit %|vsplit|Gdiff
+nnoremap <leader>d :GdiffInTab<cr>
+nnoremap <leader>D :tabclose<cr>
+
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+endif
+
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
 
