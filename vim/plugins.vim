@@ -83,7 +83,6 @@ else
 endif
 
 Plug 'Olical/vim-enmasse'
-Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
