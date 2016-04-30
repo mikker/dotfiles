@@ -220,7 +220,7 @@ command! -nargs=* GP Git push <args>
 command! -nargs=* GU Git pull <args>
 command! -nargs=* GB Gbrowse <args>
 
-" Rotate user-installed colorschemes with <f8>
+" Rotate user-installed schemes with <f8>
 function! s:rotate_colors()
   if !exists('s:colors_list')
     let s:colors_list =
@@ -294,20 +294,19 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
-" syntax checkers
-let g:syntastic_html_checkers=['']
-let g:syntastic_javascript_checkers = ['standard']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
 if has('nvim')
   let g:neomake_javascript_enabled_makers = ['standard']
-  let g:neomake_jsx_enabled_makers = ['standard']
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elixir_enabled_makers = ['credo']
 
-  autocmd! BufWritePost *.{js,jsx,es6} Neomake
+  autocmd! BufWritePost *.js Neomake
   autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
   autocmd! BufWritePost *.{ex,exs,eex} Neomake
+else
+  let g:syntastic_html_checkers=['']
+  let g:syntastic_javascript_checkers = ['standard']
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_check_on_wq = 0
 endif
 
 " minimal airline
@@ -354,9 +353,18 @@ nnoremap <leader>d :GdiffInTab<cr>
 nnoremap <leader>D :tabclose<cr>
 
 if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
+  tnoremap <esc> <c-\><c-n>
 endif
 
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
+noremap ]t :tabn<cr>
+noremap [t :tabp<cr>
+
+noremap gk k
+noremap gj j
+set modelines=5
+noremap <c-n> :bnext<CR>
+noremap <c-p> :bprev<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gs :Gstatus<CR>
+map <leader>sv :source $MYVIMRC<cr>
 

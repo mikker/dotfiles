@@ -74,9 +74,6 @@ alias ddate='date +"%Y-%m-%d"'
 alias ytdl='cd ~/Movies && youtube-dl `pbpaste`'
 alias doco='docker-compose'
 
-
-
-
-
-
+alias mux='tmuxinator'
 alias rm_orig="find . -name '*.orig' -exec rm {} \;"
+alias online='ping -c 1 google.com &> /dev/null'

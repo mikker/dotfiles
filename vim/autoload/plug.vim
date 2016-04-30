@@ -28,6 +28,9 @@
 "   " Using a non-master branch
 "   Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 "
+"   " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+"   Plug 'fatih/vim-go', { 'tag': '*' }
+"
 "   " Plugin options
 "   Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 "
@@ -128,7 +131,7 @@ function! plug#begin(...)
 endfunction
 
 function! s:define_commands()
-  command! -nargs=+ -bar Plug call s:Plug(<args>)
+  command! -nargs=+ -bar Plug call plug#(<args>)
   if !executable('git')
     return s:err('`git` executable not found. Most commands will not be available. To suppress this message, prepend `silent!` to `call plug#begin(...)`.')
   endif
@@ -222,7 +225,9 @@ function! plug#end()
     if has_key(plug, 'for')
       let types = s:to_a(plug.for)
       if !empty(types)
+        augroup filetypedetect
         call s:source(s:rtp(plug), 'ftdetect/**/*.vim', 'after/ftdetect/**/*.vim')
+        augroup END
       endif
       for type in types
         call s:assoc(lod.ft, type, name)
@@ -484,7 +489,7 @@ function! s:lod_map(map, names, prefix)
   call feedkeys(a:prefix . substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
 endfunction
 
-function! s:Plug(repo, ...)
+function! plug#(repo, ...)
   if a:0 > 1
     return s:err('Invalid number of arguments (1..2)')
   endif
@@ -717,15 +722,25 @@ function! s:assign_name()
   silent! execute 'f' fnameescape(name)
 endfunction
 
+function! s:chsh(swap)
+  let prev = [&shell, &shellredir]
+  if !s:is_win && a:swap
+    set shell=sh shellredir=>%s\ 2>&1
+  endif
+  return prev
+endfunction
+
 function! s:bang(cmd, ...)
   try
+    let [sh, shrd] = s:chsh(a:0)
     " FIXME: Escaping is incomplete. We could use shellescape with eval,
     "        but it won't work on Windows.
-    let cmd = a:0 > 0 ? s:with_cd(a:cmd, a:1) : a:cmd
+    let cmd = a:0 ? s:with_cd(a:cmd, a:1) : a:cmd
     let g:_plug_bang = '!'.escape(cmd, '#!%')
     execute "normal! :execute g:_plug_bang\<cr>\<cr>"
   finally
     unlet g:_plug_bang
+    let [&shell, &shellredir] = [sh, shrd]
   endtry
   return v:shell_error ? 'Exit status: ' . v:shell_error : ''
 endfunction
@@ -964,8 +979,17 @@ function! s:update_finish()
         call s:log4(name, 'Checking out '.spec.commit)
         let out = s:checkout(spec)
       elseif has_key(spec, 'tag')
-        call s:log4(name, 'Checking out '.spec.tag)
-        let out = s:system('git checkout -q '.s:esc(spec.tag).' 2>&1', spec.dir)
+        let tag = spec.tag
+        if tag =~ '\*'
+          let tags = s:lines(s:system('git tag --list '.string(tag).' --sort -version:refname 2>&1', spec.dir))
+          if !v:shell_error && !empty(tags)
+            let tag = tags[0]
+            call s:log4(name, printf('Latest tag for %s -> %s', spec.tag, tag))
+            call append(3, '')
+          endif
+        endif
+        call s:log4(name, 'Checking out '.tag)
+        let out = s:system('git checkout -q '.s:esc(tag).' 2>&1', spec.dir)
       else
         let branch = s:esc(get(spec, 'branch', 'master'))
         call s:log4(name, 'Merging origin/'.branch)
@@ -1809,10 +1833,7 @@ endfunction
 
 function! s:system(cmd, ...)
   try
-    let [sh, shrd] = [&shell, &shellredir]
-    if !s:is_win
-      set shell=sh shellredir=>%s\ 2>&1
-    endif
+    let [sh, shrd] = s:chsh(1)
     let cmd = a:0 > 0 ? s:with_cd(a:cmd, a:1) : a:cmd
     return system(s:is_win ? '('.cmd.')' : cmd)
   finally
@@ -2225,4 +2246,3 @@ endif
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
-

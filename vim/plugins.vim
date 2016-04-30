@@ -27,13 +27,13 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-afterimage'
 
 " things
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'git@github.com:mikker/sparkup', {'rtp': 'vim/'}
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'SirVer/ultisnips'
 Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
@@ -56,9 +56,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'vim-ruby/vim-ruby'
 
 " stupid colorschemes
-Plug 'ajh17/Spacegray.vim'
 Plug 'cocopon/iceberg.vim'
-Plug 'junegunn/Zenburn'
 Plug 'junegunn/jellybeans.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
@@ -66,7 +64,6 @@ Plug 'w0ng/vim-hybrid'
 Plug 'romainl/Disciple'
 Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
-Plug 'morhetz/gruvbox'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
@@ -77,7 +74,6 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 if has("nvim")
   Plug 'benekastah/neomake'
-  Plug 'Shougo/deoplete.nvim'
 else
   Plug 'scrooloose/syntastic'
 endif
