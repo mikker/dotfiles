@@ -64,7 +64,7 @@ end)
 -- application hotkeys {{{
 
 local charsToApps = {
-  a = "iTerm2",
+  a = "iTerm",
   d = "Dash",
   e = "Mail",
   f = "Finder",

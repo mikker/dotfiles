@@ -296,6 +296,7 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 if has('nvim')
   let g:neomake_javascript_enabled_makers = ['standard']
+  let g:neomake_jsx_enabled_makers = ['standard']
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elixir_enabled_makers = ['credo']
 
@@ -323,7 +324,7 @@ let g:polyglot_disabled = ['javascript', 'elm', 'ruby']
 " }}}
 
 set background=light
-colorscheme github
+colorscheme disciple
 
 " Search notes. nvAlt is still better
 fun! s:searchNotes()
@@ -353,11 +354,16 @@ nnoremap <leader>d :GdiffInTab<cr>
 nnoremap <leader>D :tabclose<cr>
 
 if has('nvim')
+  let $FZF_DEFAULT_COMMAND='ag -l -g ""'
+
+  set termguicolors
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
   tnoremap <esc> <c-\><c-n>
 endif
 
-noremap ]t :tabn<cr>
-noremap [t :tabp<cr>
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
 
 noremap gk k
 noremap gj j
@@ -368,3 +374,10 @@ nmap <leader>gd :Gdiff<CR>
 nmap <leader>gs :Gstatus<CR>
 map <leader>sv :source $MYVIMRC<cr>
 
+fun! s:run_term_in_tab(args)
+  " execute "botright split"
+  " execute "resize 999"
+  execute "tabe|term " . expand(a:args)
+  " execute "map <buffer> <cr> :bd!<cr>"
+endfun
+command! -nargs=* -complete=command TT call s:run_term_in_tab(<q-args>)

@@ -32,12 +32,12 @@ snippet iife "" b
 })()
 endsnippet
 snippet desc
-describe('${1}', () => {
+describe('${1}', function () {
 	$0
 })
 endsnippet
 snippet it
-it('${1}', () => {
+it('${1}', function () {
 	$0
 })
 endsnippet
@@ -47,7 +47,7 @@ beforeEach(() => {
 })
 endsnippet
 snippet aft
-afterEach(() => {
+afterEach(function () {
 	$0
 })
 endsnippet

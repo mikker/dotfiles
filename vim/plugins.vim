@@ -61,9 +61,10 @@ Plug 'junegunn/jellybeans.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
-Plug 'romainl/Disciple'
+Plug 'mikker/Disciple'
 Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
+Plug 'morhetz/gruvbox'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
