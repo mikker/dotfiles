@@ -65,6 +65,7 @@ Plug 'mikker/Disciple'
 Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
 Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
