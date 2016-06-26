@@ -70,7 +70,8 @@ local charsToApps = {
   f = "Finder",
   i = "Spotify",
   m = "Messages",
-  s = "Safari Technology Preview",
+  -- s = "Safari Technology Preview",
+  s = "Safari",
   t = "Tweetbot",
   z = "Slack"
 }

@@ -27,6 +27,6 @@ ti_status() {
   [[ -n $ti ]] && echo "%F{red}!$ti %f"
 }
 
-PROMPT='$(parse_ssh_connection)$(ti_status)%c %(1j.%F{magenta}[%j]%f.)%F{blue}$%f '
+PROMPT='$(parse_ssh_connection)%c %(1j.%F{magenta}[%j]%f.)%F{blue}$%f '
 RPROMPT='%F{blue}${vcs_info_msg_0_}%f'
 

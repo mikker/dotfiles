@@ -1,12 +1,12 @@
 " vim: fdm=marker foldlevel=0
-set nocompatible
+scriptencoding utf-8
 
 " {{{ Plugins
 
-let g:plugins_file_path = "~/dotfiles/vim/plugins.vim"
+let g:plugins_file_path = '~/dotfiles/vim/plugins.vim'
 
 if filereadable(expand(g:plugins_file_path))
-  exe ":source " . g:plugins_file_path
+  exe ':source ' . g:plugins_file_path
 endif
 
 filetype plugin indent on
@@ -18,7 +18,7 @@ filetype plugin indent on
 set nobackup
 set noswapfile
 set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
-if exists("+undofile")
+if exists('+undofile')
   set undofile
   set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
@@ -37,7 +37,7 @@ set list " show tabs and trailing whitespace
 set wildmode=longest:list,full " tab completion
 set laststatus=2 " always show status bar
 
-if exists("+wildignorecase")
+if exists('+wildignorecase')
   set wildignorecase " ignore case when completing filenames in command mode
 end
 
@@ -65,10 +65,16 @@ set foldlevel=999 " folds come expanded
 set exrc " auto load local .vimrc files
 set secure " but lets keep it secure
 
+" ag for ack
+" brew install the_silver_searcher
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
 " }}}
 " {{{ Mappings
 
-let mapleader="\<Space>"
+let g:mapleader="\<Space>"
 
 " jumping
 nnoremap <leader><leader> <c-^>
@@ -166,18 +172,18 @@ function! s:super_duper_tab(k, o)
     return a:k
   endif
 
-  let line = getline('.')
-  let col = col('.') - 2
-  if empty(line) || line[col] !~ '\k\|[/~.]' || line[col + 1] =~ '\k'
+  let l:line = getline('.')
+  let l:col = col('.') - 2
+  if empty(l:line) || l:line[l:col] !~# '\k\|[/~.]' || l:line[l:col + 1] =~# '\k'
     return a:o
   endif
 
-  let prefix = expand(matchstr(line[0:col], '\S*$'))
-  if prefix =~ '^[~/.]'
-    return "\<c-x>\<c-f>"
+  let l:prefix = expand(matchstr(l:line[0:l:col], '\S*$'))
+  if l:prefix =~# '^[~/.]'
+    return '\<c-x>\<c-f>'
   endif
-  if !empty(&completefunc) && call(&completefunc, [1, prefix]) >= 0
-    return "\<c-x>\<c-u>"
+  if !empty(&completefunc) && call(&completefunc, [1, l:prefix]) >= 0
+    return '\<c-x>\<c-u>'
   endif
   return a:k
 endfunction
@@ -187,7 +193,7 @@ inoremap <expr> <s-tab> <SID>super_duper_tab("\<c-p>", "\<s-tab>")
 
 " Open current file in Marked.app
 fun! s:openMarked()
-  call system('open -a Marked\ 2 "' . expand("%") . '"')
+  call system('open -a Marked\ 2 "' . expand('%') . '"')
 endfun
 command! Marked call s:openMarked()
 
@@ -197,10 +203,12 @@ command! -nargs=1 F set filetype=<args>
 
 " find and delete all trailing whitespace
 fun! <SID>StripTrailingWhitespaces()
-  let l = line(".")
-  let c = col(".")
+  let l:l = line('.')
+  let l:c = col('.')
+  " vint: -ProhibitCommandWithUnintendedSideEffect
   %s/\s\+$//e
-  call cursor(l, c)
+  " vint: +ProhibitCommandWithUnintendedSideEffect
+  call cursor(l:l, l:c)
 endfun
 noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
@@ -208,11 +216,11 @@ noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 " populate the argument list with each of the files named in the quickfix list
 function! QuickfixFilenames()
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  let l:buffer_numbers = {}
+  for l:quickfix_item in getqflist()
+    let l:buffer_numbers[l:quickfix_item['bufnr']] = bufname(l:quickfix_item['bufnr'])
   endfor
-  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+  return join(map(values(l:buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
 " git shortcuts
@@ -225,17 +233,17 @@ function! s:rotate_colors()
   if !exists('s:colors_list')
     let s:colors_list =
     \ sort(map(
-    \   filter(split(globpath(&rtp, "colors/*.vim"), "\n"), 'v:val !~ "^/usr/"'),
+    \   filter(split(globpath(&runtimepath, 'colors/*.vim'), "\n"), 'v:val !~ "^/usr/"'),
     \   "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"))
   endif
   if !exists('s:colors_index')
     let s:colors_index = index(s:colors_list, g:colors_name)
   endif
   let s:colors_index = (s:colors_index + 1) % len(s:colors_list)
-  let name = s:colors_list[s:colors_index]
-  execute 'colorscheme' name
+  let l:name = s:colors_list[s:colors_index]
+  execute 'colorscheme' l:name
   redraw
-  echo name
+  echo l:name
 endfunction
 nnoremap <F8> :call <SID>rotate_colors()<cr>
 
@@ -262,12 +270,19 @@ augroup vimrcEx
   au BufLeave *.{css,scss,sass}       exe "normal! mS"
   au BufLeave *.{js,coffee}           exe "normal! mJ"
   au BufLeave *.{rb}                  exe "normal! mC"
-
-  if has('nvim')
-    " Close term buffers with <cr> after scrolling
-    au TermOpen * map <buffer> <cr> :bd!<cr>
-  end
 augroup END
+
+augroup reload_vimrc
+    autocmd!
+    autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
+augroup END
+
+if has('nvim')
+  augroup nvimrcEx
+    autocmd!
+    au TermOpen * map <buffer> <cr> :bd!<cr>
+  augroup END
+end
 
 " }}}
 " Plugin config and maps {{{
@@ -277,20 +292,14 @@ noremap <leader>f :FZF<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
 nnoremap <silent> <leader>t :Tags<cr>
 
-" ag for ack
-" brew install the_silver_searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
 let g:task_paper_follow_move = 0
 
 xmap <cr> :EasyAlign<cr>
 
-let g:UltiSnipsExpandTrigger       = "<c-l>"
-let g:UltiSnipsListSnippets        = "<c-q>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+let g:UltiSnipsExpandTrigger       = '<c-l>'
+let g:UltiSnipsListSnippets        = '<c-q>'
+let g:UltiSnipsJumpForwardTrigger  = '<c-l>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
@@ -300,22 +309,19 @@ if has('nvim')
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elixir_enabled_makers = ['credo']
 
-  autocmd! BufWritePost *.js Neomake
-  autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
-  autocmd! BufWritePost *.{ex,exs,eex} Neomake
-else
-  let g:syntastic_html_checkers=['']
-  let g:syntastic_javascript_checkers = ['standard']
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_check_on_wq = 0
+  augroup neomake
+    autocmd! BufWritePost *.js Neomake
+    autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
+    autocmd! BufWritePost *.{ex,exs,eex} Neomake
+  augroup END
 endif
 
 " minimal airline
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_section_z = ''
-let g:airline_section_y = ''
-let g:airline_theme='hybrid'
+" let g:airline_left_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_section_z = ''
+" let g:airline_section_y = ''
+" let g:airline_theme='hybrid'
 
 let g:ragtag_global_maps = 1
 
@@ -328,22 +334,27 @@ colorscheme disciple
 
 " Search notes. nvAlt is still better
 fun! s:searchNotes()
-  :FZF! ~/Dropbox/Notes
+  :FZF ~/Dropbox/Notes
 endfun
 command! Notes call s:searchNotes()
 nmap <leader>N :Notes<cr>
 
 " poor man's autoreload
 fun! s:setupAutoReloadChromeOrWhatever()
-  au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-chrome')
+  augroup autoreload
+    autocmd!
+    au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-chrome')
+  augroup END
 endfun
 command! AutoReloadChromeOrWhatever call s:setupAutoReloadChromeOrWhatever()
 
 fun! s:setupAutoReloadSafariOrWhatever()
-  au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-safari')
+  augroup autoreload
+    autocmd!
+    au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-safari')
+  augroup END
 endfun
 command! AutoReloadSafariOrWhatever call s:setupAutoReloadSafariOrWhatever()
-
 
 let g:elm_detailed_complete = 1
 " let g:elm_format_autosave = 1
@@ -375,9 +386,48 @@ nmap <leader>gs :Gstatus<CR>
 map <leader>sv :source $MYVIMRC<cr>
 
 fun! s:run_term_in_tab(args)
-  " execute "botright split"
-  " execute "resize 999"
-  execute "tabe|term " . expand(a:args)
-  " execute "map <buffer> <cr> :bd!<cr>"
+  execute 'tabe|term ' . expand(a:args)
 endfun
 command! -nargs=* -complete=command TT call s:run_term_in_tab(<q-args>)
+
+let g:lightline = {
+      \  'colorscheme': 'Tomorrow',
+      \  'separator': { 'left': '', 'right': '' },
+      \  'subseparator': { 'left': '', 'right': '' },
+      \  'active': {
+      \    'left': [['mode', 'paste'], ['fugitive'], ['filename']],
+      \    'right': [[], ['filetype'], ['neomake']]
+      \  },
+      \  'component_function': {
+      \    'neomake': 'neomake#statusline#LoclistStatus',
+      \    'filename': 'LightLineFilename',
+      \    'fugitive': 'LightLineFugitive'
+      \  }
+      \}
+
+function! LightLineFugitive()
+  try
+    if exists('*fugitive#head')
+      let l:mark = '±'
+      let l:head = fugitive#head()
+      return strlen(l:head) ? l:head.l:mark : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! LightLineModified()
+  if &filetype ==# 'help'
+    return ''
+  elseif &modified
+    return '[+]'
+  else
+    return ''
+  endif
+endfunction
+
+function! LightLineFilename()
+  return ('' !=# expand('%f') ? expand('%f') : '[No Name]') .
+       \ ('' !=# LightLineModified() ? LightLineModified() : '')
+endfunction
