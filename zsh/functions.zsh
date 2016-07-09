@@ -1,10 +1,10 @@
-# Quickly navigate to a project - with autocorrect
+# Quickly navigate to a project - with autosuggest
 c() {
+  local dir="$HOME/Developer"
   if [[ $# == 0 ]]; then
-    # brew install selecta
-    cd $(find ~/Developer -type d -maxdepth 3 | fzf)
+    cd $dir/$(find $dir -type d -maxdepth 3 | sed -E "s#^$dir##"| fzf)
   else
-    cd ~/Developer/$1;
+    cd $dir/$1;
   fi
 }
 _c() { _files -W ~/Developer -/; }
