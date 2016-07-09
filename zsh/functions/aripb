@@ -1,0 +1,6 @@
+# Download pasteboard using aria2 download thing
+aripb() {
+  local pb=`pbpaste`
+  echo $pb && aria2c "$pb"
+}
+

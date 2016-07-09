@@ -1,0 +1,5 @@
+# prints the absolute path of a file
+abspath() {
+  find `pwd` -name "$@"
+}
+

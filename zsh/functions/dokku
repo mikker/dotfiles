@@ -1,0 +1,7 @@
+# dokku
+# Uses bin/dokku or falls back to default
+
+dokku() {
+  [ -e bin/dokku ] && bin/dokku $@ || ssh -t dokku@brnbw $@
+}
+

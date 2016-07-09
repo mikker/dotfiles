@@ -1,0 +1,12 @@
+# Quickly navigate to a project - with autosuggest
+c() {
+  local dir="$HOME/Developer"
+  if [[ $# == 0 ]]; then
+    cd $dir/$(find $dir -type d -maxdepth 3 | sed -E "s#^$dir##"| fzf)
+  else
+    cd $dir/$1;
+  fi
+}
+_c() { _files -W ~/Developer -/; }
+compdef _c c
+

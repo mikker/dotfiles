@@ -1,0 +1,9 @@
+# Open a file or the current directory
+o() {
+  if [[ $# > 0 ]]; then
+    open $@
+  else
+    open .
+  fi
+}
+

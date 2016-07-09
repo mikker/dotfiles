@@ -1,0 +1,6 @@
+# Make a new tmux window and run $@ in it
+nw() {
+  tmux new-window
+  tmux send-keys "$*" C-m
+}
+

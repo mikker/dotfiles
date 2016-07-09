@@ -1,0 +1,6 @@
+# Make a new directory and cd into it
+
+mkcd() {
+  mkdir -p "$@" && cd "$@"
+}
+
