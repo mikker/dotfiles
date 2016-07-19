@@ -39,8 +39,6 @@ Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'thoughtbot/vim-rspec'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 Plug 'davidoc/taskpaper.vim'
 Plug 'junegunn/gv.vim'
@@ -49,13 +47,16 @@ Plug 'junegunn/goyo.vim'
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
-Plug 'pangloss/vim-javascript'
 Plug 'mattreduce/vim-mix'
 Plug 'elixir-lang/vim-elixir'
 Plug 'ElmCast/elm-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
+" Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/es.next.syntax.vim'
 
 " stupid colorschemes
 Plug 'cocopon/iceberg.vim'
@@ -68,6 +69,7 @@ Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
 Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'mhartington/oceanic-next'
 
 " clojure
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
@@ -83,6 +85,11 @@ else
 endif
 
 Plug 'Olical/vim-enmasse'
+
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 call plug#end()
 

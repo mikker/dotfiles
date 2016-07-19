@@ -373,8 +373,8 @@ if has('nvim')
   tnoremap <esc> <c-\><c-n>
 endif
 
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
+nnoremap ]w :tabn<cr>
+nnoremap [w :tabp<cr>
 
 noremap gk k
 noremap gj j
@@ -431,3 +431,6 @@ function! LightLineFilename()
   return ('' !=# expand('%f') ? expand('%f') : '[No Name]') .
        \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
+
+let g:deoplete#enable_at_startup = 1
+set omnifunc=syntaxcomplete#Complete
