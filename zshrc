@@ -1,5 +1,3 @@
-# vim: set fdm=marker
-
 export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL

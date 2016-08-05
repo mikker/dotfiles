@@ -70,3 +70,4 @@ alias mux='tmuxinator'
 alias rm_orig="find . -name '*.orig' -exec rm {} \;"
 alias online='ping -c 1 google.com &> /dev/null'
 alias dsay='say -v Sara'
+alias gcb="git chechout -b"

@@ -1,0 +1,3 @@
+bung () {
+  ag "$@" `bundle show --paths`
+}

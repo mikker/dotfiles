@@ -311,7 +311,8 @@ if has('nvim')
 
   augroup neomake
     autocmd! BufWritePost *.js Neomake
-    autocmd! BufWritePost {*.rb,*.rake,Gemfile,Rakefile} Neomake
+    autocmd! BufWritePost {Gemfile,Rakefile} Neomake
+    autocmd! BufWritePost *.{rb,rake} Neomake
     autocmd! BufWritePost *.{ex,exs,eex} Neomake
   augroup END
 endif
@@ -408,7 +409,7 @@ let g:lightline = {
 function! LightLineFugitive()
   try
     if exists('*fugitive#head')
-      let l:mark = '±'
+      let l:mark = ''
       let l:head = fugitive#head()
       return strlen(l:head) ? l:head.l:mark : ''
     endif

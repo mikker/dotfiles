@@ -53,10 +53,10 @@ Plug 'ElmCast/elm-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
-" Plug 'pangloss/vim-javascript'
-Plug 'othree/yajs.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/es.next.syntax.vim'
+Plug 'pangloss/vim-javascript'
+" Plug 'othree/yajs.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'othree/es.next.syntax.vim'
 
 " stupid colorschemes
 Plug 'cocopon/iceberg.vim'
@@ -85,6 +85,7 @@ else
 endif
 
 Plug 'Olical/vim-enmasse'
+Plug 'janko-m/vim-test'
 
 function! DoRemote(arg)
   UpdateRemotePlugins
