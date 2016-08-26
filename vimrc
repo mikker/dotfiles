@@ -41,7 +41,8 @@ if exists('+wildignorecase')
   set wildignorecase " ignore case when completing filenames in command mode
 end
 
-set ignorecase smartcase " search is case insensitive unless when upper case
+" search is case insensitive unless when upper case
+set ignorecase smartcase
 set gdefault " global search by default; /g for first-per-row only.
 
 set autoindent " indent to current depth on new lines
@@ -50,14 +51,14 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-" set switchbuf=usetab " switch to existing buffer if there is one
+set switchbuf=usetab " switch to existing buffer if there is one
 set autoread " update files when coming back
 
 set statusline=
 set statusline+=\ %<%f    " relative path
 set statusline+=%m        " modified flag
 set statusline+=%=        " flexible space
-" set statusline+=%{fugitive#statusline()} " git
+set statusline+=%{fugitive#statusline()} " git
 set statusline+=\ %{&ft}\   " filetype
 
 set foldlevel=999 " folds come expanded
@@ -65,10 +66,17 @@ set foldlevel=999 " folds come expanded
 set exrc " auto load local .vimrc files
 set secure " but lets keep it secure
 
+set modelines=5
+
 " ag for ack
 " brew install the_silver_searcher
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
+endif
+
+if has('nvim')
+  set termguicolors
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
 " }}}
@@ -83,13 +91,17 @@ nnoremap <leader><leader> <c-^>
 nmap <leader>w :w<cr>
 
 " / to search, <c-/> to clear search
+" term:
 noremap <c-_> :set hlsearch!<cr>
+" gui:
+noremap <c-/> :set hlsearch!<cr>
 
 " old leader is the new project wide search
 nnoremap \ :grep<SPACE>
 
 " yank to system clipboard
 vnoremap <leader>y "*y
+
 " Don't jump to next on *
 nnoremap * *<c-o>
 
@@ -105,6 +117,8 @@ nmap <leader>e :edit %%
 " visual moving
 noremap k gk
 noremap j gj
+noremap gk k
+noremap gj j
 
 " Easy split navigation
 noremap <C-h>  <C-w>h
@@ -112,8 +126,12 @@ noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
 
+" tabs
+nnoremap ]w :tabn<cr>
+nnoremap [w :tabp<cr>
+
 " Y behaves like other capital letters
-" (yanks from here to end of line)
+" (yanks from cursor to end of line)
 nnoremap Y y$
 
 " always jump to char (and not just line)
@@ -122,6 +140,9 @@ noremap ' `
 " Indenting visual selection keeps selection
 vnoremap < <gv
 vnoremap > >gv
+
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gs :Gstatus<CR>
 
 " Open cwd in Finder.app
 nnoremap <leader>O :call system('open .')<cr>
@@ -151,16 +172,18 @@ cnoremap <c-a> <Home>
 " Shortcuts to configs
 nmap <leader>vv :e $MYVIMRC<cr>
 nmap <leader>pp :e <c-r>=g:plugins_file_path<cr><cr>
+nmap <leader>sv :source $MYVIMRC<cr>
 
 " set <cr> to reload browsers
 " for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
 noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
 noremap <leader>ms :silent Rerun call system('reload-safari')<cr>
 
-" what time is it?
+" wait what time is it?
 iab <expr> ddate strftime("%Y-%m-%d")
 iab <expr> ttime strftime("%H:%M")
 
+" stupid hands
 cnoreabbrev E e
 cnoreabbrev G Git
 
@@ -205,14 +228,12 @@ command! -nargs=1 F set filetype=<args>
 fun! <SID>StripTrailingWhitespaces()
   let l:l = line('.')
   let l:c = col('.')
-  " vint: -ProhibitCommandWithUnintendedSideEffect
   %s/\s\+$//e
-  " vint: +ProhibitCommandWithUnintendedSideEffect
   call cursor(l:l, l:c)
 endfun
 noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
-" Add quickfix-files to args
+" Add quickfix-files to arglist
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
 " populate the argument list with each of the files named in the quickfix list
 function! QuickfixFilenames()
@@ -247,11 +268,10 @@ function! s:rotate_colors()
 endfunction
 nnoremap <F8> :call <SID>rotate_colors()<cr>
 
-" What is this syntax colored as?
-function! s:hl()
-  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), '/')
-endfunction
-command! HL call <SID>hl()
+fun! s:run_term_in_tab(args)
+  execute 'tabe|term ' . expand(a:args)
+endfun
+command! -nargs=* -complete=shellcmd TT call s:run_term_in_tab(<q-args>)
 
 " }}}
 " {{{ Autocommands
@@ -266,10 +286,10 @@ augroup vimrcEx
 
   " magic markers: enable using `H/S/J/C to jump back to
   " last HTML, stylesheet, JS or Ruby code buffer
-  au BufLeave *.{erb,html,haml,slim}  exe "normal! mH"
-  au BufLeave *.{css,scss,sass}       exe "normal! mS"
-  au BufLeave *.{js,coffee}           exe "normal! mJ"
-  au BufLeave *.{rb}                  exe "normal! mC"
+  au BufLeave *.{erb,html,haml,slim,eex} exe "normal! mH"
+  au BufLeave *.{css,scss,sass}          exe "normal! mS"
+  au BufLeave *.{js,coffee}              exe "normal! mJ"
+  au BufLeave *.{rb,ex,exs}              exe "normal! mC"
 augroup END
 
 augroup reload_vimrc
@@ -278,11 +298,38 @@ augroup reload_vimrc
 augroup END
 
 if has('nvim')
+  " <esc> goes to normal mode in term buffers
+  tnoremap <esc> <c-\><c-n>
+
+  " Close finished term buffers with <cr> in nvim
   augroup nvimrcEx
     autocmd!
-    au TermOpen * map <buffer> <cr> :bd!<cr>
+    au TermOpen * nmap <buffer> <cr> :bd!<cr>
   augroup END
 end
+
+" Search notes. nvAlt is still better
+fun! s:searchNotes(args)
+  let l:filename = expand(a:args)
+  if l:filename != ""
+    echo "edit ~/Dropbox/Notes/" . l:filename . ".md"
+  else
+    :FZF ~/Dropbox/Notes
+  endif
+endfun
+command! -nargs=* Notes call s:searchNotes(<q-args>)
+nmap <leader>N :Notes<cr>
+
+" poor man's autoreload
+" for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
+fun! s:poorMansAutoReload(cmd)
+  augroup autoreload
+    autocmd!
+    au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system(a:cmd)
+  augroup END
+endfun
+command! AutoReloadChromeOrWhatever call s:poorMansAutoReload('reload-chrome')
+command! AutoReloadSafariOrWhatever call s:poorMansAutoReload('reload-safari')
 
 " }}}
 " Plugin config and maps {{{
@@ -317,45 +364,13 @@ if has('nvim')
   augroup END
 endif
 
-" minimal airline
-" let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_section_z = ''
-" let g:airline_section_y = ''
-" let g:airline_theme='hybrid'
-
 let g:ragtag_global_maps = 1
-
 let g:polyglot_disabled = ['javascript', 'elm', 'ruby']
 
 " }}}
 
 set background=light
-colorscheme disciple
-
-" Search notes. nvAlt is still better
-fun! s:searchNotes()
-  :FZF ~/Dropbox/Notes
-endfun
-command! Notes call s:searchNotes()
-nmap <leader>N :Notes<cr>
-
-" poor man's autoreload
-fun! s:setupAutoReloadChromeOrWhatever()
-  augroup autoreload
-    autocmd!
-    au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-chrome')
-  augroup END
-endfun
-command! AutoReloadChromeOrWhatever call s:setupAutoReloadChromeOrWhatever()
-
-fun! s:setupAutoReloadSafariOrWhatever()
-  augroup autoreload
-    autocmd!
-    au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('reload-safari')
-  augroup END
-endfun
-command! AutoReloadSafariOrWhatever call s:setupAutoReloadSafariOrWhatever()
+colorscheme pencil
 
 let g:elm_detailed_complete = 1
 " let g:elm_format_autosave = 1
@@ -363,36 +378,12 @@ let g:elm_syntastic_show_warnings = 1
 
 command! GdiffInTab tabedit %|vsplit|Gdiff
 nnoremap <leader>d :GdiffInTab<cr>
-nnoremap <leader>D :tabclose<cr>
+nnoremap <leader>W :tabclose<cr>
 
-if has('nvim')
-  let $FZF_DEFAULT_COMMAND='ag -l -g ""'
-
-  set termguicolors
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
-  tnoremap <esc> <c-\><c-n>
-endif
-
-nnoremap ]w :tabn<cr>
-nnoremap [w :tabp<cr>
-
-noremap gk k
-noremap gj j
-set modelines=5
-noremap <c-n> :bnext<CR>
-noremap <c-p> :bprev<CR>
-nmap <leader>gd :Gdiff<CR>
-nmap <leader>gs :Gstatus<CR>
-map <leader>sv :source $MYVIMRC<cr>
-
-fun! s:run_term_in_tab(args)
-  execute 'tabe|term ' . expand(a:args)
-endfun
-command! -nargs=* -complete=command TT call s:run_term_in_tab(<q-args>)
+let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 let g:lightline = {
-      \  'colorscheme': 'Tomorrow',
+      \  'colorscheme': 'pencil',
       \  'separator': { 'left': '', 'right': '' },
       \  'subseparator': { 'left': '', 'right': '' },
       \  'active': {
@@ -433,5 +424,12 @@ function! LightLineFilename()
        \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
 
-let g:deoplete#enable_at_startup = 1
-set omnifunc=syntaxcomplete#Complete
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+
+let g:pencil#wrapModeDefault = 'soft'
+let g:pencil#conceallevel = 2
+let g:pencil#concealcursor = 'c'

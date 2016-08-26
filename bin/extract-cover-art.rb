@@ -7,6 +7,8 @@ rescue LoadError
 end
 
 input = ARGV.shift
+raise "Missing filename" if input.nil?
+
 output = "#{File.basename(input)}.jpg"
 
 cover = TagLib::MPEG::File.open(input) do |mp3|

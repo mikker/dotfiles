@@ -13,7 +13,7 @@ endif
 
 " Font
 if has('mac')
-  set guifont=InputMono\ Thin:h16
+  set guifont=InputMono:h16
 elseif has('unix')
   set guifont=Droid\ Sans\ Mono\ 10
 endif
@@ -22,3 +22,6 @@ endif
 if filereadable(expand("~/.gvimrc.local"))
   source ~/.gvimrc.local
 endif
+
+set background=light
+colorscheme pencil

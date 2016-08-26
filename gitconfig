@@ -1,6 +1,6 @@
 [user]
-  name = Mikkel Malmberg
-  email = mikkel@brnbw.com
+	name = Mikkel Malmberg
+	email = mikkel@brnbw.com
 [color]
   diff = auto
   status = auto
@@ -32,17 +32,11 @@
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
   default = current
-[diff]
-  tool = Kaleidoscope
 [difftool]
   prompt = false
-[mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustexitcode = true
 [merge]
-  tool = Kaleidoscope
-[difftool "Kaleidoscope"]
-  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+  tool = vimdiff
+  conflictstyle = diff3
 [mergetool]
   prompt = false
 [filter "lfs"]

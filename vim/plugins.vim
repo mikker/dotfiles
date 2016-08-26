@@ -4,6 +4,7 @@ call plug#begin('~/.vim/bundle')
 
 " tpope's the shit
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -12,6 +13,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-haystack'
+Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
@@ -24,7 +26,6 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-afterimage'
 
 " things
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -43,32 +44,32 @@ Plug 'itchyny/lightline.vim'
 Plug 'davidoc/taskpaper.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'Olical/vim-enmasse'
+Plug 'janko-m/vim-test'
+Plug 'lilydjwg/colorizer'
+Plug 'gerw/vim-HiLinkTrace'
+Plug 'reedes/vim-pencil'
+Plug 'kien/ctrlp.vim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
 Plug 'mattreduce/vim-mix'
-Plug 'elixir-lang/vim-elixir'
 Plug 'ElmCast/elm-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'pangloss/vim-javascript'
-" Plug 'othree/yajs.vim'
-" Plug 'othree/javascript-libraries-syntax.vim'
-" Plug 'othree/es.next.syntax.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 
 " stupid colorschemes
-Plug 'cocopon/iceberg.vim'
-Plug 'junegunn/jellybeans.vim'
+Plug 'reedes/vim-colors-pencil'
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 Plug 'mikker/Disciple'
-Plug 'KabbAmine/yowish.vim'
 Plug 'endel/vim-github-colorscheme'
-Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'mhartington/oceanic-next'
 
 " clojure
@@ -84,13 +85,7 @@ else
   Plug 'scrooloose/syntastic'
 endif
 
-Plug 'Olical/vim-enmasse'
-Plug 'janko-m/vim-test'
-
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'mikker/lightline-theme-pencil', { 'dir': '~/Developer/lightline-theme-pencil' }
 
 call plug#end()
 

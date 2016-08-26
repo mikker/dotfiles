@@ -1,6 +1,6 @@
 # Quickly navigate to a project - with autosuggest
 c() {
-  local dir="$HOME/Developer"
+  local dir="$HOME/dev"
   if [[ $# == 0 ]]; then
     cd $dir/$(find $dir -type d -maxdepth 3 | sed -E "s#^$dir##"| fzf)
   else

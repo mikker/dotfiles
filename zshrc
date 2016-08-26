@@ -8,9 +8,14 @@ source ~/.zsh/bindkeys.zsh
 source ~/.zsh/aliases.zsh
 
 # Load all functions in fn dir
-for fn in $(ls ~/.zsh/functions); do
-  source ~/.zsh/functions/$fn
+local fns="$HOME/.zsh/functions"
+
+fpath=( $fns $fpath )
+for fn in $(ls $fns); do
+  autoload -U $fn
 done
+
+c # preload c because apparently
 
 # Report CPU usage for commands running longer than 10 seconds
 REPORTTIME=10

@@ -49,6 +49,16 @@ hs.hotkey.bind(hyper, "2", function()
   hs.grid.set(win, {x = 1, y = 0, w = 8, h = 10}, win:screen())
 end)
 
+hs.hotkey.bind(hyper, "-", function ()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  local f = win:frame()
+  local screen = win:screen()
+
+  f.x = (screen:frame().w / 2) - (f.w / 2)
+  win:setFrame(f)
+end)
+
 hs.hotkey.bind(hyper, "=", function()
   local win = hs.window.focusedWindow()
   if not win then return end
