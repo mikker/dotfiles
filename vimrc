@@ -322,11 +322,9 @@ nmap <leader>N :Notes<cr>
 
 " poor man's autoreload
 " for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
-fun! s:poorMansAutoReload(cmd)
-  augroup autoreload
-    autocmd!
-    au BufWritePost *.{html,erb,haml,slim,css,scss,js} call system(a:cmd)
-  augroup END
+fun! s:poorMansAutoReload(args)
+  let l:cmd = expand(a:args)
+  execute "au! BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('" . l:cmd . "')"
 endfun
 command! AutoReloadChromeOrWhatever call s:poorMansAutoReload('reload-chrome')
 command! AutoReloadSafariOrWhatever call s:poorMansAutoReload('reload-safari')
@@ -370,7 +368,7 @@ let g:polyglot_disabled = ['javascript', 'elm', 'ruby']
 " }}}
 
 set background=light
-colorscheme pencil
+colo dimcil
 
 let g:elm_detailed_complete = 1
 " let g:elm_format_autosave = 1
@@ -433,3 +431,8 @@ augroup END
 let g:pencil#wrapModeDefault = 'soft'
 let g:pencil#conceallevel = 2
 let g:pencil#concealcursor = 'c'
+
+if has('nvim') && has('gui')
+  nmap <c-z> :term<cr>
+endif
+

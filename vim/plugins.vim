@@ -2,6 +2,11 @@ set nocompatible
 
 call plug#begin('~/.vim/bundle')
 
+Plug 'git@github.com:mikker/vim-dimcil'
+Plug 'git@github.com:mikker/lightline-theme-pencil'
+Plug 'git@github.com:mikker/vim-rerunner'
+Plug 'git@github.com:mikker/Disciple'
+
 " tpope's the shit
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-afterimage'
@@ -36,7 +41,6 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'SirVer/ultisnips'
-Plug 'git@github.com:mikker/vim-rerunner'
 Plug 'chrisbra/unicode.vim'
 Plug 'grassdog/tagman.vim'
 Plug 'thoughtbot/vim-rspec'
@@ -68,7 +72,6 @@ Plug 'reedes/vim-colors-pencil'
 Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
-Plug 'mikker/Disciple'
 Plug 'endel/vim-github-colorscheme'
 Plug 'mhartington/oceanic-next'
 
@@ -84,8 +87,6 @@ if has("nvim")
 else
   Plug 'scrooloose/syntastic'
 endif
-
-Plug 'mikker/lightline-theme-pencil', { 'dir': '~/Developer/lightline-theme-pencil' }
 
 call plug#end()
 
