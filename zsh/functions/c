@@ -7,6 +7,6 @@ c() {
     cd $dir/$1;
   fi
 }
-_c() { _files -W ~/Developer -/; }
+_c() { _files -W ~/dev -/; }
 compdef _c c
 

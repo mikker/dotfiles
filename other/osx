@@ -11,10 +11,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # SYSTEM {{{
 
 # echo 'Set the timezone; see `sudo systemsetup -listtimezones` for other values'
-# sudo systemsetup -settimezone "Europe/Copenhagen" > /dev/null
+sudo systemsetup -settimezone "Europe/Copenhagen" > /dev/null
 
 # echo "Disable Resume system-wide"
-# defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # echo "Disable the sound effects on boot"
 # sudo nvram SystemAudioVolume=" "
@@ -84,11 +84,11 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 echo 'Use Yosemite Dark mode'
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
-# echo "Disable transparency in the menu bar and elsewhere on Yosemite"
-# defaults write com.apple.universalaccess reduceTransparency -bool true
+echo "Disable transparency in the menu bar and elsewhere on Yosemite"
+defaults write com.apple.universalaccess reduceTransparency -bool true
 
-echo "Set sidebar icon size to small"
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+# echo "Set sidebar icon size to small"
+# defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -130,8 +130,8 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 echo "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-echo "Saving to disk (not to iCloud) by default"
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+# echo "Saving to disk (not to iCloud) by default"
+# defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # }}}
 # INPUT {{{
@@ -264,9 +264,9 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # }}}
 # SHORTCUTS {{{
 
-# echo "All apps: Print to pdf with cmd+p then cmd+p"
-# defaults write -g NSUserKeyEquivalents -dict-add "Save as PDF..." -string "@P"
-# defaults write -g NSUserKeyEquivalents -dict-add "Mail PDF" -string "@~P"
+echo "All apps: Print to pdf with cmd+p then cmd+p"
+defaults write -g NSUserKeyEquivalents -dict-add "Save as PDF..." -string "@P"
+defaults write -g NSUserKeyEquivalents -dict-add "Mail PDF" -string "@~P"
 
 # echo "Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app"
 # defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9"

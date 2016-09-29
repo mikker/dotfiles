@@ -5,17 +5,12 @@ brew install \
        chruby \
        ctags \
        curl \
-       docker \
-       elixir \
-       ffmpeg \
        gist \
        git \
        heroku-toolbelt \
        hub \
        imagemagick \
-       leiningen \
        mysql \
-       nvm \
        postgresql \
        reattach-to-user-namespace \
        redis \
@@ -38,18 +33,4 @@ brew install --HEAD shoreman
 
 brew tap neovim/neovim
 brew install --HEAD neovim
-
-brew install caskroom/cask/brew-cask
-brew cask install \
-  appzapper \
-  dropbox \
-  grandperspective \
-  handbrake \
-  imageoptim \
-  karabiner \
-  macpar-deluxe \
-  nvalt \
-  rdio \
-  vlc \
-
 

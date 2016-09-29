@@ -45,3 +45,5 @@
 	required = true
 
 ; vim: set ft=gitconfig
+[url "https://github.com"]
+	insteadOf = git://github.com

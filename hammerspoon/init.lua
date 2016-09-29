@@ -8,33 +8,33 @@ hs.alert.show(" ✔︎")
 
 -- window movement {{{
 
-hs.grid.GRIDHEIGHT = 10
-hs.grid.GRIDWIDTH = 10
+hs.grid.GRIDHEIGHT = 12
+hs.grid.GRIDWIDTH = 12
 hs.grid.MARGINX = 0
 hs.grid.MARGINY = 0
 
 hs.hotkey.bind(hyper, "H", function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  hs.grid.set(win, {x = 0, y = 0, w = 5, h = 10}, win:screen())
+  hs.grid.set(win, {x = 0, y = 0, w = 6, h = 12}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "L", function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  hs.grid.set(win, {x = 5, y = 0, w = 5, h = 10}, win:screen())
+  hs.grid.set(win, {x = 6, y = 0, w = 6, h = 12}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "O", function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  hs.grid.set(win, {x = 4, y = 0, w = 6, h = 10}, win:screen())
+  hs.grid.set(win, {x = 4, y = 0, w = 8, h = 12}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "N", function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  hs.grid.set(win, {x = 0, y = 0, w = 4, h = 10}, win:screen())
+  hs.grid.set(win, {x = 0, y = 0, w = 4, h = 12}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "1", function()
@@ -46,7 +46,7 @@ end)
 hs.hotkey.bind(hyper, "2", function()
   local win = hs.window.focusedWindow()
   if not win then return end
-  hs.grid.set(win, {x = 1, y = 0, w = 8, h = 10}, win:screen())
+  hs.grid.set(win, {x = 1, y = 0, w = 10, h = 12}, win:screen())
 end)
 
 hs.hotkey.bind(hyper, "-", function ()

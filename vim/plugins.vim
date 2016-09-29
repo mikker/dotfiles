@@ -53,7 +53,7 @@ Plug 'janko-m/vim-test'
 Plug 'lilydjwg/colorizer'
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'reedes/vim-pencil'
-Plug 'kien/ctrlp.vim'
+Plug 'radenling/vim-dispatch-neovim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
