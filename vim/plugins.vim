@@ -41,21 +41,18 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'SirVer/ultisnips'
-Plug 'chrisbra/unicode.vim'
-Plug 'grassdog/tagman.vim'
-Plug 'thoughtbot/vim-rspec'
 Plug 'itchyny/lightline.vim'
-Plug 'davidoc/taskpaper.vim'
-Plug 'junegunn/gv.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'Olical/vim-enmasse'
 Plug 'janko-m/vim-test'
 Plug 'lilydjwg/colorizer'
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'reedes/vim-pencil'
 Plug 'radenling/vim-dispatch-neovim'
+Plug 'ervandew/supertab'
+Plug 'craigemery/vim-autotag'
 
 " filetypes and syntax
+Plug 'davidoc/taskpaper.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
 Plug 'mattreduce/vim-mix'
@@ -65,7 +62,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'pangloss/vim-javascript'
 Plug 'elixir-lang/vim-elixir'
-Plug 'slashmili/alchemist.vim'
 
 " stupid colorschemes
 Plug 'reedes/vim-colors-pencil'
@@ -73,14 +69,6 @@ Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 Plug 'endel/vim-github-colorscheme'
-Plug 'mhartington/oceanic-next'
-
-" clojure
-Plug 'guns/vim-sexp', { 'for': 'clojure' }
-Plug 'junegunn/rainbow_parentheses.vim', { 'for': 'clojure' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'tpope/vim-salve', { 'for': 'clojure' }
-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 if has("nvim")
   Plug 'benekastah/neomake'

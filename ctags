@@ -4,6 +4,10 @@
 --exclude=*.min.js
 --exclude=.git
 --exclude=.bundle
+--exclude=vendor/*
+--exclude=node_modules/*
+--exclude=db/*
+--exclude=log/*
 
 --langdef=Clojure
 --langmap=Clojure:.clj

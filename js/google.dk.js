@@ -1,7 +1,8 @@
 (function (window, document) {
   'use strict'
 
-  console.log('dotjs is clicking shit')
+  var searchField = document.getElementById('lst-ib')
+  if (!searchField) { return }
 
   function parseParams (search) {
     return search
@@ -25,10 +26,10 @@
 
   var params = parseParams(window.location.search)
   if (params.q && params.q.match(/\!/)) {
+    console.log('dotjs is clicking shit')
     clickFirstResult()
   }
 
-  var searchField = document.getElementById('lst-ib')
   searchField.onkeydown = function (event) {
     if (event.keyCode !== 13) return
     if (!event.target.value.match(/\!/)) return

@@ -51,15 +51,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-set switchbuf=usetab " switch to existing buffer if there is one
 set autoread " update files when coming back
-
-set statusline=
-set statusline+=\ %<%f    " relative path
-set statusline+=%m        " modified flag
-set statusline+=%=        " flexible space
-set statusline+=%{fugitive#statusline()} " git
-set statusline+=\ %{&ft}\   " filetype
 
 set foldlevel=999 " folds come expanded
 
@@ -75,7 +67,9 @@ if executable('ag')
 endif
 
 if has('nvim')
+  " Use millions of colors
   set termguicolors
+  " Change cursor glyph when in insert mode
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
@@ -134,7 +128,7 @@ nnoremap [w :tabp<cr>
 " (yanks from cursor to end of line)
 nnoremap Y y$
 
-" always jump to char (and not just line)
+" always jump to mark column (and not just line)
 noremap ' `
 
 " Indenting visual selection keeps selection
@@ -156,23 +150,14 @@ noremap ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
 noremap ¬ :set foldlevel=9999<cr>
 " poor mans meta key is to map unicode-chars
 
-" git status and diff
-nnoremap <f5> :Gst<cr>
-" remove fluff
-nnoremap <f10> :Goyo<cr>
-
 " c-c in visual mode acts like <esc>
 " eg. doesn't abort <c-v>I
 xnoremap <c-c> <esc>
 inoremap <c-c> <esc>
 
-" Readline-style <c-a> in command-line mode
-cnoremap <c-a> <Home>
-
 " Shortcuts to configs
 nmap <leader>vv :e $MYVIMRC<cr>
 nmap <leader>pp :e <c-r>=g:plugins_file_path<cr><cr>
-nmap <leader>sv :source $MYVIMRC<cr>
 
 " set <cr> to reload browsers
 " for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
@@ -186,39 +171,18 @@ iab <expr> ttime strftime("%H:%M")
 " stupid hands
 cnoreabbrev E e
 cnoreabbrev G Git
+cnoreabbrev Qa qa
+
+" git shortcuts
+cnoreabbrev GP Git push
+cnoreabbrev GU Git pull
+cnoreabbrev GB Gbrowse
 
 " }}}
 " {{{ Functions and commands
 
-function! s:super_duper_tab(k, o)
-  if pumvisible()
-    return a:k
-  endif
-
-  let l:line = getline('.')
-  let l:col = col('.') - 2
-  if empty(l:line) || l:line[l:col] !~# '\k\|[/~.]' || l:line[l:col + 1] =~# '\k'
-    return a:o
-  endif
-
-  let l:prefix = expand(matchstr(l:line[0:l:col], '\S*$'))
-  if l:prefix =~# '^[~/.]'
-    return '\<c-x>\<c-f>'
-  endif
-  if !empty(&completefunc) && call(&completefunc, [1, l:prefix]) >= 0
-    return '\<c-x>\<c-u>'
-  endif
-  return a:k
-endfunction
-
-inoremap <expr> <tab>   <SID>super_duper_tab("\<c-n>", "\<tab>")
-inoremap <expr> <s-tab> <SID>super_duper_tab("\<c-p>", "\<s-tab>")
-
 " Open current file in Marked.app
-fun! s:openMarked()
-  call system('open -a Marked\ 2 "' . expand('%') . '"')
-endfun
-command! Marked call s:openMarked()
+command! Marked call system('open -a Marked\ 2 "'.expand('%').'"')
 
 " Quicker filetype setting:
 "   :F html
@@ -243,11 +207,6 @@ function! QuickfixFilenames()
   endfor
   return join(map(values(l:buffer_numbers), 'fnameescape(v:val)'))
 endfunction
-
-" git shortcuts
-command! -nargs=* GP Git push <args>
-command! -nargs=* GU Git pull <args>
-command! -nargs=* GB Gbrowse <args>
 
 " Rotate user-installed schemes with <f8>
 function! s:rotate_colors()
@@ -282,19 +241,14 @@ augroup vimrcEx
   autocmd QuickFixCmdPost *grep* cwindow
 
   " YAML front-matter
-  au BufNewFile,BufRead *.{md,markdown,html,xml,erb} sy match Comment /\%^---\_.\{-}---$/
+  au BufNewFile,BufRead *.{md,markdown} sy match Comment /\%^---\_.\{-}---$/
 
   " magic markers: enable using `H/S/J/C to jump back to
-  " last HTML, stylesheet, JS or Ruby code buffer
+  " last HTML, stylesheet, JS or app code buffer
   au BufLeave *.{erb,html,haml,slim,eex} exe "normal! mH"
-  au BufLeave *.{css,scss,sass}          exe "normal! mS"
-  au BufLeave *.{js,coffee}              exe "normal! mJ"
+  au BufLeave *.{css,scss}               exe "normal! mS"
+  au BufLeave *.{js}                     exe "normal! mJ"
   au BufLeave *.{rb,ex,exs}              exe "normal! mC"
-augroup END
-
-augroup reload_vimrc
-    autocmd!
-    autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
 augroup END
 
 if has('nvim')
@@ -326,8 +280,10 @@ fun! s:poorMansAutoReload(args)
   let l:cmd = expand(a:args)
   execute "au! BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('" . l:cmd . "')"
 endfun
-command! AutoReloadChromeOrWhatever call s:poorMansAutoReload('reload-chrome')
-command! AutoReloadSafariOrWhatever call s:poorMansAutoReload('reload-safari')
+command! AutoReloadChromeOrWhatever \
+  call s:poorMansAutoReload('reload-chrome')
+command! AutoReloadSafariOrWhatever \
+  call s:poorMansAutoReload('reload-safari')
 
 " }}}
 " Plugin config and maps {{{
@@ -346,15 +302,13 @@ let g:UltiSnipsListSnippets        = '<c-q>'
 let g:UltiSnipsJumpForwardTrigger  = '<c-l>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
 if has('nvim')
   let g:neomake_javascript_enabled_makers = ['standard']
   let g:neomake_jsx_enabled_makers = ['standard']
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elixir_enabled_makers = ['credo']
 
-  augroup neomake
+  augroup neomakePost
     autocmd! BufWritePost *.js Neomake
     autocmd! BufWritePost {Gemfile,Rakefile} Neomake
     autocmd! BufWritePost *.{rb,rake} Neomake
@@ -363,16 +317,12 @@ if has('nvim')
 endif
 
 let g:ragtag_global_maps = 1
-let g:polyglot_disabled = ['javascript', 'elm', 'ruby']
+let g:polyglot_disabled = ['javascript', 'elm', 'ruby', 'elixir', 'css']
 
 " }}}
 
 set background=light
 colo dimcil
-
-let g:elm_detailed_complete = 1
-" let g:elm_format_autosave = 1
-let g:elm_syntastic_show_warnings = 1
 
 command! GdiffInTab tabedit %|vsplit|Gdiff
 nnoremap <leader>d :GdiffInTab<cr>
@@ -391,21 +341,9 @@ let g:lightline = {
       \  'component_function': {
       \    'neomake': 'neomake#statusline#LoclistStatus',
       \    'filename': 'LightLineFilename',
-      \    'fugitive': 'LightLineFugitive'
+      \    'fugitive': 'fugitive#head'
       \  }
       \}
-
-function! LightLineFugitive()
-  try
-    if exists('*fugitive#head')
-      let l:mark = ''
-      let l:head = fugitive#head()
-      return strlen(l:head) ? l:head.l:mark : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
 
 function! LightLineModified()
   if &filetype ==# 'help'
@@ -429,10 +367,10 @@ augroup pencil
 augroup END
 
 let g:pencil#wrapModeDefault = 'soft'
-let g:pencil#conceallevel = 2
+let g:pencil#conceallevel = 0
 let g:pencil#concealcursor = 'c'
 
+" A kind of GVIMRC for Neovim.app
 if has('nvim') && has('gui')
   nmap <c-z> :term<cr>
 endif
-
