@@ -49,7 +49,7 @@ Plug 'gerw/vim-HiLinkTrace'
 Plug 'reedes/vim-pencil'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'ervandew/supertab'
-Plug 'craigemery/vim-autotag'
+Plug 'junegunn/gv.vim'
 
 " filetypes and syntax
 Plug 'davidoc/taskpaper.vim'

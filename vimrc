@@ -14,6 +14,8 @@ filetype plugin indent on
 " }}}
 " {{{ Basics
 
+set path+=**
+
 " no regrets
 set nobackup
 set noswapfile
