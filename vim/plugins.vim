@@ -26,7 +26,7 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-sensible'
+
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -38,7 +38,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'nelstrom/vim-visual-star-search'
+" Plug 'nelstrom/vim-visual-star-search'
+Plug 'junegunn/vim-slash'
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'SirVer/ultisnips'
 Plug 'itchyny/lightline.vim'
@@ -50,6 +51,10 @@ Plug 'reedes/vim-pencil'
 Plug 'radenling/vim-dispatch-neovim'
 Plug 'ervandew/supertab'
 Plug 'junegunn/gv.vim'
+Plug 'rakr/vim-togglebg'
+Plug 'gcmt/wildfire.vim'
+Plug 'metakirby5/codi.vim'
+Plug 'slashmili/alchemist.vim'
 
 " filetypes and syntax
 Plug 'davidoc/taskpaper.vim'
@@ -62,17 +67,27 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'pangloss/vim-javascript'
 Plug 'elixir-lang/vim-elixir'
+Plug 'vimwiki/vimwiki'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'c-brenn/phoenix.vim'
+
 
 " stupid colorschemes
 Plug 'reedes/vim-colors-pencil'
-Plug 'junegunn/seoul256.vim'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 Plug 'endel/vim-github-colorscheme'
+Plug 'zeis/vim-kolor'
+Plug 'git@github.com:mikker/vim-colors-paramount'
+Plug 'pbrisbin/vim-colors-off'
+Plug 'ikaros/smpl-vim'
+Plug 'kristiandupont/shades-of-teal'
+
 
 if has("nvim")
   Plug 'benekastah/neomake'
 else
+  Plug 'tpope/vim-sensible'
   Plug 'scrooloose/syntastic'
 endif
 

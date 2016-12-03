@@ -5,7 +5,7 @@ require 'json'
 status = JSON.parse(open("https://codeship.com/api/v1/projects.json?api_key=#{ENV['CODESHIP_API_TOKEN']}").read)
 
 out = status['projects'].map do |project|
-  build = project['builds'].first
+  next unless build = project['builds'].first
   "#{project["repository_name"]}: " \
     "#{build['status']} " \
     "(#{build['message']})"

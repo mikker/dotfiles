@@ -40,7 +40,7 @@ alias fs='shoreman' # https://github.com/chrismytton/shoreman
 alias mm='bundle exec middleman'
 alias zs='zeus'
 # Rails
-alias rg='bundle exec rails generate'
+alias rgen='bundle exec rails generate'
 alias rc='bundle exec rails console'
 alias rs='bundle exec rails server'
 alias rd='bundle exec rails destroy'

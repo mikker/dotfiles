@@ -84,7 +84,8 @@ let g:mapleader="\<Space>"
 nnoremap <leader><leader> <c-^>
 
 " so fast save save save
-nmap <leader>w :w<cr>
+nmap <leader>j :w<cr>
+nmap <leader>s :w<cr>
 
 " / to search, <c-/> to clear search
 " term:
@@ -163,8 +164,8 @@ nmap <leader>pp :e <c-r>=g:plugins_file_path<cr><cr>
 
 " set <cr> to reload browsers
 " for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
-noremap <leader>mc :silent Rerun call system('reload-chrome')<cr>
-noremap <leader>ms :silent Rerun call system('reload-safari')<cr>
+noremap <leader>mc :Rerun call system('reload-chrome')<cr>
+noremap <leader>ms :Rerun call system('reload-safari')<cr>
 
 " wait what time is it?
 iab <expr> ddate strftime("%Y-%m-%d")
@@ -262,15 +263,24 @@ if has('nvim')
     autocmd!
     au TermOpen * nmap <buffer> <cr> :bd!<cr>
   augroup END
+
+  set inccommand=nosplit
 end
 
 " Search notes. nvAlt is still better
 fun! s:searchNotes(args)
   let l:filename = expand(a:args)
+  let l:dir = "~/Dropbox/Notes"
   if l:filename != ""
-    echo "edit ~/Dropbox/Notes/" . l:filename . ".md"
+    exe "lcd " . l:dir
+    exe "edit " l:dir . "/" . l:filename . ".md"
+    redraw!
   else
-    :FZF ~/Dropbox/Notes
+    call fzf#run(fzf#wrap({
+          \ 'dir': l:dir,
+          \ 'source': 'ls -t *.md',
+          \ 'sink': 'e',
+          \ }))
   endif
 endfun
 command! -nargs=* Notes call s:searchNotes(<q-args>)
@@ -282,10 +292,10 @@ fun! s:poorMansAutoReload(args)
   let l:cmd = expand(a:args)
   execute "au! BufWritePost *.{html,erb,haml,slim,css,scss,js} call system('" . l:cmd . "')"
 endfun
-command! AutoReloadChromeOrWhatever \
-  call s:poorMansAutoReload('reload-chrome')
-command! AutoReloadSafariOrWhatever \
-  call s:poorMansAutoReload('reload-safari')
+command! AutoReloadChromeOrWhatever
+      \ call s:poorMansAutoReload('reload-chrome')
+command! AutoReloadSafariOrWhatever
+      \ call s:poorMansAutoReload('reload-safari')
 
 " }}}
 " Plugin config and maps {{{
@@ -308,7 +318,7 @@ if has('nvim')
   let g:neomake_javascript_enabled_makers = ['standard']
   let g:neomake_jsx_enabled_makers = ['standard']
   let g:neomake_ruby_enabled_makers = ['mri']
-  let g:neomake_elixir_enabled_makers = ['credo']
+  let g:neomake_elixir_enabled_makers = []
 
   augroup neomakePost
     autocmd! BufWritePost *.js Neomake
@@ -324,11 +334,10 @@ let g:polyglot_disabled = ['javascript', 'elm', 'ruby', 'elixir', 'css']
 " }}}
 
 set background=light
-colo dimcil
+colo paramount
 
 command! GdiffInTab tabedit %|vsplit|Gdiff
 nnoremap <leader>d :GdiffInTab<cr>
-nnoremap <leader>W :tabclose<cr>
 
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 
@@ -369,10 +378,34 @@ augroup pencil
 augroup END
 
 let g:pencil#wrapModeDefault = 'soft'
-let g:pencil#conceallevel = 0
+let g:pencil#conceallevel = 2
 let g:pencil#concealcursor = 'c'
 
 " A kind of GVIMRC for Neovim.app
 if has('nvim') && has('gui')
   nmap <c-z> :term<cr>
 endif
+
+let g:neomake_elm_elm_lint_maker = { 'exe': 'elm-lint', 'errorformat': '%f:%l:%c [%t] %m' }
+let g:neomake_elm_enabled_makers = ['elm_lint']
+
+let g:vimwiki_list = [{
+      \ 'path': '~/Dropbox/Wiki/',
+      \ 'syntax': 'markdown',
+      \ 'ext': '.wikimd',
+      \ 'path_html': '~/Dropbox/Wiki/public'
+      \ }]
+
+map <leader>G :Goyo<cr>
+let g:vimwiki_auto_chdir = 0
+
+com! Wiki FZF ~/Dropbox/Wiki/
+nnoremap <leader>W :Wiki<cr>
+
+call togglebg#map("<f5>")
+
+map <leader>u <Plug>(wildfire-fuel)
+vmap <leader>d <Plug>(wildfire-water)
+
+let g:gutentags_cache_dir = '~/.tags_cache'
+
