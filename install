@@ -4,7 +4,7 @@ set -e
 DOTFILES_ROOT="`pwd`"
 
 main () {
-  submodules
+  # submodules
   symlinks
 }
 
@@ -42,6 +42,7 @@ symlinks () {
 
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`; do
     dest="$HOME/.`basename \"${source%.*}\"`"
+    echo $dest
 
     if [ -f $dest ] || [ -d $dest ]; then
 
