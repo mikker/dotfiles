@@ -1,9 +1,5 @@
 # vim: set ft=tmux.conf
 
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
-
 # mouse on (tmux 2.1)
 set -g mouse on
 # Don't lose track of SSH_AGENT etc. from parent environment.
@@ -14,6 +10,10 @@ set -g base-index 1
 set -g renumber-windows on
 # Set terminal title
 set-option -g set-titles on
+
+set-option -g visual-activity off
+set-option -gw automatic-rename on
+set-option -gw monitor-activity off
 
 # Use ctrl-q instead of ctrl-b
 unbind C-b
@@ -50,14 +50,28 @@ bind ^o select-pane -l\; resize-pane -Z
 bind c new-window -c "#{pane_current_path}"
 
 # status bar
-set -g status-bg white
-set -g status-fg black
-set-window-option -g window-status-current-bg blue
-set-window-option -g window-status-current-fg black
+set -g status-bg default
+set -g status-fg colour239
+set-window-option -g window-status-current-bg default
+set-window-option -g window-status-current-fg colour8
+
 set -g status-left ''
 set -g status-right '%H:%M'
 set -g status-right-length 20
 set -g status-interval 30
+
+
+set-window-option -g window-status-current-attr bold
+set-window-option -g window-status-current-format '[ #I ]'
+set-window-option -g window-status-format ' #I '
+set-window-option -g window-status-attr dim
+
+set -sg escape-time 1
+
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
 
 # Local config
 if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'

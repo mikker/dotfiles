@@ -347,12 +347,13 @@ let g:lightline = {
       \  'subseparator': { 'left': '', 'right': '' },
       \  'active': {
       \    'left': [['mode', 'paste'], ['fugitive'], ['filename']],
-      \    'right': [[], ['filetype'], ['neomake']]
+      \    'right': [[], ['filetype'], ['gutentags'], ['neomake']]
       \  },
       \  'component_function': {
       \    'neomake': 'neomake#statusline#LoclistStatus',
       \    'filename': 'LightLineFilename',
-      \    'fugitive': 'fugitive#head'
+      \    'fugitive': 'fugitive#head',
+      \    'gutentags': 'gutentags#statusline'
       \  }
       \}
 
@@ -392,7 +393,9 @@ let g:neomake_elm_enabled_makers = ['elm_lint']
 let g:vimwiki_list = [{
       \ 'path': '~/Dropbox/Wiki/',
       \ 'syntax': 'markdown',
-      \ 'ext': '.wikimd',
+      \ 'ext': '.md',
+      \ 'template_path': '~/Dropbox/Wiki/templates/',
+      \ 'custom_wiki2html': 'vimwiki_markdown',
       \ 'path_html': '~/Dropbox/Wiki/public'
       \ }]
 
@@ -408,4 +411,9 @@ map <leader>u <Plug>(wildfire-fuel)
 vmap <leader>d <Plug>(wildfire-water)
 
 let g:gutentags_cache_dir = '~/.tags_cache'
+let g:gutentags_generate_on_new = 0
 
+if has("gui_vimr")
+  " shift-tab sends ctrl+shift+y in VimR
+  au! FileType vimwiki map <buffer> <c-s-y> :VimwikiPrevLink<cr>
+endif

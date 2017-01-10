@@ -2,10 +2,10 @@ set nocompatible
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'git@github.com:mikker/vim-dimcil'
-Plug 'git@github.com:mikker/lightline-theme-pencil'
-Plug 'git@github.com:mikker/vim-rerunner'
-Plug 'git@github.com:mikker/Disciple'
+Plug '~/dev/lightline-theme-pencil'
+Plug '~/dev/vim-rerunner'
+Plug '~/dev/vim-dimcil'
+Plug '~/dev/vim-colors-paramount'
 
 " tpope's the shit
 Plug 'tpope/vim-abolish'
@@ -68,8 +68,9 @@ Plug 'slim-template/vim-slim'
 Plug 'pangloss/vim-javascript'
 Plug 'elixir-lang/vim-elixir'
 Plug 'vimwiki/vimwiki'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'c-brenn/phoenix.vim'
+Plug 'machakann/vim-highlightedyank'
 
 
 " stupid colorschemes
@@ -78,7 +79,6 @@ Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 Plug 'endel/vim-github-colorscheme'
 Plug 'zeis/vim-kolor'
-Plug 'git@github.com:mikker/vim-colors-paramount'
 Plug 'pbrisbin/vim-colors-off'
 Plug 'ikaros/smpl-vim'
 Plug 'kristiandupont/shades-of-teal'
