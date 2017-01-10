@@ -3,38 +3,45 @@ set -e
 
 DOTFILES_ROOT="`pwd`"
 
+echo "Install"
+
 main () {
-  # submodules
+  submodules
+  platform
+  generic
   symlinks
 }
 
-echo "INSTALL"
-
-info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
-
 submodules () {
-  info "Submodules"
-  git submodule update --init
+  echo "Initialising submodules"
+  git submodule init && git submodule update
+}
+
+platform () {
+  platform="unknown"
+  if [[ "$(uname)" == "Darwin" ]]; then
+     platform="osx"
+  elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+     platform="linux"
+  elif [[ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]]; then
+      platform="windows"
+  fi
+
+  echo "Running installers for $platform"
+
+  find . -name $platform.sh |\
+    while read installer ; do sh "${installer}" > /dev/null ; done
+}
+
+generic () {
+  echo "Running generic installers"
+
+  find . -name all.sh |\
+    while read installer ; do sh -c "${installer}" > /dev/null ; done
 }
 
 symlinks () {
-  info "Symlinks"
+  echo "Create symlinks"
 
   overwrite_all=false
   backup_all=false
@@ -42,7 +49,6 @@ symlinks () {
 
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`; do
     dest="$HOME/.`basename \"${source%.*}\"`"
-    echo $dest
 
     if [ -f $dest ] || [ -d $dest ]; then
 
@@ -82,7 +88,7 @@ symlinks () {
           success "moved $dest to $dest.backup"
         fi
 
-        if [ "$skip" == "false" ] || [ "$skip_all" == "false" ]; then
+        if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]; then
           link_files $source $dest
         else
           success "skipped $source"
@@ -93,9 +99,26 @@ symlinks () {
   done
 }
 
+info () {
+  printf "  [ \033[00;34m..\033[0m ] $1"
+}
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
 link_files () {
   ln -s $1 $2
   success "Linked $1 to $2"
 }
 
 main
+
+# vim: fdm=indent foldlevel=0

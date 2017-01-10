@@ -3,7 +3,7 @@ scriptencoding utf-8
 
 " {{{ Plugins
 
-let g:plugins_file_path = '~/dotfiles/vim/plugins.vim'
+let g:plugins_file_path = '~/.vim/plugins.vim'
 
 if filereadable(expand(g:plugins_file_path))
   exe ':source ' . g:plugins_file_path

@@ -1,9 +1,13 @@
+# enable colored output from ls, etc
+export CLICOLOR=1
+
+fpath=($ZSH/zsh/functions $fpath)
+
+autoload -U $ZSH/zsh/functions/*(:t)
+
 # makes color constants available
 autoload -U colors
 colors
-
-# enable colored output from ls, etc
-export CLICOLOR=1
 
 setopt no_beep # shut up
 setopt auto_cd # automatically enter directories without cd
@@ -34,7 +38,6 @@ setopt complete_in_word # Allow completion from within a word/phrase
 
 unsetopt menu_complete # do not autoselect the first completion entry
 
-autoload -U compinit && compinit
 zmodload -i zsh/complist
 
 # case-insensitive (all),partial-word and then substring completion

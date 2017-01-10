@@ -1,27 +1,21 @@
-export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export ZSH=$HOME/dotfiles
+export DOTFILES=$HOME/dotfiles
+export PROJECTS=$HOME/dev
+
+export PATH="$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-source ~/.zsh/base.zsh
-source ~/.zsh/prompt.zsh
-source ~/.zsh/bindkeys.zsh
-source ~/.zsh/aliases.zsh
-
 # Load all functions in fn dir
-local fns="$HOME/.zsh/functions"
+for config_file ($ZSH/**/*.zsh) source $config_file
 
-fpath=( $fns $fpath )
-for fn in $(ls $fns); do
-  autoload -U $fn
-done
+autoload -U compinit
+compinit
 
-c # preload c because apparently
+for config_file ($ZSH/**/completion.sh) source $config_file
 
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
-
-# Report CPU usage for commands running longer than 10 seconds
-REPORTTIME=10
 
 # Local modifications
 [[ -f ~/.localrc ]] && .  ~/.localrc
