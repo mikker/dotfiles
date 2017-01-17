@@ -6,6 +6,21 @@ export PATH="$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
+source ~/.zplug/init.zsh
+
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
+
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+zplug load
+
 # Load all functions in fn dir
 for config_file ($ZSH/**/*.zsh) source $config_file
 

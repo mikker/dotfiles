@@ -6,3 +6,5 @@ if [[ $ZSH_NAME != "zsh" ]]; then
   echo "Changing Default Shell to ZSH"
   chsh -s /bin/zsh
 fi
+
+curl -sL zplug.sh/installer | zsh

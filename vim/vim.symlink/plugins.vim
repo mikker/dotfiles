@@ -68,9 +68,7 @@ Plug 'slim-template/vim-slim'
 Plug 'pangloss/vim-javascript'
 Plug 'elixir-lang/vim-elixir'
 Plug 'vimwiki/vimwiki'
-" Plug 'ludovicchabant/vim-gutentags'
 Plug 'c-brenn/phoenix.vim'
-Plug 'machakann/vim-highlightedyank'
 
 
 " stupid colorschemes

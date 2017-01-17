@@ -53,17 +53,16 @@ bind c new-window -c "#{pane_current_path}"
 set -g status-bg default
 set -g status-fg colour239
 set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-fg colour8
+set-window-option -g window-status-current-fg colour246
 
 set -g status-left ''
 set -g status-right '%H:%M'
 set -g status-right-length 20
 set -g status-interval 30
 
-
-set-window-option -g window-status-current-attr bold
-set-window-option -g window-status-current-format '[ #I ]'
-set-window-option -g window-status-format ' #I '
+# set-window-option -g window-status-current-attr bold
+set-window-option -g window-status-current-format '{ #W }'
+set-window-option -g window-status-format ' #W '
 set-window-option -g window-status-attr dim
 
 set -sg escape-time 1
