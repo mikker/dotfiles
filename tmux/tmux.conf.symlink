@@ -61,8 +61,8 @@ set -g status-right-length 20
 set -g status-interval 30
 
 # set-window-option -g window-status-current-attr bold
-set-window-option -g window-status-current-format '{ #W }'
-set-window-option -g window-status-format ' #W '
+set-window-option -g window-status-current-format '{ #I:#W }'
+set-window-option -g window-status-format ' #I:#W#F '
 set-window-option -g window-status-attr dim
 
 set -sg escape-time 1

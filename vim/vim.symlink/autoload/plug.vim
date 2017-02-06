@@ -426,7 +426,10 @@ function! s:dobufread(names)
     let path = s:rtp(g:plugs[name]).'/**'
     for dir in ['ftdetect', 'ftplugin']
       if len(finddir(dir, path))
-        return s:doautocmd('BufRead')
+        if exists('#BufRead')
+          doautocmd BufRead
+        endif
+        return
       endif
     endfor
   endfor
@@ -1182,7 +1185,7 @@ function! s:spawn(name, cmd, opts)
             \ 'Invalid arguments (or job table is full)']
     endif
   elseif s:vim8
-    let jid = job_start(argv, {
+    let jid = job_start(s:is_win ? join(argv, ' ') : argv, {
     \ 'out_cb':   function('s:job_cb', ['s:job_out_cb',  job]),
     \ 'exit_cb':  function('s:job_cb', ['s:job_exit_cb', job]),
     \ 'out_mode': 'raw'

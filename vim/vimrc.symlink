@@ -418,7 +418,12 @@ if has("gui_vimr")
   au! FileType vimwiki map <buffer> <c-s-y> :VimwikiPrevLink<cr>
 endif
 
-let test#strategy = "neovim"
+fun! TTStrategy(cmd)
+  execute 'TT ' . a:cmd
+endfun
+
+let g:test#custom_strategies = { "tt": function('TTStrategy') }
+let test#strategy = "tt"
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -426,3 +431,5 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
+let g:nv_directories = ['~/Dropbox/Wiki', '~/Dropbox/Notes']
+let g:nv_show_filepath = 0

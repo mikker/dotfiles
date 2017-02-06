@@ -2,10 +2,20 @@ set nocompatible
 
 call plug#begin('~/.vim/bundle')
 
-Plug '~/dev/lightline-theme-pencil'
-Plug '~/dev/vim-rerunner'
-Plug '~/dev/vim-dimcil'
-Plug '~/dev/vim-colors-paramount'
+function! s:maybeLocalPlug(args)
+  let l:localPath = $HOME . "/dev/" . expand(a:args)
+
+  if isdirectory(l:localPath)
+    Plug l:localPath
+  else
+    Plug 'mikker/' . expand(a:args)
+  endif
+endfunction
+
+call s:maybeLocalPlug('lightline-theme-pencil')
+call s:maybeLocalPlug('vim-rerunner')
+call s:maybeLocalPlug('vim-dimcil')
+call s:maybeLocalPlug('vim-colors-paramount')
 
 " tpope's the shit
 Plug 'tpope/vim-abolish'
@@ -33,28 +43,26 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
 " things
+Plug 'Alok/notational-fzf-vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'SirVer/ultisnips'
+Plug 'ervandew/supertab'
+Plug 'gcmt/wildfire.vim'
+Plug 'gerw/vim-HiLinkTrace'
+Plug 'itchyny/lightline.vim'
+Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-" Plug 'nelstrom/vim-visual-star-search'
-Plug 'junegunn/vim-slash'
-Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plug 'SirVer/ultisnips'
-Plug 'itchyny/lightline.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'janko-m/vim-test'
-Plug 'lilydjwg/colorizer'
-Plug 'gerw/vim-HiLinkTrace'
-Plug 'reedes/vim-pencil'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'ervandew/supertab'
 Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-slash'
+Plug 'lilydjwg/colorizer'
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'rakr/vim-togglebg'
-Plug 'gcmt/wildfire.vim'
-Plug 'metakirby5/codi.vim'
-Plug 'slashmili/alchemist.vim'
+Plug 'reedes/vim-pencil'
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
+
 
 " filetypes and syntax
 Plug 'davidoc/taskpaper.vim'

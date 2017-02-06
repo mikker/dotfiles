@@ -35,7 +35,7 @@
 [difftool]
   prompt = false
 [merge]
-  tool = vimdiff
+	tool = fugitive
   conflictstyle = diff3
 [mergetool]
   prompt = false
@@ -47,3 +47,5 @@
 ; vim: set ft=gitconfig
 [url "https://github.com"]
 	insteadOf = git://github.com
+[mergetool "fugitive"]
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
