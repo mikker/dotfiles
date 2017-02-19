@@ -36,7 +36,6 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-scriptease'
-
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -65,29 +64,28 @@ Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 
 " filetypes and syntax
-Plug 'davidoc/taskpaper.vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-ruby/vim-ruby'
-Plug 'mattreduce/vim-mix'
+" Plug 'sheerun/vim-polyglot'
+
 Plug 'ElmCast/elm-vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'vim-ruby/vim-ruby'
-Plug 'slim-template/vim-slim'
-Plug 'pangloss/vim-javascript'
-Plug 'elixir-lang/vim-elixir'
-Plug 'vimwiki/vimwiki'
 Plug 'c-brenn/phoenix.vim'
+Plug 'davidoc/taskpaper.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'mattreduce/vim-mix'
+" Plug 'pangloss/vim-javascript'
+Plug 'slim-template/vim-slim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vimwiki/vimwiki'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'Quramy/vim-js-pretty-template'
 
 
 " stupid colorschemes
-Plug 'reedes/vim-colors-pencil'
+Plug 'kristiandupont/shades-of-teal'
+Plug 'pbrisbin/vim-colors-off'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
-Plug 'endel/vim-github-colorscheme'
-Plug 'zeis/vim-kolor'
-Plug 'pbrisbin/vim-colors-off'
-Plug 'ikaros/smpl-vim'
-Plug 'kristiandupont/shades-of-teal'
 
 
 if has("nvim")

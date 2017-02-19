@@ -252,6 +252,7 @@ augroup vimrcEx
   au BufLeave *.{css,scss}               exe "normal! mS"
   au BufLeave *.{js}                     exe "normal! mJ"
   au BufLeave *.{rb,ex,exs}              exe "normal! mC"
+  au BufLeave *.yml                      exe "normal! mY"
 augroup END
 
 if has('nvim')
@@ -335,9 +336,7 @@ let g:polyglot_disabled = ['javascript', 'elm', 'ruby', 'elixir', 'css']
 
 set background=dark
 colo paramount
-
-command! GdiffInTab tabedit %|vsplit|Gdiff
-nnoremap <leader>d :GdiffInTab<cr>
+hi Normal guibg=NONE
 
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 
@@ -374,15 +373,14 @@ endfunction
 
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
+  autocmd FileType markdown,mkd,vimwiki,text call pencil#init()
 augroup END
 
 let g:pencil#wrapModeDefault = 'soft'
 let g:pencil#conceallevel = 2
 let g:pencil#concealcursor = 'c'
 
-" A kind of GVIMRC for Neovim.app
+" A kind of GVIMRC for Neovim.app/VimR
 if has('nvim') && has('gui')
   nmap <c-z> :term<cr>
 endif
