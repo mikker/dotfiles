@@ -61,6 +61,9 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
+echo "Saving screenshots to ~/Downloads"
+defaults write com.apple.screencapture location ~/Downloads
+
 # }}}
 # DOCK {{{
 

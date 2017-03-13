@@ -64,21 +64,21 @@ Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 
 " filetypes and syntax
-" Plug 'sheerun/vim-polyglot'
-
-Plug 'ElmCast/elm-vim'
-Plug 'c-brenn/phoenix.vim'
-Plug 'davidoc/taskpaper.vim'
-Plug 'elixir-lang/vim-elixir'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'mattreduce/vim-mix'
-" Plug 'pangloss/vim-javascript'
-Plug 'slim-template/vim-slim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'vim-ruby/vim-ruby'
+Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'Quramy/vim-js-pretty-template'
+" Plug 'jelera/vim-javascript-syntax'
+
+" Plug 'ElmCast/elm-vim'
+" Plug 'c-brenn/phoenix.vim'
+" Plug 'davidoc/taskpaper.vim'
+" Plug 'elixir-lang/vim-elixir'
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'mattreduce/vim-mix'
+" " Plug 'pangloss/vim-javascript'
+" Plug 'slim-template/vim-slim'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'Quramy/vim-js-pretty-template'
 
 
 " stupid colorschemes

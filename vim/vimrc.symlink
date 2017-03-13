@@ -316,8 +316,9 @@ let g:UltiSnipsJumpForwardTrigger  = '<c-l>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 
 if has('nvim')
+  let g:neomake_jsx_standard_maker = {'errorformat': '%W  %f:%l:%c: %m'}
+
   let g:neomake_javascript_enabled_makers = ['standard']
-  let g:neomake_jsx_enabled_makers = ['standard']
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elixir_enabled_makers = []
 
@@ -330,11 +331,11 @@ if has('nvim')
 endif
 
 let g:ragtag_global_maps = 1
-let g:polyglot_disabled = ['javascript', 'elm', 'ruby', 'elixir', 'css']
+" let g:polyglot_disabled = ['javascript', 'elm', 'ruby', 'elixir', 'css']
 
 " }}}
 
-set background=dark
+set background=light
 colo paramount
 hi Normal guibg=NONE
 
@@ -430,4 +431,6 @@ nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
 let g:nv_directories = ['~/Dropbox/Wiki', '~/Dropbox/Notes']
-let g:nv_show_filepath = 0
+" let g:nv_use_short_pathnames = 1
+
+
