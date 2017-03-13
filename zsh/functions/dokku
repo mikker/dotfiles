@@ -4,6 +4,8 @@
 dokku() {
   if [ -e bin/dokku ]; then
     bin/dokku $@
+  elif [ -e /usr/bin/dokku ]; then
+    /usr/bin/dokku $@
   else
     ssh -t dokku@brnbw $@
   fi
