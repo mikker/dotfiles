@@ -16,10 +16,3 @@ if Dir.pwd != File.expand_path("~")
     load local_irbrc
   end
 end
-
-# Use Pry everywhere
-require "rubygems"
-require 'pry'
-Pry.start
-exit
-

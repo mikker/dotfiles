@@ -1,4 +1,1 @@
-# if File.exists?('./.irbrc')
-#   puts "Loading local .irbrc"
-#   load './.irbrc'
-# end
+load File.expand_path "~/.irbrc"

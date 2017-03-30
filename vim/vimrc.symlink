@@ -317,7 +317,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 
 if has('nvim')
   let g:neomake_jsx_standard_maker = {'errorformat': '%W  %f:%l:%c: %m'}
-
+  let g:neomake_jsx_enabled_makers = ['standard']
   let g:neomake_javascript_enabled_makers = ['standard']
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elixir_enabled_makers = []
@@ -337,7 +337,6 @@ let g:ragtag_global_maps = 1
 
 set background=light
 colo paramount
-hi Normal guibg=NONE
 
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 
@@ -422,7 +421,12 @@ fun! TTStrategy(cmd)
 endfun
 
 let g:test#custom_strategies = { "tt": function('TTStrategy') }
-let test#strategy = "tt"
+
+if has('nvim')
+  let test#strategy = "tt"
+else
+  let test#strategy = "basic"
+endif
 
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -431,6 +435,13 @@ nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
 let g:nv_directories = ['~/Dropbox/Wiki', '~/Dropbox/Notes']
-" let g:nv_use_short_pathnames = 1
+let g:nv_use_short_pathnames = 1
 
+autocmd FileType javascript set formatprg=standard\ -f\ --stdin
+autocmd FileType ruby set formatprg=rubocop\ --stdin\ -a
 
+set spelllang=da
+let g:vimwiki_auto_chdir = 1
+
+let g:rerunner_focus = 'TestLast'
+cabbrev R Rails
