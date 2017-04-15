@@ -45,7 +45,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'Alok/notational-fzf-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'gcmt/wildfire.vim'
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'itchyny/lightline.vim'
@@ -62,24 +62,9 @@ Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 
-
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
-" Plug 'jelera/vim-javascript-syntax'
-
-" Plug 'ElmCast/elm-vim'
-" Plug 'c-brenn/phoenix.vim'
-" Plug 'davidoc/taskpaper.vim'
-" Plug 'elixir-lang/vim-elixir'
-" Plug 'hail2u/vim-css3-syntax'
-" Plug 'mattreduce/vim-mix'
-" " Plug 'pangloss/vim-javascript'
-" Plug 'slim-template/vim-slim'
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'Quramy/vim-js-pretty-template'
-
 
 " stupid colorschemes
 Plug 'kristiandupont/shades-of-teal'
@@ -87,6 +72,7 @@ Plug 'pbrisbin/vim-colors-off'
 Plug 'romainl/Apprentice'
 Plug 'w0ng/vim-hybrid'
 
+Plug 'lifepillar/vim-mucomplete'
 
 if has("nvim")
   Plug 'benekastah/neomake'

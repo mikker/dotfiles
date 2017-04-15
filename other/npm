@@ -1,1 +1,6 @@
-npm install -g live-server nodemon castnow standard babel-eslint jspm
+npm install -g \
+      castnow \
+      live-server \
+      now \
+      prettier \
+      standard

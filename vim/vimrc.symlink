@@ -444,4 +444,12 @@ set spelllang=da
 let g:vimwiki_auto_chdir = 1
 
 let g:rerunner_focus = 'TestLast'
-cabbrev R Rails
+cabbrev Ra Rails
+
+set completeopt+=menuone
+set shortmess+=c
+set completeopt+=noinsert
+set completeopt+=noinsert,noselect
+
+let g:mucomplete#enable_auto_at_startup = 1
+

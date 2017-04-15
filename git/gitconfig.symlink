@@ -49,3 +49,11 @@
 	insteadOf = git://github.com
 [mergetool "fugitive"]
 	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+[stash]
+	showPatch = true
+[rebase]
+	autostash = true
+[log]
+	decorate = full
+[pull]
+	ff = only
