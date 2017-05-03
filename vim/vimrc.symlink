@@ -71,8 +71,6 @@ endif
 if has('nvim')
   " Use millions of colors
   set termguicolors
-  " Change cursor glyph when in insert mode
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
 " }}}
@@ -335,7 +333,7 @@ let g:ragtag_global_maps = 1
 
 " }}}
 
-set background=light
+set background=dark
 colo paramount
 
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
@@ -437,8 +435,16 @@ nmap <silent> <leader>g :TestVisit<CR>
 let g:nv_directories = ['~/Dropbox/Wiki', '~/Dropbox/Notes']
 let g:nv_use_short_pathnames = 1
 
-autocmd FileType javascript set formatprg=standard\ -f\ --stdin
+" autocmd FileType javascript set formatprg=standard\ -f\ --stdin
+autocmd FileType javascript set formatprg=prettier-standard
 autocmd FileType ruby set formatprg=rubocop\ --stdin\ -a
+
+let g:neoformat_javascript_prettier_standard = {
+        \ 'exe': 'prettier-standard',
+        \ 'args': [],
+        \ 'stdin': 1,
+        \ }
+let g:neoformat_enabled_javascript = ['prettier_standard']
 
 set spelllang=da
 let g:vimwiki_auto_chdir = 1
@@ -453,3 +459,4 @@ set completeopt+=noinsert,noselect
 
 let g:mucomplete#enable_auto_at_startup = 1
 
+nmap <leader>F :Neoformat<cr>

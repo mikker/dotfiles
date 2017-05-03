@@ -23,6 +23,6 @@ precmd () {
 }
 
 PROMPT='
-$(parse_ssh_connection)%F{blue}%c%f %(1j.%F{magenta}[%j]%f.)%F{black}▸%f '
+$(parse_ssh_connection)%F{blue}%c%f %(1j.%F{magenta}[%j]%f.)%F{black}🍌 %f '
 RPROMPT='%F{blue}${vcs_info_msg_0_}%f'
 

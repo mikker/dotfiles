@@ -76,6 +76,7 @@ Plug 'lifepillar/vim-mucomplete'
 
 if has("nvim")
   Plug 'benekastah/neomake'
+  Plug 'sbdchd/neoformat'
 else
   Plug 'tpope/vim-sensible'
   Plug 'scrooloose/syntastic'

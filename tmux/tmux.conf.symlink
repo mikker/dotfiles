@@ -36,8 +36,6 @@ bind ^Space last-window
 
 # Quickly switch between sessions
 bind ^S switch-client -l
-# Setup 'v' to begin selection as in Vim
-bind-key -t vi-copy v begin-selection
 
 # tiny split below - suitable for test runners
 unbind _
