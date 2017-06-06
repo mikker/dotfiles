@@ -73,3 +73,4 @@ alias dsay='say -v Sara'
 alias gcb="git chechout -b"
 alias exc="exercism"
 alias yr="yarn run"
+alias npr="npm run"

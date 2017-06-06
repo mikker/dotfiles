@@ -19,15 +19,12 @@ call s:maybeLocalPlug('vim-colors-paramount')
 
 " tpope's the shit
 Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-afterimage'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
-Plug 'tpope/vim-haystack'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-ragtag'
@@ -35,51 +32,51 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-scriptease'
+" Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
 " things
-Plug 'Alok/notational-fzf-vim'
+" Plug 'Alok/notational-fzf-vim'
+" Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
-" Plug 'ervandew/supertab'
-Plug 'gcmt/wildfire.vim'
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-slash'
 Plug 'lilydjwg/colorizer'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
-Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'wincent/ferret'
+Plug 'mattn/emmet-vim'
 
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
+Plug 'reedes/vim-pencil'
+" Plug 'gabrielelana/vim-markdown'
 
 " stupid colorschemes
-Plug 'kristiandupont/shades-of-teal'
 Plug 'pbrisbin/vim-colors-off'
 Plug 'romainl/Apprentice'
-Plug 'w0ng/vim-hybrid'
 
-Plug 'lifepillar/vim-mucomplete'
+" Plug 'lifepillar/vim-mucomplete'
 
 if has("nvim")
-  Plug 'benekastah/neomake'
+  Plug 'roxma/nvim-completion-manager'
+  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
   Plug 'sbdchd/neoformat'
+  Plug 'benekastah/neomake'
 else
   Plug 'tpope/vim-sensible'
-  Plug 'scrooloose/syntastic'
 endif
 
 call plug#end()

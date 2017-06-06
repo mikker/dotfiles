@@ -3,4 +3,5 @@ npm install -g \
       live-server \
       now \
       prettier \
-      standard
+      standard \
+      prettier-standard

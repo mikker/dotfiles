@@ -74,15 +74,18 @@ end)
 -- application hotkeys {{{
 
 local charsToApps = {
-  a = "iTerm",
+  a = "Terminal",
+  c = "Calendar",
   d = "Dash",
   e = "Mail",
   f = "Finder",
   i = "Spotify",
   m = "Messages",
-  s = "Safari Technology Preview",
+  p = "Things3",
   -- s = "Safari",
+  s = "Safari Technology Preview",
   t = "Tweetbot",
+  v = "VimR",
   z = "Slack"
 }
 for key, app in pairs(charsToApps) do
