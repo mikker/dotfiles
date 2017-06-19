@@ -452,6 +452,7 @@ let g:vimwiki_auto_chdir = 1
 let g:vimwiki_folding = 'custom'
 
 let g:rerunner_focus = 'TestLast'
+map <leader>md :Rerun TestLast<cr>
 cabbrev Ra Rails
 
 set completeopt+=menuone

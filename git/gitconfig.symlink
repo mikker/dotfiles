@@ -17,7 +17,7 @@
   rb = rebase
   tree = "log --graph --decorate --abbrev=commit"
   pr = "!hub pull-request"
-  empty-msg = commit --allow-empty-message --message=
+  empty-with-msg = commit --allow-empty --message=
   save = "!f() { git add -A && git commit -m \"$@\"; }; f"
   wip = !git add -u && git commit -m "WIP"
   amend = commit -a --amend
