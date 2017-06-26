@@ -1,1 +1,0 @@
-/Users/mikker/dotfiles/vim/vim.symlink/after/ftplugin/markdown.vim

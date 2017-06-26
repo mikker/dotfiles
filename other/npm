@@ -4,4 +4,5 @@ npm install -g \
       now \
       prettier \
       standard \
-      prettier-standard
+      prettier-standard \
+      diff-so-fancy

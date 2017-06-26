@@ -1,0 +1,5 @@
+// mkdir -p ~/Library/KeyBindings && cp DefaultKeyBindings.dict ~/Library/KeyBindings/DefaultKeyBindings.dict
+
+{
+  "^w" = (deleteWordBackward:);
+}

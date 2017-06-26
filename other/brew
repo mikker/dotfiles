@@ -1,36 +1,28 @@
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 brew install \
-       aria2 \
-       chruby \
-       ctags \
-       curl \
-       gist \
-       git \
+       aria2 curl youtube-dl wget \
+       chruby ruby-install \
+       gist git hub \
        heroku-toolbelt \
-       hub \
        imagemagick \
-       mysql \
-       postgresql \
-       reattach-to-user-namespace \
+       node yarn \
+       mysql postgresql \
+       reattach-to-user-namespace tmux \
        redis \
-       ruby-install \
        s3cmd \
-       sassc \
        ssh-copy-id \
        taglib \
-       the_silver_searcher \
-       tmux \
-       tree \
-       vim \
-       wget \
-       youtube-dl \
-       zsh
-brew install weechat --with-curl --with-lua --with-perl --with-python --with-ruby
+       the_silver_searcher tree vim ctags \
+       zsh zplug \
+       erlang exenv elixir-build
 
-brew tap chrismytton/formula
-brew install --HEAD shoreman
+brew install weechat --with-curl --with-lua --with-perl --with-python --with-ruby
 
 brew tap neovim/neovim
 brew install --HEAD neovim
 
+brew cask install \
+  google-chrome \
+  dropbox \
+  hammerspoon
