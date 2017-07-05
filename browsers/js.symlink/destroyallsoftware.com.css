@@ -1,6 +1,2 @@
-body {
-  background: purple
-}
-.container {
-  width: 90% !important;
-}
+/* full-width container makes full-width video */
+.container { width: 90% !important; }
