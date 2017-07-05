@@ -1,0 +1,2 @@
+/* Fix weird text rendering */
+.line { stroke-width: 0; }

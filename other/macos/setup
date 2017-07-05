@@ -64,6 +64,9 @@ defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 echo "Saving screenshots to ~/Downloads"
 defaults write com.apple.screencapture location ~/Downloads
 
+echo "Pull SF Mono fonts from Terminal.app"
+cp -v /Applications/Utilities/Terminal.app/Contents/Resources/Fonts/SFMono-* ~/Library/Fonts
+
 # }}}
 # DOCK {{{
 
@@ -106,15 +109,16 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 echo 'Disable Desktop'
 defaults write com.apple.finder CreateDesktop -bool false
 
-echo 'Allow Selection in QuickLook'
-defaults write com.apple.finder QLEnableTextSelection -bool true
-
 echo "When performing a search, search the current folder by default"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 echo "Use column view in all Finder windows by default"
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Clmv"
+
+echo "Set Default Finder location to Home"
+defaults write com.apple.finder NewWindowTarget -string "PfLo" && \
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
 
 echo "Show the ~/Library folder"
 chflags nohidden ~/Library
@@ -221,4 +225,3 @@ defaults write com.apple.Finder NSUserKeyEquivalents -dict-add "Tags..." -string
 
 # }}}
 
-# vim: fdm=marker fdl=0
