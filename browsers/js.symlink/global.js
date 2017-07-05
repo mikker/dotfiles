@@ -1,0 +1,1 @@
+console.log("%cjoof is ready to go!", "color: green")

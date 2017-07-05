@@ -32,15 +32,12 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
-" Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
 " things
-" Plug 'Alok/notational-fzf-vim'
-" Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
 Plug 'gerw/vim-HiLinkTrace'
@@ -57,27 +54,31 @@ Plug 'reedes/vim-pencil'
 Plug 'wincent/ferret'
 Plug 'mattn/emmet-vim'
 
+Plug 'junegunn/vim-slash'
+Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/limelight.vim'
+
 " filetypes and syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'reedes/vim-pencil'
-" Plug 'gabrielelana/vim-markdown'
+Plug 'junegunn/vim-journal'
 
-" stupid colorschemes
+" colorschemes
 Plug 'pbrisbin/vim-colors-off'
 Plug 'romainl/Apprentice'
 
-" Plug 'lifepillar/vim-mucomplete'
-
 if has("nvim")
-  Plug 'roxma/nvim-completion-manager'
-  Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
-  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
   Plug 'sbdchd/neoformat'
   Plug 'benekastah/neomake'
 else
   Plug 'tpope/vim-sensible'
 endif
+
+Plug 'kassio/neoterm'
+Plug 'roxma/nvim-completion-manager'
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/ncm-rct-complete'
 
 call plug#end()
 

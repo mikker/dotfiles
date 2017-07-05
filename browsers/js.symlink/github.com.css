@@ -1,0 +1,22 @@
+svg[class*='octicon-mark-github'] { transform: rotate(180deg); }
+
+/**
+ * Naively responsive GitHub
+ * For use with something like
+ * Safari: http://sobolev.us/stylish/ or
+ * Chrome: https://chrome.google.com/webstore/detail/stylish/fjnbnpbmkenffdnngjfgmeleoegfcffe?hl=en
+ */
+body { min-width: 300px !important; }
+.header { min-width: 300px !important; }
+.container { width: 100%; padding-left: 10px; padding-right: 10px; }
+.columns { margin-left: 0; margin-right: 0; }
+.repository-with-sidebar.with-full-navigation .repository-content { width: 76%; }
+.repository-with-sidebar.with-full-navigation .repository-sidebar { width: 22%; }
+.repository-with-sidebar .repository-content { width: 92%; }
+.repository-with-sidebar .repository-sidebar { width: 6%; }
+.discussion-timeline { width: 78%; }
+.discussion-sidebar { width: 20%; }
+.pinned-repo-item { width: 49%; }
+.vcard-avatar .avatar { width: 100%; height: auto; }
+.blob-code-inner, .blob-num { font-size: 16px; }
+.header-nav-link { -webkit-font-smoothing: antialiased; }

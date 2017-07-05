@@ -84,7 +84,7 @@ local charsToApps = {
   p = "Things3",
   -- s = "Safari",
   s = "Safari Technology Preview",
-  t = "Tweetbot",
+  t = "Twitter",
   v = "VimR",
   z = "Slack"
 }

@@ -5,4 +5,5 @@ gem install \
   tmuxinator \
   git-up \
   gem-shut-the-fuck-up \
-  shotgun
+  shotgun \
+  ripper-tags gem-ripper-tags
