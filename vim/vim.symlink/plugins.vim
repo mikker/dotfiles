@@ -71,14 +71,13 @@ Plug 'romainl/Apprentice'
 if has("nvim")
   Plug 'sbdchd/neoformat'
   Plug 'benekastah/neomake'
+  Plug 'kassio/neoterm'
+  Plug 'roxma/nvim-completion-manager'
+  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'roxma/ncm-rct-complete'
 else
   Plug 'tpope/vim-sensible'
 endif
-
-Plug 'kassio/neoterm'
-Plug 'roxma/nvim-completion-manager'
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'roxma/ncm-rct-complete'
 
 call plug#end()
 

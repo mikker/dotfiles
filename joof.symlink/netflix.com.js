@@ -1,4 +1,4 @@
-(function() {
+;(function() {
   function showControls() {
     if (document.getElementById("#speed-controls")) return;
 

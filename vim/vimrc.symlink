@@ -357,8 +357,6 @@ if has("gui_vimr")
   set background=light
 endif
 
-" let g:neoformat_javascript_prettier_standard = {
-"         \ 'exe': 'prettier-standard', 'args': [], 'stdin': 1 }
 let g:neoformat_enabled_javascript = ['prettier']
 
 nmap <leader>F :Neoformat<cr>
