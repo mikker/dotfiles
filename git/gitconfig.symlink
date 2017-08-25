@@ -17,14 +17,17 @@
   rb = rebase
   tree = "log --graph --decorate --abbrev=commit"
   pr = "!hub pull-request"
+  cm = commit -m
   empty-with-msg = commit --allow-empty --message=
+  ; Usage: git track origin/feature-123-login-form
+  track = checkout -t
   save = "!f() { git add -A && git commit -m \"$@\"; }; f"
   wip = !git add -u && git commit -m "WIP"
+  undo = reset HEAD~1 --mixed
   amend = commit -a --amend
   wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
-  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
   bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
-  undo = "!f() { git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; }; f"
 [core]
   excludesfile = ~/.gitignore
   editor = nvim

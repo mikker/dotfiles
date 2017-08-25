@@ -21,6 +21,7 @@ call s:maybeLocalPlug('vim-colors-paramount')
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -55,18 +56,23 @@ Plug 'wincent/ferret'
 Plug 'mattn/emmet-vim'
 
 Plug 'junegunn/vim-slash'
-Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/limelight.vim'
 
 " filetypes and syntax
+Plug 'vim-ruby/vim-ruby'
 Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/vim-journal'
+Plug 'alampros/vim-styled-jsx'
 
 " colorschemes
 Plug 'pbrisbin/vim-colors-off'
 Plug 'romainl/Apprentice'
+Plug 'romainl/Disciple'
+
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
 
 if has("nvim")
   Plug 'sbdchd/neoformat'
@@ -78,6 +84,8 @@ if has("nvim")
 else
   Plug 'tpope/vim-sensible'
 endif
+
+Plug 'ervandew/supertab'
 
 call plug#end()
 

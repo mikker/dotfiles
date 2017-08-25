@@ -174,17 +174,6 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
-" " Add quickfix-files to arglist
-" command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
-" " populate the argument list with each of the files named in the quickfix list
-" function! QuickfixFilenames()
-"   let l:buffer_numbers = {}
-"   for l:quickfix_item in getqflist()
-"     let l:buffer_numbers[l:quickfix_item['bufnr']] = bufname(l:quickfix_item['bufnr'])
-"   endfor
-"   return join(map(values(l:buffer_numbers), 'fnameescape(v:val)'))
-" endfunction
-
 " TT runs a terminal command in a new tab before the current one
 "   :TT [terminal command]
 fun! s:runTermInTab(args)
@@ -340,11 +329,21 @@ let g:pencil#concealcursor = 'c'
 
 map <leader>G :Goyo<cr>
 
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 call togglebg#map("<f5>")
+
+let g:neoformat_enabled_javascript = ['prettier']
+
+nmap <leader>F :Neoformat<cr>
+
+" emmet with one hand
+imap <c-e> <c-y>,
 
 " }}}
 
-set background=light
+set background=dark
 colo paramount
 
 " when in VimR.app
@@ -357,11 +356,6 @@ if has("gui_vimr")
   set background=light
 endif
 
-let g:neoformat_enabled_javascript = ['prettier']
-
-nmap <leader>F :Neoformat<cr>
-
-set shortmess+=c
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+if has('shortmess')
+  set shortmess+=c
+endif
