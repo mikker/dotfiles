@@ -2,9 +2,6 @@ svg[class*='octicon-mark-github'] { transform: rotate(180deg); }
 
 /**
  * Naively responsive GitHub
- * For use with something like
- * Safari: http://sobolev.us/stylish/ or
- * Chrome: https://chrome.google.com/webstore/detail/stylish/fjnbnpbmkenffdnngjfgmeleoegfcffe?hl=en
  */
 body { min-width: 300px !important; }
 .header { min-width: 300px !important; }

@@ -1,6 +1,7 @@
+; vim: set ft=gitconfig
 [user]
-	name = Mikkel Malmberg
-	email = mikkel@brnbw.com
+  name = Mikkel Malmberg
+  email = mikkel@brnbw.com
 [color]
   diff = auto
   status = auto
@@ -31,7 +32,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -39,25 +40,27 @@
 [difftool]
   prompt = false
 [merge]
-	tool = fugitive
+  tool = fugitive
   conflictstyle = diff3
 [mergetool]
   prompt = false
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
-
-; vim: set ft=gitconfig
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
 [url "https://github.com"]
-	insteadOf = git://github.com
+  insteadOf = git://github.com
 [mergetool "fugitive"]
-	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+  cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [stash]
-	showPatch = true
+  showPatch = true
 [rebase]
-	autostash = true
+  autostash = true
 [log]
-	decorate = full
+  decorate = full
 [pull]
-	ff = only
+  ff = only
+[credential]
+  helper = osxkeychain
+[credential "https://github.com"]
+  username = mikker
