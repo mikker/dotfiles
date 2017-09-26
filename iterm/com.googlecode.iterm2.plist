@@ -14,6 +14,8 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>AppleWindowTabbingMode</key>
+	<string>manual</string>
 	<key>BracketedPasteMode</key>
 	<true/>
 	<key>CheckTestRelease</key>
@@ -3241,10 +3243,8 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dev/iterm</string>
+	<string>~/dotfiles/iterm</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
-	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
@@ -3277,19 +3277,12 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
-	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
-	<dict>
-		<key>TB Is Shown</key>
-		<integer>1</integer>
-	</dict>
-	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>328 289 620 392 0 0 1280 778 </string>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>579 110 635 417 0 0 1280 778 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>262 388 918 381 0 0 1280 778 </string>
+	<string>269 194 918 401 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>425 15 820 763 0 0 1280 778 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>387 15 820 763 0 0 1280 778 </string>
+	<string>426 4 838 763 0 0 1280 778 </string>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5_selection</key>
@@ -6062,20 +6055,16 @@
 			<string>/Users/mikker</string>
 		</dict>
 	</array>
-	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
-	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>C9F12D24-34F1-4CC8-B00D-70434DF2462E</string>
+	<string>024D2821-D73D-49F2-8CAE-B2F395A89F5E</string>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
-	<key>NoSyncPermissionToShowTip</key>
-	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>519904245.76545203</real>
+	<real>528154633.73474598</real>
 	<key>PasteSpecialChunkDelay</key>
 	<real>0.01</real>
 	<key>PasteSpecialChunkSize</key>
@@ -6130,11 +6119,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/nightly.xml?shard=11</string>
+	<string>https://iterm2.com/appcasts/nightly.xml?shard=43</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-08-28T07:59:15Z</date>
+	<date>2017-09-26T21:53:42Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -6158,7 +6147,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.20170825-nightly</string>
+	<string>3.1.20170926-nightly</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

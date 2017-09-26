@@ -5,4 +5,5 @@ npm install -g \
       prettier \
       standard \
       prettier-standard \
-      diff-so-fancy
+      diff-so-fancy \
+      eslint

@@ -8,3 +8,4 @@ echo '" load regular vim conf
 set runtimepath+=~/.vim,~/.vim/after
 set packpath+=~/.vim
 source ~/.vimrc' >> $CONF_DIR/init.vim
+

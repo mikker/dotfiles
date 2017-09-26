@@ -15,7 +15,9 @@ brew install \
        taglib \
        the_silver_searcher tree vim ctags \
        zsh zplug \
-       erlang exenv elixir-build
+       erlang exenv elixir-build \
+       exa \
+       python2 python3
 
 brew install weechat --with-curl --with-lua --with-perl --with-python --with-ruby
 
@@ -25,4 +27,25 @@ brew install --HEAD neovim
 brew cask install \
   google-chrome \
   dropbox \
-  hammerspoon
+  hammerspoon \
+  firefox \
+  quicksilver \
+  acorn \
+  transmit \
+  dropshare \
+  caskroom/versions/iterm2-nightly \
+  spotify \
+  fluid \
+  atext \
+  bartender \
+  caprine \
+  day-o \
+  encryptme \
+  imageoptim \
+  sketch \
+  superduper \
+  putio-adder \
+  vlc \
+  visual-studio-code \
+  vimr \
+  unison
