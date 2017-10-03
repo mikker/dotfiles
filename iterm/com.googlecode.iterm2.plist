@@ -3279,10 +3279,12 @@
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>579 110 635 417 0 0 1280 778 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>330 289 620 392 0 0 1280 778 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 194 918 401 0 0 1280 778 </string>
+	<string>269 227 918 512 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>426 4 838 763 0 0 1280 778 </string>
+	<string>426 0 847 778 0 0 1280 778 </string>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5_selection</key>
@@ -3295,6 +3297,8 @@
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
 			<false/>
@@ -3472,13 +3476,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.76470589637756348</real>
+				<real>0.89990234375</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.7725490927696228</real>
+				<real>0.89990234375</real>
 				<key>Red Component</key>
-				<real>0.76078444719314575</real>
+				<real>0.89990234375</real>
 			</dict>
 			<key>Ansi 8 Color</key>
 			<dict>
@@ -6123,7 +6127,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-09-26T21:53:42Z</date>
+	<date>2017-09-27T22:01:25Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>

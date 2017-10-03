@@ -14,5 +14,5 @@ feed = ARGV.shift
 if id = feed[/id(\d+)/, 1]
   url = "https://itunes.apple.com/lookup?id=#{id}&entity=podcast"
   json = JSON.parse(open(url).read)
-  puts json['results'][0]['feedUrl']
+  print json['results'][0]['feedUrl']
 end
