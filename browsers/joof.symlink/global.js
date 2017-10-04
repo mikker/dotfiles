@@ -45,11 +45,10 @@ function setupVideoSpeedThing() {
 
 function setupScrollByCtrlDAndU() {
   document.addEventListener("keydown", event => {
-    if (onlyCtrl(event) && event.keyCode === 68) {
-      scroll("down");
-    } else if (onlyCtrl(event) && event.keyCode === 85) {
-      scroll("up");
-    }
+    if (!onlyCtrl(event)) return;
+
+    if (event.keyCode === 68) return scroll("down");
+    if (event.keyCode === 85) return scroll("up");
   });
 
   function scroll(direction) {
