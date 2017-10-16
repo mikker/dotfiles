@@ -65,7 +65,6 @@ set-window-option -g window-status-attr dim
 
 set -sg escape-time 1
 
-
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'

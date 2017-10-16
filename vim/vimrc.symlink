@@ -343,7 +343,7 @@ imap <c-e> <c-y>,
 
 " }}}
 
-set background=dark
+set background=light
 colo paramount
 
 " when in VimR.app

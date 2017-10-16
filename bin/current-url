@@ -2,14 +2,14 @@
 osascript -e '
 tell application "System Events"
   set numSafari to count (every process whose name is "Safari")
+  set numSafariTech to count (every process whose name is "Safari Technology Preview")
   set numChrome to count (every process whose name is "Google Chrome")
 end tell
 
 if numSafari > 0 then
   tell application "Safari" to get URL of front document
-else
-  if numChrome > 0 then
-    tell application "Google Chrome" to get URL of active tab of front window
-  end if
+else if numSafariTech > 0 then
+  tell application "Safari Technology Preview" to get URL of front document
+else if numChrome > 0 then
+  tell application "Google Chrome" to get URL of active tab of front window
 end if' | tr -d '\n'
-

@@ -82,10 +82,11 @@ local charsToApps = {
   i = "Spotify",
   m = "Messages",
   p = "Things3",
-  s = "Safari",
-  -- s = "Safari Technology Preview",
+  -- s = "Safari",
+  s = "Safari Technology Preview",
   t = "Twitter",
-  v = "VimR",
+  -- t = "Tweetbot",
+  w = "VimR",
   z = "Slack"
 }
 for key, app in pairs(charsToApps) do
@@ -124,4 +125,4 @@ caffeineClicked() -- caffeine starts on
 
 -- }}}
 
---- vim: fdm=marker fdl=0
+--- vim: fdm=marker
