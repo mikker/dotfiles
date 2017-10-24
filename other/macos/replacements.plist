@@ -1,0 +1,27 @@
+(
+        {
+        on = 1;
+        replace = xkk;
+        with = "\\Ud83d\\Ude18";
+    },
+        {
+        on = 1;
+        replace = xyy;
+        with = "\\Ud83d\\Udc4d\\Ud83c\\Udffb";
+    },
+        {
+        on = 1;
+        replace = xdd;
+        with = "\\Ud83d\\Ude14";
+    },
+        {
+        on = 1;
+        replace = xss;
+        with = "\\U263a\\Ufe0f";
+    },
+        {
+        on = 1;
+        replace = xgg;
+        with = "\\Ud83d\\Ude02";
+    }
+)

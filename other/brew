@@ -13,7 +13,7 @@ brew install \
        s3cmd \
        ssh-copy-id \
        taglib \
-       the_silver_searcher tree vim ctags \
+       the_silver_searcher tree vim neovim ctags \
        zsh zplug \
        erlang exenv elixir-build \
        exa \
@@ -21,8 +21,8 @@ brew install \
 
 brew install weechat --with-curl --with-lua --with-perl --with-python --with-ruby
 
-brew tap neovim/neovim
-brew install --HEAD neovim
+# brew tap neovim/neovim
+# brew install neovim
 
 brew cask install \
   google-chrome \
