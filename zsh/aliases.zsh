@@ -75,3 +75,4 @@ alias exc="exercism"
 alias yr="yarn run"
 alias npr="npm run"
 alias doc='docker-compose'
+alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1/"\"
