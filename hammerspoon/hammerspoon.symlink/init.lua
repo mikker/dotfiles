@@ -80,6 +80,7 @@ local charsToApps = {
   e = "Mail",
   f = "Finder",
   i = "Spotify",
+  k = "Mailplane 3",
   m = "Messages",
   p = "Things3",
   -- s = "Safari",

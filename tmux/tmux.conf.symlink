@@ -1,5 +1,7 @@
 # vim: set ft=tmux.conf
 
+set-option -g default-terminal "screen-256color"
+
 # mouse on (tmux 2.1)
 set -g mouse on
 # Don't lose track of SSH_AGENT etc. from parent environment.

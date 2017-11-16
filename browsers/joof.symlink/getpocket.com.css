@@ -3,5 +3,9 @@ body.page-reader * {
 }
 
 body.page-reader p {
-  font-weight: 300;
+  /* font-weight: 300; */
+}
+
+.toolbar_queue_rainbow {
+  background: #222;
 }

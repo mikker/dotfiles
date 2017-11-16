@@ -62,4 +62,5 @@ brew cask install \
   transmit \
   vimr \
   visual-studio-code \
-  vlc
+  vlc \
+  ngrok

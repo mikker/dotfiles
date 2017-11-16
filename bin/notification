@@ -1,2 +1,10 @@
 #!/bin/bash
-osascript -e "display notification \"$@\" with title \"term\""
+
+if [ $# -eq 0 ]; then
+  while read input; do
+    osascript -e "display notification \"$input\" with title \"term\""
+  done
+else
+  osascript -e "display notification \"$@\" with title \"term\""
+fi
+
