@@ -1,23 +1,35 @@
-const output = document.querySelector(".console-output");
+(function () {
+  let reran = false;
 
-if (output) {
-  const lines = output.innerHTML.split("\n");
-  console.log(lines);
+  apply();
 
-  let script = false;
-  const replaced = lines.map(line => {
-    if (line.match(/SCRIPT EXECUTION BEGIN/)) {
-      script = true;
-    } else if (line.match(/SCRIPT EXECUTION END/)) {
-      script = false;
+  function apply() {
+    const output = document.querySelector(".console-output");
+
+    if (output) {
+      const lines = output.innerHTML.split("\n");
+
+      let script = false;
+      const replaced = lines.map(line => {
+        if (line.match(/SCRIPT EXECUTION BEGIN/)) {
+          script = true;
+        } else if (line.match(/SCRIPT EXECUTION END/)) {
+          script = false;
+        }
+
+        return script ? paint(line, "black") : paint(line, "lightgray");
+      });
+
+      output.innerHTML = replaced.join("\n");
+    } else {
+      if (!reran) {
+        setTimeout(apply, 250);
+        reran = true;
+      }
     }
+  }
 
-    return script ? paint(line, "black") : paint(line, "lightgray");
-  });
-
-  output.innerHTML = replaced.join("\n");
-}
-
-function paint(line, color) {
-  return `<span style='color: ${color}'>${line}</span>`;
-}
+  function paint(line, color) {
+    return `<span style='color: ${color}'>${line}</span>`;
+  }
+})()

@@ -77,3 +77,4 @@ alias npr="npm run"
 alias doc='docker-compose'
 alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1/"\"
 alias ra='rails'
+alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"

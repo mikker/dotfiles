@@ -19,7 +19,7 @@
   tree = "log --graph --decorate --abbrev=commit"
   pr = "!hub pull-request"
   cm = commit -m
-  empty-with-msg = commit --allow-empty --message=
+  hammer = commit --allow-empty -m 🔨
   ; Usage: git track origin/feature-123-login-form
   track = checkout -t
   save = "!f() { git add -A && git commit -m \"$@\"; }; f"
@@ -64,3 +64,5 @@
   helper = osxkeychain
 [credential "https://github.com"]
   username = mikker
+[includeIf "gitdir:~/dev/elastic/"]
+  path = .gitconfig-elastic

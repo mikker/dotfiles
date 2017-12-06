@@ -1,0 +1,13 @@
+#!/bin/bash
+osascript -e '
+tell application "FirefoxNightly"
+  activate
+  delay 0.1
+  tell application "System Events" to keystroke "r" using command down
+  delay 0.1
+  tell application "System Events"
+    key down command
+    keystroke tab
+    key up command
+  end tell
+end tell'

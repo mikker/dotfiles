@@ -9,8 +9,6 @@ nnoremap <buffer> <leader>r :Marked<cr>
 nnoremap <buffer> <leader>I i![](<c-r>*)<esc>
 
 nnoremap <buffer> <leader>q I><space><esc>
-nnoremap <buffer> + :s/\v^(#{0,})\s?(\w)?/\1# \2/<cr>:nohl<cr>
-nnoremap <buffer> _ :s/\v^#(\s([^\s]))?/\2/<cr>:nohl<cr>
 
 nnoremap <buffer> <leader>1 yypv$r=
 nnoremap <buffer> <leader>2 I## <esc>

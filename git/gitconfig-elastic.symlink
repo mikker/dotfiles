@@ -1,0 +1,4 @@
+; vim: set ft=gitconfig
+[user]
+  name = Mikkel Malmberg
+  email = mikkel@elastic.co
