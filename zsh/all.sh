@@ -7,4 +7,4 @@ if [[ $ZSH_NAME != "zsh" ]]; then
   chsh -s /bin/zsh
 fi
 
-curl -sL zplug.sh/installer | zsh
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh

@@ -1,0 +1,7 @@
+.text-editor .CodeMirror {
+  /* font-family: 'Iosevka', 'Menlo', monospace; */
+  font-family: 'SF Mono', 'Menlo', monospace;
+  /* font-weight: 300; */
+  font-size: 16px;
+  line-height: 1.25;
+}

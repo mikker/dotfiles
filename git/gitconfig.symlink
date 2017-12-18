@@ -2,6 +2,7 @@
 [user]
   name = Mikkel Malmberg
   email = mikkel@brnbw.com
+  signingkey = 7B09867145A39CC3
 [color]
   diff = auto
   status = auto
@@ -66,3 +67,5 @@
   username = mikker
 [includeIf "gitdir:~/dev/elastic/"]
   path = .gitconfig-elastic
+[commit]
+	gpgsign = true

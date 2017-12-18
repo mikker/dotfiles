@@ -1,2 +1,4 @@
 #!/bin/sh
-git --no-pager log -1 --pretty=%B | sed -e "s/^ *//g" -e "s/ *$//g" | head -1 | tr -d "\n"
+git --no-pager log -1 --pretty=%B \
+  | sed -e "s/^ *//g" -e "s/ *$//g" \
+  | perl -pe 'chomp if eof'
