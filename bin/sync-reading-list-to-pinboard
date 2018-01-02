@@ -1,0 +1,136 @@
+#!/usr/bin/env ruby
+
+# Parses your Safari Reading List and creates to-read, private Pinboard
+# bookmarks for each.
+
+begin
+  require 'cfpropertylist'
+  require 'faraday'
+rescue LoadError => e
+  puts e.message
+  puts "Hint: $ gem install CFPropertyList faraday"
+  exit 1
+end
+
+class List
+  Bookmark = Struct.new(:url, :title, :description, :date_added)
+
+  def initialize
+    path = File.expand_path '~/Library/Safari/Bookmarks.plist'
+    @plist = CFPropertyList::List.new file: path
+  end
+
+  def reading_list
+    @reading_list ||= @plist.value.value["Children"].value.find do |item|
+      if title = item.value["Title"]
+        title.value == 'com.apple.ReadingList'
+      end
+    end
+  end
+
+  def bookmarks
+    @bookmarks ||= reading_list.value["Children"].value.map do |item|
+      title = item.value["URIDictionary"].value["title"].value
+      url = item.value["URLString"].value
+      desc = item.value["ReadingList"].value["PreviewText"].value
+      dt = item.value["ReadingList"].value["DateAdded"].value
+      Bookmark.new(url, title, desc, dt)
+    end
+  end
+
+  def clear
+    reading_list.value["Children"].value = []
+    self
+  end
+
+  def save
+    @plist.save
+    self
+  end
+end
+
+class TitleGrabber
+  def initialize(url)
+    @url = url
+  end
+
+  def grab
+    body = Faraday.get(url).body
+    return unless (match = body.match(/<title>(.*)<\/title>/))
+    match[1]
+  end
+
+  def self.grab(url)
+    new(url).grab
+  end
+end
+
+class Pinboard
+  def initialize
+    @token = read_token
+    @conn = Faraday.new(url: 'https://api.pinboard.in/v1')
+  end
+
+  def create_bookmark(url:, description:, extended:, dt:, shared: false, toread: true)
+    @conn.get('/posts/add', {
+      auth_token: @token,
+      url: url,
+      description: description,
+      extended: extended,
+      dt: dt,
+      shared: shared,
+      toread: toread
+    })
+  end
+
+  private
+
+  def read_token
+    ENV["PINBOARD_TOKEN"] ||
+      File.read(File.expand_path("~/.pinboard_token")).chomp
+  end
+end
+
+class Cli
+  def initialize
+    @list = List.new
+    @pinboard = Pinboard.new
+  end
+
+  attr_reader :list, :pinboard
+
+  def call
+    puts "Saving #{list.bookmarks.count} bookmarks"
+    list.bookmarks.each do |bookmark|
+      puts "\n---\n"
+
+      puts bookmark.url[0..80]
+
+      title =
+        if bookmark.title == bookmark.url
+          print "✨"
+          TitleGrabber.grab(bookmark.url)
+        else
+          bookmark.title
+        end
+
+      puts title
+
+      pinboard.create_bookmark(
+        url: bookmark.url,
+        description: title,
+        extended: bookmark.description,
+        dt: bookmark.date_added
+      )
+
+      print "\t Saved! "
+      puts "🦄"
+    end
+
+    print "Clearing list"
+    list.clear.save
+    puts "\t✅"
+  end
+end
+
+Cli.new.call
