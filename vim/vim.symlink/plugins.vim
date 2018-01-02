@@ -17,6 +17,8 @@ call s:maybeLocalPlug('vim-rerunner')
 call s:maybeLocalPlug('vim-dimcil')
 call s:maybeLocalPlug('vim-colors-paramount')
 
+Plug 'vimwiki/vimwiki'
+
 " tpope's the shit
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
@@ -61,7 +63,6 @@ Plug 'junegunn/limelight.vim'
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
 Plug 'sheerun/vim-polyglot'
-Plug 'vimwiki/vimwiki'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/vim-journal'
 Plug 'alampros/vim-styled-jsx'
@@ -78,8 +79,8 @@ if has("nvim")
   Plug 'sbdchd/neoformat'
   Plug 'benekastah/neomake'
   " Plug 'kassio/neoterm'
-  " Plug 'roxma/nvim-completion-manager'
-  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'roxma/nvim-completion-manager'
+  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
   " Plug 'roxma/ncm-rct-complete'
 else
   Plug 'tpope/vim-sensible'

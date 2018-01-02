@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+if [ $# -ne 2 ]; then
+  echo 'Usage: convert-to-twitter [input] [output]'
+  exit 1
+fi
+
+ffmpeg -i "$1" -vcodec libx264 -vf 'scale=640:trunc(ow/a/2)*2' -acodec aac -vb 1024k -minrate 1024k -maxrate 1024k -bufsize 1024k -ar 44100 -strict experimental -r 30 "$2"
