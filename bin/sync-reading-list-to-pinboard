@@ -59,6 +59,8 @@ class TitleGrabber
     @url = url
   end
 
+  attr_reader :url
+
   def grab
     body = Faraday.get(url).body
     return unless (match = body.match(/<title>(.*)<\/title>/))
@@ -143,8 +145,9 @@ class Cli
     end
 
     print "Clearing list"
-    list.clear.save
-    puts "\t✅"
+    # list.clear.save
+    # puts "\t✅"
+    puts "🚫 NOPE"
   end
 end
 
