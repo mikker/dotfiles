@@ -29,13 +29,18 @@ class List
   end
 
   def bookmarks
-    @bookmarks ||= reading_list.value["Children"].value.map do |item|
-      title = item.value["URIDictionary"].value["title"].value
-      url = item.value["URLString"].value
-      desc = item.value["ReadingList"].value["PreviewText"].value
-      dt = item.value["ReadingList"].value["DateAdded"].value
-      Bookmark.new(url, title, desc, dt)
-    end
+    @bookmarks ||=
+      begin
+        return [] unless reading_list.value["Children"]
+
+        reading_list.value["Children"].value.map do |item|
+          title = item.value["URIDictionary"].value["title"].value
+          url = item.value["URLString"].value
+          desc = item.value["ReadingList"].value["PreviewText"].value rescue ""
+          dt = item.value["ReadingList"].value["DateAdded"].value rescue Time.now
+          Bookmark.new(url, title, desc, dt)
+        end
+      end
   end
 
   def clear
@@ -66,13 +71,15 @@ class TitleGrabber
 end
 
 class Pinboard
+  class PostError < StandardError; end
+
   def initialize
     @token = read_token
-    @conn = Faraday.new(url: 'https://api.pinboard.in/v1')
+    @conn = Faraday.new(url: 'https://api.pinboard.in')
   end
 
-  def create_bookmark(url:, description:, extended:, dt:, shared: false, toread: true)
-    @conn.get('/posts/add', {
+  def create_bookmark(url:, description:, extended:, dt:, shared: "no", toread: "yes")
+    data = {
       auth_token: @token,
       url: url,
       description: description,
@@ -80,7 +87,16 @@ class Pinboard
       dt: dt,
       shared: shared,
       toread: toread
-    })
+    }
+
+    response = @conn.get('/v1/posts/add', data)
+
+    if response.status != 200
+      puts data.inspect
+      raise PostError, response.body
+    end
+
+    true
   end
 
   private
@@ -123,8 +139,7 @@ class Cli
         dt: bookmark.date_added
       )
 
-      print "\t Saved! "
-      puts "🦄"
+      puts "*** Saved! 🦄"
     end
 
     print "Clearing list"

@@ -7,6 +7,9 @@ setupScrollByCtrlDAndU();
 //   eg. 1 -> 1.25 -> 1.5 -> 1
 setupVideoSpeedThing();
 
+// Remove weird fonts and font-widths from unreadably sites with ctrl-alt-s
+setupSystemFontResetter();
+
 function setupVideoSpeedThing() {
   document.addEventListener("mouseup", event => {
     if (!event.shiftKey || event.ctrlKey || event.metaKey) return;
@@ -87,6 +90,22 @@ function setupScrollByCtrlDAndU() {
   function onlyCtrl(event) {
     return event.ctrlKey && !event.shiftKey && !event.metaKey;
   }
+}
+
+function setupSystemFontResetter() {
+  document.addEventListener("keyup", event => {
+    if (event.keyCode === 83 && event.ctrlKey && event.altKey) {
+      const s = document.createElement("style");
+      s.innerHTML = `
+        * {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+        }
+        p {
+          font-weight: 400 !important;
+        }`;
+      document.body.appendChild(s);
+    }
+  });
 }
 
 EasingFunctions = {
