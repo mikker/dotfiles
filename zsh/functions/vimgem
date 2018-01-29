@@ -1,4 +1,0 @@
-# Open gem from bundle in vim
-vimgem () {
-  vim +"cd `bundle show $1`" +"e ."
-}

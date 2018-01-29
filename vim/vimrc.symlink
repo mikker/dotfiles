@@ -333,9 +333,6 @@ let g:neoformat_enabled_javascript = ['prettier']
 
 nmap <leader>F :Neoformat<cr>
 
-" emmet with one hand
-imap <c-e> <c-y>,
-
 " }}}
 
 set background=dark
@@ -354,3 +351,30 @@ endif
 if has('shortmess')
   set shortmess+=c
 endif
+
+let g:polyglot_disabled = ['javascript']
+
+if has("nvim")
+  let g:terminal_color_0 = '#1C1C1C'
+  let g:terminal_color_1 = '#EC566E'
+  let g:terminal_color_2 = '#4FC73C'
+  let g:terminal_color_3 = '#C59E59'
+  let g:terminal_color_4 = '#4C7191'
+  let g:terminal_color_5 = '#935A83'
+  let g:terminal_color_6 = '#5F9492'
+  let g:terminal_color_7 = '#D9D9D9'
+  let g:terminal_color_8 = '#636363'
+  let g:terminal_color_9 = '#AF5B56'
+  let g:terminal_color_10 = '#939D69'
+  let g:terminal_color_11 = '#C59E59'
+  let g:terminal_color_12 = '#87A9C5'
+  let g:terminal_color_13 = '#BD82AD'
+  let g:terminal_color_14 = '#9EDAD7'
+  let g:terminal_color_15 = '#F7F7F7'
+  let g:terminal_color_background = '#1E1F21'
+  let g:terminal_color_foreground = '#C5C8C7'
+  if &background == 'light'
+    let g:terminal_color_background = '#282828'
+    let g:terminal_color_foreground = '#EBEBEB'
+  endif
+end

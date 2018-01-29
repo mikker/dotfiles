@@ -10,12 +10,29 @@ setupVideoSpeedThing();
 // Remove weird fonts and font-widths from unreadably sites with ctrl-alt-s
 setupSystemFontResetter();
 
+// TODO
+setupVideoZoom();
+
+function setupVideoZoom() {
+  document.addEventListener("mouseup", event => {
+    if (!event.altKey || event.shiftKey || event.ctrlKey || event.metaKey)
+      return;
+
+    const video = findCorrespondingVideoElement(event);
+    if (!video) return;
+
+    console.log(video);
+  });
+}
+
 function setupVideoSpeedThing() {
   document.addEventListener("mouseup", event => {
     if (!event.shiftKey || event.ctrlKey || event.metaKey) return;
 
     const video = findCorrespondingVideoElement(event);
     if (!video) return;
+
+    event.preventDefault();
 
     switch (video.playbackRate) {
       case 1:
@@ -34,16 +51,6 @@ function setupVideoSpeedThing() {
       "color: purple"
     );
   });
-
-  function findCorrespondingVideoElement(event) {
-    if (event.target.tagName === "VIDEO") return event.target;
-
-    // vimeo
-    const vimeo = event.target.ownerDocument.querySelector(".video video");
-    if (vimeo) return vimeo;
-
-    return undefined;
-  }
 }
 
 function setupScrollByCtrlDAndU() {
@@ -162,3 +169,16 @@ EasingFunctions = {
     return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
   }
 };
+
+function vimeoVideo(event) {
+  return event.target.ownerDocument.querySelector(".video video");
+}
+
+function findCorrespondingVideoElement(event) {
+  if (event.target.tagName === "VIDEO") return event.target;
+
+  const vimeo = vimeoVideo(event);
+  if (vimeo) return vimeo;
+
+  return undefined;
+}

@@ -62,6 +62,7 @@ Plug 'junegunn/limelight.vim'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
+Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/vim-journal'
