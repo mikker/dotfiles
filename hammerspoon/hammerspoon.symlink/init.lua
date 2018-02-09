@@ -89,7 +89,7 @@ local charsToApps = {
   t = "Twitter",
   -- t = "Tweetbot",
   w = "VimR",
-  z = "Slack"
+  z = "Slack",
 }
 for key, app in pairs(charsToApps) do
   hs.hotkey.bind(hyper, key, function()
@@ -97,9 +97,16 @@ for key, app in pairs(charsToApps) do
   end)
 end
 
-hs.hotkey.bind(hyper, "u", function()
-  hs.itunes.displayCurrentTrack()
-end)
+-- our new mechanical future
+local mechToApps = {
+  f1 = "iTerm",
+  f4 = "Spotify",
+}
+for key, app in pairs(mechToApps) do
+  hs.hotkey.bind({}, key, function()
+    hs.application.launchOrFocus(app)
+  end)
+end
 
 -- }}}
 -- caffeine {{{
@@ -127,4 +134,5 @@ caffeineClicked() -- caffeine starts on
 
 -- }}}
 
+require("hjkl")
 --- vim: fdm=marker
