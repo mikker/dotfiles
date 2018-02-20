@@ -17,15 +17,13 @@ for config_file ($ZSH/**/completion.sh) source $config_file
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
-# Local modifications
-[[ -f ~/.localrc ]] && .  ~/.localrc
-
 [ -z "$ZPLUG_HOME" ] && export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
+zplug zsh-users/zsh-syntax-highlighting, defer:2
+zplug zsh-users/zsh-completions
+zplug zsh-users/zsh-autosuggestions
+zplug mafredri/zsh-async, from:github
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -35,6 +33,9 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+# Local modifications
+[[ -f ~/.localrc ]] && .  ~/.localrc
 
 # Load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

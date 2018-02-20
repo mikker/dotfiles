@@ -1,6 +1,6 @@
 autoload -Uz vcs_info
 
-local mark='•'
+local mark='*'
 
 zstyle ':vcs_info:*' stagedstr "%F{28}$mark"
 zstyle ':vcs_info:*' unstagedstr "%F{11}$mark"
@@ -14,15 +14,15 @@ parse_ssh_connection() {
 
 precmd () {
   if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-    zstyle ':vcs_info:*' formats ' [%F{green}%b%c%u%F{blue}]'
+    zstyle ':vcs_info:*' formats ' %F{yellow}%b%c%u%F{blue}'
   } else {
-    zstyle ':vcs_info:*' formats " [%F{green}%b%c%u%F{red}$mark%F{blue}]"
+    zstyle ':vcs_info:*' formats " %F{yellow}%b%c%u%F{red}$mark%F{blue}"
   }
 
   vcs_info
 }
 
 PROMPT='
-$(parse_ssh_connection)%F{blue}%c%f%(1j.%F{magenta} %j%f.)%F{black}:%f '
+$(parse_ssh_connection)%F{blue}%c%f%(1j.%F{magenta} %j%f.)%F{black} ⌁%f '
 RPROMPT='%F{blue}${vcs_info_msg_0_}%f'
 

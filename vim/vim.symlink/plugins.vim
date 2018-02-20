@@ -42,7 +42,6 @@ Plug 'tpope/vim-vinegar'
 
 " things
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'SirVer/ultisnips'
 Plug 'gerw/vim-HiLinkTrace'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
@@ -56,8 +55,9 @@ Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'wincent/ferret'
 Plug 'mattn/emmet-vim'
-
 Plug 'junegunn/vim-slash'
+
+" Plug 'junegunn/vim-slash'
 Plug 'junegunn/limelight.vim'
 
 " filetypes and syntax
@@ -70,24 +70,16 @@ Plug 'alampros/vim-styled-jsx'
 
 " colorschemes
 Plug 'pbrisbin/vim-colors-off'
-" Plug 'romainl/Apprentice'
-" Plug 'romainl/Disciple'
-
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock'
 
 if has("nvim")
   Plug 'sbdchd/neoformat'
   Plug 'benekastah/neomake'
-  " Plug 'kassio/neoterm'
   Plug 'roxma/nvim-completion-manager'
   Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  " Plug 'roxma/ncm-rct-complete'
+  Plug 'roxma/ncm-rct-complete'
 else
   Plug 'tpope/vim-sensible'
 endif
-
-Plug 'ervandew/supertab'
 
 call plug#end()
 
