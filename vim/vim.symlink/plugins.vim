@@ -16,6 +16,7 @@ call s:maybeLocalPlug('lightline-theme-pencil')
 call s:maybeLocalPlug('vim-rerunner')
 call s:maybeLocalPlug('vim-dimcil')
 call s:maybeLocalPlug('vim-colors-paramount')
+call s:maybeLocalPlug('vim-colors-pap')
 
 Plug 'vimwiki/vimwiki'
 
@@ -24,6 +25,7 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -39,7 +41,6 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-
 " things
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'gerw/vim-HiLinkTrace'
@@ -56,9 +57,11 @@ Plug 'reedes/vim-pencil'
 Plug 'wincent/ferret'
 Plug 'mattn/emmet-vim'
 Plug 'junegunn/vim-slash'
+Plug 'SirVer/ultisnips'
 
-" Plug 'junegunn/vim-slash'
+Plug 'junegunn/vim-slash'
 Plug 'junegunn/limelight.vim'
+Plug 'henrik/vim-ruby-runner'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'

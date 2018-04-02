@@ -64,3 +64,24 @@ brew cask install \
   visual-studio-code \
   vlc \
   ngrok
+
+brew tap caskroom/fonts
+brew cask install \
+  font-average-mono \
+  font-courier-prime-code \
+  font-courier-prime \
+  font-cousine \
+  font-dejavu-sans \
+  font-fantasque-sans-mono \
+  font-fira-code \
+  font-fira-sans \
+  font-inconsolata \
+  font-input \
+  font-iosevka \
+  font-lekton \
+  font-liberation-sans \
+  font-monoid \
+  font-mononoki \
+  font-roboto \
+  font-roboto-mono \
+  font-roboto-condensed

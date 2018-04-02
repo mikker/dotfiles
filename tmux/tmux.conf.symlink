@@ -1,6 +1,7 @@
 # vim: set ft=tmux.conf
 
 set-option -g default-terminal "screen-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 
 # mouse on (tmux 2.1)
 set -g mouse on

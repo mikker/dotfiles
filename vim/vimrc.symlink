@@ -100,6 +100,10 @@ noremap <C-h>  <C-w>h
 noremap <C-j>  <C-w>j
 noremap <C-k>  <C-w>k
 noremap <C-l>  <C-w>l
+noremap <left>  <C-w>h
+noremap <down>  <C-w>j
+noremap <up>    <C-w>k
+noremap <right> <C-w>l
 
 " tabs
 nnoremap ]w :tabn<cr>
@@ -132,7 +136,7 @@ xnoremap <c-c> <esc>
 inoremap <c-c> <esc>
 
 " Shortcuts to configs
-nmap <leader>vv :e $MYVIMRC<cr>
+nmap <leader>vv :e ~/.vimrc<cr>
 nmap <leader>vp :e <c-r>=g:plugins_file_path<cr><cr>
 
 " set <cr> to reload browsers
@@ -200,6 +204,8 @@ augroup vimrcEx
   au BufLeave *.{js}                     exe "normal! mJ"
   au BufLeave *.{rb,ex,exs}              exe "normal! mC"
   au BufLeave *.yml                      exe "normal! mY"
+
+  au BufRead *.mkd,*.md set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
 if has('nvim')
@@ -229,10 +235,10 @@ xmap <cr> :EasyAlign<cr>
 
 let g:ragtag_global_maps = 1
 
-let g:UltiSnipsExpandTrigger       = '<c-l>'
-let g:UltiSnipsListSnippets        = '<c-q>'
-let g:UltiSnipsJumpForwardTrigger  = '<c-l>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
+" let g:UltiSnipsExpandTrigger       = '<right>'
+" let g:UltiSnipsListSnippets        = '<c-q>'
+" let g:UltiSnipsJumpForwardTrigger  = '<c-n>'
+" let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 
 if has('nvim')
   " let g:neomake_jsx_standard_maker = {'errorformat': '%W  %f:%l:%c: %m'}
@@ -335,8 +341,8 @@ nmap <leader>F :Neoformat<cr>
 
 " }}}
 
-set background=dark
-colo paramount
+set background=light
+colo pap
 
 " when in VimR.app
 if has("gui_vimr")
@@ -378,3 +384,5 @@ if has("nvim")
     let g:terminal_color_foreground = '#EBEBEB'
   endif
 end
+
+imap <right> <c-x><c-l>
