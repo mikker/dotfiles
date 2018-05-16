@@ -71,6 +71,7 @@ set -sg escape-time 1
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
+set -g @plugin 'wfxr/tmux-fzf-url'
 
 # Local config
 if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'

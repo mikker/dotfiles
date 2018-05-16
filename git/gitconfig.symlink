@@ -9,8 +9,6 @@
   branch = auto
 [github]
   user = mikker
-  token = !security find-generic-password -gs github.token -w | tr -d '\n'
-  password = !security find-generic-password -gs github.password -w | tr -d '\n'
 [alias]
   br = branch
   st = status
