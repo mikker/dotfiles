@@ -341,7 +341,7 @@ nmap <leader>F :Neoformat<cr>
 
 " }}}
 
-set background=dark
+set background=light
 colo pap
 
 " when in VimR.app
