@@ -330,8 +330,8 @@ let g:pencil#concealcursor = 'c'
 
 map <leader>G :Goyo<cr>
 
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
 
 call togglebg#map("<f5>")
 
@@ -342,7 +342,7 @@ nmap <leader>F :Neoformat<cr>
 " }}}
 
 set background=light
-colo pap
+colo paramount
 
 " when in VimR.app
 if has("gui_vimr")
@@ -360,4 +360,4 @@ endif
 
 let g:polyglot_disabled = ['javascript']
 
-imap <right> <c-x><c-l>
+imap <c-_> <c-x><c-l>

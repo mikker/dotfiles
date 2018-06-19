@@ -43,32 +43,30 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 " things
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'SirVer/ultisnips'
 Plug 'gerw/vim-HiLinkTrace'
+Plug 'henrik/vim-ruby-runner'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-slash'
+Plug 'junegunn/vim-slash'
 Plug 'lilydjwg/colorizer'
+Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'wincent/ferret'
-Plug 'mattn/emmet-vim'
-Plug 'junegunn/vim-slash'
-Plug 'SirVer/ultisnips'
-
-Plug 'junegunn/vim-slash'
-Plug 'junegunn/limelight.vim'
-Plug 'henrik/vim-ruby-runner'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
 Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
 Plug 'reedes/vim-pencil'
-Plug 'junegunn/vim-journal'
 Plug 'alampros/vim-styled-jsx'
 
 " colorschemes
@@ -77,9 +75,9 @@ Plug 'pbrisbin/vim-colors-off'
 if has("nvim")
   Plug 'sbdchd/neoformat'
   Plug 'benekastah/neomake'
-  Plug 'roxma/nvim-completion-manager'
-  Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'roxma/ncm-rct-complete'
+  " Plug 'roxma/nvim-completion-manager'
+  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+  " Plug 'roxma/ncm-rct-complete'
 else
   Plug 'tpope/vim-sensible'
 endif

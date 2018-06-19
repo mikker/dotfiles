@@ -109,6 +109,8 @@ function setupSystemFontResetter() {
         }
         p {
           font-weight: 400 !important;
+          max-width: 40rem;
+          line-height: 1.5;
         }`;
       document.body.appendChild(s);
     }
