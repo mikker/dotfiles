@@ -20,6 +20,8 @@
 	<true/>
 	<key>CheckTestRelease</key>
 	<true/>
+	<key>CloseBookmarksWindowAfterOpening</key>
+	<true/>
 	<key>ConvertDosNewlines</key>
 	<true/>
 	<key>CopySelection</key>
@@ -4994,19 +4996,21 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1712 233 691 502 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>520 561 400 129 0 0 1440 877 </string>
+	<string>1801 1124 400 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>410 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>115 54 606 469 0 0 1440 878 </string>
+	<string>269 125 606 469 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1381 1007 928 394 0 0 2560 1417 </string>
+	<string>490 483 918 394 0 0 1440 877 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1440 877 0 0 1440 877 </string>
+	<string>593 194 1180 1223 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>675 0 1000 859 0 0 2560 1418 </string>
+	<string>1650 0 910 859 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>681 406 910 827 0 0 2560 1418 </string>
+	<string>681 353 910 859 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5_selection</key>
@@ -8554,6 +8558,14 @@
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
+	<key>NoSyncConfirmRunOpenFile</key>
+	<true/>
+	<key>NoSyncConfirmRunOpenFile_selection</key>
+	<integer>0</integer>
+	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
+	<true/>
+	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
+	<integer>0</integer>
 	<key>NoSyncHaveWarnedAboutIncompatibleSoftware</key>
 	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
@@ -8566,8 +8578,96 @@
 	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
+	<key>NoSyncRecordedVariableNames</key>
+	<dict>
+		<key>1</key>
+		<array>
+			<string>session.jobName</string>
+			<string>session.id</string>
+			<string>session.profileName</string>
+			<string>session.terminalIconName</string>
+			<string>session.tmuxClientName</string>
+			<string>session.name</string>
+			<string>session.termid</string>
+			<string>session.triggerName</string>
+			<string>session.tmuxWindowPane</string>
+			<string>session.hostname</string>
+			<string>session.username</string>
+			<string>session.tmuxRole</string>
+			<string>session.path</string>
+			<string>session.autoName</string>
+			<string>session.creationTimeString</string>
+			<string>session.rows</string>
+			<string>session.tmuxWindowTitle</string>
+			<string>session.tty</string>
+			<string>session.autoLogId</string>
+			<string>session.terminalWindowName</string>
+			<string>session.jobPid</string>
+			<string>iterm2</string>
+			<string>session.lastCommand</string>
+			<string>session.pid</string>
+			<string>session.presentationName</string>
+			<string>session.columns</string>
+		</array>
+		<key>16</key>
+		<array>
+			<string>titleOverride</string>
+			<string>currentTab.currentSession.session.columns</string>
+			<string>currentTab</string>
+			<string>currentTab.currentSession.session.terminalWindowName</string>
+			<string>currentTab.currentSession</string>
+			<string>currentTab.currentSession.session.pid</string>
+			<string>currentTab.currentSession.session.tty</string>
+			<string>currentTab.currentSession.session.autoName</string>
+			<string>currentTab.currentSession.session.presentationName</string>
+			<string>currentTab.currentSession.session.name</string>
+			<string>currentTab.currentSession.session.username</string>
+			<string>currentTab.currentSession.session.terminalIconName</string>
+			<string>currentTab.currentSession.session.jobName</string>
+			<string>currentTab.currentSession.session.rows</string>
+			<string>iterm2</string>
+			<string>currentTab.currentSession.session.hostname</string>
+			<string>currentTab.currentSession.session.termid</string>
+			<string>currentTab.currentSession.session.jobPid</string>
+			<string>currentTab.currentSession.session.path</string>
+			<string>currentTab.currentSession.session.lastCommand</string>
+		</array>
+		<key>2</key>
+		<array>
+			<string>currentSession.session.jobName</string>
+			<string>currentSession.session.termid</string>
+			<string>currentSession.session.pid</string>
+			<string>currentSession.session.hostname</string>
+			<string>currentSession.session.name</string>
+			<string>currentSession.session.presentationName</string>
+			<string>currentSession.session.jobPid</string>
+			<string>currentSession.session.username</string>
+			<string>currentSession.session.terminalIconName</string>
+			<string>currentSession.session.terminalWindowName</string>
+			<string>titleOverride</string>
+			<string>currentSession.session.rows</string>
+			<string>currentSession.session.tty</string>
+			<string>currentSession.session.path</string>
+			<string>iterm2</string>
+			<string>currentSession.session.autoName</string>
+			<string>currentSession.session.lastCommand</string>
+			<string>tmuxWindow</string>
+			<string>currentSession</string>
+			<string>currentSession.session.columns</string>
+		</array>
+		<key>4</key>
+		<array>
+			<string>pid</string>
+		</array>
+	</dict>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>530486416.84662098</real>
+	<key>OpenArrangementAtStartup</key>
+	<false/>
+	<key>OpenBookmark</key>
+	<false/>
+	<key>OpenNoWindowsAtStartup</key>
+	<false/>
 	<key>PasteSpecialChunkDelay</key>
 	<real>0.01</real>
 	<key>PasteSpecialChunkSize</key>
@@ -8628,7 +8728,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-06-15T08:45:46Z</date>
+	<date>2018-08-30T21:49:32Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>Secure Input</key>
@@ -8645,6 +8745,8 @@
 	<integer>1</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1535665792</real>
 	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>UseMetal</key>
@@ -8662,7 +8764,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.2.20180611-nightly</string>
+	<string>3.2.20180822-nightly</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

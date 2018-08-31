@@ -17,7 +17,7 @@ alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1
 alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"
 
 # tmux
-alias t="tmux -u"
+alias tm="tmux -u"
 alias ta='tmux attach'
 alias tat='tmux new-session -As `basename $PWD | sed -e "s/\./-/g"`'
 alias tk='tmux kill-session'

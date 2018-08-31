@@ -35,22 +35,13 @@
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
   default = current
-[difftool]
-  prompt = false
-[merge]
-  tool = fugitive
-  conflictstyle = diff3
-[mergetool]
-  prompt = false
-	keepBackup = false
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
   required = true
+  process = git-lfs filter-process
 [url "https://github.com"]
   insteadOf = git://github.com
-[mergetool "fugitive"]
-  cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [stash]
   showPatch = true
 [rebase]
@@ -66,4 +57,14 @@
 [includeIf "gitdir:~/dev/elastic/"]
   path = .gitconfig-elastic
 [commit]
-	gpgsign = true
+  gpgsign = true
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool]
+  prompt = false
+[diff]
+  tool = vimdiff

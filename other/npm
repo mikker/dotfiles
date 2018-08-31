@@ -3,7 +3,5 @@ npm install -g \
       live-server \
       now \
       prettier \
-      standard \
-      prettier-standard \
       diff-so-fancy \
       eslint

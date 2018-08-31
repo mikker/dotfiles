@@ -41,10 +41,10 @@ for key, app in pairs(mechToApps) do
   end)
 end
 
-hs.hotkey.bind({}, 'f10', hs.spotify.playpause)
-hs.hotkey.bind({}, 'pad-', hs.spotify.playpause)
-hs.hotkey.bind({}, 'pagedown', hs.spotify.next)
-hs.hotkey.bind({}, 'end', hs.spotify.previous)
+-- hs.hotkey.bind({}, 'f10', hs.spotify.playpause)
+-- hs.hotkey.bind({}, 'pad-', hs.spotify.playpause)
+-- hs.hotkey.bind({}, 'pagedown', hs.spotify.next)
+-- hs.hotkey.bind({}, 'end', hs.spotify.previous)
 
 -- }}}
 

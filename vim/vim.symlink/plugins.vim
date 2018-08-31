@@ -1,6 +1,6 @@
 set nocompatible
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.vim_bundle')
 
 function! s:maybeLocalPlug(args)
   let l:localPath = $HOME . "/dev/" . expand(a:args)
@@ -71,6 +71,8 @@ Plug 'alampros/vim-styled-jsx'
 
 " colorschemes
 Plug 'pbrisbin/vim-colors-off'
+Plug 'kamwitsta/flatwhite-vim'
+Plug 'morhetz/gruvbox'
 
 if has("nvim")
   Plug 'sbdchd/neoformat'

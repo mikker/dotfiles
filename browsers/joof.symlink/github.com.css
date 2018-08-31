@@ -1,5 +1,5 @@
 svg[class*='octicon-mark-github'] { transform: rotate(180deg); }
-.blob-code-inner { font-family: 'Fantasque Sans Mono'; }
+.blob-code-inner { font-family: 'Fantasque Sans Mono', 'SF Mono', 'Menlo', monospace; }
 
 /**
  * Naively responsive GitHub

@@ -55,8 +55,8 @@ set spelllang=da
 
 " ag for ack
 " brew install the_silver_searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
+if executable('rg')
+  set grepprg=rg\ --vimgrep
 endif
 
 if has('nvim')
@@ -243,7 +243,7 @@ let g:ragtag_global_maps = 1
 if has('nvim')
   " let g:neomake_jsx_standard_maker = {'errorformat': '%W  %f:%l:%c: %m'}
   " let g:neomake_jsx_enabled_makers = ['standard']
-  " let g:neomake_javascript_enabled_makers = ['standard']
+  let g:neomake_javascript_enabled_makers = ['flow']
   let g:neomake_ruby_enabled_makers = ['mri']
   let g:neomake_elm_elm_lint_maker = { 'exe': 'elm-lint', 'errorformat': '%f:%l:%c [%t] %m' }
   let g:neomake_elm_enabled_makers = ['elm_lint']
@@ -336,6 +336,8 @@ map <leader>G :Goyo<cr>
 call togglebg#map("<f5>")
 
 let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_html = ['prettier']
+let g:neoformat_enabled_eruby = ['prettier']
 
 nmap <leader>F :Neoformat<cr>
 
@@ -352,6 +354,8 @@ if has("gui_vimr")
   au! FileType vimwiki map <buffer> <c-s-y> :VimwikiPrevLink<cr>
 
   set background=light
+
+  cd ~/Dropbox/Wiki
 endif
 
 if has('shortmess')
