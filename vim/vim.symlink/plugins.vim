@@ -54,7 +54,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
-Plug 'junegunn/vim-slash'
 Plug 'lilydjwg/colorizer'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
@@ -68,18 +67,22 @@ Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
 Plug 'reedes/vim-pencil'
 Plug 'alampros/vim-styled-jsx'
+Plug 'jxnblk/vim-mdx-js'
 
 " colorschemes
 Plug 'pbrisbin/vim-colors-off'
-Plug 'kamwitsta/flatwhite-vim'
-Plug 'morhetz/gruvbox'
+
+
+Plug 'whiteinge/diffconflicts'
+
 
 if has("nvim")
-  Plug 'sbdchd/neoformat'
-  Plug 'benekastah/neomake'
-  " Plug 'roxma/nvim-completion-manager'
-  " Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-  " Plug 'roxma/ncm-rct-complete'
+  Plug 'w0rp/ale'
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'tpope/vim-sensible'
 endif

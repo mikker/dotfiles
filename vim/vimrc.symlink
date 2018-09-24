@@ -119,7 +119,7 @@ noremap ' `
 vnoremap < <gv
 vnoremap > >gv
 
-" Open cwd in Finder.app
+" Open pwd in Finder.app
 nnoremap <leader>O :call system('open .')<cr>
 
 " Just, you know, close the bottom window
@@ -143,6 +143,7 @@ nmap <leader>vp :e <c-r>=g:plugins_file_path<cr><cr>
 " for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
 noremap <leader>mc :Rerun call system('reload-chrome')<cr>
 noremap <leader>ms :Rerun call system('reload-safari')<cr>
+noremap <leader>mr :Rerun call system('reload-firefox')<cr>
 
 " wait what time is it?
 iab <expr> ddate strftime("%Y-%m-%d")
@@ -194,9 +195,6 @@ augroup vimrcEx
   " Auto-open quickfix window after grep cmds
   autocmd QuickFixCmdPost *grep* cwindow
 
-  " YAML front-matter
-  " au BufNewFile,BufRead *.{md,markdown} sy match Comment /\%^---\_.\{-}---$/
-
   " magic markers: enable using `H/S/J/C to jump back to
   " last HTML, stylesheet, JS or app code buffer
   au BufLeave *.{erb,html,haml,slim,eex} exe "normal! mH"
@@ -229,11 +227,9 @@ noremap <leader>f :FZF<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
 " nnoremap <silent> <leader>t :Tags<cr>
 
-let g:task_paper_follow_move = 0
-
 xmap <cr> :EasyAlign<cr>
 
-let g:ragtag_global_maps = 1
+" let g:ragtag_global_maps = 1
 
 " let g:UltiSnipsExpandTrigger       = '<right>'
 " let g:UltiSnipsListSnippets        = '<c-q>'
@@ -243,17 +239,17 @@ let g:ragtag_global_maps = 1
 if has('nvim')
   " let g:neomake_jsx_standard_maker = {'errorformat': '%W  %f:%l:%c: %m'}
   " let g:neomake_jsx_enabled_makers = ['standard']
-  let g:neomake_javascript_enabled_makers = ['flow']
-  let g:neomake_ruby_enabled_makers = ['mri']
-  let g:neomake_elm_elm_lint_maker = { 'exe': 'elm-lint', 'errorformat': '%f:%l:%c [%t] %m' }
-  let g:neomake_elm_enabled_makers = ['elm_lint']
+  " let g:neomake_javascript_enabled_makers = ['flow']
+  " let g:neomake_ruby_enabled_makers = ['mri']
+  " let g:neomake_elm_elm_lint_maker = { 'exe': 'elm-lint', 'errorformat': '%f:%l:%c [%t] %m' }
+  " let g:neomake_elm_enabled_makers = ['elm_lint']
 
-  augroup neomakePost
-    autocmd! BufWritePost *.js Neomake
-    autocmd! BufWritePost {Gemfile,Rakefile} Neomake
-    autocmd! BufWritePost *.{rb,rake} Neomake
-    autocmd! BufWritePost *.{ex,exs,eex} Neomake
-  augroup END
+  " augroup neomakePost
+  "   autocmd! BufWritePost *.js Neomake
+  "   autocmd! BufWritePost {Gemfile,Rakefile} Neomake
+  "   autocmd! BufWritePost *.{rb,rake} Neomake
+  "   autocmd! BufWritePost *.{ex,exs,eex} Neomake
+  " augroup END
 endif
 
 let g:lightline = {
@@ -296,6 +292,7 @@ let g:vimwiki_list = [{
 com! Wiki FZF ~/Dropbox/Wiki/
 nnoremap <leader>W :Wiki<cr>
 
+" Use :TT for vim-test
 fun! TTStrategy(cmd)
   execute 'TT ' . a:cmd
 endfun
@@ -335,15 +332,9 @@ map <leader>G :Goyo<cr>
 
 call togglebg#map("<f5>")
 
-let g:neoformat_enabled_javascript = ['prettier']
-let g:neoformat_enabled_html = ['prettier']
-let g:neoformat_enabled_eruby = ['prettier']
-
-nmap <leader>F :Neoformat<cr>
-
 " }}}
 
-set background=light
+set background=dark
 colo paramount
 
 " when in VimR.app
@@ -364,4 +355,18 @@ endif
 
 let g:polyglot_disabled = ['javascript']
 
+let g:LanguageClient_serverCommands = {
+      \ 'ruby': [ 'solargraph',  'stdio' ],
+      \ }
+
 imap <c-_> <c-x><c-l>
+
+let g:ale_completion_enabled = 1
+let g:ale_fixers = {
+      \ 'ruby': 'rubocop',
+      \ 'javascript': 'prettier', 
+      \ 'css': 'prettier' }
+nnoremap <leader>F :ALEFix<cr>
+
+let g:deoplete#enable_at_startup = 1
+

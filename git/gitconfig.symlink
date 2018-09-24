@@ -28,6 +28,7 @@
   wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
   bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
   bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+  up = pull --rebase --autostash
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
@@ -59,12 +60,15 @@
 [commit]
   gpgsign = true
 [merge]
-  tool = vimdiff
+  tool = diffconflicts
 [mergetool]
-  prompt = true
-[mergetool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  prompt = false
+  keepBackup = false
 [difftool]
   prompt = false
 [diff]
   tool = vimdiff
+  default = true
+[mergetool "diffconflicts"]
+  cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+  trustExitCode = true
