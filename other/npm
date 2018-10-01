@@ -1,7 +1,4 @@
 npm install -g \
-      castnow \
-      live-server \
       now \
       prettier \
-      diff-so-fancy \
-      eslint
+      diff-so-fancy

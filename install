@@ -8,9 +8,9 @@ echo "Install"
 
 main () {
   submodules
+  symlinks
   platform
   generic
-  symlinks
 }
 
 submodules () {
@@ -21,7 +21,7 @@ submodules () {
 platform () {
   platform="unknown"
   if [[ "$(uname)" == "Darwin" ]]; then
-     platform="osx"
+     platform="macos"
   elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
      platform="linux"
   elif [[ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]]; then
@@ -31,7 +31,7 @@ platform () {
   echo "Running installers for $platform"
 
   find . -name $platform.sh |\
-    while read installer ; do sh "${installer}" > /dev/null ; done
+    while read installer ; do echo $installer && sh "${installer}"; done
 }
 
 generic () {

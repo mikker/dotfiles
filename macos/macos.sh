@@ -8,26 +8,17 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # SYSTEM {{{
 
-# echo 'Set the timezone; see `sudo systemsetup -listtimezones` for other values'
-# sudo systemsetup -settimezone "Europe/Copenhagen" > /dev/null
-
-# echo "Disable Resume system-wide"
-# defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
-
 echo "Requiring password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
-
-# echo "Increasing sound quality for Bluetooth headphones/headsets"
-# defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 echo "Disabling OS X Gate Keeper - run apps from anywhere"
 sudo spctl --master-disable
 sudo defaults write /var/db/SystemPolicy-prefs.plist enabled -string no
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
-# defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 echo 'Completely turn off Dashboard'
 defaults write com.apple.dashboard mcx-disabled -bool true
@@ -52,11 +43,8 @@ defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
-echo 'Use Dark mode'
-defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
-
-echo "Disable transparency in the menu bar and elsewhere"
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# echo "Disable transparency in the menu bar and elsewhere"
+# defaults write com.apple.universalaccess reduceTransparency -bool true
 
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -106,8 +94,8 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # }}}
 # FINDER {{{
 
-echo 'Disable Desktop'
-defaults write com.apple.finder CreateDesktop -bool false
+# echo 'Disable Desktop'
+# defaults write com.apple.finder CreateDesktop -bool false
 
 echo "When performing a search, search the current folder by default"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
@@ -155,50 +143,9 @@ echo "Prevent Safari from opening ‘safe’ files automatically after downloadi
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 defaults write com.apple.SafariTechnologyPreview AutoOpenSafeDownloads -bool false
 
-# echo "Set Safari’s home page to 'about:blank' for faster loading"
-# defaults write com.apple.Safari HomePage -string "about:blank"
-# defaults write com.apple.SafariTechnologyPreview HomePage -string "about:blank"
-
 echo "Show the full URL in the address bar (note: this still hides the scheme)"
 defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
 defaults write com.apple.SafariTechnologyPreview ShowFullURLInSmartSearchField -bool true
-
-echo "Press Tab to highlight each item on a web page"
-defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
-defaults write com.apple.SafariTechnologyPreview WebKitTabToLinksPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
-defaults write com.apple.SafariTechnologyPreview com.apple.SafariTechnologyPreview.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
-
-# echo "Hide Safari’s sidebar in Top Sites"
-# defaults write com.apple.Safari ShowSidebarInTopSites -bool false
-# defaults write com.apple.SafariTechnologyPreview ShowSidebarInTopSites -bool false
-
-echo "Hiding Safari's bookmarks bar by default"
-defaults write com.apple.Safari ShowFavoritesBar -bool false
-defaults write com.apple.SafariTechnologyPreview ShowFavoritesBar -bool false
-
-echo 'Enable Safari’s debug menu'
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-defaults write com.apple.SafariTechnologyPreview IncludeInternalDebugMenu -bool true
-
-echo "Enabling the Develop menu and the Web Inspector in Safari"
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.SafariTechnologyPreview IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.SafariTechnologyPreview WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
-defaults write com.apple.SafariTechnologyPreview "com.apple.SafariTechnologyPreview.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
-
-# }}}
-# MAIL {{{
-
-# echo "Display emails in threaded mode, sorted by date (oldest at the top)"
-# defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
-# defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
-
-# echo 'Disable send and reply animations in Mail.app'
-# defaults write com.apple.Mail DisableReplyAnimations -bool true
-# defaults write com.apple.Mail DisableSendAnimations -bool true
 
 # }}}
 # APPS {{{
@@ -211,17 +158,6 @@ defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 # }}}
-# SHORTCUTS {{{
 
-# echo "All apps: Print to pdf with cmd+p then cmd+p"
-# defaults write -g NSUserKeyEquivalents -dict-add "Save as PDF..." -string "@P"
-# defaults write -g NSUserKeyEquivalents -dict-add "Mail PDF" -string "@~P"
-
-# echo "Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app"
-# defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" -string "@\\U21a9"
-
-# echo "Finder: Set tags with ctrl+t"
-# defaults write com.apple.Finder NSUserKeyEquivalents -dict-add "Tags..." -string "^T"
-
-# }}}
-
+echo "Installing DefaultKeyBindings"
+mkdir -p ~/Library/KeyBindings && cp ~/dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict

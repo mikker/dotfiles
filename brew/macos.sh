@@ -1,21 +1,20 @@
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [ ! -x /usr/local/bin/brew ]; then
+  echo "Installing Homebrew"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 brew install \
   aria2 \
   chruby \
   ctags \
   curl \
-  elixir-build \
-  erlang \
   exa \
-  exenv \
-  gist \
+  fzf \
   git \
   heroku-toolbelt \
   hub \
-  imagemagick \
+  mas \
   mosh \
-  mysql \
   neovim \
   node \
   postgresql \
@@ -23,11 +22,9 @@ brew install \
   python3 \
   reattach-to-user-namespace \
   redis \
+  ripgrep \
   ruby-install \
-  s3cmd \
   ssh-copy-id \
-  taglib \
-  the_silver_searcher \
   tmux \
   tree \
   vim \
@@ -37,37 +34,37 @@ brew install \
   zplug \
   zsh
 
-brew install weechat --with-curl --with-lua --with-perl --with-python --with-ruby
+brew install weechat \
+  --with-curl --with-lua --with-perl --with-python --with-ruby
 
 brew cask install \
-  acorn \
-  atext \
-  bartender \
-  caprine \
   caskroom/versions/iterm2-nightly \
+  dash \
   day-o \
-  dropbox \
   dropshare \
   encryptme \
   firefox \
-  fluid \
+  firefox-nightly \
   google-chrome \
+  gpg-suite \
   hammerspoon \
   imageoptim \
+  ngrok \
   putio-adder \
   quicksilver \
   sketch \
+  slack \
   spotify \
   superduper \
+  textexpander5 \
   transmit \
   vimr \
   visual-studio-code \
   vlc \
-  ngrok
+  zoomus
 
 brew tap caskroom/fonts
 brew cask install \
-  font-average-mono \
   font-courier-prime-code \
   font-courier-prime \
   font-cousine \

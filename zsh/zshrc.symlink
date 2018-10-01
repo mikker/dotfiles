@@ -1,37 +1,27 @@
-export ZSH=$HOME/dotfiles
 export DOTFILES=$HOME/dotfiles
+export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 
 export PATH="./bin:$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-# Load all functions in fn dir
-for config_file ($ZSH/**/*.zsh) source $config_file
+source "$HOME/.zgen/zgen.zsh"
 
-autoload -U compinit
-compinit
+if ! zgen saved; then
+  echo "Creating zgen save"
 
-for config_file ($ZSH/**/completion.sh) source $config_file
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-completions
+  zgen load zsh-users/zsh-autosuggestions
 
-autoload -U url-quote-magic
-zle -N self-insert url-quote-magic
-
-[ -z "$ZPLUG_HOME" ] && export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
-
-zplug zsh-users/zsh-syntax-highlighting, defer:2
-zplug zsh-users/zsh-completions
-zplug zsh-users/zsh-autosuggestions
-
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
+  zgen save
 fi
 
-zplug load
+source $ZSH_FILES/config.zsh
+source $ZSH_FILES/prompt.zsh
+source $ZSH_FILES/bindkeys.zsh
+source $ZSH_FILES/aliases.zsh
 
 # Local modifications
 [[ -f ~/.localrc ]] && .  ~/.localrc

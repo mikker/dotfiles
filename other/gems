@@ -2,10 +2,6 @@ gem install \
   bundler \
   gem-release \
   gem-shut-the-fuck-up \
-  git-up \
   neovim \
   ripper-tags gem-ripper-tags \
-  shotgun \
-  taglib-ruby \
-  tmuxinator \
-  zeus
+  tmuxinator

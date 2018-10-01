@@ -50,9 +50,3 @@ alias ra='rails'
 # JS
 alias yr="yarn run"
 alias npr="npm run"
-
-if [ is_mac ]; then
-  alias ql='qlmanage -p 2>/dev/null' # OS X Quick Look
-  alias batt="pmset -g batt | sed '1d' | sed -e 's/-InternalBattery-0//' | awk '{\$1=\$1}1'"
-fi
-
