@@ -362,11 +362,7 @@ let g:LanguageClient_serverCommands = {
 imap <c-_> <c-x><c-l>
 
 let g:ale_completion_enabled = 1
-let g:ale_fixers = {
-      \ 'ruby': 'rubocop',
-      \ 'javascript': 'prettier', 
-      \ 'css': 'prettier' }
 nnoremap <leader>F :ALEFix<cr>
 
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 

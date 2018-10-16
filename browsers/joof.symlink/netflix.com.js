@@ -3,7 +3,13 @@
     if (document.getElementById("#speed-controls")) return;
 
     var video = getVideoElm();
-    if (!video) return;
+    if (!video) {
+      console.info(
+        "%c📺💨 -- couldn't locate video element",
+        "color:gold;font-weight:bold"
+      );
+      return;
+    }
 
     var wrapper = createWrapper(video);
     document.body.appendChild(wrapper);
@@ -67,7 +73,7 @@
     slider.type = "range";
     slider.min = 0.5;
     slider.max = 2.0;
-    slider.step = 0.01;
+    slider.step = 0.25;
     slider.value = video.playbackRate;
 
     slider.oninput = updateDisplay(display);
@@ -105,7 +111,7 @@
   }
 
   function getVideoElm() {
-    return document.querySelector(".player-video-wrapper video");
+    return document.querySelector(".VideoContainer video");
   }
 
   function applyStyles(elm, styles) {

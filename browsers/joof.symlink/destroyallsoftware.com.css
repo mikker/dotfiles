@@ -1,2 +1,5 @@
 /* full-width container makes full-width video */
-.container { width: 90% !important; }
+.container {
+  width: 90% !important;
+  max-width: none !important;
+}

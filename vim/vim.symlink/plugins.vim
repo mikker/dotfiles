@@ -60,6 +60,7 @@ Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'wincent/ferret'
+Plug 'whiteinge/diffconflicts'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
@@ -72,17 +73,14 @@ Plug 'jxnblk/vim-mdx-js'
 " colorschemes
 Plug 'pbrisbin/vim-colors-off'
 
-
-Plug 'whiteinge/diffconflicts'
-
+Plug 'w0rp/ale'
 
 if has("nvim")
-  Plug 'w0rp/ale'
-  Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  " Plug 'autozimu/LanguageClient-neovim', {
+  "   \ 'branch': 'next',
+  "   \ 'do': 'bash install.sh',
+  "   \ }
+  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'tpope/vim-sensible'
 endif
