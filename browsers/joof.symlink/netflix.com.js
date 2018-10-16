@@ -1,4 +1,18 @@
 ;(function() {
+  if (!window.__playbackControlsLoaded) {
+    document.addEventListener("keyup", function(event) {
+      if (event.keyCode === 83 && event.ctrlKey) {
+        showControls();
+      }
+    });
+    window.__playbackControlsLoaded = true;
+  }
+
+  console.info(
+    "%c📺💨 -- press ctrl+s to control video speed",
+    "color:green;font-weight:bold"
+  );
+
   function showControls() {
     if (document.getElementById("#speed-controls")) return;
 
@@ -119,18 +133,4 @@
       elm.style[key] = styles[key];
     }
   }
-
-  if (!window.__playbackControlsLoaded) {
-    document.addEventListener("keyup", function(event) {
-      if (event.keyCode === 83 && event.ctrlKey) {
-        showControls();
-      }
-    });
-    window.__playbackControlsLoaded = true;
-  }
-
-  console.info(
-    "%c📺💨 -- press ctrl+s to control video speed",
-    "color:green;font-weight:bold"
-  );
 })();
