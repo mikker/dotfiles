@@ -74,6 +74,7 @@ Plug 'jxnblk/vim-mdx-js'
 Plug 'pbrisbin/vim-colors-off'
 
 Plug 'w0rp/ale'
+Plug 'jreybert/vimagit'
 
 if has("nvim")
   " Plug 'autozimu/LanguageClient-neovim', {
