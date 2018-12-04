@@ -45,7 +45,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
 Plug 'gerw/vim-HiLinkTrace'
-Plug 'henrik/vim-ruby-runner'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -77,11 +76,11 @@ Plug 'w0rp/ale'
 Plug 'jreybert/vimagit'
 
 if has("nvim")
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "   \ 'branch': 'next',
-  "   \ 'do': 'bash install.sh',
-  "   \ }
-  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'tpope/vim-sensible'
 endif

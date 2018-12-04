@@ -1,0 +1,16 @@
+#!/bin/bash
+set -ex
+
+current_branch=$(git branch | grep '*' | sed -e 's/* //')
+
+if [ $current_branch != "master" ]; then
+  git checkout master
+fi
+
+git fetch --all --prune
+git pull origin master --ff-only --rebase --autostash
+
+if [ $current_branch != "master" ]; then
+  git checkout -
+  git rebase master --autostash
+fi

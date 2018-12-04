@@ -284,12 +284,12 @@ function! LightLineFilename()
 endfunction
 
 let g:vimwiki_list = [{
-      \ 'path': '~/Wiki/',
+      \ 'path': '~/Dropbox/Wiki/',
       \ 'syntax': 'markdown',
       \ 'ext': '.md'
       \ }]
 
-com! Wiki FZF ~/Wiki/
+com! Wiki FZF ~/Dropbox/Wiki/
 nnoremap <leader>W :Wiki<cr>
 
 " Use :TT for vim-test
@@ -346,7 +346,7 @@ if has("gui_vimr")
 
   set background=light
 
-  cd ~/Wiki
+  cd ~/Dropbox/Wiki
 endif
 
 if has('shortmess')
@@ -364,5 +364,5 @@ imap <c-_> <c-x><c-l>
 let g:ale_completion_enabled = 1
 nnoremap <leader>F :ALEFix<cr>
 
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
