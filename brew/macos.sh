@@ -10,12 +10,11 @@ brew install \
   curl \
   exa \
   fzf \
+  imagemagick \
   git \
-  heroku-toolbelt \
   hub \
   mas \
   mosh \
-  neovim \
   node \
   postgresql \
   python2 \
@@ -31,11 +30,12 @@ brew install \
   wget \
   yarn \
   youtube-dl \
-  zplug \
   zsh
 
 brew install weechat \
   --with-curl --with-lua --with-perl --with-python --with-ruby
+
+brew install neovim --HEAD
 
 brew cask install \
   caskroom/versions/iterm2-nightly \
@@ -82,3 +82,4 @@ brew cask install \
   font-roboto \
   font-roboto-mono \
   font-roboto-condensed
+
