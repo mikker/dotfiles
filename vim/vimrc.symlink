@@ -229,29 +229,6 @@ nnoremap <silent> <Leader>b :Buffers<cr>
 
 xmap <cr> :EasyAlign<cr>
 
-" let g:ragtag_global_maps = 1
-
-" let g:UltiSnipsExpandTrigger       = '<right>'
-" let g:UltiSnipsListSnippets        = '<c-q>'
-" let g:UltiSnipsJumpForwardTrigger  = '<c-n>'
-" let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
-
-if has('nvim')
-  " let g:neomake_jsx_standard_maker = {'errorformat': '%W  %f:%l:%c: %m'}
-  " let g:neomake_jsx_enabled_makers = ['standard']
-  " let g:neomake_javascript_enabled_makers = ['flow']
-  " let g:neomake_ruby_enabled_makers = ['mri']
-  " let g:neomake_elm_elm_lint_maker = { 'exe': 'elm-lint', 'errorformat': '%f:%l:%c [%t] %m' }
-  " let g:neomake_elm_enabled_makers = ['elm_lint']
-
-  " augroup neomakePost
-  "   autocmd! BufWritePost *.js Neomake
-  "   autocmd! BufWritePost {Gemfile,Rakefile} Neomake
-  "   autocmd! BufWritePost *.{rb,rake} Neomake
-  "   autocmd! BufWritePost *.{ex,exs,eex} Neomake
-  " augroup END
-endif
-
 let g:lightline = {
       \  'colorscheme': 'pencil',
       \  'separator': { 'left': '', 'right': '' },
@@ -334,7 +311,7 @@ call togglebg#map("<f5>")
 
 " }}}
 
-set background=dark
+set background=light
 colo paramount
 
 " when in VimR.app
@@ -347,6 +324,16 @@ if has("gui_vimr")
   set background=light
 
   cd ~/Dropbox/Wiki
+
+  let g:goyo_height = '100%'
+
+  fun! s:initVimR()
+    if eval("@%") == ""
+      execute 'VimwikiIndex'
+    end
+  endfun
+
+  au! VimEnter * call s:initVimR()
 endif
 
 if has('shortmess')
@@ -365,4 +352,6 @@ let g:ale_completion_enabled = 1
 nnoremap <leader>F :ALEFix<cr>
 
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('auto_complete_delay', 200)
+call deoplete#custom#option('auto_complete', v:false)
 

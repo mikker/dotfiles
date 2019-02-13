@@ -74,6 +74,7 @@ Plug 'pbrisbin/vim-colors-off'
 
 Plug 'w0rp/ale'
 Plug 'jreybert/vimagit'
+Plug 'slashmili/alchemist.vim'
 
 if has("nvim")
   Plug 'autozimu/LanguageClient-neovim', {

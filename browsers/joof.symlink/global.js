@@ -62,7 +62,7 @@ function setupScrollByCtrlDAndU() {
   });
 
   function scroll(direction) {
-    const distance = window.innerHeight / 10 * 5;
+    const distance = (window.innerHeight / 10) * 5;
 
     let dest;
     if (direction === "up") {
@@ -100,8 +100,16 @@ function setupScrollByCtrlDAndU() {
 }
 
 function setupSystemFontResetter() {
+  let styleElm = null
+
   document.addEventListener("keyup", event => {
     if (event.keyCode === 83 && event.ctrlKey && event.altKey) {
+      if (styleElm) {
+        styleElm.remove();
+        styleElm = null;
+        return;
+      }
+
       const s = document.createElement("style");
       s.innerHTML = `
         * {
@@ -111,8 +119,14 @@ function setupSystemFontResetter() {
           font-weight: 400 !important;
           max-width: 40rem;
           line-height: 1.5;
-        }`;
+        }
+        pre, code, pre * {
+          font-family: 'SF Mono', 'Menlo', monospace !important;
+        }
+      `;
       document.body.appendChild(s);
+
+      styleElm = s
     }
   });
 }
