@@ -18,7 +18,7 @@ call s:maybeLocalPlug('vim-dimcil')
 call s:maybeLocalPlug('vim-colors-paramount')
 call s:maybeLocalPlug('vim-colors-pap')
 
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 " tpope's the shit
 Plug 'tpope/vim-abolish'
@@ -68,13 +68,17 @@ Plug 'sheerun/vim-polyglot'
 Plug 'reedes/vim-pencil'
 Plug 'alampros/vim-styled-jsx'
 Plug 'jxnblk/vim-mdx-js'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " colorschemes
 Plug 'pbrisbin/vim-colors-off'
 
 Plug 'w0rp/ale'
 Plug 'jreybert/vimagit'
-Plug 'slashmili/alchemist.vim'
+Plug 'machakann/vim-highlightedyank'
+
+Plug 'mattn/webapi-vim'
+Plug 'christoomey/vim-quicklink'
 
 if has("nvim")
   Plug 'autozimu/LanguageClient-neovim', {

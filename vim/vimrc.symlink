@@ -96,14 +96,14 @@ noremap gk k
 noremap gj j
 
 " Easy split navigation
-noremap <C-h>  <C-w>h
-noremap <C-j>  <C-w>j
-noremap <C-k>  <C-w>k
-noremap <C-l>  <C-w>l
-noremap <left>  <C-w>h
-noremap <down>  <C-w>j
-noremap <up>    <C-w>k
-noremap <right> <C-w>l
+" noremap <C-h>  <C-w>h
+" noremap <C-j>  <C-w>j
+" noremap <C-k>  <C-w>k
+" noremap <C-l>  <C-w>l
+" noremap <left>  <C-w>h
+" noremap <down>  <C-w>j
+" noremap <up>    <C-w>k
+" noremap <right> <C-w>l
 
 " tabs
 nnoremap ]w :tabn<cr>
@@ -260,7 +260,7 @@ function! LightLineFilename()
        \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
 
-let g:vimwiki_list = [{
+" let g:vimwiki_list = [{
       \ 'path': '~/Dropbox/Wiki/',
       \ 'syntax': 'markdown',
       \ 'ext': '.md'
@@ -311,7 +311,7 @@ call togglebg#map("<f5>")
 
 " }}}
 
-set background=light
+set background=dark
 colo paramount
 
 " when in VimR.app
@@ -319,7 +319,7 @@ if has("gui_vimr")
   " act as in a term
   nmap <c-z> :term<cr>
   " shift-tab sends ctrl+shift+y
-  au! FileType vimwiki map <buffer> <c-s-y> :VimwikiPrevLink<cr>
+  " au! FileType vimwiki map <buffer> <c-s-y> :VimwikiPrevLink<cr>
 
   set background=light
 
@@ -329,7 +329,7 @@ if has("gui_vimr")
 
   fun! s:initVimR()
     if eval("@%") == ""
-      execute 'VimwikiIndex'
+      " execute 'VimwikiIndex'
     end
   endfun
 
