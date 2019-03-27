@@ -1,0 +1,134 @@
+# vim: set ft=ruby
+
+brew "aria2"
+brew "bat"
+brew "carthage"
+brew "certbot"
+brew "chruby"
+brew "ctags"
+brew "curl"
+brew "exa"
+brew "ffmpeg"
+brew "fzf"
+brew "git"
+brew "go"
+brew "hub"
+brew "imagemagick"
+brew "mas"
+brew "mosh"
+brew "mysql"
+brew "neovim", args: ["HEAD"]
+brew "node"
+brew "postgresql", restart_service: true
+brew "python"
+brew "rbspy"
+brew "reattach-to-user-namespace"
+brew "redis"
+brew "ripgrep"
+brew "ruby-install"
+brew "ssh-copy-id"
+brew "tmux"
+brew "tree"
+brew "typescript"
+brew "vim"
+brew "vips"
+brew "weechat"
+brew "wget"
+brew "yarn"
+brew "youtube-dl"
+brew "zsh"
+
+tap "homebrew/versions"
+brew "python@2"
+
+tap "chrismytton/formula"
+brew "chrismytton/formula/shoreman", args: ["HEAD"]
+
+cask_args appdir: "/Applications"
+tap "homebrew/cask"
+cask "acorn"
+cask "airtable"
+cask "appzapper"
+cask "dash"
+cask "day-o"
+cask "docker"
+cask "dropbox"
+cask "dropshare"
+cask "encryptme"
+cask "firefox"
+cask "firefox-nightly"
+cask "google-chrome"
+cask "gpg-suite"
+cask "grandperspective"
+cask "hammerspoon"
+cask "handbrake"
+cask "imageoptim"
+cask "iterm2-nightly"
+cask "ngrok"
+cask "notion"
+cask "obs"
+cask "putio-adder"
+cask "sip"
+cask "sketch"
+cask "slack"
+cask "spotify"
+cask "superduper"
+cask "telegram"
+cask "textexpander5"
+cask "transmission"
+cask "transmit"
+cask "vimr"
+cask "visual-studio-code"
+cask "vlc"
+cask "zoomus"
+
+tap "homebrew/cask-fonts"
+cask "font-courier-prime"
+cask "font-courier-prime-code"
+cask "font-cousine"
+cask "font-dejavu-sans"
+cask "font-dejavusansmono-nerd-font"
+cask "font-fantasque-sans-mono"
+cask "font-fira-code"
+cask "font-fira-sans"
+cask "font-firacode-nerd-font"
+cask "font-firacode-nerd-font-mono"
+cask "font-inconsolata"
+cask "font-input"
+cask "font-iosevka"
+cask "font-iosevka-nerd-font"
+cask "font-lekton"
+cask "font-liberation-sans"
+cask "font-monoid"
+cask "font-mononoki"
+cask "font-roboto"
+cask "font-roboto-condensed"
+cask "font-roboto-mono"
+cask "font-sourcecodepro-nerd-font"
+
+cask "qlcolorcode"
+cask "qlmarkdown"
+cask "qlstephen"
+cask "qlvideo"
+cask "quicklook-json"
+cask "quicklookase"
+cask "quicksilver"
+cask "suspicious-package"
+cask "webpquicklook"
+
+mas "1Password", id: 1333542190
+mas "Battery Indicator", id: 1206020918
+mas "Better Blocker", id: 1121192229
+mas "BreakTime", id: 427475982
+mas "GIF Brewery 3", id: 1081413713
+mas "Gestimer", id: 990588172
+mas "Logic Pro X", id: 634148309
+mas "Marked 2", id: 890031187
+mas "Menu World Time", id: 1446377255
+mas "Numbers", id: 409203825
+mas "Pastebot", id: 1179623856
+mas "Reeder 3", id: 880001334
+mas "Soulver", id: 413965349
+mas "Things 3", id: 904280696
+mas "iA Writer", id: 775737590
+# mas "Xcode", id: 497799835
