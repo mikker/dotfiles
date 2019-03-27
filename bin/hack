@@ -11,6 +11,6 @@ git fetch --all --prune
 git pull origin master --ff-only --rebase --autostash
 
 if [ $current_branch != "master" ]; then
-  git checkout -
+  git checkout $current_branch
   git rebase master --autostash
 fi

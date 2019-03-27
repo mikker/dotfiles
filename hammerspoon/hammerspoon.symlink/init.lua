@@ -48,7 +48,7 @@ end
 
 -- }}}
 
-require("hjkl")
+-- require("hjkl")
 require("caffeine")
 require("window-management")
 

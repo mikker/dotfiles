@@ -117,7 +117,7 @@ function setupSystemFontResetter() {
         }
         p {
           font-weight: 400 !important;
-          max-width: 40rem;
+          max-width: 40em;
           line-height: 1.5;
         }
         pre, code, pre * {

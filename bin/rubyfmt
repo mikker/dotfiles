@@ -1,2 +1,0 @@
-#!/bin/bash
-ruby /Users/mikker/dev/vendor/rubyfmt/src/rubyfmt.rb $@

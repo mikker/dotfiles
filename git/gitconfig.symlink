@@ -7,7 +7,7 @@
   diff = auto
   status = auto
   branch = auto
-	ui = true
+  ui = true
 [github]
   user = mikker
 [alias]
@@ -20,6 +20,7 @@
   pr = "!hub pull-request"
   cm = commit -m
   hammer = commit --allow-empty -m 🔨
+  upto = "branch --set-upstream-to"
   ; Usage: git track origin/feature-123-login-form
   track = checkout -t
   save = "!f() { git add -A && git commit -m \"$@\"; }; f"
@@ -33,7 +34,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -75,14 +76,14 @@
   cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "diff"]
-	meta = yellow
-	frag = magenta bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta = yellow
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse

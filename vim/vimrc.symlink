@@ -96,14 +96,10 @@ noremap gk k
 noremap gj j
 
 " Easy split navigation
-" noremap <C-h>  <C-w>h
-" noremap <C-j>  <C-w>j
-" noremap <C-k>  <C-w>k
-" noremap <C-l>  <C-w>l
-" noremap <left>  <C-w>h
-" noremap <down>  <C-w>j
-" noremap <up>    <C-w>k
-" noremap <right> <C-w>l
+nnoremap <C-h>  <C-w>h
+nnoremap <C-j>  <C-w>j
+nnoremap <C-k>  <C-w>k
+nnoremap <C-l>  <C-w>l
 
 " tabs
 nnoremap ]w :tabn<cr>
@@ -124,12 +120,6 @@ nnoremap <leader>O :call system('open .')<cr>
 
 " Just, you know, close the bottom window
 nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
-
-" close all folds to current depth
-noremap ˙ :set foldlevel=<c-r>=foldlevel(line('.'))-1<cr><cr>
-" open all folds
-noremap ¬ :set foldlevel=9999<cr>
-" poor mans meta key is to map unicode-chars
 
 " c-c doesn't trigger InsertLeave by default so we map it to regular esc
 xnoremap <c-c> <esc>
@@ -153,12 +143,6 @@ iab <expr> ttime strftime("%H:%M")
 cnoreabbrev E e
 cnoreabbrev G Git
 cnoreabbrev Qa qa
-
-" git shortcuts
-cnoreabbrev GS Gstatus
-cnoreabbrev GP Git push
-cnoreabbrev GU Git pull
-cnoreabbrev GB Gbrowse
 
 " }}}
 " {{{ Functions and commands
@@ -199,11 +183,11 @@ augroup vimrcEx
   " last HTML, stylesheet, JS or app code buffer
   au BufLeave *.{erb,html,haml,slim,eex} exe "normal! mH"
   au BufLeave *.{css,scss}               exe "normal! mS"
-  au BufLeave *.{js}                     exe "normal! mJ"
+  au BufLeave *.{js,jsx,ts,tsx}          exe "normal! mJ"
   au BufLeave *.{rb,ex,exs}              exe "normal! mC"
   au BufLeave *.yml                      exe "normal! mY"
 
-  au BufRead *.mkd,*.md set ai formatoptions=tcroqn2 comments=n:>
+  " au BufRead *.mkd,*.md set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
 if has('nvim')
@@ -216,6 +200,7 @@ if has('nvim')
     au TermOpen * nmap <buffer> <cr> :bd!<cr>
   augroup END
 
+  " :s command real-time preview
   set inccommand=nosplit
 end
 
@@ -225,7 +210,6 @@ end
 " FZF
 noremap <leader>f :FZF<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
-" nnoremap <silent> <leader>t :Tags<cr>
 
 xmap <cr> :EasyAlign<cr>
 
@@ -234,14 +218,17 @@ let g:lightline = {
       \  'separator': { 'left': '', 'right': '' },
       \  'subseparator': { 'left': '', 'right': '' },
       \  'active': {
-      \    'left': [['mode', 'paste'], ['fugitive'], ['filename']],
-      \    'right': [[], ['filetype'], ['gutentags'], ['neomake']]
+      \    'left': [
+      \       ['mode', 'paste'],
+      \       ['readonly', 'filename', 'fugitive', 'cocstatus']
+      \    ],
+      \    'right': [['filetype'], ['gutentags']]
       \  },
       \  'component_function': {
-      \    'neomake': 'neomake#statusline#LoclistStatus',
       \    'filename': 'LightLineFilename',
       \    'fugitive': 'fugitive#head',
-      \    'gutentags': 'gutentags#statusline'
+      \    'gutentags': 'gutentags#statusline',
+      \    'cocstatus': 'coc#status'
       \  }
       \}
 
@@ -260,12 +247,6 @@ function! LightLineFilename()
        \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
 
-" let g:vimwiki_list = [{
-      \ 'path': '~/Dropbox/Wiki/',
-      \ 'syntax': 'markdown',
-      \ 'ext': '.md'
-      \ }]
-
 com! Wiki FZF ~/Dropbox/Wiki/
 nnoremap <leader>W :Wiki<cr>
 
@@ -282,11 +263,11 @@ else
   let test#strategy = "basic"
 endif
 
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>tT :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
 
 let g:rerunner_focus = 'TestLast'
 map <leader>md :Rerun TestLast<cr>
@@ -295,23 +276,20 @@ let g:colorizer_nomap = 1
 
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd,vimwiki,text call pencil#init()
+  autocmd FileType markdown,mkd,text call pencil#init()
 augroup END
 
 let g:pencil#wrapModeDefault = 'soft'
-let g:pencil#conceallevel = 2
+let g:pencil#conceallevel = 0
 let g:pencil#concealcursor = 'c'
 
 map <leader>G :Goyo<cr>
-
-" autocmd! User GoyoEnter Limelight
-" autocmd! User GoyoLeave Limelight!
 
 call togglebg#map("<f5>")
 
 " }}}
 
-set background=dark
+set background=light
 colo paramount
 
 " when in VimR.app
@@ -336,22 +314,106 @@ if has("gui_vimr")
   au! VimEnter * call s:initVimR()
 endif
 
-if has('shortmess')
-  set shortmess+=c
-endif
-
-let g:polyglot_disabled = ['javascript']
-
-let g:LanguageClient_serverCommands = {
-      \ 'ruby': [ 'solargraph',  'stdio' ],
-      \ }
-
-imap <c-_> <c-x><c-l>
-
 let g:ale_completion_enabled = 1
 nnoremap <leader>F :ALEFix<cr>
 
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_complete_delay', 200)
-call deoplete#custom#option('auto_complete', v:false)
+" COC COC COC
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" " Use tab for trigger completion with characters ahead and navigate.
+" " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
+" " Use <c-space> for trigger completion.
+" " inoremap <silent><expr> <c-space> coc#refresh()
+
+" " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" " Coc only does snippet and additional edit on confirm.
+" " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
+
+" " Remap for format selected region
+" vmap <leader>F  <Plug>(coc-format-selected)
+" nmap <leader>F  <Plug>(coc-format-selected)
+
+" augroup mygroup
+"   autocmd!
+"   " Setup formatexpr specified filetype(s).
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"   " Update signature help on jump placeholder
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
+
+" " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" vmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" " Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" " Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" " Use `:Format` for format current buffer
+" command! -nargs=0 Format :call CocAction('format')
+
+" " Use `:Fold` for fold current buffer
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" " Using CocList
+" " Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions
+" " nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>]  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>[  :<C-u>CocPrev<CR>
+" " Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 

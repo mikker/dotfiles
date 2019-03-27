@@ -65,13 +65,9 @@ Plug 'whiteinge/diffconflicts'
 Plug 'vim-ruby/vim-ruby'
 Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
-Plug 'reedes/vim-pencil'
 Plug 'alampros/vim-styled-jsx'
 Plug 'jxnblk/vim-mdx-js'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
-" colorschemes
-Plug 'pbrisbin/vim-colors-off'
 
 Plug 'w0rp/ale'
 Plug 'jreybert/vimagit'
@@ -81,11 +77,7 @@ Plug 'mattn/webapi-vim'
 Plug 'christoomey/vim-quicklink'
 
 if has("nvim")
-  Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 else
   Plug 'tpope/vim-sensible'
 endif

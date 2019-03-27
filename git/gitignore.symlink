@@ -1,8 +1,6 @@
 .DS_Store
-.svn
 *~
 .sass-cache
-tags
 node_modules
 jspm_packages
 
@@ -16,3 +14,8 @@ jspm_packages
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+
+tags
+tags.temp
+tags.lock
+
