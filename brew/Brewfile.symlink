@@ -21,9 +21,10 @@ brew "neovim", args: ["HEAD"]
 brew "node"
 brew "postgresql", restart_service: true
 brew "python"
+brew "python@2"
 brew "rbspy"
 brew "reattach-to-user-namespace"
-brew "redis"
+brew "redis", restart_service: true
 brew "ripgrep"
 brew "ruby-install"
 brew "ssh-copy-id"
@@ -37,9 +38,6 @@ brew "wget"
 brew "yarn"
 brew "youtube-dl"
 brew "zsh"
-
-tap "homebrew/versions"
-brew "python@2"
 
 tap "chrismytton/formula"
 brew "chrismytton/formula/shoreman", args: ["HEAD"]
@@ -82,7 +80,6 @@ cask "visual-studio-code"
 cask "vlc"
 cask "zoomus"
 
-tap "homebrew/cask-fonts"
 cask "font-courier-prime"
 cask "font-courier-prime-code"
 cask "font-cousine"
@@ -95,7 +92,7 @@ cask "font-firacode-nerd-font"
 cask "font-firacode-nerd-font-mono"
 cask "font-inconsolata"
 cask "font-input"
-cask "font-iosevka"
+cask "caskroom/fonts/font-iosevka"
 cask "font-iosevka-nerd-font"
 cask "font-lekton"
 cask "font-liberation-sans"
