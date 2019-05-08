@@ -1,6 +1,7 @@
 # Quickly navigate to a project - with autosuggest
 c() {
   local dir="$PROJECTS"
+
   if [[ $# == 0 ]]; then
     cd $dir/$(find $dir -type d -maxdepth 2 ! -path "*.git*" | sed -E "s#^$dir##"| fzf)
   else

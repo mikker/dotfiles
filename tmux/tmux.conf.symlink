@@ -1,7 +1,6 @@
 # vim: set ft=tmux.conf
 
-set-option -g default-terminal "screen-256color"
-set-option -ga terminal-overrides ",xterm-256color:Tc"
+bind R source-file ~/.tmux.conf
 
 # mouse on (tmux 2.1)
 set -g mouse on
@@ -25,10 +24,6 @@ bind ^A send-prefix
 
 # Use vim keybindings
 set-window-option -g mode-keys vi
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
 
 # Quickly switch between windows
 bind ^Space last-window
@@ -51,20 +46,18 @@ bind ^o select-pane -l\; resize-pane -Z
 bind c new-window -c "#{pane_current_path}"
 
 # status bar
-set -g status-bg default
-set -g status-fg colour239
-set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-fg colour246
+set -g status-style fg=colour239,bg=default
+set-window-option -g window-status-style fg=colour246,bg=default
 
 set -g status-left ''
 set -g status-right '%H:%M'
 set -g status-right-length 20
 set -g status-interval 30
 
-# set-window-option -g window-status-current-attr bold
-set-window-option -g window-status-current-format '{ #I:#W }'
+set-window-option -g window-status-current-format '>>#I:#W<<'
+set-window-option -g window-status-current-style fg=colour246,bold
 set-window-option -g window-status-format ' #I:#W#F '
-set-window-option -g window-status-attr dim
+set-window-option -g window-status-style dim
 
 set -sg escape-time 1
 
@@ -76,4 +69,4 @@ set -g @plugin 'wfxr/tmux-fzf-url'
 # Local config
 if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'
 
-run '~/.tmux/plugins/tpm/tpm'
+run -b '~/.tmux/plugins/tpm/tpm'

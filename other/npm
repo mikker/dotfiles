@@ -1,4 +1,9 @@
 npm install -g \
+      diff-so-fancy \
+      neovim \
+      nodemon \
       now \
+      np \
+      npm \
       prettier \
-      diff-so-fancy
+      serve

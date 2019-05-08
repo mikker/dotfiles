@@ -1,8 +1,8 @@
-export DOTFILES=$HOME/dotfiles
+export DOTFILES=$HOME/.dotfiles
 export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 
-export PATH="./bin:$HOME/bin:$HOME/dotfiles/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="./bin:$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 

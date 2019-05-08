@@ -1,0 +1,21 @@
+#!/bin/bash
+set -ex
+
+current_branch=$(git branch | grep '*' | sed -e 's/* //')
+
+if [ $current_branch == "master" ]; then
+  echo 'Not destroying master'
+  exit 1
+fi
+
+if [[ `git status --porcelain` != '' ]]; then
+  echo 'Dirty branch, exiting'
+  exit 1
+fi
+
+git checkout master
+
+git fetch --all --prune
+git pull origin master --ff-only --rebase --autostash
+
+git br -D $current_branch
