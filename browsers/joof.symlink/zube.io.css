@@ -1,0 +1,73 @@
+* {
+  font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    "Helvetica Neue", sans-serif !important;
+  font-weight: 400;
+  letter-spacing: 0 !important;
+}
+
+p {
+  font-weight: 400 !important;
+  max-width: 40em;
+  line-height: 1.5;
+}
+
+pre,
+code,
+pre * {
+  font-family: "SF Mono", "Menlo", monospace !important;
+}
+
+.projects .column-group {
+  border-right-color: rgba(0, 0, 0, 0.05);
+}
+
+.post-it {
+  padding: 0 7px 7px;
+}
+
+.post-it .card-content {
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.post-it .card-content .wrapper.priority-null,
+.post-it .card-content .wrapper {
+  border-left: none;
+}
+
+.post-it .card-content .heading .title {
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.post-it .card-content .metadata-container .assignees .assignee-wrapper img {
+  border-radius: 9999px;
+}
+
+a.card-content {
+  transition: all 0.05s ease;
+}
+
+.projects
+  .column-group
+  .expanded-column
+  .category-container
+  .cards-container
+  .post-it.active
+  a.card-content {
+  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.projects
+  .column-group
+  .expanded-column
+  .column-header-container
+  .column-header
+  .bottom
+  .category-label {
+  font-size: 0.9em;
+  font-weight: normal;
+  letter-spacing: 0;
+}

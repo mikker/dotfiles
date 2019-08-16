@@ -59,7 +59,7 @@ if executable('rg')
   set grepprg=rg\ --vimgrep
 endif
 
-if has('nvim')
+if has('termguicolors')
   set termguicolors " Use millions of colors
 endif
 
@@ -100,6 +100,10 @@ nnoremap <C-h>  <C-w>h
 nnoremap <C-j>  <C-w>j
 nnoremap <C-k>  <C-w>k
 nnoremap <C-l>  <C-w>l
+nnoremap <Left>  <C-w>h
+nnoremap <Down>  <C-w>j
+nnoremap <Up>  <C-w>k
+nnoremap <Right>  <C-w>l
 
 " tabs
 nnoremap ]w :tabn<cr>
@@ -247,7 +251,7 @@ function! LightLineFilename()
        \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
 
-com! Wiki FZF ~/Dropbox/Wiki/
+com! Wiki FZF ~/Documents/Wiki/
 nnoremap <leader>W :Wiki<cr>
 
 " Use :TT for vim-test
@@ -262,6 +266,7 @@ if has('nvim')
 else
   let test#strategy = "basic"
 endif
+" let test#strategy = "vtr"
 
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tT :TestFile<CR>
@@ -288,6 +293,10 @@ map <leader>G :Goyo<cr>
 call togglebg#map("<f5>")
 
 " }}}
+
+set background=dark
+colo paramount
+
 " GUI {{{
 " when in VimR.app
 if has("gui_vimr")
@@ -298,7 +307,7 @@ if has("gui_vimr")
 
   set background=light
 
-  cd ~/Dropbox/Wiki
+  cd ~/Documents/Wiki
 
   let g:goyo_height = '100%'
 
@@ -312,13 +321,6 @@ if has("gui_vimr")
 endif
 
 " }}}
-
-set background=dark
-colo paramount
-
-let g:ale_completion_enabled = 1
-nnoremap <leader>F :ALEFix<cr>
-
 " COC COC COC
 
 " Smaller updatetime for CursorHold & CursorHoldI
@@ -337,16 +339,18 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+if has('CocAction')
+  " Use K for show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+  function! s:show_documentation()
+    if &filetype == 'vim'
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+end
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -355,8 +359,31 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 vmap <leader>cF  <Plug>(coc-format-selected)
 nmap <leader>cF  <Plug>(coc-format-selected)
 
-nmap <leader>R :call system('rubyfmt %')<cr>
+function! Rubyfmt()
+  echo "Calling rubyfmt"
+  silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))
+  silent exec("edit " . expand("%"))
+endfunction
+command! -nargs=0 RubyFmt :call RubyFmt()
+nmap <leader>R :RubyFmt<cr>
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
+nnoremap <leader>F :Format<cr>
+
+" Fix Ruby syntax slowness
+set ttyfast
+set lazyredraw
+let g:ruby_path = []
+set re=1
+
+inoremap <c-_> <c-x><c-l>
+nnoremap <leader>B :TT srb tc<cr>
+
+let g:VtrOrientation = 'h'
+let g:VtrPercentage = 40
+let g:VtrClearBeforeSend = 0
+
+map <leader>ro :VtrOpenRunner<cr>
+map <leader>rk :VtrKillRunner<cr>
 

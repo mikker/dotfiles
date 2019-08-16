@@ -1,0 +1,22 @@
+body.body, p {
+  font-family: system-ui;
+  font-weight: normal;
+}
+
+h5,
+h6,
+label,
+p,
+ul,
+.text li,
+.introductory-toc-link {
+  font-weight: normal;
+}
+
+p {
+  line-height: 1.75;
+}
+
+.quote-quotation {
+  font-style: italic;
+}

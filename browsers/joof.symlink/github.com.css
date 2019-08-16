@@ -7,6 +7,7 @@ svg[class*='octicon-mark-github'] { transform: rotate(180deg); }
 body { min-width: 300px !important; }
 .header { min-width: 300px !important; }
 .container { width: 100%; padding-left: 10px; padding-right: 10px; }
+.container-lg { max-width: none; }
 .columns { margin-left: 0; margin-right: 0; }
 .repository-with-sidebar.with-full-navigation .repository-content { width: 76%; }
 .repository-with-sidebar.with-full-navigation .repository-sidebar { width: 22%; }

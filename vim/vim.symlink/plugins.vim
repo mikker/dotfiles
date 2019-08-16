@@ -17,6 +17,7 @@ call s:maybeLocalPlug('vim-rerunner')
 call s:maybeLocalPlug('vim-dimcil')
 call s:maybeLocalPlug('vim-colors-paramount')
 call s:maybeLocalPlug('vim-colors-pap')
+call s:maybeLocalPlug('vim-colors-bell')
 
 " Plug 'vimwiki/vimwiki'
 
@@ -30,7 +31,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
-Plug 'tpope/vim-markdown'
+" Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
@@ -60,6 +61,7 @@ Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'wincent/ferret'
 Plug 'whiteinge/diffconflicts'
+Plug 'christoomey/vim-tmux-runner'
 
 " filetypes and syntax
 Plug 'vim-ruby/vim-ruby'
@@ -68,16 +70,25 @@ Plug 'sheerun/vim-polyglot'
 Plug 'alampros/vim-styled-jsx'
 Plug 'jxnblk/vim-mdx-js'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'jreybert/vimagit'
 Plug 'machakann/vim-highlightedyank'
 
 Plug 'mattn/webapi-vim'
 Plug 'christoomey/vim-quicklink'
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'fxn/vim-monochrome'
+Plug 'clinstid/eink.vim'
+Plug 'zaki/zazen'
+Plug 'pbrisbin/vim-colors-off'
+
+Plug 'zackhsi/sorbet.vim'
 
 if has("nvim")
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 else
   Plug 'tpope/vim-sensible'
 endif

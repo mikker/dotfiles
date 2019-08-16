@@ -2,6 +2,9 @@
 
 bind R source-file ~/.tmux.conf
 
+set -g default-terminal "screen-256color"
+set-option -sa terminal-overrides ',xterm-256color:RGB'
+
 # mouse on (tmux 2.1)
 set -g mouse on
 # Don't lose track of SSH_AGENT etc. from parent environment.
@@ -11,33 +14,36 @@ set -g base-index 1
 # renumber windows sequentially after closing any of them
 set -g renumber-windows on
 # Set terminal title
-set-option -g set-titles on
+# set-option -g set-titles on
 
+# no visual bell
 set-option -g visual-activity off
+
 set-option -gw automatic-rename on
+
 set-option -gw monitor-activity off
 
-# Use ctrl-q instead of ctrl-b
+# Use ctrl-a instead of ctrl-b
 unbind C-b
 set -g prefix C-a
 bind ^A send-prefix
 
 # Use vim keybindings
 set-window-option -g mode-keys vi
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key l select-pane -R
 
 # Quickly switch between windows
-bind ^Space last-window
-
-# jk is next/prev window
-# bind-key -r j next-window
-# bind-key -r k previous-window
+bind ^a last-window
 
 # Quickly switch between sessions
 bind ^S switch-client -l
 
 # tiny split below - suitable for test runners
 unbind _
-bind _ split-window \; resize-pane -y 5
+bind _ split-window \; resize-pane -y 6
 
 # Select other pane, then zoom
 bind ^o select-pane -l\; resize-pane -Z
@@ -54,7 +60,7 @@ set -g status-right '%H:%M'
 set -g status-right-length 20
 set -g status-interval 30
 
-set-window-option -g window-status-current-format '>>#I:#W<<'
+set-window-option -g window-status-current-format '>>#I:#W#{?window_zoomed_flag,[zoomed],}<<'
 set-window-option -g window-status-current-style fg=colour246,bold
 set-window-option -g window-status-format ' #I:#W#F '
 set-window-option -g window-status-style dim
@@ -65,6 +71,7 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
 set -g @plugin 'wfxr/tmux-fzf-url'
+set -g @plugin 'christoomey/vim-tmux-navigator'
 
 # Local config
 if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'

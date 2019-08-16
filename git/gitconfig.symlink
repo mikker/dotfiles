@@ -1,7 +1,7 @@
 ; vim: set ft=gitconfig
 [user]
-  name = Mikkel Malmberg
-  email = mikkel@brnbw.com
+	name = Mikkel Malmberg
+	email = mikkel@brnbw.com
   signingkey = 7B09867145A39CC3
 [color]
   diff = auto
