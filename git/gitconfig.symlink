@@ -12,24 +12,20 @@
   user = mikker
 [alias]
   br = branch
-  st = status
+  cane = commit --amend --no-edit
   ci = commit
-  co = checkout
-  rb = rebase
-  tree = "log --graph --decorate --abbrev=commit"
-  pr = "!hub pull-request"
   cm = commit -m
+  co = checkout
   hammer = commit --allow-empty -m 🔨
-  upto = "branch --set-upstream-to"
-  ; Usage: git track origin/feature-123-login-form
-  track = checkout -t
-  save = "!f() { git add -A && git commit -m \"$@\"; }; f"
-  wip = !git add -u && git commit -m "WIP"
+  last = log -1 HEAD
+  pr = "!hub pull-request"
+  rb = rebase
+  st = status
+  tree = "log --graph --decorate --abbrev=commit"
   undo = reset HEAD~1 --mixed
-  amend = commit -a --amend
-  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
-  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
   up = pull --rebase --autostash
+  upto = "branch --set-upstream-to"
+  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 [core]
   excludesfile = ~/.gitignore
   editor = nvim

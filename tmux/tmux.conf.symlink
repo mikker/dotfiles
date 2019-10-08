@@ -25,8 +25,8 @@ set-option -gw monitor-activity off
 
 # Use ctrl-a instead of ctrl-b
 unbind C-b
-set -g prefix C-a
-bind ^A send-prefix
+# set -g prefix C-a
+# bind ^A send-prefix
 
 # Use vim keybindings
 set-window-option -g mode-keys vi
@@ -36,10 +36,10 @@ bind-key k select-pane -U
 bind-key l select-pane -R
 
 # Quickly switch between windows
-bind ^a last-window
+bind ^b last-window
 
 # Quickly switch between sessions
-bind ^S switch-client -l
+bind ^s switch-client -l
 
 # tiny split below - suitable for test runners
 unbind _

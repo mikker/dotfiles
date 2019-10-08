@@ -170,8 +170,12 @@ noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 " TT runs a terminal command in a new tab before the current one
 "   :TT [terminal command]
 fun! s:runTermInTab(args)
-  execute '-tabnew|term ' . expand(a:args)
-  normal i
+  if tabpagenr() > 1
+  else
+    execute '-tabnew|term ' . expand(a:args)
+    keepalt file TT
+    normal i
+  endif
 endfun
 command! -nargs=* -complete=file TT call s:runTermInTab(<q-args>)
 
@@ -214,6 +218,9 @@ end
 " FZF
 noremap <leader>f :FZF<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
+" nnoremap <leader>f :Clap files<cr>
+" nnoremap <silent> <Leader>b :Clap buffers<cr>
+" nnoremap <silent> <Leader>T :Clap tags<cr>
 
 xmap <cr> :EasyAlign<cr>
 
@@ -226,12 +233,11 @@ let g:lightline = {
       \       ['mode', 'paste'],
       \       ['readonly', 'filename', 'fugitive', 'cocstatus']
       \    ],
-      \    'right': [['filetype'], ['gutentags']]
+      \    'right': [['filetype'], []]
       \  },
       \  'component_function': {
       \    'filename': 'LightLineFilename',
       \    'fugitive': 'fugitive#head',
-      \    'gutentags': 'gutentags#statusline',
       \    'cocstatus': 'coc#status'
       \  }
       \}
@@ -266,7 +272,8 @@ if has('nvim')
 else
   let test#strategy = "basic"
 endif
-" let test#strategy = "vtr"
+
+let test#strategy = "vtr"
 
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tT :TestFile<CR>
@@ -294,7 +301,7 @@ call togglebg#map("<f5>")
 
 " }}}
 
-set background=dark
+set background=light
 colo paramount
 
 " GUI {{{
@@ -371,12 +378,6 @@ nmap <leader>R :RubyFmt<cr>
 command! -nargs=0 Format :call CocAction('format')
 nnoremap <leader>F :Format<cr>
 
-" Fix Ruby syntax slowness
-set ttyfast
-set lazyredraw
-let g:ruby_path = []
-set re=1
-
 inoremap <c-_> <c-x><c-l>
 nnoremap <leader>B :TT srb tc<cr>
 
@@ -386,4 +387,27 @@ let g:VtrClearBeforeSend = 0
 
 map <leader>ro :VtrOpenRunner<cr>
 map <leader>rk :VtrKillRunner<cr>
+
+iabbrev donatoin donation
+
+if executable('prettier')
+  autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
+  autocmd FileType typescript,typescript.tsx setlocal formatprg=prettier\ --stdin\ --parser\ typescript
+  autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
+
+  autocmd FileType css,less setlocal formatprg=prettier\ --parser\ css
+  autocmd FileType html setlocal formatprg=prettier\ --parser\ html
+
+  autocmd FileType markdown setlocal formatprg=prettier\ --parser\ markdown
+  autocmd FileType yaml setlocal formatprg=prettier\ --parser\ yaml
+endif
+
+call coc#add_extension('coc-css', 'coc-emoji', 'coc-html', 'coc-solargraph', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-ultisnips', 'coc-yaml')
+
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+let g:coc_snippet_next = '<C-j>'
+let g:coc_snippet_prev = '<C-k>'
+let g:UltiSnipsExpandTrigger='<nop>'
+
+set tags^=./.git/tags
 
