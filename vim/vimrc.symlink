@@ -216,11 +216,11 @@ end
 " Plugin config and maps {{{
 
 " FZF
-noremap <leader>f :FZF<cr>
-nnoremap <silent> <Leader>b :Buffers<cr>
-" nnoremap <leader>f :Clap files<cr>
-" nnoremap <silent> <Leader>b :Clap buffers<cr>
-" nnoremap <silent> <Leader>T :Clap tags<cr>
+" noremap <leader>f :FZF<cr>
+" nnoremap <silent> <Leader>b :Buffers<cr>
+nnoremap <leader>f :Clap files<cr>
+nnoremap <silent> <Leader>b :Clap buffers<cr>
+nnoremap <silent> <Leader>T :Clap tags<cr>
 
 xmap <cr> :EasyAlign<cr>
 
@@ -301,7 +301,7 @@ call togglebg#map("<f5>")
 
 " }}}
 
-set background=light
+set background=dark
 colo paramount
 
 " GUI {{{
@@ -402,7 +402,7 @@ if executable('prettier')
   autocmd FileType yaml setlocal formatprg=prettier\ --parser\ yaml
 endif
 
-call coc#add_extension('coc-css', 'coc-emoji', 'coc-html', 'coc-solargraph', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-ultisnips', 'coc-yaml')
+call coc#add_extension('coc-css', 'coc-emoji', 'coc-html', 'coc-json', 'coc-solargraph', 'coc-prettier', 'coc-tsserver', 'coc-ultisnips', 'coc-yaml')
 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 let g:coc_snippet_next = '<C-j>'

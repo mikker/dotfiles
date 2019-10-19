@@ -353,9 +353,15 @@ if s:is_win
 
   " Copied from fzf
   function! s:wrap_cmds(cmds)
-    return map(['@echo off', 'for /f "tokens=4" %%a in (''chcp'') do set origchcp=%%a', 'chcp 65001 > nul'] +
-    \ (type(a:cmds) == type([]) ? a:cmds : [a:cmds]) +
-    \ ['chcp %origchcp% > nul'], 'v:val."\r"')
+    return map([
+      \ '@echo off',
+      \ 'setlocal enabledelayedexpansion',
+      \ 'for /f "tokens=*" %%a in (''chcp'') do for %%b in (%%a) do set origchcp=%%b',
+      \ 'chcp 65001 > nul'
+    \ ]
+    \ + (type(a:cmds) == type([]) ? a:cmds : [a:cmds])
+    \ + ['chcp !origchcp! > nul', 'endlocal'],
+    \ 'v:val."\r"')
   endfunction
 
   function! s:batchfile(cmd)

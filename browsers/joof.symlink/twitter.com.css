@@ -11,15 +11,15 @@
 
 
 /* Hide like and retweet counts */
-[data-testid='retweet'],
-[data-testid='like'],
-[aria-label="Share Tweet"] {
+[aria-label ^= 'Timeline'] [data-testid='retweet'],
+[aria-label ^= 'Timeline'] [data-testid='like'],
+[aria-label ^= 'Timeline'] [aria-label="Share Tweet"] {
   opacity: 0.00001;
 }
 
 /* ...unless tweet is hovered */
-[data-testid='tweet']:hover [data-testid='retweet'],
-[data-testid='tweet']:hover [data-testid='like'],
-[data-testid='tweet']:hover [data-testid='like'] {
+[aria-label ^= 'Timeline'] [data-testid='tweet']:hover [data-testid='retweet'],
+[aria-label ^= 'Timeline'] [data-testid='tweet']:hover [data-testid='like'],
+[aria-label ^= 'Timeline'] [data-testid='tweet']:hover [data-testid='like'] {
   opacity: 1;
 }

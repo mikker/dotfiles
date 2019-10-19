@@ -113,12 +113,16 @@ function setupSystemFontResetter() {
       const s = document.createElement("style");
       s.innerHTML = `
         * {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+        }
+        body {
+          font-size: 16px;
         }
         p {
           font-weight: 400 !important;
           max-width: 40em;
           line-height: 1.5;
+          /* filter: grayscale(1) contrast(9); */
         }
         pre, code, pre * {
           font-family: 'SF Mono', 'Menlo', monospace !important;
