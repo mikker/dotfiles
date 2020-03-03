@@ -1,5 +1,6 @@
 # vim: set ft=ruby
 
+brew "ansible"
 brew "aria2"
 brew "bat"
 brew "carthage"
@@ -7,6 +8,7 @@ brew "certbot"
 brew "chruby"
 brew "ctags"
 brew "curl"
+brew "dark-mode"
 brew "ffmpeg"
 brew "fzf"
 brew "git"
@@ -17,6 +19,7 @@ brew "mas"
 brew "mosh"
 brew "neovim"
 brew "node"
+brew "postgresql"
 brew "python"
 brew "python@2"
 brew "reattach-to-user-namespace"
@@ -33,8 +36,13 @@ brew "yarn"
 brew "youtube-dl"
 brew "zsh"
 
+tap "homebrew/services"
+
 tap "chrismytton/formula"
 brew "chrismytton/formula/shoreman", args: ["HEAD"]
+
+tap "mongodb/brew"
+brew "mongodb-community"
 
 cask_args appdir: "/Applications"
 tap "homebrew/cask"

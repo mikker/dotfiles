@@ -1,6 +1,6 @@
 #!/bin/bash
 osascript -e '
-tell application "FirefoxDeveloperEdition"
+tell application "Firefox Developer Edition"
   activate
   delay 0.5
   tell application "System Events" to keystroke "r" using command down

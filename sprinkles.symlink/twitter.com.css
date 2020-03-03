@@ -4,10 +4,10 @@
 }
 
 /* Blur out the general timeline for M A X I M U M   F O C U S */
-/* [aria-label = 'Timeline: Your Home Timeline'] { */
-/*   opacity: .5; */
-/*   filter: blur(5px) grayscale(100%); */
-/* } */
+body.blurred [aria-label = 'Timeline: Your Home Timeline'] {
+  opacity: .5;
+  filter: blur(5px) grayscale(100%);
+}
 
 
 /* Hide like and retweet counts */

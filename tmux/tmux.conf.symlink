@@ -2,8 +2,8 @@
 
 bind R source-file ~/.tmux.conf
 
-set -g default-terminal "tmux-256color"
-set-option -sa terminal-overrides ',xterm-256color:RGB'
+set -g default-terminal 'tmux-256color'
+set -ga terminal-overrides ',*:Tc'
 
 # mouse on (tmux 2.1)
 set -g mouse on

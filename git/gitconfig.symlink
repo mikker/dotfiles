@@ -21,6 +21,7 @@
   pr = "!hub pull-request"
   rb = rebase
   st = status
+  sw = switch
   tree = "log --graph --decorate --abbrev=commit"
   undo = reset HEAD~1 --mixed
   up = pull --rebase --autostash

@@ -100,7 +100,7 @@ function setupScrollByCtrlDAndU() {
 }
 
 function setupSystemFontResetter() {
-  let styleElm = null
+  let styleElm = null;
 
   document.addEventListener("keyup", event => {
     if (event.keyCode === 83 && event.ctrlKey && event.altKey) {
@@ -113,16 +113,22 @@ function setupSystemFontResetter() {
       const s = document.createElement("style");
       s.innerHTML = `
         * {
-          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+            "Helvetica Neue", sans-serif !important;
         }
         body {
           font-size: 16px;
+          letter-spacing: 0;
         }
         p {
           font-weight: 400 !important;
           max-width: 40em;
-          line-height: 1.5;
+          line-height: 1.5 !important;
           /* filter: grayscale(1) contrast(9); */
+        }
+        ul, ol {
+          line-height: 1.5 !important;
         }
         pre, code, pre * {
           font-family: 'SF Mono', 'Menlo', monospace !important;
@@ -130,7 +136,7 @@ function setupSystemFontResetter() {
       `;
       document.body.appendChild(s);
 
-      styleElm = s
+      styleElm = s;
     }
   });
 }

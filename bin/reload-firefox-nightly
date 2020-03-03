@@ -1,6 +1,6 @@
 #!/bin/bash
 osascript -e '
-tell application "FirefoxNightly"
+tell application "Firefox Nightly"
   activate
   delay 0.1
   tell application "System Events" to keystroke "r" using command down

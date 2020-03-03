@@ -3,12 +3,13 @@ set -ex
 
 current_branch=$(git branch | grep '*' | sed -e 's/* //')
 
+git fetch --all --prune
+
 if [ $current_branch != "master" ]; then
   git checkout master
 fi
 
-git fetch --all --prune
-git pull origin master --ff-only --rebase --autostash
+git pull origin master --ff-only --rebase=true --autostash
 
 if [ $current_branch != "master" ]; then
   git checkout $current_branch

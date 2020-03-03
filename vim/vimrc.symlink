@@ -15,6 +15,7 @@ filetype plugin indent on
 " {{{ Basics
 
 set nobackup
+set nowritebackup
 set noswapfile
 set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
 if exists('+undofile')
@@ -24,9 +25,7 @@ endif
 
 set history=10000
 set undolevels=1000
-set foldlevel=999
 
-set shell=zsh
 set mouse=nvi " enable mouse
 set cursorline " highlight current line
 set hidden " allow buffers in background
@@ -34,7 +33,7 @@ set number " line numbers
 set listchars=tab:»·,trail:· " invisible chars
 set list " show tabs and trailing whitespace
 
-set wildmode=longest:list,full " tab completion
+" set wildmode=longest:list,full " tab completion
 set laststatus=2 " always show status bar
 set wildignorecase " ignore case when completing filenames in command mode
 set ignorecase smartcase " search is case insensitive unless when upper case
@@ -45,23 +44,29 @@ set expandtab " spaces for tabs
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+set foldlevel=999 " folds come expanded
 
 set autoread " update files when coming back
 
 set exrc " auto load local .vimrc files
 set secure " … but lets keep it secure
 
-set spelllang=da
-
-" ag for ack
-" brew install the_silver_searcher
+" brew install ripgrep
 if executable('rg')
   set grepprg=rg\ --vimgrep
 endif
 
-if has('termguicolors')
-  set termguicolors " Use millions of colors
+if exists('+termguicolors')
+  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
+
+
+if has('nvim')
+  " :s command real-time preview
+  set inccommand=nosplit
+end
 
 " }}}
 " {{{ Mappings
@@ -137,7 +142,7 @@ nmap <leader>vp :e <c-r>=g:plugins_file_path<cr><cr>
 " for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
 noremap <leader>mc :Rerun call system('reload-chrome')<cr>
 noremap <leader>ms :Rerun call system('reload-safari')<cr>
-noremap <leader>mr :Rerun call system('reload-firefox')<cr>
+noremap <leader>mr :Rerun call system('reload-firefox-dev')<cr>
 
 " wait what time is it?
 iab <expr> ddate strftime("%Y-%m-%d")
@@ -148,6 +153,10 @@ cnoreabbrev E e
 cnoreabbrev G Git
 cnoreabbrev Qa qa
 
+if has('nvim')
+  " <esc> goes to normal mode in term buffers
+  tnoremap <esc> <c-\><c-n>
+end
 " }}}
 " {{{ Functions and commands
 
@@ -195,32 +204,38 @@ augroup vimrcEx
   au BufLeave *.{rb,ex,exs}              exe "normal! mC"
   au BufLeave *.yml                      exe "normal! mY"
 
-  " au BufRead *.mkd,*.md set ai formatoptions=tcroqn2 comments=n:>
+  " Resize windows when the terminal window size changes (from http://vimrcfu.com/snippet/186)
+  autocmd VimResized * wincmd =
+
+  " Don't auto insert a comment when using O/o for a newline
+  autocmd VimEnter,BufRead,FileType * set formatoptions-=o
+
+  " Automatically reload vimrc when it's saved
+  autocmd BufWritePost {.,}vimrc so ~/.vimrc"
+
+  " Automatically reload files when changed
+  autocmd FocusGained, BufEnter * :checktime 
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+        \ if mode() == 'n' && getcmdwintype() == '' | checktime | endif
 augroup END
 
 if has('nvim')
-  " <esc> goes to normal mode in term buffers
-  tnoremap <esc> <c-\><c-n>
-
   " Close finished term buffers with <cr> in nvim
   augroup nvimrcEx
     autocmd!
     au TermOpen * nmap <buffer> <cr> :bd!<cr>
   augroup END
-
-  " :s command real-time preview
-  set inccommand=nosplit
 end
 
 " }}}
 " Plugin config and maps {{{
 
 " FZF
-" noremap <leader>f :FZF<cr>
+noremap <leader>f :Files<cr>
 " nnoremap <silent> <Leader>b :Buffers<cr>
-nnoremap <leader>f :Clap files<cr>
-nnoremap <silent> <Leader>b :Clap buffers<cr>
-nnoremap <silent> <Leader>T :Clap tags<cr>
+" nnoremap <leader>f :Clap files<cr>
+" nnoremap <silent> <Leader>b :Clap buffers<cr>
+" nnoremap <silent> <Leader>T :Clap tags<cr>
 
 xmap <cr> :EasyAlign<cr>
 
@@ -254,10 +269,13 @@ endfunction
 
 function! LightLineFilename()
   return ('' !=# expand('%f') ? expand('%f') : '[No Name]') .
-       \ ('' !=# LightLineModified() ? LightLineModified() : '')
+        \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
 
-com! Wiki FZF ~/Documents/Wiki/
+let g:vimwiki_list = [{'path': '~/Documents/Wiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+com! -bang Wiki call fzf#vim#files('~/Documents/Wiki/', fzf#vim#with_preview(), <bang>0)
 nnoremap <leader>W :Wiki<cr>
 
 " Use :TT for vim-test
@@ -267,11 +285,11 @@ endfun
 
 let g:test#custom_strategies = { "tt": function('TTStrategy') }
 
-if has('nvim')
-  let test#strategy = "tt"
-else
-  let test#strategy = "basic"
-endif
+" if has('nvim')
+"   let test#strategy = "tt"
+" else
+"   let test#strategy = "basic"
+" endif
 
 let test#strategy = "vtr"
 
@@ -281,6 +299,7 @@ nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
+" https://github.com/mikker/vim-rerunner
 let g:rerunner_focus = 'TestLast'
 map <leader>md :Rerun TestLast<cr>
 
@@ -299,9 +318,9 @@ map <leader>G :Goyo<cr>
 
 call togglebg#map("<f5>")
 
-" }}}
+" " }}}
 
-set background=dark
+set background=light
 colo paramount
 
 " GUI {{{
@@ -309,8 +328,6 @@ colo paramount
 if has("gui_vimr")
   " act as in a term
   nmap <c-z> :term<cr>
-  " shift-tab sends ctrl+shift+y
-  " au! FileType vimwiki map <buffer> <c-s-y> :VimwikiPrevLink<cr>
 
   set background=light
 
@@ -327,59 +344,48 @@ if has("gui_vimr")
   au! VimEnter * call s:initVimR()
 endif
 
-" }}}
+" " }}}
+
 " COC COC COC
 
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
-if has('CocAction')
-  " Use K for show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  function! s:show_documentation()
-    if &filetype == 'vim'
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-end
+command! -nargs=0 Format :call CocAction('format')
+nnoremap <leader>F :Format<cr>
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for format selected region
-vmap <leader>cF  <Plug>(coc-format-selected)
-nmap <leader>cF  <Plug>(coc-format-selected)
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-function! Rubyfmt()
-  echo "Calling rubyfmt"
-  silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))
-  silent exec("edit " . expand("%"))
-endfunction
-command! -nargs=0 RubyFmt :call RubyFmt()
-nmap <leader>R :RubyFmt<cr>
+call coc#add_extension(
+      \ 'coc-css',
+      \ 'coc-emoji',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-prettier',
+      \ 'coc-tsserver',
+      \ 'coc-ultisnips',
+      \ 'coc-yaml'
+      \ )
 
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-nnoremap <leader>F :Format<cr>
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+" let g:coc_snippet_next = '<C-j>'
+" let g:coc_snippet_prev = '<C-k>'
+" let g:UltiSnipsExpandTrigger='<tab>'
 
 inoremap <c-_> <c-x><c-l>
-nnoremap <leader>B :TT srb tc<cr>
 
 let g:VtrOrientation = 'h'
 let g:VtrPercentage = 40
@@ -402,12 +408,17 @@ if executable('prettier')
   autocmd FileType yaml setlocal formatprg=prettier\ --parser\ yaml
 endif
 
-call coc#add_extension('coc-css', 'coc-emoji', 'coc-html', 'coc-json', 'coc-solargraph', 'coc-prettier', 'coc-tsserver', 'coc-ultisnips', 'coc-yaml')
-
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-let g:coc_snippet_next = '<C-j>'
-let g:coc_snippet_prev = '<C-k>'
-let g:UltiSnipsExpandTrigger='<nop>'
-
 set tags^=./.git/tags
 
+let g:vrc_curl_opts = {
+      \ '--silent': ''
+      \ }
+
+function! StatusLine()
+  return ' %f%h%w%m%r '
+endfunction
+set statusline=%!StatusLine()
+
+if !has("gui_vimr")
+  luafile ~/.vim/lsp.lua
+endif

@@ -12,12 +12,16 @@ function! s:maybeLocalPlug(args)
   endif
 endfunction
 
-call s:maybeLocalPlug('lightline-theme-pencil')
+" call s:maybeLocalPlug('lightline-theme-pencil')
 call s:maybeLocalPlug('vim-rerunner')
-call s:maybeLocalPlug('vim-dimcil')
 call s:maybeLocalPlug('vim-colors-paramount')
-call s:maybeLocalPlug('vim-colors-pap')
-call s:maybeLocalPlug('vim-colors-bell')
+
+" Load this into a register and open plugin repos quickly
+" ^f'vi'y:silent !open 'https://github.com/0'
+
+if !has("nvim")
+  Plug 'tpope/vim-sensible'
+endif
 
 " tpope's the shit
 Plug 'tpope/vim-abolish'
@@ -43,8 +47,9 @@ Plug 'tpope/vim-vinegar'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-runner'
+Plug 'diepm/vim-rest-console'
 Plug 'gerw/vim-HiLinkTrace'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -53,39 +58,35 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'neoclide/coc.nvim', {'do': './install.sh'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'whiteinge/diffconflicts'
 Plug 'wincent/ferret'
 if exists('##TextYankPost')
   Plug 'machakann/vim-highlightedyank'
-  let g:highlightedyank_highlight_duration = 100
 endif
 
 " filetypes and syntax
-Plug 'alampros/vim-styled-jsx'
-Plug 'jparise/vim-graphql'
+Plug 'evanleck/vim-svelte'
 Plug 'junegunn/vim-journal'
 Plug 'jxnblk/vim-mdx-js'
 Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'vim-ruby/vim-ruby'
-
-Plug 'fxn/vim-monochrome'
-Plug 'zaki/zazen'
-Plug 'pbrisbin/vim-colors-off'
-Plug 'arcticicestudio/nord-vim'
-
 Plug 'zackhsi/sorbet.vim'
-Plug 'neoclide/coc.nvim', {'do': './install.sh'}
-Plug 'liuchengxu/vim-clap'
 
-if has("nvim")
-else
-  Plug 'tpope/vim-sensible'
+" colors
+Plug 'pbrisbin/vim-colors-off'
+
+Plug 'rbong/vim-crystalline'
+Plug 'vimwiki/vimwiki'
+
+if has("nvim") && !has("gui_vimr")
+  Plug 'neovim/nvim-lsp'
 endif
 
 call plug#end()
