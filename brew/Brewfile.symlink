@@ -113,16 +113,19 @@ cask "webpquicklook"
 
 mas "1Password", id: 1333542190
 mas "Battery Indicator", id: 1206020918
-mas "Better Blocker", id: 1121192229
+mas "Better", id: 1121192229
 mas "BreakTime", id: 427475982
+mas "Dark Reader for Safari", id: 1438243180
 mas "GIF Brewery 3", id: 1081413713
 mas "Gestimer", id: 990588172
+mas "Hidden Bar", id: 1452453066
 mas "Logic Pro X", id: 634148309
 mas "Marked 2", id: 890031187
 mas "Numbers", id: 409203825
 mas "Pastebot", id: 1179623856
-mas "Reeder 3", id: 880001334
+mas "Reeder", id: 1449412482
 mas "Soulver", id: 413965349
-mas "Things 3", id: 904280696
+mas "Things", id: 904280696
 mas "iA Writer", id: 775737590
-# mas "Xcode", id: 497799835
+mas "JSONPeep", id: 1458969831
+mas "Xcode", id: 497799835
