@@ -61,3 +61,31 @@ hs.hotkey.bind(hyper, "=", function()
   f.h = screen:frame().h
   win:setFrame(f)
 end)
+
+hs.hotkey.bind(hyper, '6', function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  local screen = win:screen()
+
+  local f = win:frame()
+  f.w = 770
+  f.h = 550
+  f.y = (screen:frame().h / 2) - (f.h / 2)
+  f.x = (screen:frame().w / 2) - (f.w / 2)
+
+  win:setFrame(f)
+end)
+
+hs.hotkey.bind(hyper, '7', function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  local screen = win:screen()
+
+  local f = win:frame()
+  f.w = 1920
+  f.h = 1080
+  f.y = (screen:frame().h / 2) - (f.h / 2)
+  f.x = (screen:frame().w / 2) - (f.w / 2)
+
+  win:setFrame(f)
+end)

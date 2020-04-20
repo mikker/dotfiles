@@ -231,10 +231,10 @@ end
 " Plugin config and maps {{{
 
 " FZF
-noremap <leader>f :Files<cr>
+" noremap <leader>f :Files<cr>
 " nnoremap <silent> <Leader>b :Buffers<cr>
-" nnoremap <leader>f :Clap files<cr>
-" nnoremap <silent> <Leader>b :Clap buffers<cr>
+nnoremap <leader>f :Clap files<cr>
+nnoremap <silent> <Leader>b :Clap buffers<cr>
 " nnoremap <silent> <Leader>T :Clap tags<cr>
 
 xmap <cr> :EasyAlign<cr>
@@ -285,13 +285,13 @@ endfun
 
 let g:test#custom_strategies = { "tt": function('TTStrategy') }
 
-" if has('nvim')
-"   let test#strategy = "tt"
-" else
-"   let test#strategy = "basic"
-" endif
+if has('nvim')
+  let test#strategy = "tt"
+else
+  let test#strategy = "basic"
+endif
 
-let test#strategy = "vtr"
+" let test#strategy = "vtr"
 
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tT :TestFile<CR>
@@ -320,7 +320,7 @@ call togglebg#map("<f5>")
 
 " " }}}
 
-set background=light
+set background=dark
 colo paramount
 
 " GUI {{{
@@ -419,6 +419,9 @@ function! StatusLine()
 endfunction
 set statusline=%!StatusLine()
 
-if !has("gui_vimr")
+if !has("gui_vimr") && has('nvim')
   luafile ~/.vim/lsp.lua
 endif
+
+command! -nargs=0 Rubyfmt %!rubyfmt %
+nnoremap <leader>R :Rubyfmt<cr>

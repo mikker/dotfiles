@@ -50,6 +50,7 @@
   decorate = full
 [pull]
   ff = only
+	rebase = true
 [credential]
   helper = osxkeychain
 [credential "https://github.com"]

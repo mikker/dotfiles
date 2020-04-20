@@ -12,7 +12,7 @@ function! s:maybeLocalPlug(args)
   endif
 endfunction
 
-" call s:maybeLocalPlug('lightline-theme-pencil')
+call s:maybeLocalPlug('lightline-theme-pencil')
 call s:maybeLocalPlug('vim-rerunner')
 call s:maybeLocalPlug('vim-colors-paramount')
 
@@ -49,7 +49,7 @@ Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'diepm/vim-rest-console'
 Plug 'gerw/vim-HiLinkTrace'
-" Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -82,7 +82,6 @@ Plug 'zackhsi/sorbet.vim'
 " colors
 Plug 'pbrisbin/vim-colors-off'
 
-Plug 'rbong/vim-crystalline'
 Plug 'vimwiki/vimwiki'
 
 if has("nvim") && !has("gui_vimr")

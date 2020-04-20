@@ -2,26 +2,18 @@
 
 brew "ansible"
 brew "aria2"
-brew "bat"
 brew "carthage"
-brew "certbot"
 brew "chruby"
 brew "ctags"
 brew "curl"
 brew "dark-mode"
-brew "ffmpeg"
-brew "fzf"
 brew "git"
-brew "go"
 brew "hub"
-brew "imagemagick"
 brew "mas"
 brew "mosh"
-brew "neovim"
 brew "node"
 brew "postgresql"
 brew "python"
-brew "python@2"
 brew "reattach-to-user-namespace"
 brew "ripgrep"
 brew "ruby-install"
@@ -38,21 +30,18 @@ brew "zsh"
 
 tap "homebrew/services"
 
-tap "chrismytton/formula"
-brew "chrismytton/formula/shoreman", args: ["HEAD"]
-
 tap "mongodb/brew"
 brew "mongodb-community"
 
 cask_args appdir: "/Applications"
 tap "homebrew/cask"
+
 cask "acorn"
 cask "airtable"
 cask "appzapper"
 cask "dash"
 cask "docker"
 cask "dropshare"
-cask "encryptme"
 cask "firefox"
 cask "google-chrome"
 cask "gpg-suite"
@@ -61,12 +50,16 @@ cask "hammerspoon"
 cask "handbrake"
 cask "imageoptim"
 cask "iterm2"
+cask "kap"
 cask "ngrok"
 cask "notion"
+cask "obs"
 cask "putio-adder"
+cask "quicksilver"
 cask "sip"
 cask "sketch"
 cask "slack"
+cask "soulver"
 cask "spotify"
 cask "superduper"
 cask "telegram"
@@ -107,18 +100,21 @@ cask "qlstephen"
 cask "qlvideo"
 cask "quicklook-json"
 cask "quicklookase"
-cask "quicksilver"
 cask "suspicious-package"
 cask "webpquicklook"
 
-mas "1Password", id: 1333542190
+mas "1Password 7", id: 1333542190
 mas "Battery Indicator", id: 1206020918
 mas "Better", id: 1121192229
 mas "BreakTime", id: 427475982
+mas "Dato", id: 1470584107
 mas "Dark Reader for Safari", id: 1438243180
 mas "GIF Brewery 3", id: 1081413713
 mas "Gestimer", id: 990588172
+mas "Gifski", id: 1351639930
 mas "Hidden Bar", id: 1452453066
+mas "JSONPeep", id: 1458969831
+mas "LilyView", id: 529490330
 mas "Logic Pro X", id: 634148309
 mas "Marked 2", id: 890031187
 mas "Numbers", id: 409203825
@@ -126,6 +122,5 @@ mas "Pastebot", id: 1179623856
 mas "Reeder", id: 1449412482
 mas "Soulver", id: 413965349
 mas "Things", id: 904280696
-mas "iA Writer", id: 775737590
-mas "JSONPeep", id: 1458969831
 mas "Xcode", id: 497799835
+mas "iA Writer", id: 775737590

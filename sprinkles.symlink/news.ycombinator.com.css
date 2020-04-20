@@ -1,3 +1,25 @@
+/* Use system font */
+* {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
 /* Who can read that small font size? */
-.title { font-size: 18px; }
+.title { font-size: 18px; font-weight: 600; }
 .comment { font-size: 16px; line-height: 1.5; }
+.subtext { font-size: 14px; }
+
+/* More space between the items */
+tr.spacer { height: 14px !important; }
+
+/* Make it more creeaaammmyyy */
+body {
+  background: papayawhip;
+}
+
+/* Why the hell not? */
+#hnmain {
+  padding: 12px;
+  transform: rotate(-0.5deg);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 25px;
+}
+
