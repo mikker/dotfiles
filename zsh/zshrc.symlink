@@ -6,25 +6,20 @@ export PATH="./bin:$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
-source "$HOME/.zgen/zgen.zsh"
-
-if ! zgen saved; then
-  echo "Creating zgen save"
-
-  # zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zdharma/fast-syntax-highlighting
-  zgen load zsh-users/zsh-completions
-  zgen load zsh-users/zsh-autosuggestions
-
-  # zgen load denysdovhan/spaceship-prompt spaceship
-
-  zgen save
-fi
-
 source $ZSH_FILES/config.zsh
 source $ZSH_FILES/prompt.zsh
 source $ZSH_FILES/bindkeys.zsh
 source $ZSH_FILES/aliases.zsh
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Local modifications
 [[ -f ~/.localrc ]] && .  ~/.localrc

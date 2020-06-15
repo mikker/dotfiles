@@ -82,6 +82,20 @@ hs.hotkey.bind(hyper, '7', function()
   local screen = win:screen()
 
   local f = win:frame()
+  f.w = 1280
+  f.h = 720
+  f.y = 0 -- (screen:frame().h / 2) - (f.h / 2)
+  f.x = 0 -- (screen:frame().w / 2) - (f.w / 2)
+
+  win:setFrame(f)
+end)
+
+hs.hotkey.bind(hyper, '8', function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  local screen = win:screen()
+
+  local f = win:frame()
   f.w = 1920
   f.h = 1080
   f.y = (screen:frame().h / 2) - (f.h / 2)

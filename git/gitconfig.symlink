@@ -30,7 +30,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta --theme='OneHalfDark'
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -84,3 +84,5 @@
   old = red bold
   new = green bold
   whitespace = red reverse
+[interactive]
+  diffFilter = delta --color-only

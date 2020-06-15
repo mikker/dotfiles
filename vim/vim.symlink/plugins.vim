@@ -43,6 +43,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
+
 " things
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
@@ -61,7 +64,7 @@ Plug 'junegunn/vim-slash'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'neoclide/coc.nvim', {'do': './install.sh'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'whiteinge/diffconflicts'
@@ -78,6 +81,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
 Plug 'zackhsi/sorbet.vim'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " colors
 Plug 'pbrisbin/vim-colors-off'
@@ -86,6 +90,7 @@ Plug 'vimwiki/vimwiki'
 
 if has("nvim") && !has("gui_vimr")
   Plug 'neovim/nvim-lsp'
+  Plug 'haorenW1025/completion-nvim'
 endif
 
 call plug#end()

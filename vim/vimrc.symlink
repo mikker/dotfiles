@@ -246,14 +246,13 @@ let g:lightline = {
       \  'active': {
       \    'left': [
       \       ['mode', 'paste'],
-      \       ['readonly', 'filename', 'fugitive', 'cocstatus']
+      \       ['readonly', 'filename', 'fugitive']
       \    ],
       \    'right': [['filetype'], []]
       \  },
       \  'component_function': {
       \    'filename': 'LightLineFilename',
-      \    'fugitive': 'fugitive#head',
-      \    'cocstatus': 'coc#status'
+      \    'fugitive': 'fugitive#head'
       \  }
       \}
 
@@ -291,7 +290,7 @@ else
   let test#strategy = "basic"
 endif
 
-" let test#strategy = "vtr"
+let test#strategy = "vtr"
 
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tT :TestFile<CR>
@@ -346,45 +345,6 @@ endif
 
 " " }}}
 
-" COC COC COC
-
-set shortmess+=c
-
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-command! -nargs=0 Format :call CocAction('format')
-nnoremap <leader>F :Format<cr>
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-
-call coc#add_extension(
-      \ 'coc-css',
-      \ 'coc-emoji',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-prettier',
-      \ 'coc-tsserver',
-      \ 'coc-ultisnips',
-      \ 'coc-yaml'
-      \ )
-
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-" let g:coc_snippet_next = '<C-j>'
-" let g:coc_snippet_prev = '<C-k>'
-" let g:UltiSnipsExpandTrigger='<tab>'
-
 inoremap <c-_> <c-x><c-l>
 
 let g:VtrOrientation = 'h'
@@ -396,28 +356,11 @@ map <leader>rk :VtrKillRunner<cr>
 
 iabbrev donatoin donation
 
-if executable('prettier')
-  autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
-  autocmd FileType typescript,typescript.tsx setlocal formatprg=prettier\ --stdin\ --parser\ typescript
-  autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
-
-  autocmd FileType css,less setlocal formatprg=prettier\ --parser\ css
-  autocmd FileType html setlocal formatprg=prettier\ --parser\ html
-
-  autocmd FileType markdown setlocal formatprg=prettier\ --parser\ markdown
-  autocmd FileType yaml setlocal formatprg=prettier\ --parser\ yaml
-endif
-
 set tags^=./.git/tags
 
 let g:vrc_curl_opts = {
       \ '--silent': ''
       \ }
-
-function! StatusLine()
-  return ' %f%h%w%m%r '
-endfunction
-set statusline=%!StatusLine()
 
 if !has("gui_vimr") && has('nvim')
   luafile ~/.vim/lsp.lua
@@ -425,3 +368,29 @@ endif
 
 command! -nargs=0 Rubyfmt %!rubyfmt %
 nnoremap <leader>R :Rubyfmt<cr>
+
+" source /Users/mikker/dev/vendor/rubyfmt/rubyfmt.vim
+let g:rubyfmt_path = '/Users/mikker/dev/vendor/rubyfmt/rubyfmt.rb'
+
+
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+autocmd Filetype ruby,css,javascript setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+nnoremap <leader>ca <cmd>lua vim.lsp.buf.code_action()<cr>
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+nnoremap <leader>F :Prettier<cr>

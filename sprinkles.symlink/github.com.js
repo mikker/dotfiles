@@ -1,30 +1,33 @@
+// ============================================
+// ctrl+r selects and clicks "Rebase and Merge"
+// ============================================
+document.addEventListener("keydown", event => {
+  if (event.ctrlKey && event.keyCode === 82) rebase();
+});
+
 async function rebase() {
-  const button = document.querySelector(
-    '[data-details-container=".js-merge-pr"]'
-  );
+  const button = q('[data-details-container=".js-merge-pr"]');
 
   if (button.innerText !== "Rebase and merge") {
-    document.querySelector('[aria-label="Select merge method"]').click();
+    q('[aria-label="Select merge method"]').click();
     await sleep(250);
-    document
-      .querySelector('.js-merge-method-menu button[value="rebase"]')
-      .click();
+
+    q('.js-merge-method-menu button[value="rebase"]').click()
     await sleep(250);
   }
 
   button.click();
   await sleep(250);
 
-  document.querySelector(".btn-group-rebase .js-merge-commit-button").click()
+  q(".btn-group-rebase .js-merge-commit-button").click();
 }
-
-document.addEventListener("keydown", event => {
-  // ctrl+r
-  if (event.ctrlKey && event.keyCode === 82) rebase();
-});
 
 function sleep(delay) {
   return new Promise(resolve => {
     setTimeout(resolve, delay);
   });
+}
+
+function q(selector) {
+  return document.querySelector(selector);
 }
