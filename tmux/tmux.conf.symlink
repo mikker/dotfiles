@@ -15,6 +15,7 @@ set -g base-index 1
 set -g renumber-windows on
 # Set terminal title
 # set-option -g set-titles on
+set-option -g focus-events on
 
 # no visual bell
 set-option -g visual-activity off

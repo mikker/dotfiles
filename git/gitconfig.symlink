@@ -1,7 +1,7 @@
 ; vim: set ft=gitconfig
 [user]
-	name = Mikkel Malmberg
-	email = mikkel@brnbw.com
+  name = Mikkel Malmberg
+  email = mikkel@brnbw.com
   signingkey = 7B09867145A39CC3
 [color]
   diff = auto
@@ -30,7 +30,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-  pager = delta --theme='OneHalfDark'
+  pager = delta --theme='GitHub'
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -50,7 +50,7 @@
   decorate = full
 [pull]
   ff = only
-	rebase = true
+  rebase = true
 [credential]
   helper = osxkeychain
 [credential "https://github.com"]

@@ -61,10 +61,10 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'whiteinge/diffconflicts'
@@ -82,15 +82,16 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
 Plug 'zackhsi/sorbet.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'elixir-editors/vim-elixir'
 
 " colors
 Plug 'pbrisbin/vim-colors-off'
 
 Plug 'vimwiki/vimwiki'
+Plug 'AndrewRadev/switch.vim'
 
 if has("nvim") && !has("gui_vimr")
-  Plug 'neovim/nvim-lsp'
-  Plug 'haorenW1025/completion-nvim'
+  " Plug 'neovim/nvim-lsp'
 endif
 
 call plug#end()
