@@ -20,6 +20,6 @@ body.blurred [aria-label = 'Timeline: Your Home Timeline'] {
 /* ...unless tweet is hovered */
 [aria-label ^= 'Timeline'] [data-testid='tweet']:hover [data-testid='retweet'],
 [aria-label ^= 'Timeline'] [data-testid='tweet']:hover [data-testid='like'],
-[aria-label ^= 'Timeline'] [data-testid='tweet']:hover [data-testid='like'] {
+[aria-label ^= 'Timeline'] [data-testid='tweet']:hover [aria-label="Share Tweet"] {
   opacity: 1;
 }

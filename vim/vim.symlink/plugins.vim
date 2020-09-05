@@ -64,7 +64,6 @@ Plug 'junegunn/vim-slash'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'whiteinge/diffconflicts'
@@ -86,12 +85,16 @@ Plug 'elixir-editors/vim-elixir'
 
 " colors
 Plug 'pbrisbin/vim-colors-off'
+Plug 'andreypopp/vim-colors-plain'
 
-Plug 'vimwiki/vimwiki'
-Plug 'AndrewRadev/switch.vim'
+" Plug 'vimwiki/vimwiki'
+" Plug 'AndrewRadev/switch.vim'
+
+Plug 'etdev/vim-hexcolor'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 if has("nvim") && !has("gui_vimr")
-  " Plug 'neovim/nvim-lsp'
+  Plug 'neovim/nvim-lsp'
 endif
 
 call plug#end()

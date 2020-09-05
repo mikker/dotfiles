@@ -144,7 +144,7 @@ function setupSystemFontResetter() {
   });
 }
 
-EasingFunctions = {
+const EasingFunctions = {
   // no easing, no acceleration
   linear: function (t) {
     return t;
@@ -215,8 +215,10 @@ function findCorrespondingVideoElement(event) {
 // Adds / keyboard shortcut for focusing the search field if one exists
 function setupSearchFieldFinder() {
   document.addEventListener("keyup", event => {
-    // "/"
-    if (event.keyCode !== 191) return;
+    if (event.keyCode !== 191) return; // key is "/"
+    if (document.querySelector('*:focus')) return; // another field has focus
+    if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey)
+      return; // no modifiers held
 
     let s;
 
