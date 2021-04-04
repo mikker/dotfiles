@@ -43,16 +43,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
-Plug 'kana/vim-textobj-user'
-Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'itchyny/lightline.vim'
 
-" things
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-runner'
-Plug 'diepm/vim-rest-console'
-Plug 'gerw/vim-HiLinkTrace'
-Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'jreybert/vimagit'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -61,9 +56,10 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-slash'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'kana/vim-textobj-user'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'rakr/vim-togglebg'
 Plug 'reedes/vim-pencil'
 Plug 'whiteinge/diffconflicts'
@@ -72,30 +68,31 @@ if exists('##TextYankPost')
   Plug 'machakann/vim-highlightedyank'
 endif
 
+" things
+
 " filetypes and syntax
-Plug 'evanleck/vim-svelte'
-Plug 'junegunn/vim-journal'
-Plug 'jxnblk/vim-mdx-js'
-Plug 'pangloss/vim-javascript'
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-ruby/vim-ruby'
-Plug 'zackhsi/sorbet.vim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'elixir-editors/vim-elixir'
+Plug 'mhinz/vim-mix-format'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': 'javascript' }
+Plug 'slim-template/vim-slim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'yuezk/vim-js'
+Plug 'zackhsi/sorbet.vim'
+" Plug 'evanleck/vim-svelte'
+" Plug 'junegunn/vim-journal'
+" Plug 'jxnblk/vim-mdx-js'
+" Plug 'sheerun/vim-polyglot'
+Plug 'pantharshit00/vim-prisma'
 
-" colors
-Plug 'pbrisbin/vim-colors-off'
-Plug 'andreypopp/vim-colors-plain'
-
-" Plug 'vimwiki/vimwiki'
-" Plug 'AndrewRadev/switch.vim'
+Plug 'vimwiki/vimwiki'
 
 Plug 'etdev/vim-hexcolor'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-if has("nvim") && !has("gui_vimr")
-  Plug 'neovim/nvim-lsp'
-endif
+" if has("nvim") && !has("gui_vimr")
+"   Plug 'neovim/nvim-lspconfig'
+" endif
 
 call plug#end()
 

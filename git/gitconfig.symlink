@@ -30,7 +30,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-  pager = delta --theme='GitHub'
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -69,6 +69,7 @@
 [diff]
   tool = vimdiff
   default = true
+	colorMoved = default
 [mergetool "diffconflicts"]
   cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
@@ -84,5 +85,3 @@
   old = red bold
   new = green bold
   whitespace = red reverse
-[interactive]
-  diffFilter = delta --color-only

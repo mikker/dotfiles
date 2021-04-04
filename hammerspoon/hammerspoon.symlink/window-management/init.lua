@@ -99,7 +99,7 @@ hs.hotkey.bind(hyper, '8', function()
   f.w = 1920
   f.h = 1080
   f.y = 100 -- (screen:frame().h / 2) - (f.h / 2)
-  f.x = screen:frame().w - f.w
+  f.x = (screen:frame().w / 2) - (f.w / 2)
 
   win:setFrame(f)
 end)

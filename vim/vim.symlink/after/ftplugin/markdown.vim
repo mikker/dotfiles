@@ -13,6 +13,6 @@ nnoremap <buffer> <leader>q I><space><esc>
 nnoremap <buffer> <leader>1 yypv$r=
 nnoremap <buffer> <leader>2 I## <esc>
 
-" nnoremap <buffer> - <Plug>VinegarUp
+nnoremap <buffer> - :e <C-R>=expand('%:h').'/'<cr><cr>
 
 set fdm=indent

@@ -2,7 +2,7 @@ npm install -g \
       diff-so-fancy \
       neovim \
       nodemon \
-      now \
+      vercel \
       np \
       npm \
       prettier \

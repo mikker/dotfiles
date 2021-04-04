@@ -157,6 +157,9 @@ echo "TextEdit: Open and save files as UTF-8"
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
+echo "TextEdit: Start with empty doc"
+defaults write com.apple.TextEdit NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
+
 # }}}
 
 echo "Installing DefaultKeyBindings"

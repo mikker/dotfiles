@@ -99,6 +99,7 @@ cask "font-roboto"
 cask "font-roboto-condensed"
 cask "font-roboto-mono"
 cask "font-sourcecodepro-nerd-font"
+cask "font-victor-mono"
 
 cask "qlcolorcode"
 cask "qlmarkdown"

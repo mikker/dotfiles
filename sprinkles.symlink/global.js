@@ -1,4 +1,4 @@
-// Let's me scroll by half a page instead of a whole page (space bar)
+// Lets me scroll by half a page instead of a whole page (space bar)
 // Bound to ctrl+d and ctrl+u -- like in vim
 setupScrollByCtrlDAndU();
 

@@ -1,2 +1,2 @@
 #!/bin/bash
-RUBYFMT_USE_RELEASE=1 ruby --disable=all /Users/mikker/dev/vendor/rubyfmt/rubyfmt.rb $@
+/Users/mikker/dev/vendor/rubyfmt/target/release/rubyfmt-main $@
