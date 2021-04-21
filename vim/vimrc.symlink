@@ -320,7 +320,7 @@ call togglebg#map("<f5>")
 " " }}}
 
 
-set background=dark
+set background=light
 colo paramount
 
 " GUI {{{
@@ -386,12 +386,12 @@ endif
 " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
 " Auto-darkmode
-" let output =  system("is-this-dark-mode")
-" if v:shell_error == 0
-"   set background=dark
-" else
-"   set background=light
-" endif
+let output =  system("is-this-dark-mode")
+if v:shell_error == 0
+  set background=dark
+else
+  set background=light
+endif
 
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-tailwindcss', 'coc-html', 'coc-elixir']
 
