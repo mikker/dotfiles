@@ -2,7 +2,7 @@ body {
 }
 
 .navbar {
-  background-color: transparent;
+  background-color: #fff;
   border: none;
   color: #999;
 }
@@ -139,6 +139,28 @@ h1[data-bridge--page-target="header"] {
 
 .btn--icon-new::before {
   filter: grayscale(1) brightness(20) !important;
+}
+
+.trays__scroller {
+  background: none;
+}
+
+.inboxes--feed message-content {
+  display: none;
+}
+
+.inboxes--feed .sheet {
+  padding: 0;
+  margin: 0;
+}
+
+.inboxes--feed .topic__header {
+  align-items: center;
+  flex-direction: row;
+}
+
+.inboxes--feed .entries {
+  margin-top: 0;
 }
 
 :root {
