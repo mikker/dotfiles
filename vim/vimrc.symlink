@@ -211,7 +211,7 @@ augroup vimrcEx
   autocmd VimEnter,BufRead,FileType * set formatoptions-=o
 
   " Automatically reload vimrc when it's saved
-  autocmd BufWritePost {.,}vimrc so ~/.vimrc"
+  " autocmd BufWritePost {.,}vimrc so ~/.vimrc"
 
   " Automatically reload files when changed
   autocmd FocusGained, BufEnter * :checktime
@@ -320,7 +320,7 @@ call togglebg#map("<f5>")
 " " }}}
 
 
-set background=light
+set background=dark
 colo paramount
 
 " GUI {{{
@@ -329,19 +329,13 @@ if has("gui_vimr")
   " act as in a term
   nmap <c-z> :term<cr>
 
-  " set background=dark
+  set background=light
 
   cd ~/Documents/Wiki
 
   let g:goyo_height = '100%'
 
-  fun! s:initVimR()
-    if eval("@%") == ""
-      " execute 'VimwikiIndex'
-    end
-  endfun
-
-  au! VimEnter * call s:initVimR()
+  autocmd VimEnter * if argc() == 0 | execute 'VimwikiIndex' | execute 'Goyo' | endif
 endif
 
 " " }}}
@@ -363,17 +357,11 @@ let g:vrc_curl_opts = {
       \ '--silent': ''
       \ }
 
-command! -nargs=0 Rubyfmt %!rubyfmt %
-nnoremap <leader>R :Rubyfmt<cr>
-
-" source /Users/mikker/dev/vendor/rubyfmt/rubyfmt.vim
-" let g:rubyfmt_path = '/Users/mikker/dev/vendor/rubyfmt/rubyfmt.rb'
-
 nnoremap <leader>F :Prettier<cr>
 
-if has('nvim') && !has("gui_vimr")
-  " luafile ~/.vim/lsp.lua
-endif
+" if has('nvim') && !has("gui_vimr")
+"   luafile ~/.vim/lsp.lua
+" endif
 
 " nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 " nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -385,13 +373,13 @@ endif
 " nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
-" Auto-darkmode
-let output =  system("is-this-dark-mode")
-if v:shell_error == 0
-  set background=dark
-else
-  set background=light
-endif
+" " Auto-darkmode
+" let output =  system("is-this-dark-mode")
+" if v:shell_error == 0
+"   set background=dark
+" else
+"   set background=light
+" endif
 
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-tailwindcss', 'coc-html', 'coc-elixir']
 

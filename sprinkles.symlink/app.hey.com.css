@@ -17,7 +17,7 @@ body {
 
 .sheet,
 .entry--sheet {
-  background: none;
+  background: var(--color-bg--main);
   box-shadow: none !important;
 }
 
@@ -145,13 +145,31 @@ h1[data-bridge--page-target="header"] {
   background: none;
 }
 
-.inboxes--feed message-content {
+.inboxes--feed .entry__body {
   display: none;
+}
+
+.inboxes--feed h2 {
+  font-size: 1.5rem;
+}
+
+.inboxes--feed .entry__avatar .avatar {
+  width: 1em;
+  height: 1em;
 }
 
 .inboxes--feed .sheet {
   padding: 0;
   margin: 0;
+}
+
+.inboxes--feed .posting {
+  margin-bottom: 2rem;
+}
+
+.inboxes--feed .entry__type-icon {
+  width: .25em;
+  height: .25em;
 }
 
 .inboxes--feed .topic__header {
