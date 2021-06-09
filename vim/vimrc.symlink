@@ -373,13 +373,15 @@ nnoremap <leader>F :Prettier<cr>
 " nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 
-" " Auto-darkmode
-" let output =  system("is-this-dark-mode")
-" if v:shell_error == 0
-"   set background=dark
-" else
-"   set background=light
-" endif
+" Auto-darkmode
+let output =  system("is-this-dark-mode")
+if v:shell_error == 0
+  set background=dark
+else
+  set background=light
+endif
 
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-tailwindcss', 'coc-html', 'coc-elixir']
+
+command! -nargs=0 Rubyfmt %!rubyfmt %
 

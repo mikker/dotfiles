@@ -84,6 +84,7 @@ Plug 'zackhsi/sorbet.vim'
 " Plug 'jxnblk/vim-mdx-js'
 " Plug 'sheerun/vim-polyglot'
 Plug 'pantharshit00/vim-prisma'
+Plug 'tomlion/vim-solidity'
 
 Plug 'vimwiki/vimwiki'
 
