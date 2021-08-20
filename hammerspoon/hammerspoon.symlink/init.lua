@@ -17,7 +17,7 @@ local charsToApps = {
   i = "Music",
   m = "Messages",
   p = "Things3",
-  -- s = "Safari",
+  s = "Safari",
   -- s = "Safari Technology Preview",
   -- s = "Firefox",
   t = "Tweetbot",
@@ -30,26 +30,9 @@ for key, app in pairs(charsToApps) do
   end)
 end
 
--- our new mechanical future
-local mechToApps = {
-  f1 = "iTerm",
-  f4 = "Spotify",
-}
-for key, app in pairs(mechToApps) do
-  hs.hotkey.bind({}, key, function()
-    hs.application.launchOrFocus(app)
-  end)
-end
-
--- hs.hotkey.bind({}, 'f10', hs.spotify.playpause)
--- hs.hotkey.bind({}, 'pad-', hs.spotify.playpause)
--- hs.hotkey.bind({}, 'pagedown', hs.spotify.next)
--- hs.hotkey.bind({}, 'end', hs.spotify.previous)
-
--- }}}
-
 require("hjkl")
 require("caffeine")
 require("window-management")
+require("mouse_four_five")
 
 --- vim: fdm=marker

@@ -10,23 +10,11 @@ setupVideoSpeedThing();
 // Remove weird fonts and font-widths from unreadably sites with ctrl-alt-s
 setupSystemFontResetter();
 
-// TODO
-setupVideoZoom();
-
 // Focus the first search input with "/"
 setupSearchFieldFinder();
 
-function setupVideoZoom() {
-  document.addEventListener("mouseup", event => {
-    if (!event.altKey || event.shiftKey || event.ctrlKey || event.metaKey)
-      return;
 
-    const video = findCorrespondingVideoElement(event);
-    if (!video) return;
 
-    console.log(video);
-  });
-}
 
 function setupVideoSpeedThing() {
   document.addEventListener("mouseup", event => {
@@ -115,8 +103,14 @@ function setupSystemFontResetter() {
 
       const s = document.createElement("style");
       s.innerHTML = `
+        @import url('https://rsms.me/inter/inter.css');
+        html { font-family: 'Inter', sans-serif; }
+        @supports (font-variation-settings: normal) {
+          html { font-family: 'Inter var', sans-serif; }
+        }
+
         * {
-          font-family: system-ui, -apple-system, BlinkMacSystemFont,
+          font-family: "Inter var", system-ui, -apple-system, BlinkMacSystemFont,
             "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
             "Helvetica Neue", sans-serif !important;
         }

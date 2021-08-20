@@ -74,7 +74,7 @@ endif
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': 'javascript' }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'yuezk/vim-js'
@@ -89,11 +89,12 @@ Plug 'tomlion/vim-solidity'
 Plug 'vimwiki/vimwiki'
 
 Plug 'etdev/vim-hexcolor'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" if has("nvim") && !has("gui_vimr")
-"   Plug 'neovim/nvim-lspconfig'
-" endif
+if has("nvim") && !has("gui_vimr")
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'folke/lsp-colors.nvim'
+endif
 
 call plug#end()
 

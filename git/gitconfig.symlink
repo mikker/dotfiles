@@ -86,3 +86,5 @@
   old = red bold
   new = green bold
   whitespace = red reverse
+[init]
+	defaultBranch = main

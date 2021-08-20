@@ -9,6 +9,9 @@ body.blurred [aria-label = 'Timeline: Your Home Timeline'] {
   filter: blur(5px) grayscale(100%);
 }
 
+[aria-label="Timeline: "] {
+  display: none !important;
+}
 
 /* Hide like and retweet counts */
 [aria-label ^= 'Timeline'] [data-testid='retweet'],

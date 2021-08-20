@@ -13,3 +13,4 @@ if not configs.sorbet then
 end
 
 lspconfig.sorbet.setup{}
+lspconfig.tsserver.setup{}

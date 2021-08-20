@@ -3,5 +3,4 @@ gem install \
   gem-release \
   gem-shut-the-fuck-up \
   neovim \
-  ripper-tags gem-ripper-tags \
   tmuxinator
