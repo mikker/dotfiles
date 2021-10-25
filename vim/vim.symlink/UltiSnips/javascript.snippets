@@ -10,19 +10,13 @@ endsnippet
 snippet ll "() => {}" i
 ${1:($2)} => ${3:{$0}}
 endsnippet
-snippet f "function () {...}" i
-function (${1}) {$0}
+snippet f "function() {...}" i
+function(${1}) {$0}
 endsnippet
 snippet fn "function name() {...}" i
-function ${1} ($2) {
+function ${1}($2) {
 	$0
 }
-endsnippet
-snippet fg "" i
-function *(${1}) {${2}}
-endsnippet
-snippet fgn "" i
-function *${1}(${2}) {${3}}
 endsnippet
 snippet iife "" b
 (function () {
@@ -32,12 +26,12 @@ snippet iife "" b
 })()
 endsnippet
 snippet desc
-describe('${1}', function () {
+describe("${1}", () => {
 	$0
 })
 endsnippet
 snippet it
-it('${1}', function () {
+it("${1}", async () => {
 	$0
 })
 endsnippet
@@ -51,78 +45,13 @@ afterEach(function () {
 	$0
 })
 endsnippet
-snippet rcc
-React.createClass({
-	render: function() {
-		return (
-			$0
-		)
-	}
-})
-endsnippet
-snippet comp
-class ${1:Name} extends Component {
-	static propTypes = {
-		$2
-	}
-
-	render () {
-		return (
-			$0
-		)
-	}
-}
-endsnippet
 snippet exp "export default ..."
 export default $0
-endsnippet
-snippet ccomp "React component"
-import React, { Component, PropTypes } from 'react'
-
-export default class ${1:Name} extends Component {
-	static propTypes = {
-		$2
-	}
-
-	render () {
-		return <${3:div}>
-			$0
-		</$3>
-	}
-}
 endsnippet
 snippet prom
 new Promise((resolve, reject) => {
 	$0
 })
-endsnippet
-snippet rcomp "React component for react-rails"
-(window => {
-	const { Component, PropTypes } = React
-
-	class ${1:Name} extends Component {
-		static propTypes = {
-			$2
-		}
-		render () {
-			return (
-				${3:<div>$0</div>}
-			)
-		}
-	}
-
-	window.$1 = $1
-})(window)
-endsnippet
-snippet fcomp "Dumb React component"
-import React, { PropTypes } from 'react'
-
-export default function ${1:Name} (${2:{}}) {
-	return $0
-}
-
-$1.propTypes = {
-}
 endsnippet
 snippet r "require(...)"
 require('$0')

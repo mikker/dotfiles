@@ -93,7 +93,11 @@ Plug 'etdev/vim-hexcolor'
 
 if has("nvim") && !has("gui_vimr")
   Plug 'neovim/nvim-lspconfig'
-  Plug 'folke/lsp-colors.nvim'
+  Plug 'kabouzeid/nvim-lspinstall'
+  " Plug 'folke/lsp-colors.nvim'
+  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-lua/completion-nvim'
+  " Plug 'glepnir/lspsaga.nvim'
 endif
 
 call plug#end()
