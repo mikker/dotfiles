@@ -385,5 +385,7 @@ set shortmess+=c
 
 command! -nargs=0 Rubyfmt %!rubyfmt %
 
-autocmd BufEnter * lua require'completion'.on_attach()
+if has('nvim') && !has("gui_vimr")
+  autocmd BufEnter * lua require'completion'.on_attach()
+endif
 

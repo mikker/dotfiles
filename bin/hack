@@ -1,17 +1,23 @@
 #!/bin/bash
 set -ex
 
-current_branch=$(git branch | grep '*' | sed -e 's/* //')
+current_branch=$(git symbolic-ref HEAD --short)
+
+if git branch | grep -q master; then
+  main_branch='master'
+else
+  main_branch='main'
+fi
 
 git fetch --all --prune
 
-if [ $current_branch != "master" ]; then
-  git checkout master
+if [ $current_branch != $main_branch ]; then
+  git checkout $main_branch
 fi
 
-git pull origin master --ff-only --rebase=true --autostash
+git pull origin $main_branch --ff-only --rebase=true --autostash
 
-if [ $current_branch != "master" ]; then
+if [ $current_branch != $main_branch ]; then
   git checkout $current_branch
-  git rebase master --autostash
+  git rebase $main_branch --autostash
 fi

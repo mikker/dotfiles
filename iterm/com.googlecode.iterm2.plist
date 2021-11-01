@@ -2773,13 +2773,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.94990187883377075</real>
+				<real>0.95294117647058818</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.9623369574546814</real>
+				<real>0.95686274509803926</real>
 				<key>Red Component</key>
-				<real>0.97216469049453735</real>
+				<real>0.96470588235294119</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
@@ -3055,13 +3055,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.156827837228775</real>
+				<real>0.20662687157346227</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.15682980418205261</real>
+				<real>0.22118030439878567</real>
 				<key>Red Component</key>
-				<real>0.15682616829872131</real>
+				<real>0.26484060287475586</real>
 			</dict>
 			<key>Guid</key>
 			<string>0573FFC4-AE86-44EE-8AD2-0C475F168DD3</string>
@@ -3410,7 +3410,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>FiraCode-Regular 18</string>
+			<string>VictorMono-SemiBold 18</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Place Prompt at First Column</key>
