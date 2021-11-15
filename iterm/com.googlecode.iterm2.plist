@@ -2097,6 +2097,10 @@
 	<integer>4</integer>
 	<key>JobName</key>
 	<true/>
+	<key>NeverWarnAboutShortLivedSessions_0573FFC4-AE86-44EE-8AD2-0C475F168DD3</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_0573FFC4-AE86-44EE-8AD2-0C475F168DD3_selection</key>
+	<integer>0</integer>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_F04B134F-101E-47DF-925A-8C1E1978DDD5_selection</key>
@@ -3410,7 +3414,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>VictorMono-SemiBold 18</string>
+			<string>VictorMono-SemiBold 16</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Place Prompt at First Column</key>

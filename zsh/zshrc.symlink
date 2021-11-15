@@ -2,7 +2,7 @@ export DOTFILES=$HOME/.dotfiles
 export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 
-export PATH="./bin:$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="./bin:$DOTFILES/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
@@ -17,12 +17,12 @@ if type brew &>/dev/null; then
   autoload -Uz compinit
   compinit
 
-  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # Local modifications
-[[ -f ~/.localrc ]] && .  ~/.localrc
+[[ -f ~/.lrc ]] && .  ~/.lrc
 
 # Load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

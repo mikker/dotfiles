@@ -3,8 +3,14 @@ set -ex
 
 current_branch=$(git branch | grep '*' | sed -e 's/* //')
 
-if [ $current_branch == "master" ]; then
-  echo 'Not destroying master'
+if git branch | grep -q master; then
+  main_branch='master'
+else
+  main_branch='main'
+fi
+
+if [ $current_branch == $main_branch ]; then
+  echo "Not destroying $main_branch"
   exit 1
 fi
 
@@ -13,9 +19,9 @@ if [[ `git status --porcelain` != '' ]]; then
   exit 1
 fi
 
-git checkout master
+git checkout $main_branch
 
 git fetch --all --prune
-git pull origin master --ff-only --rebase --autostash
+git pull origin $main_branch --ff-only --rebase --autostash
 
 git br -D $current_branch
