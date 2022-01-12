@@ -56,8 +56,6 @@
   helper = osxkeychain
 [credential "https://github.com"]
   username = mikker
-[includeIf "gitdir:~/dev/elastic/"]
-  path = "~/.gitconfig-elastic"
 [commit]
   gpgsign = true
 [merge]

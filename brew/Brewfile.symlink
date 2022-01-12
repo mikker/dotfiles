@@ -32,9 +32,6 @@ brew "zsh-syntax-highlighting"
 
 tap "homebrew/services"
 
-tap "mongodb/brew"
-brew "mongodb-community"
-
 tap "federico-terzi/espanso"
 brew "espanso"
 
@@ -44,6 +41,7 @@ tap "homebrew/cask"
 cask "acorn"
 cask "airtable"
 cask "appzapper"
+cask "blackhole-2ch"
 cask "dash"
 cask "docker"
 cask "dropshare"
