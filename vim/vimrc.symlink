@@ -1,234 +1,24 @@
 " vim: fdm=marker foldlevel=0
 scriptencoding utf-8
 
-" {{{ Plugins
-
 let g:plugins_file_path = '~/.vim/plugins.vim'
 
 if filereadable(expand(g:plugins_file_path))
   exe ':source ' . g:plugins_file_path
 endif
 
-filetype plugin indent on
-
-" }}}
-" {{{ Basics
-
-set nobackup
-set nowritebackup
-set noswapfile
-set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
-if exists('+undofile')
-  set undofile
-  set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-endif
-
-set history=10000
-set undolevels=1000
-
-set mouse=nvi " enable mouse
-set cursorline " highlight current line
-set hidden " allow buffers in background
-set number " line numbers
-set listchars=tab:»·,trail:· " invisible chars
-set list " show tabs and trailing whitespace
-
-" set wildmode=longest:list,full " tab completion
-set laststatus=2 " always show status bar
-set wildignorecase " ignore case when completing filenames in command mode
-set ignorecase smartcase " search is case insensitive unless when upper case
-set gdefault " global search by default; /g for first-per-row only.
-
-set autoindent " indent to current depth on new lines
-set expandtab " spaces for tabs
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set foldlevel=999 " folds come expanded
-
-set autoread " update files when coming back
-
-set exrc " auto load local .vimrc files
-set secure " … but lets keep it secure
-
-" brew install ripgrep
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-endif
+source ~/.vim/basic.vim
+source ~/.vim/mappings.vim
+source ~/.vim/commands.vim
+source ~/.vim/plugin_configs.vim
 
 if exists('+termguicolors')
-  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-
-
-if has('nvim')
-  " :s command real-time preview
-  set inccommand=nosplit
-end
-
-" }}}
-" {{{ Mappings
-
-let g:mapleader="\<Space>"
-
-" jumping
-nnoremap <leader><leader> <c-^>
-" so fast save save save
-nmap <leader>j :w<cr>
-" / to search, <c-/> to clear search
-" term:
-noremap <c-_> :set hlsearch!<cr>
-" gui:
-noremap <c-/> :set hlsearch!<cr>
-" old leader is the new project wide search
-nnoremap \ :Ack<SPACE>
-
-" qq to record, Q to replay
-nmap Q @q
-vmap Q :normal Q<cr>
-
-" %% expands to dir of current file in cmd mode
-cmap %% <C-R>=expand('%:h').'/'<cr>
-" edit file in the same directory as the current file
-nmap <leader>e :edit %%
-
-" visual moving
-noremap k gk
-noremap j gj
-noremap gk k
-noremap gj j
-
-" Easy split navigation
-nnoremap <C-h>  <C-w>h
-nnoremap <C-j>  <C-w>j
-nnoremap <C-k>  <C-w>k
-nnoremap <C-l>  <C-w>l
-nnoremap <Left>  <C-w>h
-nnoremap <Down>  <C-w>j
-nnoremap <Up>  <C-w>k
-nnoremap <Right>  <C-w>l
-
-" tabs
-nnoremap ]w :tabn<cr>
-nnoremap [w :tabp<cr>
-
-" Y behaves like other capital letters
-nnoremap Y y$
-
-" always jump to mark column (and not just line)
-noremap ' `
-
-" Indenting visual selection keeps selection
-vnoremap < <gv
-vnoremap > >gv
-
-" Open pwd in Finder.app
-nnoremap <leader>O :call system('open .')<cr>
-
-" Just, you know, close the bottom window
-nnoremap <silent> <c-w>z :wincmd z<bar>cclose<bar>lclose<cr>
-
-" c-c doesn't trigger InsertLeave by default so we map it to regular esc
-xnoremap <c-c> <esc>
-inoremap <c-c> <esc>
 
 " Shortcuts to configs
 nmap <leader>vv :e ~/.vimrc<cr>
 nmap <leader>vp :e <c-r>=g:plugins_file_path<cr><cr>
-
-" set <cr> to reload browsers
-" for the scripts, see https://github.com/mikker/dotfiles/tree/master/bin
-noremap <leader>mc :Rerun call system('reload-chrome')<cr>
-noremap <leader>ms :Rerun call system('reload-safari')<cr>
-noremap <leader>mr :Rerun call system('reload-firefox-dev')<cr>
-
-" wait what time is it?
-iab <expr> ddate strftime("%Y-%m-%d")
-iab <expr> ttime strftime("%H:%M")
-
-" stupid hands
-cnoreabbrev E e
-cnoreabbrev G Git
-cnoreabbrev Qa qa
-
-if has('nvim')
-  " <esc> goes to normal mode in term buffers
-  tnoremap <esc> <c-\><c-n>
-end
-" }}}
-" {{{ Functions and commands
-
-" Open current file in Marked.app
-command! Marked call system('open -a Marked\ 2 "'.expand('%').'"')
-
-" Quicker filetype setting:
-"   :F html
-command! -nargs=1 F set filetype=<args>
-
-" find and delete all trailing whitespace
-fun! <SID>StripTrailingWhitespaces()
-  let l:l = line('.')
-  let l:c = col('.')
-  %s/\s\+$//e
-  call cursor(l:l, l:c)
-endfun
-noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
-
-" TT runs a terminal command in a new tab before the current one
-"   :TT [terminal command]
-fun! s:runTermInTab(args)
-  if tabpagenr() > 1
-  else
-    execute '-tabnew|term ' . expand(a:args)
-    keepalt file TT
-    normal i
-  endif
-endfun
-command! -nargs=* -complete=file TT call s:runTermInTab(<q-args>)
-
-" }}}
-" {{{ Autocommands
-augroup vimrcEx
-  autocmd!
-
-  " Auto-open quickfix window after grep cmds
-  autocmd QuickFixCmdPost *grep* cwindow
-
-  " magic markers: enable using `H/S/J/C to jump back to
-  " last HTML, stylesheet, JS or app code buffer
-  au BufLeave *.{erb,html,haml,slim,eex} exe "normal! mH"
-  au BufLeave *.{css,scss}               exe "normal! mS"
-  au BufLeave *.{js,jsx,ts,tsx}          exe "normal! mJ"
-  au BufLeave *.{rb,ex,exs}              exe "normal! mC"
-  au BufLeave *.yml                      exe "normal! mY"
-
-  " Resize windows when the terminal window size changes (from http://vimrcfu.com/snippet/186)
-  autocmd VimResized * wincmd =
-
-  " Don't auto insert a comment when using O/o for a newline
-  autocmd VimEnter,BufRead,FileType * set formatoptions-=o
-
-  " Automatically reload vimrc when it's saved
-  " autocmd BufWritePost {.,}vimrc so ~/.vimrc"
-
-  " Automatically reload files when changed
-  autocmd FocusGained, BufEnter * :checktime
-  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-        \ if mode() == 'n' && getcmdwintype() == '' | checktime | endif
-augroup END
-
-if has('nvim')
-  " Close finished term buffers with <cr> in nvim
-  augroup nvimrcEx
-    autocmd!
-    au TermOpen * nmap <buffer> <cr> :bd!<cr>
-  augroup END
-end
-
-" }}}
-" Plugin config and maps {{{
 
 " FZF
 noremap <leader>f :Files<cr>
@@ -236,8 +26,6 @@ nnoremap <silent> <Leader>b :Buffers<cr>
 " nnoremap <leader>f :Clap files<cr>
 " nnoremap <silent> <Leader>b :Clap buffers<cr>
 " nnoremap <silent> <Leader>T :Clap tags<cr>
-
-xmap <cr> :EasyAlign<cr>
 
 let g:lightline = {
       \  'colorscheme': 'pencil',
@@ -270,233 +58,17 @@ function! LightLineFilename()
   return ('' !=# expand('%f') ? expand('%f') : '[No Name]') .
         \ ('' !=# LightLineModified() ? LightLineModified() : '')
 endfunction
-
-let g:vimwiki_ext2syntax = {}
-let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'syntax': 'markdown', 'ext': '.md'}]
-
-com! -bang Wiki call fzf#vim#files('~/Documents/Wiki/', fzf#vim#with_preview(), <bang>0)
-nnoremap <leader>W :Wiki<cr>
-
-" Use :TT for vim-test
-fun! TTStrategy(cmd)
-  execute 'TT ' . a:cmd
-endfun
-
-let g:test#custom_strategies = { "tt": function('TTStrategy') }
-
-if has('nvim')
-  let test#strategy = "tt"
-else
-  let test#strategy = "basic"
-endif
-
-let test#strategy = "vtr"
-
-nmap <silent> <leader>tt :TestNearest<CR>
-nmap <silent> <leader>tT :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
-
-" https://github.com/mikker/vim-rerunner
-let g:rerunner_focus = 'TestLast'
-map <leader>md :Rerun TestLast<cr>
-
-let g:colorizer_nomap = 1
-
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd,text call pencil#init()
-augroup END
-
-let g:pencil#wrapModeDefault = 'soft'
-let g:pencil#conceallevel = 0
-let g:pencil#concealcursor = 'c'
-
-map <leader>G :Goyo<cr>
-
-call togglebg#map("<f5>")
-
 " " }}}
-
 
 set background=dark
 colo paramount
 
-" GUI {{{
-" when in VimR.app
-if has("gui_vimr")
-  " act as in a term
-  nmap <c-z> :term<cr>
-
-  set background=light
-
-  cd ~/Documents/Wiki
-
-  let g:goyo_height = '100%'
-
-  autocmd VimEnter * if argc() == 0 | execute 'VimwikiIndex' | execute 'Goyo' | endif
-endif
-
 " " }}}
 
-inoremap <c-_> <c-x><c-l>
-
-let g:VtrOrientation = 'h'
-let g:VtrPercentage = 40
-let g:VtrClearBeforeSend = 0
-
-map <leader>ro :VtrOpenRunner<cr>
-map <leader>rk :VtrKillRunner<cr>
-
-iabbrev donatoin donation
-
-set tags^=./.git/tags
 
 let g:vrc_curl_opts = {
       \ '--silent': ''
       \ }
 
 nnoremap <leader>F :Prettier<cr>
-
-" if has('nvim') && !has("gui_vimr")
-"   luafile ~/.vim/lsp.lua
-"   autocmd BufEnter * lua require'completion'.on_attach()
-" endif
-
-" Auto-darkmode
-let output =  system("is-this-dark-mode")
-if v:shell_error == 0
-  set background=dark
-else
-  set background=light
-endif
-
-command! -nargs=0 Rubyfmt %!rubyfmt %
-
-let g:coc_global_extensions = ['coc-tsserver', 'coc-css', 'coc-tailwindcss', 'coc-html']
-
-" ---- COC
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" " Make <CR> auto-select the first completion item and notify coc.nvim to
-" " format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 

@@ -1,9 +1,6 @@
 --database=postgresql
---webpack
---skip-action-cable
---skip-spring
---skip-coffee
---skip-action-mailbox
---skip-action-text
+--css=postcss
 
---template=~/.dotfiles/rails/template.rb
+--skip-action-mailbox
+--skip-action-cable
+--skip-jbuilder

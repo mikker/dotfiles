@@ -12,7 +12,7 @@ function! s:maybeLocalPlug(args)
   endif
 endfunction
 
-call s:maybeLocalPlug('lightline-theme-pencil')
+" call s:maybeLocalPlug('lightline-theme-pencil')
 call s:maybeLocalPlug('vim-rerunner')
 call s:maybeLocalPlug('vim-colors-paramount')
 
@@ -43,7 +43,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'SirVer/ultisnips'
@@ -87,18 +87,7 @@ Plug 'pantharshit00/vim-prisma'
 Plug 'tomlion/vim-solidity'
 
 Plug 'vimwiki/vimwiki'
-
 Plug 'etdev/vim-hexcolor'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-
-if has("nvim") && !has("gui_vimr")
-  " Plug 'neovim/nvim-lspconfig'
-  " Plug 'kabouzeid/nvim-lspinstall'
-  " Plug 'folke/lsp-colors.nvim'
-  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  " Plug 'nvim-lua/completion-nvim'
-  " Plug 'glepnir/lspsaga.nvim'
-endif
 
 call plug#end()
 

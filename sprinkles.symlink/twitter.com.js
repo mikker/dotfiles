@@ -1,3 +1,18 @@
+document.addEventListener("keydown", (event) => {
+  if (!onlyCtrl(event)) return;
+
+  if (event.key === "a") {
+    const url = document.querySelector(
+      'video[type="application/x-mpegURL"]'
+    ).src;
+    window.open(url);
+  }
+});
+
+function onlyCtrl(event) {
+  return event.ctrlKey && !event.shiftKey && !event.metaKey;
+}
+
 function main() {
   console.log("tick");
 

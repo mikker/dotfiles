@@ -2764,26 +2764,26 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.12549019607843137</real>
+				<real>0.090196078431372548</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.12941176470588237</real>
+				<real>0.098039215686274508</real>
 				<key>Red Component</key>
-				<real>0.14117647058823529</real>
+				<real>0.10980392156862745</real>
 			</dict>
 			<key>Background Color (Light)</key>
 			<dict>
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.95294117647058818</real>
+				<real>0.92549019607843142</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.95686274509803926</real>
+				<real>0.92941176470588238</real>
 				<key>Red Component</key>
-				<real>0.96470588235294119</real>
+				<real>0.93725490196078431</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
@@ -3414,7 +3414,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>MonoLisa-Light 16</string>
+			<string>MonoLisa-Light 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Place Prompt at First Column</key>

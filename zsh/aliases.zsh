@@ -50,3 +50,4 @@ alias ra='rails'
 # JS
 alias yr="yarn run"
 alias npr="npm run"
+alias hh="yarn hardhat"

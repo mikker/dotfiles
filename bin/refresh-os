@@ -1,3 +1,2 @@
 #!/bin/bash
-
-curl -sf "https://api.opensea.io/api/v1/asset/$1/$2/?force_update=true" > /dev/null
+curl -f "https://api.opensea.io/api/v1/asset/$1/$2/?force_update=true"

@@ -15,7 +15,7 @@ if [ $current_branch != $main_branch ]; then
   git checkout $main_branch
 fi
 
-git pull origin $main_branch --ff-only --rebase=true --autostash
+git pull origin $main_branch --rebase=true --autostash
 
 if [ $current_branch != $main_branch ]; then
   git checkout $current_branch
