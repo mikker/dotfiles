@@ -1,74 +1,46 @@
 " vim: fdm=marker foldlevel=0
 scriptencoding utf-8
 
-let g:plugins_file_path = '~/.vim/plugins.vim'
+filetype plugin indent on
 
-if filereadable(expand(g:plugins_file_path))
-  exe ':source ' . g:plugins_file_path
+set nobackup
+set nowritebackup
+set noswapfile
+set directory=~/.vim-tmp,~/.tmp,/var/tmp,/tmp
+if exists('+undofile')
+  set undofile
+  set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 endif
 
-source ~/.vim/basic.vim
-source ~/.vim/mappings.vim
-source ~/.vim/commands.vim
-source ~/.vim/plugin_configs.vim
+set history=10000
+set undolevels=1000
+
+set mouse=nvi
+set cursorline
+set hidden
+set number
+set listchars=tab:»·,trail:·
+set list
+
+" set wildmode=longest:list,full
+set laststatus=2
+set wildignorecase
+set ignorecase smartcase
+set gdefault
+
+set autoindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set foldlevel=999
+
+set autoread
+
+set exrc
+set secure
 
 if exists('+termguicolors')
   set termguicolors
 endif
-
-" Shortcuts to configs
-nmap <leader>vv :e ~/.vimrc<cr>
-nmap <leader>vp :e <c-r>=g:plugins_file_path<cr><cr>
-
-" FZF
-noremap <leader>f :Files<cr>
-nnoremap <silent> <Leader>b :Buffers<cr>
-" nnoremap <leader>f :Clap files<cr>
-" nnoremap <silent> <Leader>b :Clap buffers<cr>
-" nnoremap <silent> <Leader>T :Clap tags<cr>
-
-let g:lightline = {
-      \  'colorscheme': 'pencil',
-      \  'separator': { 'left': '', 'right': '' },
-      \  'subseparator': { 'left': '', 'right': '' },
-      \  'active': {
-      \    'left': [
-      \       ['mode', 'paste'],
-      \       ['readonly', 'filename', 'fugitive']
-      \    ],
-      \    'right': [['filetype'], []]
-      \  },
-      \  'component_function': {
-      \    'filename': 'LightLineFilename',
-      \    'fugitive': 'fugitive#head'
-      \  }
-      \}
-
-function! LightLineModified()
-  if &filetype ==# 'help'
-    return ''
-  elseif &modified
-    return '[+]'
-  else
-    return ''
-  endif
-endfunction
-
-function! LightLineFilename()
-  return ('' !=# expand('%f') ? expand('%f') : '[No Name]') .
-        \ ('' !=# LightLineModified() ? LightLineModified() : '')
-endfunction
-" " }}}
-
-set background=dark
-colo paramount
-
-" " }}}
-
-
-let g:vrc_curl_opts = {
-      \ '--silent': ''
-      \ }
-
-nnoremap <leader>F :Prettier<cr>
 

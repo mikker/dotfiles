@@ -22,6 +22,6 @@ fi
 git checkout $main_branch
 
 git fetch --all --prune
-git pull origin $main_branch --ff-only --rebase --autostash
+git pull origin $main_branch --rebase --autostash
 
 git br -D $current_branch

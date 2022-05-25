@@ -1,4 +1,6 @@
+-- no time to rewrite all these in lua
 
+vim.cmd([[
 " TT runs a terminal command in a new tab before the current one
 "   :TT [terminal command]
 fun! s:runTermInTab(args)
@@ -52,4 +54,4 @@ augroup vimrcEx
   autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
         \ if mode() == 'n' && getcmdwintype() == '' | checktime | endif
 augroup END
-
+]])

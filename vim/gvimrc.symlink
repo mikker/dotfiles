@@ -10,18 +10,3 @@ if has("gui_macvim")
   " Fullscreen takes up entire screen
   set fuoptions=maxhorz,maxvert
 endif
-
-" Font
-if has('mac')
-  set guifont=InputMono:h16
-elseif has('unix')
-  set guifont=Droid\ Sans\ Mono\ 10
-endif
-
-" Include user's local vim config
-if filereadable(expand("~/.gvimrc.local"))
-  source ~/.gvimrc.local
-endif
-
-set background=light
-colorscheme pencil
