@@ -3018,6 +3018,10 @@
 			<string>No</string>
 			<key>Custom Icon Path</key>
 			<string>/Users/mikker/Bucket/21319247_787770421395443_7519833377340989830_o.jpg</string>
+			<key>Custom Tab Title</key>
+			<string></string>
+			<key>Custom Window Title</key>
+			<string>✕</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -3077,6 +3081,8 @@
 			<integer>0</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
+			<key>Initial Use Transparency</key>
+			<false/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -3729,6 +3735,8 @@
 					</dict>
 				</array>
 			</dict>
+			<key>Subtitle</key>
+			<string></string>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
@@ -3738,7 +3746,7 @@
 			<key>Thin Strokes</key>
 			<integer>1</integer>
 			<key>Title Components</key>
-			<integer>256</integer>
+			<integer>128</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Unicode Version</key>
@@ -3759,6 +3767,10 @@
 			<false/>
 			<key>Use Cursor Guide (Light)</key>
 			<false/>
+			<key>Use Custom Tab Title</key>
+			<true/>
+			<key>Use Custom Window Title</key>
+			<true/>
 			<key>Use HFS Plus Mapping</key>
 			<false/>
 			<key>Use Italic Font</key>
@@ -7826,11 +7838,15 @@
 	<integer>0</integer>
 	<key>TabsHaveCloseButton</key>
 	<false/>
+	<key>TmuxUsesDedicatedProfile</key>
+	<true/>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>UseMetal</key>
+	<true/>
+	<key>UseTmuxStatusBar</key>
 	<true/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>

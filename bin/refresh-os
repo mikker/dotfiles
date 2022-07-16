@@ -1,2 +1,2 @@
 #!/bin/bash
-curl -f "https://api.opensea.io/api/v1/asset/$1/$2/?force_update=true"
+curl -f --silent "https://api.opensea.io/api/v1/asset/$1/$2/?force_update=true" -H "X-API-KEY: $OPENSEA_API_KEY"

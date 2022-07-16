@@ -16,7 +16,7 @@ map("n", "<leader>j", ":w<cr>")
 nrmap("n", "<c-_>", ":set hlsearch!<cr>")
 
 -- old leader is new grep
-nrmap("n", "\\", ":Ack")
+nrmap("n", "\\", ":Ack ")
 
 -- qq to record macro, Q to apply
 map("n", "Q", "@q")
@@ -25,7 +25,7 @@ map("v", "Q", ":normal Q<cr>")
 -- expand %% to dir of current buffer in cmd mode
 map("c", "%%", "<c-r>=expand('%:h').'/'<cr>")
 -- open file in same dir as current buffer
-map("n", "<leader>e", ":e %%")
+map("n", "<leader>e", ":e <c-r>=expand('%:h').'/'<cr>")
 
 -- visual line movement
 nrmap("n", "k", "gk")
@@ -62,7 +62,9 @@ nrmap("v", ">", ">gv")
 nrmap("n", "<leader>O", ":call system('open .')<cr>")
 
 -- close the bottom window, whatever it es
-nrmap("n", "<silent> <c-w>z", ":wincmd z|cclose|lclose")
+vim.api.nvim_set_keymap("n", "<c-w>z", ":wincmd z|cclose|lclose<cr>",
+  {silent = true, noremap = true}
+)
 
 -- c-c doesn't trigger InsertLeave so map to escape
 nrmap("x", "<c-c>", "<esc>")
@@ -101,3 +103,25 @@ augroup END
 -- Fuzzy find
 nrmap('n', '<leader>f', '<cmd>Telescope find_files<cr>')
 nrmap('n', '<leader>b', '<cmd>Telescope buffers<cr>')
+
+
+-- Trouble.nvim
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
+  {silent = true, noremap = true}
+)
+

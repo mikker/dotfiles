@@ -34,8 +34,9 @@ require('packer').startup(function(use)
   use 'wincent/ferret'
   use 'machakann/vim-highlightedyank'
   use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production' }
-  use { 'nvim-telescope/telescope.nvim', requires = { {'nvim-lua/plenary.nvim'} } }
+  use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
   -- FILE TYPES
   use 'etdev/vim-hexcolor'
@@ -66,31 +67,43 @@ require('packer').startup(function(use)
     'VonHeikemen/lsp-zero.nvim',
     requires = {
       -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/nvim-lsp-installer'},
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/nvim-lsp-installer' },
 
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lua' },
 
       -- Snippets
-      {'L3MON4D3/LuaSnip'},
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
     }
+  }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
   }
 end)
 
 -- Add dotfiles to runtimepath
 vim.opt.runtimepath = "~/.config/nvim,$VIMRUNTIME"
 
-require"basics"
-require"mappings"
-require"commands"
-require"plugin_config"
-require"gui"
+require "basics"
+require "mappings"
+require "commands"
+require "plugin_config"
+require "gui"
 
 -- Looks
 vim.cmd("colorscheme zenbones")
@@ -112,3 +125,4 @@ lsp.preset('recommended')
 lsp.nvim_workspace()
 lsp.setup()
 
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = "./snippets" })

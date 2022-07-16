@@ -18,8 +18,7 @@ o.hidden = true
 o.number = true
 
 -- Always show tabs and trailing spaces
-o.listchars.tab = "»·"
-o.listchars.trail = "· "
+o.listchars = "tab:»·,trail:·"
 o.list = true
 
 -- Search and status
@@ -29,6 +28,9 @@ o.ignorecase = true -- Search is case-insensitive
 o.smartcase = true -- ...unless uppercase
 o.gdefault = true -- /g by default
 o.inccommand = 'nosplit' -- live preview :s commands
+
+o.updatetime = 100 -- faster completion
+o.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 
 o.autoindent = true -- indent on new line
 o.expandtab = true -- spaces for indentation

@@ -13,6 +13,7 @@ window.addEventListener("load", function () {
     background: "rgba(255, 255, 255, 0.1)",
     zIndex: 9999999,
     WebkitBackdropFilter: "blur(20px) grayscale(0.5)",
+    backdropFilter: "blur(20px) grayscale(0.5)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
