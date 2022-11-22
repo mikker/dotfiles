@@ -51,3 +51,8 @@ alias ra='rails'
 alias yr="yarn run"
 alias npr="npm run"
 alias hh="yarn hardhat"
+
+
+# https://twitter.com/almonk/status/1576294814831718400
+alias todo='git grep -l TODO | xargs -n1 git blame -f -n -w | grep "$(git config user.name)" | grep TODO | sed "s/.\{9\}//" | sed "s/(.*)[[:space:]]*//"'
+

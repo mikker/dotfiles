@@ -1,0 +1,5 @@
+#items.ytd-grid-renderer
+  > ytd-grid-video-renderer.ytd-grid-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]) {
+  /* opacity: .1; */
+  display: none;
+}

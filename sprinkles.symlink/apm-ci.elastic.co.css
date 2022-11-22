@@ -1,9 +1,0 @@
-pre {
-  font-family: 'Menlo';
-  font-size: 12pt;
-  line-height: 1.25;
-}
-
-.JTable-cell-contents a[href $= '.log'] {
-  color: red !important;
-}

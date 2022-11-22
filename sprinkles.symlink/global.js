@@ -13,11 +13,8 @@ setupSystemFontResetter();
 // Focus the first search input with "/"
 setupSearchFieldFinder();
 
-
-
-
 function setupVideoSpeedThing() {
-  document.addEventListener("mouseup", event => {
+  document.addEventListener("mouseup", (event) => {
     if (!event.shiftKey || event.ctrlKey || event.metaKey) return;
 
     const video = findCorrespondingVideoElement(event);
@@ -45,11 +42,11 @@ function setupVideoSpeedThing() {
 }
 
 function setupScrollByCtrlDAndU() {
-  document.addEventListener("keydown", event => {
+  document.addEventListener("keydown", (event) => {
     if (!onlyCtrl(event)) return;
 
-    if (event.keyCode === 68) return scroll("down");
-    if (event.keyCode === 85) return scroll("up");
+    if (event.key === "d") return scroll("down");
+    if (event.key === "u") return scroll("up");
   });
 
   function scroll(direction) {
@@ -93,8 +90,8 @@ function setupScrollByCtrlDAndU() {
 function setupSystemFontResetter() {
   let styleElm = null;
 
-  document.addEventListener("keyup", event => {
-    if (event.keyCode === 83 && event.ctrlKey && event.altKey) {
+  document.addEventListener("keyup", (event) => {
+    if (event.key === "s" && event.ctrlKey && event.altKey) {
       if (styleElm) {
         styleElm.remove();
         styleElm = null;
@@ -190,7 +187,7 @@ const EasingFunctions = {
   // acceleration until halfway, then deceleration
   easeInOutQuint: function (t) {
     return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
-  }
+  },
 };
 
 function vimeoVideo(event) {
@@ -208,9 +205,9 @@ function findCorrespondingVideoElement(event) {
 
 // Adds / keyboard shortcut for focusing the search field if one exists
 function setupSearchFieldFinder() {
-  document.addEventListener("keyup", event => {
-    if (event.keyCode !== 191) return; // key is "/"
-    if (document.querySelector('*:focus')) return; // another field has focus
+  document.addEventListener("keyup", (event) => {
+    if (event.key !== "/") return; // key is "/"
+    if (document.querySelector("*:focus")) return; // another field has focus
     if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey)
       return; // no modifiers held
 

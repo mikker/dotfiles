@@ -1,3 +1,9 @@
+window.addEventListener("load", function () {
+  const hours = new Date().getHours();
+  if (hours < 9 || hours >= 14) return;
+  document.querySelector("body").classList.add("blurred");
+});
+
 document.addEventListener("keydown", (event) => {
   if (!onlyCtrl(event)) return;
 

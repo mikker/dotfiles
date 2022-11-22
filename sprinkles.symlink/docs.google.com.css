@@ -1,41 +1,48 @@
 #docs-editor {
-    background-color: white !important;
+  background-color: white !important;
 }
 
 .kix-paginateddocumentplugin.kix-paginateddocumentplugin-compact-mode {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .navigation-widget {
-    border-right: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 
 .kix-page-compact::before {
-    border: none;
+  border: none;
 }
 
 .left-sidebar-container {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .docs-gm-sidebars .navigation-widget {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .docs-gm-sidebars .navigation-widget-hat-title {
-    font-family: Roboto !important;
+  font-family: Roboto !important;
 }
 
 .navigation-item {
-    padding: 0 12px;
+  padding: 0 12px;
 }
 
 .navigation-widget-hat {
-    display: none;
+  display: none;
 }
 
-.kix-document-top-shadow, #spellGrammarCheckButton, #printButton, #undoButton, #redoButton, #insertLinkButton, #clearFormattingButton, #clearFormattingSeparator {
-    display: none;
+.kix-document-top-shadow,
+#spellGrammarCheckButton,
+#printButton,
+#undoButton,
+#redoButton,
+#insertLinkButton,
+#clearFormattingButton,
+#clearFormattingSeparator {
+  display: none;
 }
 /*
 .navigation-widget-hat,

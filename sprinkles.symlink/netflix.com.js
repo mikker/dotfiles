@@ -1,7 +1,7 @@
-;(function() {
+(function () {
   if (!window.__playbackControlsLoaded) {
-    document.addEventListener("keyup", function(event) {
-      if (event.keyCode === 83 && event.ctrlKey) {
+    document.addEventListener("keyup", function (event) {
+      if (event.code === 83 && event.ctrlKey) {
         showControls();
       }
     });
@@ -48,7 +48,7 @@
     applyStyles(controls, {
       background: "#555",
       padding: "20px",
-      "border-radius": "20px"
+      "border-radius": "20px",
     });
 
     wrapper.appendChild(controls);
@@ -62,7 +62,7 @@
       left: 0,
       bottom: 0,
       right: 0,
-      "z-index": 100000
+      "z-index": 100000,
     });
 
     return wrapper;
@@ -77,7 +77,7 @@
       margin: "0 10px",
       display: "inline-block",
       width: "30px",
-      "text-align": "center"
+      "text-align": "center",
     });
     return display;
   }
@@ -94,7 +94,7 @@
     slider.onchange = setSpeed(video);
 
     applyStyles(slider, {
-      width: "300px"
+      width: "300px",
     });
 
     return slider;
@@ -105,7 +105,7 @@
     button.onclick = removeControls;
     button.innerText = txt;
     applyStyles(button, {
-      color: "#000"
+      color: "#000",
     });
     return button;
   }

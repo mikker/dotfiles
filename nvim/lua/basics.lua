@@ -40,7 +40,7 @@ o.softtabstop = 2
 
 o.autoread = true -- try to read files on re-entry
 
-o.exrc = true -- auto-source local .nvimrc
+o.exrc = false -- auto-source local .nvimrc / DEPRECATED, trying plugins
 o.secure = true -- ... but restrict it to be safe
 
 if vim.fn.executable("rg") then

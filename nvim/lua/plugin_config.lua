@@ -1,8 +1,4 @@
 local function map(a, b, c, d) vim.keymap.set(a, b, c, d) end
-local function nrmap(a, b, c, d)
-  d = d == nil and {} or d
-  vim.keymap.set(a, b, c, table.insert(d, {remap = false}))
-end
 
 map("x", "<cr>", ":EasyAlign<cr>")
 
@@ -23,11 +19,11 @@ endif
 let test#strategy = "vtr"
 ]])
 
-map("n", "<silent> <leader>tt", ":TestNearest<cr>")
-map("n", "<silent> <leader>tT", ":TestFile<cr>")
-map("n", "<silent> <leader>ta", ":TestSuite<cr>")
-map("n", "<silent> <leader>tl", ":TestLast<cr>")
-map("n", "<silent> <leader>tg", ":TestVisit<cr>")
+map("n", "<leader>tt", ":TestNearest<cr>", {silent = true})
+map("n", "<leader>tT", ":TestFile<cr>", {silent = true})
+map("n", "<leader>ta", ":TestSuite<cr>", {silent = true})
+map("n", "<leader>tl", ":TestLast<cr>", {silent = true})
+map("n", "<leader>tg", ":TestVisit<cr>", {silent = true})
 
 -- https://github.com/mikker/vim-rerunner
 vim.g.rerunner_focus = "TestLast"

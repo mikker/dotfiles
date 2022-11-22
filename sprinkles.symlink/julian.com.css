@@ -1,4 +1,5 @@
-body.body, p {
+body.body,
+p {
   font-family: system-ui;
   font-weight: normal;
 }

@@ -1,5 +1,5 @@
 window.addEventListener("load", function () {
-  const hours = (new Date()).getHours();
+  const hours = new Date().getHours();
 
   if (hours < 9 || hours >= 14) return;
 
@@ -19,10 +19,12 @@ window.addEventListener("load", function () {
     justifyContent: "center",
   });
 
-  const abort = document.createElement('button')
-  abort.innerHTML = 'feed me content daddy'
-  abort.onclick = () => { blinds.remove() }
-  blinds.appendChild(abort)
+  const abort = document.createElement("button");
+  abort.innerHTML = "feed me content daddy";
+  abort.onclick = () => {
+    blinds.remove();
+  };
+  blinds.appendChild(abort);
 
   document.body.appendChild(blinds);
 });

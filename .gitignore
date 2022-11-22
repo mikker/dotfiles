@@ -2,3 +2,4 @@ doc/tags
 /vim/vim.symlink/bundle
 /tmux/tmux.symlink/plugins
 /vim/vim.symlink/.netrwhist
+nvim/plugin/packer_compiled.lua

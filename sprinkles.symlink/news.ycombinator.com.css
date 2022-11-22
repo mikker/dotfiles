@@ -5,14 +5,29 @@
  * For example, let's make The Orange Website™ actually readable,
  * in news.ycombinator.com.css:
  */
-* { font-family: system-ui !important; }
-.title { font-size: 18px; font-weight: 600; }
-.comment { font-size: 16px; line-height: 1.5; max-width: 48em; }
-.subtext { font-size: 14px; }
-tr.spacer { height: 14px !important; }
+* {
+  font-family: system-ui !important;
+}
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.comment {
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 48em;
+}
+.subtext {
+  font-size: 14px;
+}
+tr.spacer {
+  height: 14px !important;
+}
 
 /* Make it more creeaaammmyyy */
-body { background: papayawhip; }
+body {
+  background: papayawhip;
+}
 /* Why the hell not? */
 #hnmain {
   padding: 12px;
@@ -20,4 +35,3 @@ body { background: papayawhip; }
   margin: 20px auto;
   display: block;
 }
-

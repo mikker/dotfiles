@@ -3021,7 +3021,7 @@
 			<key>Custom Tab Title</key>
 			<string></string>
 			<key>Custom Window Title</key>
-			<string>✕</string>
+			<string>–</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -3420,7 +3420,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>IosevkaNerdFontComplete-Light 16</string>
+			<string>Iosevka 18</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Place Prompt at First Column</key>

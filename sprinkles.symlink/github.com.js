@@ -1,7 +1,7 @@
 // ============================================
 // ctrl+r selects and clicks "Rebase and Merge"
 // ============================================
-document.addEventListener("keydown", event => {
+document.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.keyCode === 82) rebase();
 });
 
@@ -12,7 +12,7 @@ async function rebase() {
     q('[aria-label="Select merge method"]').click();
     await sleep(250);
 
-    q('.js-merge-method-menu button[value="rebase"]').click()
+    q('.js-merge-method-menu button[value="rebase"]').click();
     await sleep(250);
   }
 
@@ -23,7 +23,7 @@ async function rebase() {
 }
 
 function sleep(delay) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 }
