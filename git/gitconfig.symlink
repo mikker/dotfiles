@@ -31,7 +31,6 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
 [format]
   pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -65,24 +64,8 @@
   keepBackup = false
 [difftool]
   prompt = false
-[diff]
-  tool = vimdiff
-  default = true
-	colorMoved = default
 [mergetool "diffconflicts"]
   cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
-[color "diff"]
-  meta = yellow
-  frag = magenta bold
-  commit = yellow bold
-  old = red bold
-  new = green bold
-  whitespace = red reverse
 [init]
-	defaultBranch = main
+  defaultBranch = main

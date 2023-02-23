@@ -1,0 +1,4 @@
+.column-inline-form, .column>.scrollable, .error-column, .getting-started, .regeneration-indicator,
+.column-back-button, .column-header {
+  border: none;
+}

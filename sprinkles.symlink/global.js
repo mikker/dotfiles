@@ -45,8 +45,8 @@ function setupScrollByCtrlDAndU() {
   document.addEventListener("keydown", (event) => {
     if (!onlyCtrl(event)) return;
 
-    if (event.key === "d") return scroll("down");
-    if (event.key === "u") return scroll("up");
+    if (event.code === "KeyD") return scroll("down");
+    if (event.code === "KeyU") return scroll("up");
   });
 
   function scroll(direction) {
@@ -91,7 +91,7 @@ function setupSystemFontResetter() {
   let styleElm = null;
 
   document.addEventListener("keyup", (event) => {
-    if (event.key === "s" && event.ctrlKey && event.altKey) {
+    if (event.code === "KeyS" && event.ctrlKey && event.altKey) {
       if (styleElm) {
         styleElm.remove();
         styleElm = null;
@@ -206,7 +206,7 @@ function findCorrespondingVideoElement(event) {
 // Adds / keyboard shortcut for focusing the search field if one exists
 function setupSearchFieldFinder() {
   document.addEventListener("keyup", (event) => {
-    if (event.key !== "/") return; // key is "/"
+    if (event.code !== "Slash") return;
     if (document.querySelector("*:focus")) return; // another field has focus
     if (event.altKey || event.shiftKey || event.ctrlKey || event.metaKey)
       return; // no modifiers held

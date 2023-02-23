@@ -20,7 +20,6 @@ require("packer").startup(function(use)
   use "tpope/vim-vinegar"
 
   -- FEATURES
-  use "MunifTanjim/exrc.nvim"
   use "mikker/vim-rerunner"
   use "AndrewRadev/splitjoin.vim"
   use "janko-m/vim-test"
@@ -38,6 +37,8 @@ require("packer").startup(function(use)
   use { "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/plenary.nvim" } } }
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
   use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+  use 'NvChad/nvim-colorizer.lua'
+  use 'windwp/nvim-spectre'
 
   -- FILE TYPES
   use "etdev/vim-hexcolor"
@@ -50,7 +51,7 @@ require("packer").startup(function(use)
   use "yuezk/vim-js"
   use "zackhsi/sorbet.vim"
   use "pantharshit00/vim-prisma"
-  use "lepture/vim-jinja"
+  use "Glench/Vim-Jinja2-Syntax"
 
   -- WRITING
   use "junegunn/goyo.vim"
@@ -63,6 +64,7 @@ require("packer").startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true }
   }
+  use "andreypopp/vim-colors-plain"
 
   -- LSP
   use {
@@ -109,12 +111,13 @@ require "plugin_config"
 require "gui"
 
 -- Looks
-vim.cmd("colorscheme zenbones")
+vim.cmd("colorscheme zenwritten")
 
 -- Automatic dark mode on boot
 --   <F5> to toggle background
 if vim.fn.executable("is-this-dark-mode") then
   vim.fn.system("is-this-dark-mode")
+
   if vim.v.shell_error == 0 then
     vim.opt.background = "dark"
   else
@@ -125,9 +128,10 @@ end
 -- Initialize LSP
 local lsp = require("lsp-zero")
 lsp.preset("recommended")
+lsp.configure('sorbet', {
+  ["sorbet.configFilePatterns"] = { "**/sorbet/config" },
+})
 lsp.nvim_workspace()
 lsp.setup()
 
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = "./snippets" })
-
-require("exrc").setup()

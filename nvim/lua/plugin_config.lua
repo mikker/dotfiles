@@ -85,3 +85,12 @@ require'nvim-treesitter.configs'.setup {
   ignore_install = { "phpdoc" },
 }
 
+
+vim.cmd([[
+let g:vimwiki_list = [{ 'path': '~/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents/', 'syntax': 'markdown', 'ext': '.md' }]
+let g:vimwiki_global_ext = 0
+]])
+
+require 'colorizer'.setup {
+  tailwind = true
+}
