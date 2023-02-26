@@ -29,29 +29,21 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
 
-augroup vimrcEx
-  autocmd!
-
-  " Auto-open quickfix window after grep cmds
-  autocmd QuickFixCmdPost *grep* cwindow
-
-  " magic markers: enable using `H/S/J/C to jump back to
-  " last HTML, stylesheet, JS or app code buffer
-  au BufLeave *.{erb,html,haml,slim,eex} exe "normal! mH"
-  au BufLeave *.{css,scss}               exe "normal! mS"
-  au BufLeave *.{js,jsx,ts,tsx}          exe "normal! mJ"
-  au BufLeave *.{rb,ex,exs}              exe "normal! mC"
-  au BufLeave *.yml                      exe "normal! mY"
-
-  " Resize windows when the terminal window size changes (from http://vimrcfu.com/snippet/186)
-  autocmd VimResized * wincmd =
-
-  " Don't auto insert a comment when using O/o for a newline
-  autocmd VimEnter,BufRead,FileType * set formatoptions-=o
-
-  " Automatically reload files when changed
-  autocmd FocusGained, BufEnter * :checktime
-  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-        \ if mode() == 'n' && getcmdwintype() == '' | checktime | endif
-augroup END
+" augroup vimrcEx
+"   autocmd!
+"
+"   " Auto-open quickfix window after grep cmds
+"   autocmd QuickFixCmdPost *grep* cwindow
+"
+"   " Resize windows when the terminal window size changes (from http://vimrcfu.com/snippet/186)
+"   autocmd VimResized * wincmd =
+"
+"   " Don't auto insert a comment when using O/o for a newline
+"   autocmd VimEnter,BufRead,FileType * set formatoptions-=o
+"
+"   " Automatically reload files when changed
+"   autocmd FocusGained, BufEnter * :checktime
+"   autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+"         \ if mode() == 'n' && getcmdwintype() == '' | checktime | endif
+" augroup END
 ]])
