@@ -29,3 +29,5 @@ require("lazy").setup({
 		fallback = true,
 	},
 })
+
+require("plugin_config")

@@ -3,9 +3,13 @@ local opt = vim.opt
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- opt.list = true -- Always show tabs and trailing spaces
+-- opt.listchars = { tab = "»·", trail = "·" }
+
 opt.autoindent = true -- indent on new line
 opt.autoread = true -- try to read files on re-entry
 opt.backup = false
+opt.clipboard = nil
 opt.completeopt = "menu,menuone,noselect" -- mostly just for cmp
 opt.cursorline = true
 opt.directory = "~/.tmp,/tmp"
@@ -17,14 +21,13 @@ opt.history = 10000
 opt.ignorecase = true -- Search is case-insensitive
 opt.inccommand = "nosplit" -- live preview :s commands
 opt.laststatus = 0 -- Always show status bar"
-opt.list = true -- Always show tabs and trailing spaces
--- opt.listchars = { tab = "»·", trail = "·" }
 opt.mouse = "a"
 opt.number = true
 opt.relativenumber = false
 opt.secure = true -- ... but restrict it to be safe
 opt.shiftwidth = 2
 opt.shortmess:append({ W = true, I = true, c = true })
+opt.signcolumn = "auto"
 opt.smartcase = true -- ...unless uppercase
 opt.smartindent = true
 opt.softtabstop = 2
@@ -39,8 +42,8 @@ opt.undolevels = 10000
 opt.updatetime = 200 -- faster completion
 opt.wildignorecase = true -- Ignore case in command mode
 opt.wildmode = "longest:full,full" -- Command-line completion mode
-opt.writebackup = false
 opt.wrap = true
+opt.writebackup = false
 
 if vim.fn.executable("rg") then
 	opt.grepprg = "rg --vimgrep"

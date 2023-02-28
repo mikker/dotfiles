@@ -34,16 +34,8 @@ map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
-map("n", "gw", "*N")
-map("x", "gw", "*N")
-
--- -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
--- map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
--- map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
--- map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
--- map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
--- map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
--- map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+-- map("n", "gw", "*N")
+-- map("x", "gw", "*N")
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")
@@ -86,6 +78,7 @@ map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+map("n", "<leader><leader>", "<C-^>", { desc = "Previous buffer" })
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
@@ -108,7 +101,7 @@ map("v", "Q", ":normal Q<cr>")
 -- expand %% to dir of current buffer in cmd mode
 map("c", "%%", "<c-r>=expand('%:h').'/'<cr>")
 -- open file in same dir as current buffer
-map("n", "<leader>e", ":e <c-r>=expand('%:h').'/'<cr>")
+map("n", "<leader>e", ":e <c-r>=expand('%:h').'/'<cr>", { desc = "Edit in same dir" })
 
 -- Y behaves like other capitals
 map("n", "Y", "y$")
@@ -142,6 +135,7 @@ map("i", "<c-_>", "<c-x><c-l>")
 
 -- jump to config
 map("n", "<leader>vv", ":e $MYVIMRC<cr>", { desc = "Edit vimrc" })
+map("n", "<leader>vt", ":e $MYVIMRC<cr>", { desc = "Edit vimrc in tab" })
 
 -- <esc> goes out of insert mode in term
 map("t", "<esc>", "<c-\\><c-n>")
@@ -161,3 +155,7 @@ map("n", "<leader>tT", ":TestFile<cr>", {silent = true})
 map("n", "<leader>ta", ":TestSuite<cr>", {silent = true})
 map("n", "<leader>tl", ":TestLast<cr>", {silent = true})
 map("n", "<leader>tg", ":TestVisit<cr>", {silent = true})
+
+map("n", "<leader>md", ":Rerun TestLast<cr>", { desc = "Rerun TestLast" })
+map("n", "<leader>ro", ":VtrOpenRunner<cr>", { desc = "Open Tmux runner" })
+map("n", "<leader>rk", ":VtrKillRunner<cr>", { desc = "Kill Tmux runner" })

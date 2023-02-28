@@ -2,6 +2,7 @@ return {
 	-- Coding
 	{ "RRethy/vim-illuminate", enabled = false },
 	{ "echasnovski/mini.nvim", enabled = false },
+	{ "echasnovski/mini.surround", enabled = false },
 	-- Editor
 	{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
 	{ "ggandor/leap.nvim", enabled = false },

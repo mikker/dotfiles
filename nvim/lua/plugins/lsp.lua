@@ -7,6 +7,11 @@ return {
 				nls.builtins.formatting.prettier,
 				nls.builtins.formatting.stylua,
 			},
+		}, {
+			"hrsh7th/cmp-nvim-lsp",
+			keys = {
+				{ "<c-space>", false },
+			},
 		}
 	end,
 }
