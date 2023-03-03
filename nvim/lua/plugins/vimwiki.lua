@@ -1,7 +1,6 @@
 return {
 	{
 		"vimwiki/vimwiki",
-		lazy = false,
 		init = function(_)
 			print("hi")
 			vim.cmd([[
@@ -9,5 +8,9 @@ return {
       let g:vimwiki_global_ext = 0
       ]])
 		end,
+		cmd = "VimwikiIndex",
+		keys = {
+			["<leader>ww"] = ":VimwikiIndex<cr>",
+		},
 	},
 }

@@ -69,7 +69,7 @@ end
 
 local is_ui = vim.fn.has("gui_vimr") == 1 or vim.g.neovide
 
-vim.opt.guifont = { "Iosevka Light", ":h18" }
+vim.opt.guifont = { "Iosevka Nerd Font Mono", ":h18:l" }
 
 if is_ui then
 	--  act as in a term

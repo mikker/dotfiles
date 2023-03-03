@@ -12,7 +12,7 @@ require("lazy").setup({
 		"LazyVim/LazyVim",
 		import = "lazyvim.plugins",
 		opts = {
-			colorscheme = "zenwritten",
+			colorscheme = "zenbones",
 			defaults = {
 				options = false,
 				keymaps = false,
@@ -22,12 +22,9 @@ require("lazy").setup({
 	{ import = "lazyvim.plugins.extras.lang.typescript" },
 	{ import = "plugins" },
 }, {
-	install = { colorscheme = { "zenwritten" } },
 	dev = {
 		path = "~/dev",
 		patterns = { "mikker" },
 		fallback = true,
 	},
 })
-
-require("plugin_config")

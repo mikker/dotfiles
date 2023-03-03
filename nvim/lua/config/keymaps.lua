@@ -72,27 +72,29 @@ if vim.fn.has("nvim-0.9.0") == 1 then
 end
 
 -- windows
-map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
-map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
-map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
-map("n", "<leader><leader>", "<C-^>", { desc = "Previous buffer" })
+-- map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
+-- map("n", "<leader>wd", "<C-W>c", { desc = "Delete window" })
+-- map("n", "<leader>w-", "<C-W>s", { desc = "Split window below" })
+-- map("n", "<leader>w|", "<C-W>v", { desc = "Split window right" })
+-- map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
+-- map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+map("n", "<leader><space>", "<C-^>", { desc = "Previous buffer" })
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
+map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "]w", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "[w", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- quicksave
 map("n", "<leader>j", ":w<cr>", { desc = "Quicksave" })
 
 -- / to search <c-/> to toggle highlight
-map("n", "<c-_>", ":set hlsearch!<cr>")
+map("n", "<c-_>", ":noh<cr>")
 
 -- qq to record macro, Q to apply
 map("n", "Q", "@q")
@@ -135,7 +137,7 @@ map("i", "<c-_>", "<c-x><c-l>")
 
 -- jump to config
 map("n", "<leader>vv", ":e $MYVIMRC<cr>", { desc = "Edit vimrc" })
-map("n", "<leader>vt", ":e $MYVIMRC<cr>", { desc = "Edit vimrc in tab" })
+map("n", "<leader>vt", ":tabe $MYVIMRC<cr>", { desc = "Edit vimrc in tab" })
 
 -- <esc> goes out of insert mode in term
 map("t", "<esc>", "<c-\\><c-n>")
@@ -156,6 +158,9 @@ map("n", "<leader>ta", ":TestSuite<cr>", {silent = true})
 map("n", "<leader>tl", ":TestLast<cr>", {silent = true})
 map("n", "<leader>tg", ":TestVisit<cr>", {silent = true})
 
+map("n", "<cr>", ":Rerun<cr>", { desc = "Rerun" })
 map("n", "<leader>md", ":Rerun TestLast<cr>", { desc = "Rerun TestLast" })
 map("n", "<leader>ro", ":VtrOpenRunner<cr>", { desc = "Open Tmux runner" })
 map("n", "<leader>rk", ":VtrKillRunner<cr>", { desc = "Kill Tmux runner" })
+
+map('n', "<leader>ub", '<Cmd>lua vim.o.bg = vim.o.bg == "dark" and "light" or "dark"<CR>', { desc =  "Toggle background light/dark" })
