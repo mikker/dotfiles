@@ -6,16 +6,29 @@ return {
 			keys[#keys + 1] = { "[w", false }
 			keys[#keys + 1] = { "]w", false }
 		end,
+		opts = {
+			servers = {
+				sorbet = {
+					root_dir = require("lspconfig").util.root_pattern("sorbet/config"),
+				},
+				tailwindcss = {
+					includeLanguages = {
+						plaintext = "slim",
+					},
+					emmetCompletions = true,
+				},
+			},
+		},
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		opts = function()
-			local nls = require("null-ls")
+			local null_ls = require("null-ls")
 
 			local h = require("null-ls.helpers")
 			local forge_source = {
 				name = "forge",
-				method = nls.methods.FORMATTING,
+				method = null_ls.methods.FORMATTING,
 				filetypes = { "solidity" },
 				generator = h.formatter_factory({
 					command = "forge",
@@ -26,14 +39,14 @@ return {
 
 			return {
 				sources = {
-					nls.builtins.formatting.prettier,
-					nls.builtins.formatting.stylua,
+					-- null_ls.builtins.diagnostics.erb_lint,
+					null_ls.builtins.formatting.erb_format.with({
+						disabled_filetypes = { "eruby.yaml" },
+					}),
+					null_ls.builtins.formatting.rubyfmt,
+					null_ls.builtins.formatting.prettierd,
+					null_ls.builtins.formatting.stylua,
 					forge_source,
-				},
-			}, {
-				"hrsh7th/cmp-nvim-lsp",
-				keys = {
-					{ "<c-space>", false },
 				},
 			}
 		end,

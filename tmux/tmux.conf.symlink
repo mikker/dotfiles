@@ -2,8 +2,8 @@
 
 bind R source-file ~/.tmux.conf
 
-set -g default-terminal 'tmux-256color'
-set -ga terminal-overrides ',*:Tc'
+# set -g default-terminal 'tmux-256color'
+set -ga terminal-overrides ',xterm*:Tc'
 
 # mouse on (tmux 2.1)
 set -g mouse on
@@ -53,7 +53,7 @@ bind ^o select-pane -l\; resize-pane -Z
 bind c new-window -c "#{pane_current_path}"
 
 # status bar
-set -g status-style fg=colour239,bg=default
+set -g status-style fg=colour239,,bg=default
 set-window-option -g window-status-style fg=colour246,bg=default
 
 set -g status-left ''
@@ -61,17 +61,16 @@ set -g status-right '%H:%M'
 set -g status-right-length 20
 set -g status-interval 30
 
-set-window-option -g window-status-current-format '>>#I:#W#{?window_zoomed_flag,[zoomed],}<<'
-set-window-option -g window-status-current-style fg=colour246,bold
-set-window-option -g window-status-format ' #I:#W#F '
-set-window-option -g window-status-style dim
+set-window-option -g window-status-current-format ' ★  #W#{?window_zoomed_flag,[zoomed],}  '
+set-window-option -g window-status-current-style fg=colour0,bg=colour15,bold
+set-window-option -g window-status-format ' #I #W#F '
+set-window-option -g window-status-style fg=colour239
 
 set -sg escape-time 1
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
-set -g @plugin 'wfxr/tmux-fzf-url'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 
 # Local config

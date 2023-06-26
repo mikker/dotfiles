@@ -5,21 +5,20 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-require("commands")
-
 require("lazy").setup({
 	{
 		"LazyVim/LazyVim",
 		import = "lazyvim.plugins",
-		opts = {
-			colorscheme = "zenbones",
-			defaults = {
-				options = false,
-				keymaps = false,
-			},
-		},
+		opts = { colorscheme = "zenwritten" },
 	},
+	{ import = "lazyvim.plugins.extras.coding.copilot" },
+	{ import = "lazyvim.plugins.extras.formatting.prettier" },
+	{ import = "lazyvim.plugins.extras.lang.tailwind" },
 	{ import = "lazyvim.plugins.extras.lang.typescript" },
+	{ import = "lazyvim.plugins.extras.linting.eslint" },
+	{ import = "lazyvim.plugins.extras.test.core" },
+	{ import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+	-- { import = "lazyvim.plugins.extras.editor.flash" },
 	{ import = "plugins" },
 }, {
 	dev = {
@@ -28,3 +27,5 @@ require("lazy").setup({
 		fallback = true,
 	},
 })
+
+require("commands")

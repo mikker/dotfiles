@@ -32,7 +32,7 @@ brew "zsh-syntax-highlighting"
 
 tap "homebrew/services"
 
-tap "federico-terzi/espanso"
+tap "espanso/espanso"
 brew "espanso"
 
 cask_args appdir: "/Applications"

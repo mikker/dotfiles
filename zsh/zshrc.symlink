@@ -23,8 +23,3 @@ fi
 
 # Local modifications
 [[ -f ~/.lrc ]] && .  ~/.lrc
-
-# Load fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export PATH="$PATH:/Users/mikker/.foundry/bin"

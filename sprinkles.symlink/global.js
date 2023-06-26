@@ -110,16 +110,18 @@ function setupSystemFontResetter() {
           font-family: "Inter var", system-ui, -apple-system, BlinkMacSystemFont,
             "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
             "Helvetica Neue", sans-serif !important;
+          font-weight: 400 !important;
+          line-height: 1.5 !important;
+        }
+        h1, h2, h3, h4, h5, h6 {
+          font-weight: 600 !important;
         }
         body {
           font-size: 16px;
           letter-spacing: 0;
         }
         p {
-          font-weight: 400 !important;
           max-width: 40em;
-          line-height: 1.5 !important;
-          /* filter: grayscale(1) contrast(9); */
         }
         ul, ol {
           line-height: 1.5 !important;

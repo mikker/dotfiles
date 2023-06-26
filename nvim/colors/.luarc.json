@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "diagnostics.globals": [
+    "NeotestAdapterName",
+    "NeotestDir",
+    "NeotestExpandMarker",
+    "NeotestFailed",
+    "NeotestFile",
+    "NeotestFocused",
+    "NeotestIndent",
+    "NeotestMarked",
+    "NeotestPassed",
+    "NeotestRunning",
+    "NeotestSkipped",
+    "NeotestTarget",
+    "NeotestTest",
+    "NeotestUnknown",
+    "NeotestWinSelect"
+  ]
+}

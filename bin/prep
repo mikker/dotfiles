@@ -7,15 +7,21 @@
 
 set -e
 
-CURRENT=`git branch | grep '\*' | awk '{print $2}'`
+CURRENT=$(git branch | grep '\*' | awk '{print $2}')
 
-if [[ $CURRENT == "master" ]]; then
-  git rebase -i origin/master
+if git branch | grep -q master; then
+  main_branch='master'
 else
-  if [ $1 ]; then
-    git rebase -i $1
+  main_branch='main'
+fi
+
+if [ "$CURRENT" = "$main_branch" ]; then
+  git rebase -i origin/$main_branch
+else
+  if [ "$1" ]; then
+    git rebase -i "$1"
   else
-    git rebase -i master
+    git rebase -i $main_branch
   fi
 fi
 
