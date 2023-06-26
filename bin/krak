@@ -1,4 +1,0 @@
-#!/bin/bash
-term=`echo $* | sed -e "s/ /+/"`
-curl --silent "http://numnumnum.herokuapp.com/$term" | python -m json.tool
-

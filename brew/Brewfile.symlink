@@ -1,6 +1,5 @@
 # vim: set ft=ruby
 
-brew "ansible"
 brew "carthage"
 brew "chruby"
 brew "ctags"
@@ -8,7 +7,6 @@ brew "curl"
 brew "fd"
 brew "dark-mode"
 brew "git"
-brew "hub"
 brew "mas"
 brew "mosh"
 brew "node"
@@ -22,7 +20,6 @@ brew "tmux"
 brew "tree"
 brew "typescript"
 brew "vim"
-brew "weechat"
 brew "wget"
 brew "yarn"
 brew "youtube-dl"
@@ -38,13 +35,13 @@ brew "espanso"
 cask_args appdir: "/Applications"
 tap "homebrew/cask"
 
+cask "1password"
 cask "acorn"
 cask "airtable"
 cask "appzapper"
 cask "blackhole-2ch"
 cask "dash"
 cask "docker"
-cask "dropshare"
 cask "firefox"
 cask "google-chrome"
 cask "gpg-suite"
@@ -53,17 +50,13 @@ cask "hammerspoon"
 cask "handbrake"
 cask "imageoptim"
 cask "iterm2"
-cask "kap"
 cask "ngrok"
 cask "notion"
 cask "obs"
-cask "putio-adder"
-cask "quicksilver"
-cask "sip"
+cask "signal"
 cask "sketch"
 cask "slack"
 cask "soulver"
-cask "spotify"
 cask "superduper"
 cask "telegram"
 cask "transmission"
@@ -71,7 +64,6 @@ cask "transmit"
 cask "vimr"
 cask "visual-studio-code"
 cask "vlc"
-cask "zoom"
 
 tap "homebrew/cask-fonts"
 cask "font-courier-prime"
@@ -104,24 +96,28 @@ cask "quicklookase"
 cask "suspicious-package"
 cask "webpquicklook"
 
-mas "1Password 7", id: 1333542190
-mas "Battery Indicator", id: 1206020918
+mas "1Password for Safari", id: 1569813296
 mas "Better", id: 1121192229
-mas "BreakTime", id: 427475982
-mas "Dato", id: 1470584107
-mas "Dark Reader for Safari", id: 1438243180
+mas "Coinverter", id: 926121450
+mas "Developer", id: 640199958
+mas "Final Cut Pro", id: 424389933
 mas "GIF Brewery 3", id: 1081413713
-mas "Gestimer", id: 990588172
 mas "Gifski", id: 1351639930
-mas "Hidden Bar", id: 1452453066
+mas "HEIC Converter", id: 1294126402
+mas "Hand Mirror", id: 1502839586
 mas "JSONPeep", id: 1458969831
 mas "LilyView", id: 529490330
-mas "Logic Pro X", id: 634148309
+mas "Logic Pro", id: 634148309
 mas "Marked 2", id: 890031187
 mas "Numbers", id: 409203825
-mas "Pastebot", id: 1179623856
-mas "Reeder", id: 1449412482
+mas "Pixelmator Pro", id: 1289583905
+mas "Plain Text Editor", id: 1572202501
+mas "Pure Paste", id: 1611378436
+mas "Reeder", id: 1529448980
 mas "Soulver", id: 413965349
+mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
+mas "Today", id: 6443714928
+mas "Velja", id: 1607635845
 mas "Xcode", id: 497799835
 mas "iA Writer", id: 775737590

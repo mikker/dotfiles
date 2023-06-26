@@ -1,2 +1,2 @@
 #!/usr/bin/env ruby
-print ARGV.join(" ").downcase.gsub /[^a-z]/, "-"
+print(ARGV.join(" ").downcase.gsub(/[^a-z0-9]/, "-"))

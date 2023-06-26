@@ -2,11 +2,11 @@
 
 set -e
 
-last_msg="`last_commit_message`"
+last_msg="$(last_commit_message)"
 
 git push -u
 
-url=`hub pull-request -m "$last_msg"`
+url=$(hub pull-request -m "$last_msg")
 
 open "$url"
 

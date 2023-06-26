@@ -1,2 +1,2 @@
 #!/bin/bash
-while $@; do :; done
+while "$@"; do :; done

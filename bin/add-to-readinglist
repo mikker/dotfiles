@@ -1,7 +1,0 @@
-#!/usr/bin/env osascript
-
-on run argv
-    if (count of argv) > 0
-        tell app "Safari" to add reading list item (item 1 of argv as text)
-    end if
-end run

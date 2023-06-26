@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-require 'uri'
-
-track = `whodis-p6`.chomp.gsub("'", '').gsub(' - ', ' ')
-search_url = "spotify:search:#{URI.escape track}"
-system "open '#{search_url}'"
-

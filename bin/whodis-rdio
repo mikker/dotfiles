@@ -1,5 +1,0 @@
-#!/bin/bash
-artist=`osascript -e 'tell application "Rdio" to get artist of current track'`
-name=`osascript -e 'tell application "Rdio" to get name of current track'`
-album=`osascript -e 'tell application "Rdio" to get album of current track'`
-echo "$artist - $name ($album)"

@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-require 'uri'
-
-track = `whodis-p6`.chomp.gsub("'", '')
-search_url = "http://www.rdio.com/search/#{URI.escape track}/"
-system "open -a Rdio '#{search_url}'"
-

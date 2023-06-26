@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-require 'nokogiri'
-require 'open-uri'
-
-h = Nokogiri::HTML(open('http://www.dr.dk/radio/live/p6beat/'))
-puts h.css('.trackInfo').first.text.strip.split("\r\n").map(&:strip).select { |s| s.length > 0 }.reverse.join(' - ')

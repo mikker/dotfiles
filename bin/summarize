@@ -1,2 +1,0 @@
-#!/bin/sh
-osascript 3<&0 ~/.bin/summarize.scpt $1

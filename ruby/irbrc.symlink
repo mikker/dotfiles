@@ -18,3 +18,5 @@ if Dir.pwd != File.expand_path("~")
     load local_irbrc
   end
 end
+
+# vim: ft=ruby
