@@ -121,5 +121,18 @@ map(
 
 map("n", "\\", ":grep ")
 
--- map("n", "<cr>", ":lua require('neotest').run.run_last()<cr>", { desc = "Run last test" })
-map("n", "<cr>", ":Rerun<cr>", { desc = "Run last test" })
+map("n", "<cr>", ":lua require('neotest').run.run_last()<cr>", { desc = "Run last test" })
+-- map("n", "<cr>", ":Rerun<cr>", { desc = "Run last test" })
+
+map(
+	"n",
+	"<leader>tj",
+	"<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>",
+	{ desc = "Jump to next failed" }
+)
+map(
+	"n",
+	"<leader>tk",
+	"<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>",
+	{ desc = "Jump to prev failed" }
+)

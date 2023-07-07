@@ -41,7 +41,7 @@ return {
 				sources = {
 					-- null_ls.builtins.diagnostics.erb_lint,
 					null_ls.builtins.formatting.erb_format.with({
-						disabled_filetypes = { "eruby.yaml" },
+						disabled_filetypes = { "eruby.yaml", "yaml" },
 					}),
 					null_ls.builtins.formatting.rubyfmt,
 					null_ls.builtins.formatting.prettierd,

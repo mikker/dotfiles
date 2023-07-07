@@ -1,6 +1,6 @@
 return {
 	-- { "SmiteshP/nvim-navic", enabled = false },
-	-- { "akinsho/bufferline.nvim", enabled = false },
+	{ "akinsho/bufferline.nvim", enabled = false },
 	-- {
 	-- 	"nvim-lualine/lualine.nvim",
 	-- 	event = "VeryLazy",
@@ -34,7 +34,7 @@ return {
 	-- 	end,
 	-- },
 	-- { "lukas-reineke/indent-blankline.nvim", enabled = false },
-	-- { "echasnovski/mini.indentscope", enabled = false },
+	{ "echasnovski/mini.indentscope", enabled = false },
 	-- { "folke/noice.nvim", enabled = false },
 	{
 		"folke/which-key.nvim",
