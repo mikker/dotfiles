@@ -136,3 +136,7 @@ map(
 	"<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>",
 	{ desc = "Jump to prev failed" }
 )
+
+vim.keymap.del("n", "<c-/>")
+vim.keymap.del("t", "<c-/>")
+map("n", "<c-/>", ":nohl<cr>")

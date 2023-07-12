@@ -1,0 +1,39 @@
+local wezterm = require("wezterm")
+
+local config = wezterm.config_builder()
+
+local scheme_for_apperance = function(appearance)
+	if appearance:find("Dark") then
+		return "zenwritten_dark"
+	else
+		return "zenwritten_light"
+	end
+end
+
+config.color_scheme = scheme_for_apperance(wezterm.gui.get_appearance())
+
+-- config.font = wezterm.font("Iosevka", { weight = "Regular", stretch = "Normal", style = "Normal" })
+config.font = wezterm.font("Iosevka Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" })
+config.font_size = 16.0
+
+config.use_fancy_tab_bar = false
+config.hide_tab_bar_if_only_one_tab = true
+config.scrollback_lines = 10000
+
+config.window_padding = {
+	left = 6,
+	right = 6,
+	top = 8,
+	bottom = 0,
+}
+
+config.keys = {
+	-- Make Option-Left equivalent to Alt-b which many line editors interpret as backward-word
+	{ key = "LeftArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bb" }) },
+	-- Make Option-Right equivalent to Alt-f; forward-word
+	{ key = "RightArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bf" }) },
+}
+config.send_composed_key_when_left_alt_is_pressed = true
+config.send_composed_key_when_right_alt_is_pressed = false
+
+return config
