@@ -7,6 +7,7 @@ return {
 	"tpope/vim-rhubarb",
 	"tpope/vim-vinegar",
 	"tpope/vim-surround",
+	"tpope/vim-endwise",
 	-- "tpope/vim-speeddating",
 
 	{
@@ -20,10 +21,10 @@ return {
 					ataraxis = {
 						callbacks = {
 							open_pre = function()
-								require("lualine").hide({})
+								require("lualine").hide({ place = { "statusline" }, unhide = false })
 							end,
 							close_pos = function()
-								require("lualine").hide({ unhide = true })
+								require("lualine").hide({ place = { "statusline" }, unhide = true })
 							end,
 						},
 					},

@@ -1,13 +1,21 @@
 return {
-	-- { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+	{ "nvim-neo-tree/neo-tree.nvim", enabled = false },
 	{
 		"nvim-telescope/telescope.nvim",
 		keys = {
 			{ "<leader><space>", false },
 		},
+		opts = {
+			defaults = {
+				mappings = {
+					i = {
+						["<c-t>"] = require("telescope.actions").select_tab,
+					},
+				},
+			},
+		},
 	},
-	{ "ggandor/flit.nvim", enabled = false },
-	{ "ggandor/leap.nvim", enabled = false },
+	{ "folke/flash.nvim", enabled = false },
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = { signcolumn = false },

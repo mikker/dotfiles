@@ -38,3 +38,8 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 	group = grepQuickFix,
 	command = "cwindow | redraw",
 })
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	group = grepQuickFix,
+	command = "if &buftype == 'quickfix' | nnoremap <buffer> <cr> <cr> | endif",
+})

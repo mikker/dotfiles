@@ -7,7 +7,13 @@ return {
 			keys[#keys + 1] = { "]w", false }
 		end,
 		opts = {
+			inlay_hints = { enabled = true },
 			servers = {
+				lua_ls = {
+					settings = {
+						Lua = { hint = { enable = true } },
+					},
+				},
 				sorbet = {
 					root_dir = require("lspconfig").util.root_pattern("sorbet/config"),
 				},
@@ -39,13 +45,15 @@ return {
 
 			return {
 				sources = {
-					-- null_ls.builtins.diagnostics.erb_lint,
 					null_ls.builtins.formatting.erb_format.with({
 						disabled_filetypes = { "eruby.yaml", "yaml" },
 					}),
 					null_ls.builtins.formatting.rubyfmt,
-					null_ls.builtins.formatting.prettierd,
+					null_ls.builtins.formatting.prettierd.with({
+						disabled_filetypes = { "eruby.yaml", "yaml" },
+					}),
 					null_ls.builtins.formatting.stylua,
+					null_ls.builtins.formatting.rustywind,
 					forge_source,
 				},
 			}

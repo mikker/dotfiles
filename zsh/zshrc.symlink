@@ -2,7 +2,7 @@ export DOTFILES=$HOME/.dotfiles
 export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 
-export PATH="./bin:$DOTFILES/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$DOTFILES/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
@@ -23,3 +23,8 @@ fi
 
 # Local modifications
 [[ -f ~/.lrc ]] && .  ~/.lrc
+
+export PATH="./bin:$PATH"
+
+# bun completions
+[ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"

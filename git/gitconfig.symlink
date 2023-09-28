@@ -24,6 +24,7 @@
   up = pull --rebase --autostash
   upto = "branch --set-upstream-to"
   wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+  qs = "!git add -A && git commit -qm 'QuickSave'"
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
@@ -54,14 +55,14 @@
 [commit]
   gpgsign = true
 [merge]
-  tool = diffconflicts
+	tool = diffconflicts
 [mergetool]
   prompt = false
-  keepBackup = false
+	keepBackup = false
 [difftool]
   prompt = false
 [mergetool "diffconflicts"]
-  cmd = nvim -c DiffConflicts \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
-  trustExitCode = true
+	cmd = nvim -c DiffConflictsWithHistory \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = true
 [init]
   defaultBranch = main

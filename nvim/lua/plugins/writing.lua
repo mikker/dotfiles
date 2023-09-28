@@ -1,5 +1,4 @@
 return {
-	"junegunn/goyo.vim",
 	{
 		"reedes/vim-pencil",
 		config = function()

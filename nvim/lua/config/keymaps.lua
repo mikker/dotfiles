@@ -99,7 +99,6 @@ map("n", "<leader>ra", ":TestSuite<cr>", { silent = true })
 map("n", "<leader>rl", ":TestLast<cr>", { silent = true })
 map("n", "<leader>rg", ":TestVisit<cr>", { silent = true })
 --
--- vim.cmd("nnoremap <cr> :Rerun<cr>")
 map("n", "<leader>rm", ":Rerun TestLast<cr>", { desc = "Rerun TestLast" })
 map("n", "<leader>ro", ":VtrOpenRunner<cr>", { desc = "Open Tmux runner" })
 map("n", "<leader>rk", ":VtrKillRunner<cr>", { desc = "Kill Tmux runner" })
@@ -119,10 +118,10 @@ map(
 	{ desc = "Find in Vimwiki" }
 )
 
-map("n", "\\", ":grep ")
+map("n", "\\", ":grep! ")
 
-map("n", "<cr>", ":lua require('neotest').run.run_last()<cr>", { desc = "Run last test" })
--- map("n", "<cr>", ":Rerun<cr>", { desc = "Run last test" })
+-- map("n", "<cr>", ":lua require('neotest').run.run_last()<cr>", { desc = "Run last test" })
+map("n", "<cr>", ":Rerun<cr>", { desc = "Run last test" })
 
 map(
 	"n",

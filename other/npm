@@ -1,9 +1,9 @@
 npm install -g \
-      diff-so-fancy \
-      neovim \
-      nodemon \
-      vercel \
-      np \
-      npm \
-      prettier \
-      serve
+      diff-so-fancy@latest \
+      neovim@latest \
+      nodemon@latest \
+      vercel@latest \
+      np@latest \
+      npm@latest \
+      prettier@latest \
+      serve@latest

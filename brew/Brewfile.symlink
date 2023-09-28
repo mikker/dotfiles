@@ -1,8 +1,6 @@
 # vim: set ft=ruby
 
-brew "carthage"
-brew "chruby"
-brew "ctags"
+brew "asdf"
 brew "curl"
 brew "fd"
 brew "dark-mode"
@@ -10,15 +8,13 @@ brew "git"
 brew "mas"
 brew "mosh"
 brew "node"
-brew "postgresql"
+brew "postgresql@15"
 brew "python"
 brew "reattach-to-user-namespace"
 brew "ripgrep"
-brew "ruby-install"
 brew "ssh-copy-id"
 brew "tmux"
 brew "tree"
-brew "typescript"
 brew "vim"
 brew "wget"
 brew "yarn"
@@ -27,21 +23,23 @@ brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+brew "neovim", args: ["head"]
+
 tap "homebrew/services"
 
-tap "espanso/espanso"
-brew "espanso"
-
 cask_args appdir: "/Applications"
-tap "homebrew/cask"
 
-cask "1password"
 cask "acorn"
 cask "airtable"
 cask "appzapper"
+cask "battery-buddy"
+cask "bartender"
 cask "blackhole-2ch"
+cask "cleanshot"
 cask "dash"
 cask "docker"
+cask "dropshare"
+cask "espanso"
 cask "firefox"
 cask "google-chrome"
 cask "gpg-suite"
@@ -50,27 +48,31 @@ cask "hammerspoon"
 cask "handbrake"
 cask "imageoptim"
 cask "iterm2"
+cask "monitorcontrol"
 cask "ngrok"
 cask "notion"
 cask "obs"
+cask "raycast"
 cask "signal"
 cask "sketch"
 cask "slack"
-cask "soulver"
 cask "superduper"
+cask "soulver"
 cask "telegram"
 cask "transmission"
 cask "transmit"
 cask "vimr"
 cask "visual-studio-code"
 cask "vlc"
+cask "wezterm"
 
 tap "homebrew/cask-fonts"
 cask "font-courier-prime"
 cask "font-courier-prime-code"
 cask "font-fantasque-sans-mono"
 cask "font-fira-code"
-cask "font-fira-sans"
+cask "font-ia-writer-duo"
+cask "font-ia-writer-quattro"
 cask "font-inconsolata"
 cask "font-input"
 cask "font-inter"
@@ -80,6 +82,7 @@ cask "font-iosevka-curly"
 cask "font-iosevka-curly-slab"
 cask "font-iosevka-etoile"
 cask "font-iosevka-slab"
+cask "font-iosevka-nerd-font"
 cask "font-monoid"
 cask "font-mononoki"
 cask "font-sf-compact"
@@ -87,21 +90,9 @@ cask "font-sf-mono"
 cask "font-sf-pro"
 cask "font-victor-mono"
 
-cask "qlcolorcode"
-cask "qlmarkdown"
-cask "qlstephen"
-cask "qlvideo"
-cask "quicklook-json"
-cask "quicklookase"
-cask "suspicious-package"
-cask "webpquicklook"
-
 mas "1Password for Safari", id: 1569813296
-mas "Better", id: 1121192229
-mas "Coinverter", id: 926121450
 mas "Developer", id: 640199958
 mas "Final Cut Pro", id: 424389933
-mas "GIF Brewery 3", id: 1081413713
 mas "Gifski", id: 1351639930
 mas "HEIC Converter", id: 1294126402
 mas "Hand Mirror", id: 1502839586
@@ -114,9 +105,10 @@ mas "Pixelmator Pro", id: 1289583905
 mas "Plain Text Editor", id: 1572202501
 mas "Pure Paste", id: 1611378436
 mas "Reeder", id: 1529448980
-mas "Soulver", id: 413965349
+mas "Sprinkles", id: 1500209074
 mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
+mas "Today", id: 6443714928
 mas "Today", id: 6443714928
 mas "Velja", id: 1607635845
 mas "Xcode", id: 497799835
