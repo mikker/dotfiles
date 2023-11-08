@@ -39,9 +39,7 @@ alias gs='git status -sb'
 alias gci='git commit -m'
 alias gcm='git checkout master'
 alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
-# Hub
-alias gb='hub browse'
-alias gpr='hub pull-request'
+alias gb='gh browse'
 
 # Ruby
 alias be='bundle exec'

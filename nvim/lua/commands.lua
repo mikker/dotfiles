@@ -1,4 +1,4 @@
--- no time to rewrite all these in lua
+-- no time to rewrite these in lua
 
 vim.cmd([[
 " TT runs a terminal command in a new tab before the current one
@@ -21,11 +21,11 @@ command! Marked call system('open -a Marked\ 2 "'.expand('%').'"')
 command! -nargs=1 F set filetype=<args>
 
 " find and delete all trailing whitespace
-fun! <SID>StripTrailingWhitespaces()
+fun! <SID>Strip_trailing_whitespace()
   let l:l = line('.')
   let l:c = col('.')
   %s/\s\+$//e
   call cursor(l:l, l:c)
 endfun
-noremap <leader>S :call <SID>StripTrailingWhitespaces()<cr>
+noremap <leader>S :call <SID>Strip_trailing_whitespace()<cr>
 ]])

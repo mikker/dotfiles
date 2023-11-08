@@ -24,11 +24,6 @@ set-option -gw automatic-rename on
 
 set-option -gw monitor-activity off
 
-# Use ctrl-a instead of ctrl-b
-# unbind C-b
-# set -g prefix C-a
-# bind ^A send-prefix
-
 # Use vim keybindings
 set-window-option -g mode-keys vi
 bind-key h select-pane -L
@@ -38,7 +33,7 @@ bind-key l select-pane -R
 
 # Quickly switch between windows
 bind ^b last-window
-
+bind-key -n C-\\ last-window
 # Quickly switch between sessions
 bind ^s switch-client -l
 

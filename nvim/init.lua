@@ -8,19 +8,28 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("lazy").setup({
 	{
 		"LazyVim/LazyVim",
+		opts = { colorscheme = "kanagawabones" },
 		import = "lazyvim.plugins",
-		opts = { colorscheme = "zenwritten" },
 	},
-	{ import = "lazyvim.plugins.extras.coding.copilot" },
-	{ import = "lazyvim.plugins.extras.coding.yanky" },
-	{ import = "lazyvim.plugins.extras.formatting.prettier" },
-	{ import = "lazyvim.plugins.extras.lang.tailwind" },
-	{ import = "lazyvim.plugins.extras.lang.typescript" },
-	{ import = "lazyvim.plugins.extras.linting.eslint" },
-	{ import = "lazyvim.plugins.extras.test.core" },
-	{ import = "lazyvim.plugins.extras.util.mini-hipatterns" },
 	{ import = "plugins" },
 }, {
+	install = { colorscheme = { "kanagawabones" } },
+	checker = { enabled = true },
+	performance = {
+		rtp = {
+			-- disable some rtp plugins
+			disabled_plugins = {
+				"gzip",
+				-- "matchit",
+				-- "matchparen",
+				-- "netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 	dev = {
 		path = "~/dev",
 		patterns = { "mikker" },

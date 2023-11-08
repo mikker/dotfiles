@@ -5,6 +5,12 @@ local function augroup(name)
 	return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
 
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	group = augroup("term"),
+	command = "nmap <buffer> <cr> :bd!<cr>",
+})
+
 local magic_markers = augroup("magic_markers")
 vim.api.nvim_create_autocmd("BufLeave", {
 	pattern = "*.{erb,html,haml,slim,eex}",

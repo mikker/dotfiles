@@ -1,7 +1,7 @@
 return {
 	"tpope/vim-rails",
 	"tpope/vim-rake",
-	"slim-template/vim-slim",
+	{ "slim-template/vim-slim", dependencies = { "tpope/vim-haml" } },
 	"vim-ruby/vim-ruby",
 	"zackhsi/sorbet.vim",
 
@@ -13,22 +13,13 @@ return {
 			})
 		end,
 	},
+
+	-- better matchup for ruby
+	{ "andymass/vim-matchup" },
 	{
-		"nvim-neotest/neotest",
-		dependencies = { "olimorris/neotest-rspec", "zidhuss/neotest-minitest" },
-		opts = {
-			adapters = {
-				["neotest-rspec"] = {
-					rspec_cmd = function()
-						return vim.tbl_flatten({
-							"bundle",
-							"exec",
-							"rspec",
-						})
-					end,
-				},
-				["neotest-minitest"] = {},
-			},
-		},
+		"nvim-treesitter/nvim-treesitter",
+		config = function(_, opts)
+			opts.matchup = { enable = true, disable = { "ruby" } }
+		end,
 	},
 }

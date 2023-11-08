@@ -16,9 +16,18 @@ return {
 		},
 	},
 	{ "folke/flash.nvim", enabled = false },
+
+	{ "lewis6991/gitsigns.nvim", enabled = false },
+
+	-- additions
 	{
-		"lewis6991/gitsigns.nvim",
-		opts = { signcolumn = false },
+		"echasnovski/mini.splitjoin",
+		init = function()
+			require("mini.splitjoin").setup({})
+		end,
 	},
-	-- { "RRethy/vim-illuminate", enabled = false },
+	"junegunn/vim-easy-align",
+	"echasnovski/mini.bracketed",
+	"mbbill/undotree",
+	"whiteinge/diffconflicts",
 }

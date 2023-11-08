@@ -4,3 +4,4 @@ doc/tags
 /vim/vim.symlink/.netrwhist
 nvim/plugin/packer_compiled.lua
 nvim/lazy-lock.json
+brew/Brewfile.symlink.lock.json

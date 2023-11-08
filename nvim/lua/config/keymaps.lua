@@ -1,23 +1,8 @@
 local function map(mode, lhs, rhs, opts)
-	local keys = require("lazy.core.handler").handlers.keys
-	---@cast keys LazyKeysHandler
-	-- do not create the keymap if a lazy keys handler exists
-	if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-		opts = opts or {}
-		opts.silent = opts.silent ~= false
-		vim.keymap.set(mode, lhs, rhs, opts)
-	end
+	-- opts.silent = opts.silent ~= false
+	vim.keymap.set(mode, lhs, rhs, opts)
 end
---
--- -- better up/down
--- map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- fast split movement
-map("n", "<c-h>", "<c-w>h", { desc = "Go to right window" })
-map("n", "<c-j>", "<c-w>j", { desc = "Go to right window" })
-map("n", "<c-k>", "<c-w>k", { desc = "Go to right window" })
-map("n", "<c-l>", "<c-w>l", { desc = "Go to right window" })
 -- support <c-hjkl> to arrows mapped keebs
 map("n", "<Left>", "<c-w>h", { desc = "Go to right window" })
 map("n", "<Down>", "<c-w>j", { desc = "Go to right window" })
@@ -80,26 +65,15 @@ map("i", "<c-_>", "<c-x><c-l>")
 map("n", "<leader>vv", ":e $MYVIMRC<cr>", { desc = "Edit vimrc" })
 map("n", "<leader>vt", ":tabe $MYVIMRC<cr>", { desc = "Edit vimrc in tab" })
 
--- <esc> goes out of insert mode in term
-map("t", "<esc>", "<c-\\><c-n>")
+map("x", "<cr>", ":EasyAlign<cr>")
 
---  Close term buffers with <cr>
-vim.cmd([[
-augroup nvimrcEx
-autocmd!
-au TermOpen * nmap <buffer> <cr> :bd!<cr>
-augroup END
-]])
+map("n", "<leader>tt", ":TestNearest<cr>", { silent = true })
+map("n", "<leader>tT", ":TestFile<cr>", { silent = true })
+map("n", "<leader>ta", ":TestSuite<cr>", { silent = true })
+map("n", "<leader>tl", ":TestLast<cr>", { silent = true })
+map("n", "<leader>tg", ":TestVisit<cr>", { silent = true })
+map("n", "<leader>tm", ":Rerun TestLast<cr>", { desc = "Rerun TestLast" })
 
--- map("x", "<cr>", ":EasyAlign<cr>")
-
-map("n", "<leader>rt", ":TestNearest<cr>", { silent = true })
-map("n", "<leader>rT", ":TestFile<cr>", { silent = true })
-map("n", "<leader>ra", ":TestSuite<cr>", { silent = true })
-map("n", "<leader>rl", ":TestLast<cr>", { silent = true })
-map("n", "<leader>rg", ":TestVisit<cr>", { silent = true })
---
-map("n", "<leader>rm", ":Rerun TestLast<cr>", { desc = "Rerun TestLast" })
 map("n", "<leader>ro", ":VtrOpenRunner<cr>", { desc = "Open Tmux runner" })
 map("n", "<leader>rk", ":VtrKillRunner<cr>", { desc = "Kill Tmux runner" })
 
@@ -123,19 +97,7 @@ map("n", "\\", ":grep! ")
 -- map("n", "<cr>", ":lua require('neotest').run.run_last()<cr>", { desc = "Run last test" })
 map("n", "<cr>", ":Rerun<cr>", { desc = "Run last test" })
 
-map(
-	"n",
-	"<leader>tj",
-	"<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>",
-	{ desc = "Jump to next failed" }
-)
-map(
-	"n",
-	"<leader>tk",
-	"<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>",
-	{ desc = "Jump to prev failed" }
-)
-
 vim.keymap.del("n", "<c-/>")
 vim.keymap.del("t", "<c-/>")
+
 map("n", "<c-/>", ":nohl<cr>")

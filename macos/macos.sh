@@ -146,3 +146,7 @@ defaults write com.apple.TextEdit NSShowAppCentricOpenPanelInsteadOfUntitledFile
 
 echo "Installing DefaultKeyBindings"
 mkdir -p ~/Library/KeyBindings && cp ~/dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
+
+echo "Disable font smoothing"
+defaults -currentHost write -g AppleFontSmoothing -int 0
+

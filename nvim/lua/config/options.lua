@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 opt.backup = false
-opt.clipboard = nil
+opt.clipboard = "" -- don't sync with OS
 opt.exrc = true -- auto-source local .nvimrc
 opt.history = 10000
 opt.relativenumber = false
@@ -11,11 +11,11 @@ opt.swapfile = false
 opt.undodir = "~/.tmp,/tmp"
 opt.wrap = true
 opt.gdefault = true
+opt.listchars:append({ trail = "·", nbsp = "·" })
 
 -- Automatic dark mode on boot
 if vim.fn.executable("is-this-dark-mode") then
 	vim.fn.system("is-this-dark-mode")
-
 	if vim.v.shell_error == 0 then
 		vim.opt.background = "dark"
 	else
@@ -23,11 +23,11 @@ if vim.fn.executable("is-this-dark-mode") then
 	end
 end
 
-local is_ui = vim.fn.has("gui_vimr") == 1 or vim.g.neovide
-
 if not vim.fn.has("gui_vimr") then
 	vim.opt.guifont = { "Iosevka Light", ":h18" }
 end
+
+local is_ui = vim.fn.has("gui_vimr") == 1 or vim.g.neovide
 
 if is_ui then
 	--  act as in a term
