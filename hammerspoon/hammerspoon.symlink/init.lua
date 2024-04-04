@@ -30,7 +30,6 @@ for key, app in pairs(charsToApps) do
 	end)
 end
 
-require("hjkl")
 require("caffeine")
 require("window-management")
 require("mouse_four_five")

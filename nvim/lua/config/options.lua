@@ -13,6 +13,8 @@ opt.wrap = true
 opt.gdefault = true
 opt.listchars:append({ trail = "·", nbsp = "·" })
 
+opt.statuscolumn = ""
+
 -- Automatic dark mode on boot
 if vim.fn.executable("is-this-dark-mode") then
 	vim.fn.system("is-this-dark-mode")
@@ -24,7 +26,8 @@ if vim.fn.executable("is-this-dark-mode") then
 end
 
 if not vim.fn.has("gui_vimr") then
-	vim.opt.guifont = { "Iosevka Light", ":h18" }
+	-- vim.opt.guifont = { "Iosevka Light", ":h20" }
+	vim.opt.guifont = "Iosevka:h20"
 end
 
 local is_ui = vim.fn.has("gui_vimr") == 1 or vim.g.neovide
@@ -33,11 +36,11 @@ if is_ui then
 	--  act as in a term
 	vim.api.nvim_set_keymap("n", "<c-z>", ":term<cr>", {})
 
-	vim.cmd([[cd ~/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents]])
+	-- vim.cmd([[cd ~/Library/Mobile Documents/27N4MQEA55~pro~writer/Documents]])
 
-	vim.cmd([[
-  autocmd VimEnter * if argc() == 0 | normal <leader>ww | endif
-  ]])
+	-- vim.cmd([[
+	--  autocmd VimEnter * if argc() == 0 | normal <leader>ww | endif
+	--  ]])
 end
 
 vim.cmd([[

@@ -21,6 +21,22 @@ hs.hotkey.bind(hyper, "L", function()
 	hs.grid.set(win, { x = 6, y = 0, w = 6, h = 12 }, win:screen())
 end)
 
+hs.hotkey.bind(hyper, "Left", function()
+	local win = hs.window.focusedWindow()
+	if not win then
+		return
+	end
+	hs.grid.set(win, { x = 0, y = 0, w = 6, h = 12 }, win:screen())
+end)
+
+hs.hotkey.bind(hyper, "Right", function()
+	local win = hs.window.focusedWindow()
+	if not win then
+		return
+	end
+	hs.grid.set(win, { x = 6, y = 0, w = 6, h = 12 }, win:screen())
+end)
+
 hs.hotkey.bind(hyper, "O", function()
 	local win = hs.window.focusedWindow()
 	if not win then

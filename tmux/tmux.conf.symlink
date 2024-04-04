@@ -52,7 +52,7 @@ set -g status-style fg=colour239,,bg=default
 set-window-option -g window-status-style fg=colour246,bg=default
 
 set -g status-left ''
-set -g status-right '%H:%M'
+set -g status-right ''
 set -g status-right-length 20
 set -g status-interval 30
 
@@ -67,6 +67,7 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
 set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @plugin 'joshmedeski/tmux-fzf-url'
 
 # Local config
 if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'

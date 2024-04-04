@@ -1,68 +1,68 @@
 ; vim: set ft=gitconfig
 [user]
-  name = Mikkel Malmberg
-  email = mikkel@brnbw.com
-  signingkey = 7B09867145A39CC3
+	name = Mikkel Malmberg
+	email = mikkel@brnbw.com
+	signingkey = 7B09867145A39CC3
 [color]
-  diff = auto
-  status = auto
-  branch = auto
-  ui = true
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
 [github]
-  user = mikker
+	user = mikker
 [alias]
-  br = branch
-  ci = commit
-  co = checkout
-  hammer = commit --allow-empty -m 🔨
-  last = log -1 HEAD
-  rb = rebase
-  st = status
-  sw = switch
-  tree = "log --graph --decorate --abbrev=commit"
-  undo = reset HEAD~1 --mixed
-  up = pull --rebase --autostash
-  upto = "branch --set-upstream-to"
-  wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
-  qs = "!git add -A && git commit -qm 'QuickSave'"
+	br = branch
+	ci = commit
+	co = checkout
+	hammer = commit --allow-empty -m 🔨
+	last = log -1 HEAD
+	rb = rebase
+	st = status
+	sw = switch
+	tree = "log --graph --decorate --abbrev=commit"
+	undo = reset HEAD~1 --mixed
+	up = pull --rebase --autostash
+	upto = "branch --set-upstream-to"
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+	qs = "!git add -A && git commit -qm 'QuickSave'"
 [core]
-  excludesfile = ~/.gitignore
-  editor = nvim
+	excludesfile = ~/.gitignore
+	editor = nvim
 [format]
-  pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
+	pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
-  default = current
+	default = current
 [filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  required = true
-  process = git-lfs filter-process
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
 [url "https://github.com"]
-  insteadOf = git://github.com
+	insteadOf = git://github.com
 [stash]
-  showPatch = true
+	showPatch = true
 [rebase]
-  autostash = true
+	autostash = true
 [log]
-  decorate = full
+	decorate = full
 [pull]
-  ff = only
-  rebase = true
+	ff = only
+	rebase = true
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
 [credential "https://github.com"]
-  username = mikker
+	username = mikker
 [commit]
-  gpgsign = true
+	gpgsign = true
 [merge]
 	tool = diffconflicts
 [mergetool]
-  prompt = false
+	prompt = false
 	keepBackup = false
 [difftool]
-  prompt = false
+	prompt = false
 [mergetool "diffconflicts"]
 	cmd = nvim -c DiffConflictsWithHistory \"$MERGED\" \"$BASE\" \"$LOCAL\" \"$REMOTE\"
 	trustExitCode = true
 [init]
-  defaultBranch = main
+	defaultBranch = main

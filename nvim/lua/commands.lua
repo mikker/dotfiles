@@ -28,4 +28,14 @@ fun! <SID>Strip_trailing_whitespace()
   call cursor(l:l, l:c)
 endfun
 noremap <leader>S :call <SID>Strip_trailing_whitespace()<cr>
+
+command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
+function! QuickfixFilenames()
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let qf_bufnr = quickfix_item['bufnr']
+    let buffer_numbers[qf_bufnr] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
+endfunction
 ]])

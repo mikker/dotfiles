@@ -36,7 +36,7 @@ function setupVideoSpeedThing() {
 
     console.log(
       `%cplayback rate set to ${video.playbackRate}`,
-      "color: purple"
+      "color: purple",
     );
   });
 }
@@ -71,7 +71,7 @@ function setupScrollByCtrlDAndU() {
 
       document.scrollingElement.scrollTo(
         0,
-        start + change * EasingFunctions.easeOutQuad(pos)
+        start + change * EasingFunctions.easeOutQuad(pos),
       );
 
       if (currentTime < duration) {
@@ -90,7 +90,7 @@ function setupScrollByCtrlDAndU() {
 function setupSystemFontResetter() {
   let styleElm = null;
 
-  document.addEventListener("keyup", (event) => {
+  document.addEventListener("keydown", (event) => {
     if (event.code === "KeyS" && event.ctrlKey && event.altKey) {
       if (styleElm) {
         styleElm.remove();

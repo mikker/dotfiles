@@ -1,7 +1,6 @@
 npm install -g \
       diff-so-fancy@latest \
       neovim@latest \
-      nodemon@latest \
       vercel@latest \
       np@latest \
       npm@latest \

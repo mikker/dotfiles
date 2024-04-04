@@ -6,34 +6,29 @@ return {
 		end,
 		dependencies = {},
 	},
-
-	{
-		"hrsh7th/nvim-cmp",
-		opts = function(_, opts)
-			local cmp = require("cmp")
-			opts.mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", opts.mapping, {
-				["<C-Space>"] = vim.NIL,
-				["<CR>"] = vim.NIL,
-				["<Right>"] = cmp.mapping.confirm({ select = false }),
-			}))
-		end,
-	},
+	-- {
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	opts = function(_, opts)
+	-- 		local cmp = require("cmp")
+	-- 		opts.mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", opts.mapping, {
+	-- 			["<C-Space>"] = vim.NIL,
+	-- 			-- ["<CR>"] = vim.NIL,
+	-- 			["<Right>"] = cmp.mapping.complete(),
+	-- 			["<C-p>"] = cmp.mapping.complete(),
+	-- 		}))
+	-- 		opts.completion = {
+	-- 			autocomplete = {
+	-- 				completeopt = "menu,menuone,noinsert",
+	-- 				-- completeopt = "menu,menuone",
+	-- 			},
+	-- 		}
+	-- 		-- opts.experimental = {
+	-- 		-- 	-- ghost_text = false,
+	-- 		-- }
+	-- 	end,
+	-- },
 
 	{ "echasnovski/mini.pairs", enabled = false },
-	{
-		"echasnovski/mini.surround",
-		opts = {
-			-- tpope/vim-surround style mappings
-			mappings = {
-				add = "ys",
-				delete = "ds",
-				find = nil,
-				highlight = nil,
-				replace = "cs",
-				update_n_lines = nil,
-			},
-		},
-	},
 
 	-- additions
 	"tpope/vim-abolish", -- :S smart replace
@@ -41,7 +36,6 @@ return {
 	"tpope/vim-fugitive", -- git things
 	"tpope/vim-rhubarb", -- github things
 	"tpope/vim-projectionist", -- project navigation
-	"tpope/vim-vinegar", -- fs navigation
 	"tpope/vim-endwise", -- auto ends
 
 	{
