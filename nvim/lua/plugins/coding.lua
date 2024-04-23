@@ -6,9 +6,9 @@ return {
 		end,
 		dependencies = {},
 	},
-	-- {
-	-- 	"hrsh7th/nvim-cmp",
-	-- 	opts = function(_, opts)
+	{
+		"hrsh7th/nvim-cmp",
+		opts = function(_, _)
 	-- 		local cmp = require("cmp")
 	-- 		opts.mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", opts.mapping, {
 	-- 			["<C-Space>"] = vim.NIL,
@@ -25,8 +25,8 @@ return {
 	-- 		-- opts.experimental = {
 	-- 		-- 	-- ghost_text = false,
 	-- 		-- }
-	-- 	end,
-	-- },
+		end,
+	},
 
 	{ "echasnovski/mini.pairs", enabled = false },
 
