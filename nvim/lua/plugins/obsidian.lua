@@ -14,7 +14,7 @@ return {
 		workspaces = {
 			{
 				name = "Wiki",
-				path = "/Users/mikker/Library/Mobile Documents/iCloud~md~obsidian/Documents/Wiki",
+				path = "/Users/mikker/Library/Mobile Documents/iCloud~md~obsidian/Wiki",
 				overrides = {
 					daily_notes = {
 						folder = "02 Calendar/Journals/",

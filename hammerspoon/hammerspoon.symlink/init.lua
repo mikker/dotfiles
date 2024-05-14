@@ -4,5 +4,4 @@ end
 hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reload_config):start()
 hs.alert.show(" ✔︎")
 
-require("window-management")
 require("mouse_four_five")

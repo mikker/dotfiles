@@ -2,6 +2,17 @@ return {
 	-- no bufferline
 	{ "akinsho/bufferline.nvim", enabled = false },
 
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = function(_, opts)
+			opts.options.section_separators = ""
+			opts.options.component_separators = ""
+			opts.sections.lualine_y = {}
+			opts.sections.lualine_z = {}
+			return opts
+		end,
+	},
+
 	-- no indent guides
 	{ "lukas-reineke/indent-blankline.nvim", enabled = false },
 	{
@@ -12,6 +23,7 @@ return {
 
 	-- no fancy ui
 	{ "folke/noice.nvim", enabled = false },
+	{ "stevearc/dressing.nvim", enabled = false },
 
 	-- extend whick-key legend
 	{

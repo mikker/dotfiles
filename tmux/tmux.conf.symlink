@@ -68,6 +68,7 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'joshmedeski/tmux-fzf-url'
+set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 
 # Local config
 if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'

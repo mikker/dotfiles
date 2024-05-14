@@ -4,9 +4,10 @@ return {
 		opts = {
 			formatters_by_ft = {
 				solidity = { "forge" },
-				eruby = { "erb_format", "rustywind" },
+				eruby = { "erb-format", "rustywind" },
 				slim = { "rustywind" },
 				ruby = { "rubyfmt", "rustywind" },
+				yaml = {},
 			},
 			formatters = {
 				forge = {
@@ -14,18 +15,18 @@ return {
 					args = { "fmt", "-r", "-" },
 					stdin = true,
 				},
-				erb_format = {
-					command = "erb-format",
-					args = { "--stdin" },
-					stdin = true,
-					condition = function(ctx)
-						local basename = vim.fs.basename(ctx.filename)
-						if basename and string.match(basename, ".yml$") then
-							return false
-						end
-						return true
-					end,
-				},
+				-- erb_format = {
+				-- 	command = "erb-format",
+				-- 	args = { "--stdin" },
+				-- 	stdin = true,
+				-- 	condition = function(ctx)
+				-- 		local basename = vim.fs.basename(ctx.filename)
+				-- 		if basename and string.match(basename, ".yml$") then
+				-- 			return false
+				-- 		end
+				-- 		return true
+				-- 	end,
+				-- },
 			},
 		},
 	},

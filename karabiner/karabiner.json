@@ -18,7 +18,7 @@
                 },
                 "rules": [
                     {
-                        "description": "Map f+j to Escape",
+                        "description": "Akimbo cmd to F12",
                         "manipulators": [
                             {
                                 "from": {

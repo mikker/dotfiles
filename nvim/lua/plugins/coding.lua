@@ -6,29 +6,30 @@ return {
 		end,
 		dependencies = {},
 	},
+	{ "rafamadriz/friendly-snippets", enabled = false },
 	{
 		"hrsh7th/nvim-cmp",
-		opts = function(_, _)
-	-- 		local cmp = require("cmp")
-	-- 		opts.mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", opts.mapping, {
-	-- 			["<C-Space>"] = vim.NIL,
-	-- 			-- ["<CR>"] = vim.NIL,
-	-- 			["<Right>"] = cmp.mapping.complete(),
-	-- 			["<C-p>"] = cmp.mapping.complete(),
-	-- 		}))
-	-- 		opts.completion = {
-	-- 			autocomplete = {
-	-- 				completeopt = "menu,menuone,noinsert",
-	-- 				-- completeopt = "menu,menuone",
-	-- 			},
-	-- 		}
-	-- 		-- opts.experimental = {
-	-- 		-- 	-- ghost_text = false,
-	-- 		-- }
+		opts = function(opts, _)
+			opts.completion = {
+				autocomplete = {
+					completeopt = "menu,menuone,noinsert",
+					-- completeopt = "menu,menuone",
+				},
+			}
 		end,
 	},
 
 	{ "echasnovski/mini.pairs", enabled = false },
+
+	-- extras
+	{
+		"zbirenbaum/copilot.lua",
+		opts = function(_, opts)
+			opts.filetypes = {
+				markdown = false,
+			}
+		end,
+	},
 
 	-- additions
 	"tpope/vim-abolish", -- :S smart replace
@@ -55,5 +56,10 @@ return {
 		end,
 	},
 
-	"mattn/emmet-vim",
+	{
+		"olrtg/nvim-emmet",
+		config = function()
+			vim.keymap.set({ "n", "v" }, "<leader>xe", require("nvim-emmet").wrap_with_abbreviation)
+		end,
+	},
 }
