@@ -2,38 +2,30 @@
 
 bind R source-file ~/.tmux.conf
 
-# set -g default-terminal 'tmux-256color'
-set -ga terminal-overrides ',xterm*:Tc'
-
-# mouse on (tmux 2.1)
-set -g mouse on
 # Don't lose track of SSH_AGENT etc. from parent environment.
 set -g update-environment -r
+
 # start window numbers at 1 like keyboards do
 set -g base-index 1
+
 # renumber windows sequentially after closing any of them
 set -g renumber-windows on
-# Set terminal title
-# set-option -g set-titles on
-set-option -g focus-events on
 
 # no visual bell
-set-option -g visual-activity off
+set -g visual-activity off
 
-set-option -gw automatic-rename on
-
-set-option -gw monitor-activity off
+# don't show change indicators in the status bar
+set -g monitor-activity off
 
 # Use vim keybindings
 set-window-option -g mode-keys vi
-bind-key h select-pane -L
-bind-key j select-pane -D
-bind-key k select-pane -U
-bind-key l select-pane -R
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
 
 # Quickly switch between windows
 bind ^b last-window
-bind-key -n C-\\ last-window
 # Quickly switch between sessions
 bind ^s switch-client -l
 
@@ -47,36 +39,14 @@ bind ^o select-pane -l\; resize-pane -Z
 # Start new windows on current path
 bind c new-window -c "#{pane_current_path}"
 
-# status bar
-set -g status-style fg=colour239,,bg=default
-set-window-option -g window-status-style fg=colour246,bg=default
-
-set -g status-left ''
-set -g status-right ''
-set -g status-right-length 20
-set -g status-interval 30
-
-set-window-option -g window-status-current-format ' ★  #W#{?window_zoomed_flag,[zoomed],}  '
-set-window-option -g window-status-current-style fg=colour0,bg=colour15,bold
-set-window-option -g window-status-format ' #I #W#F '
-set-window-option -g window-status-style fg=colour239
-
-set -sg escape-time 1
-
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'joshmedeski/tmux-fzf-url'
-set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 
 # Local config
-if-shell "[ -f ~/.tmux.local.conf ]" 'source ~/.tmux.local.conf'
+if-shell "[ -f ~/.tmux.local.conf ]" "source ~/.tmux.local.conf"
 
 run -b '~/.tmux/plugins/tpm/tpm'
-
-# Undercurl
-set -g default-terminal "${TERM}"
-set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
-set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
-
+run -b "~/.tmux/theme.tmux"
