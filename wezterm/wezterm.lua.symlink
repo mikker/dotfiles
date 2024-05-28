@@ -23,8 +23,8 @@ config.hide_tab_bar_if_only_one_tab = true
 config.scrollback_lines = 10000
 
 config.window_padding = {
-	left = 4,
-	right = 4,
+	left = 8,
+	right = 8,
 	top = 8,
 	bottom = 4,
 }

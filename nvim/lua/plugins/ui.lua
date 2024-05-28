@@ -15,11 +15,6 @@ return {
 
 	-- no indent guides
 	{ "lukas-reineke/indent-blankline.nvim", enabled = false },
-	{
-		"echasnovski/mini.indentscope",
-		enabled = false,
-		-- opts = { draw = { delay = 10, animation = require("mini.indentscope").gen_animation.none() } },
-	},
 
 	-- no fancy ui
 	{ "folke/noice.nvim", enabled = false },

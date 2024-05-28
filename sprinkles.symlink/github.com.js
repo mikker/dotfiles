@@ -8,18 +8,18 @@ document.addEventListener("keydown", (event) => {
 async function rebase() {
   const button = q('[data-details-container=".js-merge-pr"]');
 
-  if (button.innerText !== "Rebase and merge") {
+  if (button.innerText !== "Squash and merge") {
     q('[aria-label="Select merge method"]').click();
     await sleep(250);
 
-    q('.js-merge-method-menu button[value="rebase"]').click();
+    q('.js-merge-method-menu button[value="squash"]').click();
     await sleep(250);
   }
 
   button.click();
   await sleep(250);
 
-  q(".btn-group-rebase .js-merge-commit-button").click();
+  q(".btn-group-squash .js-merge-commit-button").click();
 }
 
 function sleep(delay) {

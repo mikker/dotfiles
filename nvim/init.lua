@@ -13,6 +13,8 @@ require("lazy").setup({
 		import = "lazyvim.plugins",
 	},
 	{ import = "lazyvim.plugins.extras.coding.copilot" },
+	{ import = "lazyvim.plugins.extras.coding.copilot-chat" },
+	{ import = "lazyvim.plugins.extras.coding.mini-surround" },
 	{ import = "lazyvim.plugins.extras.editor.mini-move" },
 	{ import = "lazyvim.plugins.extras.editor.dial" },
 	{ import = "lazyvim.plugins.extras.formatting.prettier" },
