@@ -2,6 +2,12 @@
 
 bind R source-file ~/.tmux.conf
 
+# enable true color
+set -ga terminal-overrides ',xterm*:Tc'
+
+# still handy
+set -g mouse on
+
 # Don't lose track of SSH_AGENT etc. from parent environment.
 set -g update-environment -r
 
@@ -50,3 +56,7 @@ if-shell "[ -f ~/.tmux.local.conf ]" "source ~/.tmux.local.conf"
 
 run -b '~/.tmux/plugins/tpm/tpm'
 run -b "~/.tmux/theme.tmux"
+
+set -g default-terminal "screen-256color"
+set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0

@@ -1,7 +1,10 @@
 return {
 	"tpope/vim-rails",
 	"tpope/vim-rake",
-	{ "slim-template/vim-slim", dependencies = { "tpope/vim-haml" } },
+	{
+		"slim-template/vim-slim",
+		dependencies = { "tpope/vim-haml" },
+	},
 	"vim-ruby/vim-ruby",
 	"zackhsi/sorbet.vim",
 

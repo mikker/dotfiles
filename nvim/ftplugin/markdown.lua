@@ -1,3 +1,3 @@
-require("which-key").register({
-	p = { "<cmd>silent !open -a Marked\\ 2 '%'<cr>", "Preview in Marked" },
-}, { prefix = "<leader>" })
+require("which-key").add({
+	{ "<leader>p", "<cmd>silent !open -a Marked\\ 2 '%'<cr>", desc = "Preview in Marked" },
+})
