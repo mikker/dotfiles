@@ -1,6 +1,0 @@
-ytd-rich-item-renderer:has([overlay-style="SHORTS"]) {
-  /* display: none; */
-  filter: blur(10px);
-  opacity: 0.5;
-  overflow: hidden;
-}
