@@ -90,4 +90,4 @@ map("n", "\\", ":grep! ")
 --
 -- map("n", "<c-/>", ":nohl<cr>")
 
-map("n", "<leader>oc", '<cmd>!cursor . -g "%"<cr>', { desc = "Open file in Cursor", silent = true })
+map("n", "<leader>oc", '<cmd>silent !cursor . -g "%"<cr>', { desc = "Open file in Cursor" })
