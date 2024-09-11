@@ -49,4 +49,3 @@ setopt prompt_subst # Enable parameter expansion, command substitution, and arit
 setopt transient_rprompt # only show the rprompt on the current prompt
 
 setopt extendedglob
-

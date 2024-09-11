@@ -1,0 +1,6 @@
+{
+  "asdf": {
+    "prefix": "asdf",
+    "body": ["hi, $1 asdf $0"]
+  }
+}

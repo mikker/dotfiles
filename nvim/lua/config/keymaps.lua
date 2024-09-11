@@ -89,3 +89,5 @@ map("n", "\\", ":grep! ")
 -- vim.keymap.del("t", "<c-/>")
 --
 -- map("n", "<c-/>", ":nohl<cr>")
+
+map("n", "<leader>oc", '<cmd>!cursor . -g "%"<cr>', { desc = "Open file in Cursor", silent = true })

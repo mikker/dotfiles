@@ -1,0 +1,18 @@
+{
+  "<%= %>": {
+    "prefix": "=",
+    "body": ["<%= $0 %>"]
+  },
+  "<% %>": {
+    "prefix": "-",
+    "body": ["<% $0 %>"]
+  },
+  "<% end %>": {
+    "prefix": "end",
+    "body": ["<% end %>"]
+  },
+  "render Component.new(...)": {
+    "prefix": "comp",
+    "body": ["<%= render Component.new($0) %>"]
+  }
+}

@@ -1,7 +1,6 @@
 gem update --system
 gem install \
   bundler \
-  gem-release \
   gem-shut-the-fuck-up \
   neovim \
   tmuxinator

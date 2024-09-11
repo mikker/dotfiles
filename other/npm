@@ -1,8 +1,4 @@
 npm install -g \
-      diff-so-fancy@latest \
       neovim@latest \
       vercel@latest \
-      np@latest \
-      npm@latest \
-      prettier@latest \
       serve@latest

@@ -31,7 +31,7 @@ return {
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "<cr>", "<cmd>EaseAlign<cr>", mode = "x" },
+      { "<cr>", "<cmd>EasyAlign<cr>", mode = "x" },
     },
   },
 

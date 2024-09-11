@@ -13,8 +13,8 @@ config.color_scheme = scheme_for_apperance(wezterm.gui.get_appearance())
 
 config.font_size = 16.0
 -- config.font = wezterm.font("Cascadia Code NF", { weight = "DemiLight", stretch = "Normal", style = "Normal" })
-config.font = wezterm.font("Berkeley Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
--- config.font = wezterm.font("Iosevka", { weight = "Regular", stretch = "Normal", style = "Normal" })
+-- config.font = wezterm.font("Berkeley Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
+config.font = wezterm.font("Iosevka", { weight = "Regular", stretch = "Normal", style = "Normal" })
 -- config.font = wezterm.font("Mononoki Nerd Font", { weight = 300 })
 
 config.use_fancy_tab_bar = false

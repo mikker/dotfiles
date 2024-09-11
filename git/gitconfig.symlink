@@ -3,6 +3,8 @@
 	name = Mikkel Malmberg
 	email = mikkel@brnbw.com
 	signingkey = 7B09867145A39CC3
+[includeIf "gitdir:~/dev/tp"]
+  path = "~/dev/tp/.gitconfig"
 [color]
 	diff = auto
 	status = auto

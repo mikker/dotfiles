@@ -12,9 +12,11 @@ opt.spell = false
 
 -- opt.swapfile = false
 -- opt.undodir = "~/.tmp,/tmp"
--- opt.wrap = true
--- opt.gdefault = true
--- opt.listchars:append({ trail = "·", nbsp = "·" })
+
+opt.wrap = true
+opt.gdefault = true
+
+opt.listchars:append({ trail = "·", nbsp = "·" })
 
 -- Automatic dark mode on boot
 if vim.fn.executable("is-this-dark-mode") then
@@ -46,3 +48,5 @@ vim.cmd([[
 if vim.g.neovide then
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
 end
+
+vim.g.lazyvim_ruby_formatter = nil

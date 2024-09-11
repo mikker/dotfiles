@@ -37,7 +37,6 @@ alias gdt='git difftool'
 alias gmt='git mergetool'
 alias gs='git status -sb'
 alias gci='git commit -m'
-alias gcm='git checkout master'
 alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 alias gb='gh browse'
 

@@ -2,7 +2,7 @@ export DOTFILES=$HOME/.dotfiles
 export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 
-export PATH="$DOTFILES/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$DOTFILES/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
 export EDITOR=$VISUAL
 
@@ -12,9 +12,6 @@ source $ZSH_FILES/bindkeys.zsh
 source $ZSH_FILES/aliases.zsh
 
 export PATH="./bin:$PATH"
-
-# bun completions
-[ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -48,3 +45,5 @@ zinit light joshskidmore/zsh-fzf-history-search
 # Local modifications
 [[ -f ~/.lrc ]] && .  ~/.lrc
 
+# Initialize completion engine
+autoload -Uz compinit && compinit

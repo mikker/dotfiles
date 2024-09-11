@@ -17,7 +17,8 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
-          ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
+          ["<Tab>"] = LazyVim.cmp.confirm({ select = true }),
+          -- ["<C-l>"] = LazyVim.cmp.confirm({ select = true }),
           ["<S-CR>"] = LazyVim.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<C-CR>"] = function(fallback)
             cmp.abort()
@@ -26,6 +27,8 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
+          { name = "copilot" },
+          { name = "snippets" },
           { name = "path" },
         }, {
           { name = "buffer" },
@@ -65,7 +68,7 @@ return {
     "garymjr/nvim-snippets",
     opts = {
       friendly_snippets = false,
-      search_paths = { "/Users/mikker/.config/nvim/snippets" },
+      -- search_paths = { "/Users/mikker/.config/nvim/snippets" },
     },
     keys = {
       {
@@ -83,6 +86,7 @@ return {
   {
     "zbirenbaum/copilot.lua",
     opts = function(_, opts)
+      opts.suggestion = { enabled = true }
       opts.filetypes = {
         markdown = false,
       }
@@ -123,19 +127,4 @@ return {
   },
 
   "mattn/emmet-vim",
-
-  {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim", -- Optional
-      {
-        "stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
-        opts = {},
-      },
-    },
-    config = true,
-    lazy = false,
-  },
 }
