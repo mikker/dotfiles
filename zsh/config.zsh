@@ -1,8 +1,8 @@
 # enable colored output from ls, etc
 export CLICOLOR=1
 
-fpath=($ZSH_FILES/functions $fpath)
-autoload -U $ZSH_FILES/functions/*(:t)
+fpath=($HOME/.zfunc $fpath)
+autoload -U $HOME/.zfunc/*(:t)
 
 # makes color constants available
 autoload -U colors

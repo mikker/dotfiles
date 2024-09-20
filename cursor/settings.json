@@ -1,0 +1,45 @@
+{
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "ruby.format": "rubyfmt",
+  "ruby.languageServer": {},
+  "editor.fontFamily": "\"Iosevka\"",
+  "editor.fontSize": 16,
+  "window.autoDetectColorScheme": true,
+  "window.customTitleBarVisibility": "never",
+  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+  "lldb.launch.expressions": "native",
+  "terminal.integrated.sendKeybindingsToShell": true,
+  "workbench.preferredHighContrastLightColorTheme": "Zenbones Light",
+  "workbench.preferredDarkColorTheme": "Zenbones Zenwritten Dark",
+  "workbench.activityBar.orientation": "vertical",
+  "git.openRepositoryInParentFolders": "never",
+  "vim.leader": " ",
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "j"],
+      "commands": ["workbench.action.files.save"]
+    },
+    {
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    }
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.preferredLightColorTheme": "Zenbones Light",
+  "window.systemColorTheme": "auto",
+  "workbench.activityBar.location": "hidden",
+  "workbench.colorTheme": "Zenbones Dark",
+  "workbench.iconTheme": "vs-minimal",
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "window.commandCenter": false
+}

@@ -23,7 +23,7 @@
 	sw = switch
 	tree = "log --graph --decorate --abbrev=commit"
 	undo = reset HEAD~1 --mixed
-	up = pull --rebase --autostash
+	up = !git fetch --all --prune && git pull
 	upto = "branch --set-upstream-to"
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 	qs = "!git add -A && git commit -qm 'QuickSave'"
