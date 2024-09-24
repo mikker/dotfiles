@@ -27,6 +27,14 @@
     {
       "before": ["<leader>", "f", "f"],
       "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["[", "d"],
+      "commands": ["editor.action.marker.previous"]
+    },
+    {
+      "before": ["]", "d"],
+      "commands": ["editor.action.marker.previous"]
     }
   ],
   "[typescript]": {
@@ -41,5 +49,9 @@
   "workbench.iconTheme": "vs-minimal",
   "breadcrumbs.enabled": false,
   "editor.stickyScroll.enabled": false,
-  "window.commandCenter": false
+  "window.commandCenter": false,
+  "autoHide.hideOnOpen": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "terminal.integrated.fontSize": 16
 }
