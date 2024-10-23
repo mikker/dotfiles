@@ -1,7 +1,5 @@
 # vim: set ft=tmux.conf
 
-bind R source-file ~/.tmux.conf
-
 # enable true color
 set -ga terminal-overrides ',xterm*:Tc'
 
@@ -35,28 +33,23 @@ bind ^b last-window
 # Quickly switch between sessions
 bind ^s switch-client -l
 
-# tiny split below - suitable for test runners
-unbind _
-bind _ split-window \; resize-pane -y 6
-
 # Select other pane, then zoom
 bind ^o select-pane -l\; resize-pane -Z
 
-# Start new windows on current path
+# # Start new windows on current path
 bind c new-window -c "#{pane_current_path}"
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
-set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
+set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'joshmedeski/tmux-fzf-url'
-
-# Local config
-if-shell "[ -f ~/.tmux.local.conf ]" "source ~/.tmux.local.conf"
-
+set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
+#
 run -b '~/.tmux/plugins/tpm/tpm'
 run -b "~/.tmux/theme.tmux"
 
-set -g default-terminal "screen-256color"
+set -g default-terminal "${TERM}"
 set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
-set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+

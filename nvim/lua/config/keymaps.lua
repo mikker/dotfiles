@@ -90,4 +90,8 @@ map("n", "\\", ":grep! ")
 --
 -- map("n", "<c-/>", ":nohl<cr>")
 
-map("n", "<leader>oc", '<cmd>silent !cursor . -g "%"<cr>', { desc = "Open file in Cursor" })
+vim.keymap.set("n", "<leader>oc", function()
+  local file = vim.fn.shellescape(vim.fn.expand("%:p"))
+  local line = vim.fn.line(".")
+  vim.cmd(string.format("silent !cursor -g %s:%s", file, line))
+end, { desc = "Open file in Cursor" })

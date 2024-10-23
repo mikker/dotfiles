@@ -7,7 +7,7 @@
   },
   "ruby.format": "rubyfmt",
   "ruby.languageServer": {},
-  "editor.fontFamily": "\"Iosevka\"",
+  "editor.fontFamily": "\"Iosevka Nerd Font\"",
   "editor.fontSize": 16,
   "window.autoDetectColorScheme": true,
   "window.customTitleBarVisibility": "never",
@@ -30,11 +30,41 @@
     },
     {
       "before": ["[", "d"],
-      "commands": ["editor.action.marker.previous"]
+      "commands": ["editor.action.marker.prev"]
     },
     {
       "before": ["]", "d"],
-      "commands": ["editor.action.marker.previous"]
+      "commands": ["editor.action.marker.next"]
+    },
+    {
+      "before": ["<leader>", "<leader>"],
+      "commands": ["workbench.action.openPreviousRecentlyUsedEditor"]
+    },
+    {
+      "before": ["<cr>"],
+      "commands": ["testing.reRunLastRun"],
+      "modes": ["normal"]
+    },
+    {
+      "before": ["<leader>", "t", "t"],
+      "commands": ["testing.runAtCursor"]
+    },
+    {
+      "before": ["<leader>", "t", "T"],
+      "commands": ["testing.runCurrentFile"]
+    },
+    {
+      "before": ["<leader>", "t", "a"],
+      "commands": ["testing.runAll"]
+    },
+    {
+      "before": ["<leader>", "s", "g"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["-"],
+      "commands": ["workbench.view.explorer"],
+      "modes": ["normal"]
     }
   ],
   "[typescript]": {
@@ -53,5 +83,11 @@
   "autoHide.hideOnOpen": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "terminal.integrated.fontSize": 16
+  "terminal.integrated.fontSize": 16,
+  "debug.console.fontSize": 14,
+  "editor.wordWrap": "on",
+  "editor.fontWeight": "normal",
+  "rubyLsp.formatter": "rubyfmt",
+  "testing.openTesting": "openOnTestFailure",
+  "github.copilot.advanced": {}
 }

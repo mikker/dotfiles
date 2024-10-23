@@ -47,3 +47,6 @@ zinit light joshskidmore/zsh-fzf-history-search
 
 # Initialize completion engine
 autoload -Uz compinit && compinit
+
+# bun completions
+[ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"
