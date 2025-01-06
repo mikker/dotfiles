@@ -1,6 +1,7 @@
 export DOTFILES=$HOME/.dotfiles
 export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
+export XDG_CONFIG_HOME=$HOME/.config
 
 export PATH="$DOTFILES/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=vim
@@ -48,5 +49,3 @@ zinit light joshskidmore/zsh-fzf-history-search
 # Initialize completion engine
 autoload -Uz compinit && compinit
 
-# bun completions
-[ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"

@@ -4,34 +4,38 @@ return {
   { "folke/flash.nvim", enabled = false },
   { "lewis6991/gitsigns.nvim", enabled = false },
 
-  -- extras
   {
-    "nvim-telescope/telescope.nvim",
-    -- keys = {
-    --   { "<leader><space>", false },
-    -- },
-    opts = {
-      defaults = {
-        mappings = {
-          i = {
-            ["<c-t>"] = require("telescope.actions").select_tab,
-          },
-        },
-      },
+    "ibhagwan/fzf-lua",
+    keys = {
+      { "<leader><space>", false },
     },
   },
 
-  -- additions
+  -- extras
+  {
+    "razak17/tailwind-fold.nvim",
+    opts = {
+      enabled = false,
+      symbol = "󱏿",
+    },
+    keys = {
+      { "<leader>ut", "<cmd>TailwindFoldToggle<cr>", desc = "Toggle Tailwind Fold" },
+    },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade", "slim", "eruby" },
+  },
+
   {
     "echasnovski/mini.splitjoin",
     init = function()
       require("mini.splitjoin").setup({})
     end,
   },
+
   {
     "junegunn/vim-easy-align",
     keys = {
-      { "<cr>", "<cmd>EasyAlign<cr>", mode = "x" },
+      { "<leader>A", "<cmd>EasyAlign<cr>", mode = "x", desc = "Align selection" },
     },
   },
 

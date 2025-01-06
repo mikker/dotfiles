@@ -1,23 +1,36 @@
 {
-  "github.copilot.enable": {
-    "*": true,
-    "plaintext": false,
-    "markdown": false,
-    "scminput": false
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "ruby.format": "rubyfmt",
-  "ruby.languageServer": {},
+  "breadcrumbs.enabled": false,
+  "debug.console.fontSize": 14,
+  "editor.accessibilitySupport": "off",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.fontFamily": "\"Iosevka Nerd Font\"",
   "editor.fontSize": 16,
-  "window.autoDetectColorScheme": true,
-  "window.customTitleBarVisibility": "never",
-  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
-  "lldb.launch.expressions": "native",
-  "terminal.integrated.sendKeybindingsToShell": true,
-  "workbench.preferredHighContrastLightColorTheme": "Zenbones Light",
-  "workbench.preferredDarkColorTheme": "Zenbones Zenwritten Dark",
-  "workbench.activityBar.orientation": "vertical",
+  "editor.fontWeight": "normal",
+  "editor.formatOnSave": true,
+  "editor.stickyScroll.enabled": false,
+  "editor.wordWrap": "on",
   "git.openRepositoryInParentFolders": "never",
+  "github.copilot.advanced": {},
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": false,
+    "plaintext": false,
+    "scminput": false
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "lldb.launch.expressions": "native",
+  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
+  "lldb.suppressUpdateNotifications": true,
+  "ruby.format": "rubyfmt",
+  "ruby.interpreter.commandPath": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/ruby",
+  "ruby.useLanguageServer": true,
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.sendKeybindingsToShell": true,
+  "testing.openTesting": "neverOpen",
+  "typescript.updateImportsOnFileMove.enabled": "always",
   "vim.leader": " ",
   "vim.normalModeKeyBindings": [
     {
@@ -62,32 +75,25 @@
       "commands": ["workbench.action.findInFiles"]
     },
     {
+      "before": ["<leader>", "s", "w"],
+      "commands": ["extension.searchUnderCursor"]
+    },
+    {
       "before": ["-"],
       "commands": ["workbench.view.explorer"],
       "modes": ["normal"]
     }
   ],
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "workbench.preferredLightColorTheme": "Zenbones Light",
+  "window.autoDetectColorScheme": true,
+  "window.commandCenter": false,
+  "window.customTitleBarVisibility": "never",
   "window.systemColorTheme": "auto",
   "workbench.activityBar.location": "hidden",
+  "workbench.activityBar.orientation": "vertical",
   "workbench.colorTheme": "Zenbones Dark",
   "workbench.iconTheme": "vs-minimal",
-  "breadcrumbs.enabled": false,
-  "editor.stickyScroll.enabled": false,
-  "window.commandCenter": false,
-  "autoHide.hideOnOpen": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "terminal.integrated.fontSize": 16,
-  "debug.console.fontSize": 14,
-  "editor.wordWrap": "on",
-  "editor.fontWeight": "normal",
-  "rubyLsp.formatter": "rubyfmt",
-  "testing.openTesting": "openOnTestFailure",
-  "github.copilot.advanced": {}
+  "workbench.preferredDarkColorTheme": "Zenbones Zenwritten Dark",
+  "workbench.preferredHighContrastLightColorTheme": "Zenbones Light",
+  "workbench.preferredLightColorTheme": "Zenbones Light",
+  "ruby.pathToBundler": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/bundle"
 }

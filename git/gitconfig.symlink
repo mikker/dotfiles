@@ -45,6 +45,7 @@
 	showPatch = true
 [rebase]
 	autostash = true
+	updateRefs = true
 [log]
 	decorate = full
 [pull]

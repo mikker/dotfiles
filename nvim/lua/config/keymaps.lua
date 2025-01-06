@@ -87,8 +87,8 @@ map("n", "\\", ":grep! ")
 
 -- vim.keymap.del("n", "<c-/>")
 -- vim.keymap.del("t", "<c-/>")
---
--- map("n", "<c-/>", ":nohl<cr>")
+
+map("n", "<c-/>", ":nohl<cr>")
 
 vim.keymap.set("n", "<leader>oc", function()
   local file = vim.fn.shellescape(vim.fn.expand("%:p"))

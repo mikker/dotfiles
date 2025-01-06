@@ -7,7 +7,7 @@ return {
       keys[#keys + 1] = { "]w", false }
     end,
     opts = {
-      inlay_hints = { enabled = false },
+      -- inlay_hints = { enabled = false },
       servers = {
         stimulus_ls = {},
         sorbet = {
@@ -26,18 +26,9 @@ return {
               experimental = {
                 classRegex = {
                   "\\bclass:\\s*['\"]([^'\"]*)['\"]",
-                  "\\bclass_names[\\(|\\s]\\s*['\"]([^'\"]*)['\"]",
+                  "\\b(class_names|tokens)[\\(|\\s]\\s*['\"]([^'\"]*)['\"]",
                   "\\b(CL|ClassList\\.new)[\\(|\\s]\\s*['\"]([^'\"]*)['\"]",
                 },
-              },
-            },
-          },
-        },
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
               },
             },
           },

@@ -19,40 +19,6 @@ require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
-    {
-      "razak17/tailwind-fold.nvim",
-      opts = {
-        enabled = false,
-        symbol = "󱏿",
-      },
-      keys = {
-        { "<leader>ut", "<cmd>TailwindFoldToggle<cr>", desc = "Toggle Tailwind Fold" },
-      },
-      dependencies = { "nvim-treesitter/nvim-treesitter" },
-      ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade", "slim", "eruby" },
-    },
-    {
-      "yetone/avante.nvim",
-      event = "VeryLazy",
-      build = "make",
-      opts = {
-        hints = { enabled = false },
-      },
-      dependencies = {
-        "nvim-tree/nvim-web-devicons",
-        "stevearc/dressing.nvim",
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        --- The below is optional, make sure to setup it properly if you have lazy=true
-        {
-          "MeanderingProgrammer/render-markdown.nvim",
-          opts = {
-            file_types = { "markdown", "Avante" },
-          },
-          ft = { "markdown", "Avante" },
-        },
-      },
-    },
   },
   defaults = {
     lazy = false,
@@ -66,9 +32,9 @@ require("lazy").setup({
     rtp = {
       disabled_plugins = {
         "gzip",
-        --         -- "matchit",
-        --         -- "matchparen",
-        --         -- "netrwPlugin",
+        -- "matchit",
+        -- "matchparen",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",

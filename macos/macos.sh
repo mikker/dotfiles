@@ -4,7 +4,11 @@
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 # SYSTEM {{{
 
@@ -90,8 +94,8 @@ echo "Use column view in all Finder windows by default"
 defaults write com.apple.finder FXPreferredViewStyle -string "Clmv"
 
 echo "Set Default Finder location to Home"
-defaults write com.apple.finder NewWindowTarget -string "PfLo" && \
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
+defaults write com.apple.finder NewWindowTarget -string "PfLo" &&
+  defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
 
 # echo "Show the ~/Library folder"
 # chflags nohidden ~/Library
@@ -150,3 +154,7 @@ mkdir -p ~/Library/KeyBindings && cp ~/dotfiles/macos/DefaultKeyBinding.dict ~/L
 echo "Disable font smoothing"
 defaults -currentHost write -g AppleFontSmoothing -int 0
 
+echo "Disable Tile by dragging windows to screen edges"
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -int 0
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -int 0
+defaults write com.apple.WindowManager EnableTilingOptionAccelerator -int 0

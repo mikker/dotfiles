@@ -38,13 +38,13 @@ return {
   },
 
   -- https://github.com/Shopify/ruby-lsp/blob/main/EDITORS.md#lazyvim-lsp
-  {
-    "neovim/nvim-lspconfig",
-    servers = {
-      ruby_lsp = {
-        mason = false,
-        cmd = { vim.fn.expand("~/.asdf/shims/ruby-lsp") },
-      },
-    },
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   servers = {
+  --     ruby_lsp = {
+  --       mason = false,
+  --       cmd = { vim.fn.expand("~/.asdf/shims/ruby-lsp") },
+  --     },
+  --   },
+  -- },
 }

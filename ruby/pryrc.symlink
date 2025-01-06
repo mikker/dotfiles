@@ -1,3 +1,0 @@
-load File.expand_path "~/.irbrc"
-
-# vim: ft=ruby

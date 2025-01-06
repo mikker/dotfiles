@@ -1,9 +1,9 @@
 local opt = vim.opt
 
--- opt.backup = false
+opt.backup = false
 opt.clipboard = "" -- don't sync with OS
 -- opt.exrc = true -- auto-source local .nvimrc
--- opt.history = 10000
+opt.history = 10000
 
 opt.relativenumber = false
 opt.signcolumn = "auto"
@@ -49,4 +49,6 @@ if vim.g.neovide then
   vim.g.neovide_input_use_logo = 1 -- enable use of the logo (cmd) key
 end
 
-vim.g.lazyvim_ruby_formatter = nil
+-- lazyvim
+vim.g.snacks_animate = false
+vim.g.trouble_lualine = false

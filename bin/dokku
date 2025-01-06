@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "No local bin/dokku, using global"
+ssh -t dokku@hz1 $@
