@@ -41,33 +41,6 @@ map(
   { silent = true, noremap = true, desc = "Close bottom window" }
 )
 
--- -- c-c doesn't trigger InsertLeave so map to escape
--- map("x", "<c-c>", "<esc>")
--- map("i", "<c-c>", "<esc>")
---
--- -- -- commonly misspelled
--- -- vim.cmd([[
--- -- cnoreabbrev E e
--- -- cnoreabbrev G Git
--- -- cnoreabbrev Qa qa
--- -- ]])
---
--- -- alternative for <c-l> as my keebs have that mapped to <right>
--- map("i", "<c-_>", "<c-x><c-l>")
---
--- -- jump to config
--- map("n", "<leader>vv", ":e $MYVIMRC<cr>", { desc = "Edit vimrc" })
--- map("n", "<leader>vt", ":tabe $MYVIMRC<cr>", { desc = "Edit vimrc in tab" })
---
--- map("x", "<cr>", ":EasyAlign<cr>")
---
--- map("n", "<leader>tt", ":TestNearest<cr>", { silent = true })
--- map("n", "<leader>tT", ":TestFile<cr>", { silent = true })
--- map("n", "<leader>ta", ":TestSuite<cr>", { silent = true })
--- map("n", "<leader>tl", ":TestLast<cr>", { silent = true })
--- map("n", "<leader>tg", ":TestVisit<cr>", { silent = true })
--- map("n", "<leader>tm", ":Rerun TestLast<cr>", { desc = "Rerun TestLast" })
-
 map(
   "n",
   "<leader>ub",
@@ -75,20 +48,7 @@ map(
   { desc = "Toggle background light/dark" }
 )
 
--- --Telescope in vimwiki
--- map(
--- 	"n",
--- 	"<leader>fw",
--- 	'<cmd>lua require("telescope.builtin").find_files({cwd = string.format("%s", vim.g.wiki_path)})<cr>',
--- 	{ desc = "Find in Vimwiki" }
--- )
-
 map("n", "\\", ":grep! ")
-
--- vim.keymap.del("n", "<c-/>")
--- vim.keymap.del("t", "<c-/>")
-
-map("n", "<c-/>", ":nohl<cr>")
 
 vim.keymap.set("n", "<leader>oc", function()
   local file = vim.fn.shellescape(vim.fn.expand("%:p"))

@@ -36,6 +36,7 @@ return {
       opts.matchup = { enable = true, disable = { "ruby" } }
     end,
   },
+  "tpope/vim-endwise",
 
   -- https://github.com/Shopify/ruby-lsp/blob/main/EDITORS.md#lazyvim-lsp
   -- {

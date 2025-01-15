@@ -13,18 +13,7 @@ return {
     end,
   },
 
-  -- {
-  --   "garymjr/nvim-snippets",
-  --   -- keys = {
-  --   --   { "<Tab>", false },
-  --   --   { "<S-Tab>", false },
-  --   -- },
-  --   opts = {
-  --     friendly_snippets = false,
-  --   },
-  -- },
-
-  { "rafamadriz/friendly-snippets", enabled = false },
+  -- { "rafamadriz/friendly-snippets", enabled = false },
   { "echasnovski/mini.pairs", enabled = false },
 
   -- extras
@@ -44,20 +33,19 @@ return {
   "tpope/vim-fugitive", -- git things
   "tpope/vim-rhubarb", -- github things
   "tpope/vim-projectionist", -- project navigation
-  -- "tpope/vim-endwise", -- auto ends
 
-  {
-    "christoomey/vim-tmux-runner",
-    init = function()
-      vim.g.VtrOrientation = "h"
-      vim.g.VtrPercentage = 40
-      vim.g.VtrClearBeforeSend = false
-    end,
-    keys = {
-      { "<leader>ro", ":VtrOpenRunner<cr>", desc = "Open Tmux runner" },
-      { "<leader>rk", ":VtrKillRunner<cr>", desc = "Kill Tmux runner" },
-    },
-  },
+  -- {
+  --   "christoomey/vim-tmux-runner",
+  --   init = function()
+  --     vim.g.VtrOrientation = "h"
+  --     vim.g.VtrPercentage = 40
+  --     vim.g.VtrClearBeforeSend = false
+  --   end,
+  --   keys = {
+  --     { "<leader>ro", ":VtrOpenRunner<cr>", desc = "Open Tmux runner" },
+  --     { "<leader>rk", ":VtrKillRunner<cr>", desc = "Kill Tmux runner" },
+  --   },
+  -- },
   {
     "mikker/vim-rerunner",
     dev = true,

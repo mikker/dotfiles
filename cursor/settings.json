@@ -90,10 +90,11 @@
   "window.systemColorTheme": "auto",
   "workbench.activityBar.location": "hidden",
   "workbench.activityBar.orientation": "vertical",
-  "workbench.colorTheme": "Zenbones Dark",
+  "workbench.colorTheme": "Spinel",
   "workbench.iconTheme": "vs-minimal",
   "workbench.preferredDarkColorTheme": "Zenbones Zenwritten Dark",
   "workbench.preferredHighContrastLightColorTheme": "Zenbones Light",
-  "workbench.preferredLightColorTheme": "Zenbones Light",
-  "ruby.pathToBundler": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/bundle"
+  "workbench.preferredLightColorTheme": "Zenbones Zenwritten Light",
+  "ruby.pathToBundler": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/bundle",
+  "rubyLsp.formatter": "rubyfmt"
 }

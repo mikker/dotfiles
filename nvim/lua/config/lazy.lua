@@ -20,10 +20,6 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
   },
-  defaults = {
-    lazy = false,
-    version = false,
-  },
   install = {
     colorscheme = { "zenbones" },
     checker = { enabled = true },

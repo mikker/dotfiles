@@ -1,16 +1,4 @@
 {
-  "<%= %>": {
-    "prefix": ["=", "ooo"],
-    "body": ["<%= $0 %>"]
-  },
-  "<% %>": {
-    "prefix": "-",
-    "body": ["<% $0 %>"]
-  },
-  "<% end %>": {
-    "prefix": "end",
-    "body": ["<% end %>"]
-  },
   "if": {
     "prefix": "if",
     "body": ["<% if ${1:truevalue} %>", "  $2", "<% end %>"],

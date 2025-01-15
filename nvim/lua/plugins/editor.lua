@@ -4,12 +4,12 @@ return {
   { "folke/flash.nvim", enabled = false },
   { "lewis6991/gitsigns.nvim", enabled = false },
 
-  {
-    "ibhagwan/fzf-lua",
-    keys = {
-      { "<leader><space>", false },
-    },
-  },
+  -- {
+  --   "ibhagwan/fzf-lua",
+  --   keys = {
+  --     { "<leader><space>", false },
+  --   },
+  -- },
 
   -- extras
   {
