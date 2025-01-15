@@ -1,22 +1,26 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+
 local opt = vim.opt
 
 opt.backup = false
 opt.clipboard = "" -- don't sync with OS
--- opt.exrc = true -- auto-source local .nvimrc
+opt.exrc = true -- auto-source local .nvimrc
 opt.history = 10000
 
 opt.relativenumber = false
--- opt.signcolumn = "auto"
--- opt.statuscolumn = ""
--- opt.spell = false
+opt.signcolumn = "auto"
+opt.statuscolumn = ""
+opt.spell = false
 
--- opt.swapfile = false
--- opt.undodir = "~/.tmp,/tmp"
+opt.swapfile = false
+opt.undodir = "~/.tmp,/tmp"
 
--- opt.wrap = true
--- opt.gdefault = true
+opt.wrap = true
+opt.gdefault = true
 
--- opt.listchars:append({ trail = "·", nbsp = "·" })
+opt.listchars:append({ trail = "·", nbsp = "·" })
 
 -- Automatic dark mode on boot
 if vim.fn.executable("is-this-dark-mode") then
@@ -50,6 +54,6 @@ if vim.g.neovide then
 end
 
 -- lazyvim
--- vim.g.snacks_animate = false
--- vim.g.trouble_lualine = false
--- vim.g.ai_cmp = true
+vim.g.snacks_animate = false
+vim.g.trouble_lualine = false
+vim.g.ai_cmp = true
