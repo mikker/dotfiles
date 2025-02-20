@@ -1,24 +1,18 @@
-/**
- * When you visit any site, Sprinkles checks a directory on your
- * computer for .css and .js files matching the site's hostname.
- *
- * For example, let's make The Orange Website™ actually readable,
- * in news.ycombinator.com.css:
- */
 * {
   font-family: system-ui !important;
+  line-height: 1.5;
 }
 .title {
   font-size: 18px;
   font-weight: 600;
 }
+.subtext {
+  font-size: 14px;
+}
 .comment {
   font-size: 16px;
   line-height: 1.5;
   max-width: 48em;
-}
-.subtext {
-  font-size: 14px;
 }
 tr.spacer {
   height: 14px !important;
@@ -28,10 +22,10 @@ tr.spacer {
 body {
   background: papayawhip;
 }
+
 /* Why the hell not? */
 #hnmain {
   padding: 12px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 25px;
   margin: 20px auto;
-  display: block;
 }

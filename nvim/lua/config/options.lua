@@ -57,3 +57,5 @@ end
 vim.g.snacks_animate = false
 vim.g.trouble_lualine = false
 vim.g.ai_cmp = true
+
+vim.g.lazyvim_ruby_formatter = "rubyfmt"

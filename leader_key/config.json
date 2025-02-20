@@ -1,0 +1,352 @@
+{
+  "actions" : [
+    {
+      "value" : "/Applications/WezTerm.app",
+      "type" : "application",
+      "key" : "t",
+      "label" : "Terminal"
+    },
+    {
+      "key" : "b",
+      "actions" : [
+        {
+          "value" : "/Applications/Safari.app",
+          "type" : "application",
+          "label" : "",
+          "key" : "s"
+        },
+        {
+          "type" : "application",
+          "label" : "",
+          "value" : "/Applications/Google Chrome.app",
+          "key" : "c"
+        },
+        {
+          "value" : "/Applications/Arc.app",
+          "type" : "application",
+          "key" : "a",
+          "label" : ""
+        },
+        {
+          "type" : "application",
+          "value" : "/Applications/Firefox.app",
+          "key" : "f",
+          "label" : ""
+        }
+      ],
+      "type" : "group",
+      "label" : "Browsers"
+    },
+    {
+      "label" : "Raycast",
+      "key" : "r",
+      "type" : "group",
+      "actions" : [
+        {
+          "value" : "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols",
+          "type" : "url",
+          "label" : "",
+          "key" : "e"
+        },
+        {
+          "label" : "",
+          "value" : "raycast://confetti",
+          "key" : "p",
+          "type" : "url"
+        },
+        {
+          "value" : "raycast://extensions/raycast/system/open-camera",
+          "type" : "url",
+          "key" : "c",
+          "label" : ""
+        }
+      ]
+    },
+    {
+      "key" : "w",
+      "actions" : [
+        {
+          "key" : "f",
+          "value" : "raycast://extensions/raycast/window-management/maximize",
+          "type" : "url",
+          "label" : "Full screen"
+        },
+        {
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/left-half",
+          "key" : "h",
+          "label" : "Left"
+        },
+        {
+          "type" : "url",
+          "label" : "Right",
+          "value" : "raycast://extensions/raycast/window-management/right-half",
+          "key" : "l"
+        },
+        {
+          "type" : "url",
+          "label" : "",
+          "value" : "raycast://extensions/raycast/window-management/last-two-thirds",
+          "key" : "o"
+        },
+        {
+          "key" : "n",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/first-third",
+          "label" : ""
+        },
+        {
+          "type" : "url",
+          "value" : "raycast://customWindowManagementCommand?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0",
+          "key" : "2",
+          "label" : "Comfortable"
+        },
+        {
+          "key" : "=",
+          "label" : "Max height",
+          "value" : "raycast://extensions/raycast/window-management/maximize-height",
+          "type" : "url"
+        }
+      ],
+      "label" : "Window",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "m",
+          "value" : "/System/Applications/Messages.app",
+          "type" : "application",
+          "label" : ""
+        },
+        {
+          "key" : "t",
+          "type" : "application",
+          "value" : "/Applications/Telegram.app",
+          "label" : ""
+        },
+        {
+          "type" : "application",
+          "label" : "",
+          "key" : "s",
+          "value" : "/Applications/Slack.app"
+        },
+        {
+          "value" : "/Applications/Discord.app",
+          "type" : "application",
+          "label" : "",
+          "key" : "d"
+        },
+        {
+          "type" : "application",
+          "key" : "f",
+          "label" : "",
+          "value" : "/Applications/Messenger.app"
+        }
+      ],
+      "type" : "group",
+      "key" : "m",
+      "label" : "Messaging"
+    },
+    {
+      "actions" : [
+        {
+          "label" : "Ceiling",
+          "value" : "shortcuts run \"Kontor-toggle\"",
+          "key" : "c",
+          "type" : "command"
+        },
+        {
+          "type" : "url",
+          "label" : "Key Light",
+          "key" : "e",
+          "value" : "raycast://extensions/thomas/elgato-key-light/toggle"
+        }
+      ],
+      "key" : "e",
+      "type" : "group",
+      "label" : ""
+    },
+    {
+      "actions" : [
+        {
+          "key" : "a",
+          "label" : "",
+          "value" : "/Users/mikker/Applications/DarkMode.app",
+          "type" : "application"
+        },
+        {
+          "type" : "url",
+          "label" : "",
+          "value" : "raycast://extensions/raycast/system/sleep",
+          "key" : "s"
+        },
+        {
+          "key" : "l",
+          "value" : "raycast://extensions/raycast/system/lock-screen",
+          "label" : "",
+          "type" : "url"
+        }
+      ],
+      "key" : "s",
+      "label" : "",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "value" : "/Applications/Obsidian.app",
+          "label" : "",
+          "key" : "o",
+          "type" : "application"
+        },
+        {
+          "label" : "",
+          "type" : "application",
+          "key" : "t",
+          "value" : "/System/Applications/TextEdit.app"
+        },
+        {
+          "label" : "",
+          "key" : "p",
+          "type" : "application",
+          "value" : "/Applications/Plain Text Editor.app"
+        },
+        {
+          "label" : "",
+          "value" : "/System/Applications/Music.app",
+          "type" : "application",
+          "key" : "i"
+        },
+        {
+          "label" : "",
+          "value" : "/System/Applications/Mail.app",
+          "key" : "m",
+          "type" : "application"
+        },
+        {
+          "value" : "/Applications/Things3.app",
+          "label" : "",
+          "type" : "application",
+          "key" : "d"
+        },
+        {
+          "type" : "application",
+          "value" : "/System/Applications/Calendar.app",
+          "key" : "c",
+          "label" : ""
+        }
+      ],
+      "label" : "",
+      "type" : "group",
+      "key" : "o"
+    },
+    {
+      "type" : "group",
+      "label" : "",
+      "actions" : [
+        {
+          "type" : "folder",
+          "key" : "g",
+          "label" : "",
+          "value" : "/Users/mikker/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents"
+        },
+        {
+          "label" : "",
+          "type" : "folder",
+          "key" : "a",
+          "value" : "/Applications"
+        },
+        {
+          "label" : "",
+          "type" : "folder",
+          "key" : "h",
+          "value" : "/Users/mikker"
+        }
+      ],
+      "key" : "g"
+    },
+    {
+      "label" : "Capture",
+      "actions" : [
+        {
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-window",
+          "key" : "w",
+          "type" : "url",
+          "label" : ""
+        },
+        {
+          "key" : "f",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-fullscreen",
+          "label" : ""
+        },
+        {
+          "key" : "v",
+          "label" : "",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/record-screen"
+        },
+        {
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-area",
+          "type" : "url",
+          "key" : "a",
+          "label" : ""
+        }
+      ],
+      "type" : "group",
+      "key" : "c"
+    },
+    {
+      "key" : "q",
+      "label" : "test",
+      "type" : "command",
+      "value" : "echo `date` >> ~/test.txt"
+    },
+    {
+      "value" : "https://x.com",
+      "label" : "test",
+      "key" : "a",
+      "type" : "url"
+    },
+    {
+      "label" : "Media",
+      "key" : "z",
+      "type" : "group",
+      "actions" : [
+        {
+          "label" : "",
+          "key" : "m",
+          "type" : "application",
+          "value" : "/System/Applications/Music.app"
+        },
+        {
+          "label" : "",
+          "type" : "group",
+          "actions" : [
+            {
+              "label" : "X",
+              "type" : "url",
+              "key" : "x",
+              "value" : "https://x.com"
+            },
+            {
+              "value" : "https://bsky.app",
+              "key" : "b",
+              "type" : "url",
+              "label" : "BlueSky"
+            },
+            {
+              "label" : "Elk",
+              "type" : "url",
+              "value" : "https://elk.zone",
+              "key" : "m"
+            }
+          ],
+          "key" : "s"
+        }
+      ]
+    }
+  ],
+  "type" : "group"
+}

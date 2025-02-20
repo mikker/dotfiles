@@ -3,6 +3,9 @@ return {
     "saghen/blink.cmp",
     opts = {
       keymap = { preset = "super-tab" },
+      sources = {
+        default = { "snippets", "lsp", "path", "buffer" },
+      },
     },
   },
 
@@ -24,6 +27,13 @@ return {
     },
     config = function()
       vim.g.rerunner_focus = "TestLast"
+    end,
+  },
+
+  {
+    "mattn/emmet-vim",
+    init = function()
+      vim.g.user_emmet_leader_key = "<c-x>"
     end,
   },
 }

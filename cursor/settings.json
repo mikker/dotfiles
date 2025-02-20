@@ -29,13 +29,22 @@
   "ruby.useLanguageServer": true,
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.sendKeybindingsToShell": true,
+  "testing.followRunningTest": true,
+  "testing.defaultGutterClickAction": "run",
   "testing.openTesting": "neverOpen",
+  "testing.showTerminalWhenTestsStart": true,
+  "testing.alwaysRevealTestOnStateChange": true,
+  // "testing.gutterEnabled": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vim.leader": " ",
   "vim.normalModeKeyBindings": [
     {
       "before": ["<leader>", "j"],
       "commands": ["workbench.action.files.save"]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "commands": ["workbench.action.togglePanel"]
     },
     {
       "before": ["<leader>", "f", "f"],
@@ -82,6 +91,10 @@
       "before": ["-"],
       "commands": ["workbench.view.explorer"],
       "modes": ["normal"]
+    },
+    {
+      "before": ["<leader>", "b", "r"],
+      "commands": ["sweetpad.build.launch"]
     }
   ],
   "window.autoDetectColorScheme": true,
@@ -96,5 +109,6 @@
   "workbench.preferredHighContrastLightColorTheme": "Zenbones Light",
   "workbench.preferredLightColorTheme": "Zenbones Zenwritten Light",
   "ruby.pathToBundler": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/bundle",
-  "rubyLsp.formatter": "rubyfmt"
+  "rubyLsp.formatter": "rubyfmt",
+  "testing.automaticallyOpenTestResults": "neverOpen"
 }

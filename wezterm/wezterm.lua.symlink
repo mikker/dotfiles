@@ -11,11 +11,12 @@ end
 
 config.color_scheme = scheme_for_apperance(wezterm.gui.get_appearance())
 
-config.font_size = 16.0
+config.font_size = 14.0
 -- config.font = wezterm.font("Cascadia Code NF", { weight = "DemiLight", stretch = "Normal", style = "Normal" })
 -- config.font = wezterm.font("Berkeley Mono", { weight = "Regular", stretch = "Normal", style = "Normal" })
 -- config.font = wezterm.font("Iosevka Nerd Font", { weight = "Regular", stretch = "Normal", style = "Normal" })
-config.font = wezterm.font("IBM Plex Mono")
+-- config.font = wezterm.font("IBM Plex Mono")
+config.font = wezterm.font("Martian Mono", { weight = "Light", style = "Normal" })
 
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true

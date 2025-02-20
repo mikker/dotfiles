@@ -1,7 +1,12 @@
+let clickCount = 0
+
+const buttonText = () =>
+  `nothing is more important to me than dulling my senses with never ending content (${clickCount})`
+
 window.addEventListener("load", function () {
   const hours = new Date().getHours();
 
-  if (hours < 9 || hours >= 14) return;
+  if (hours < 9 || hours >= 15) return;
 
   const blinds = document.createElement("div");
   Object.assign(blinds.style, {
@@ -20,9 +25,15 @@ window.addEventListener("load", function () {
   });
 
   const abort = document.createElement("button");
-  abort.innerHTML = "feed me content daddy";
+  abort.innerHTML = buttonText();
+  abort.style.transform = "scale(1.25)"
   abort.onclick = () => {
-    blinds.remove();
+    if (clickCount < 5) {
+      clickCount += 1
+      abort.innerHTML = buttonText()
+    } else {
+      blinds.remove();
+    }
   };
   blinds.appendChild(abort);
 
