@@ -1,0 +1,38 @@
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = true
+
+[upgrade]
+source = 'cdn'
+interval = '168h'
+auto = false
+notice = false
+
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+
+[[blocks.segments]]
+type = "path"
+style = "plain"
+foreground = 'blue'
+template = "{{ .Path }} "
+
+[blocks.segments.properties]
+style = "folder"
+
+[[blocks.segments]]
+type = "git"
+style = "plain"
+foreground = "yellow"
+template = "{{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed)}}*{{end}} "
+
+[blocks.segments.properties]
+fetch_status = true
+branch_icon = ''
+
+[[blocks.segments]]
+type = "text"
+style = "plain"
+foreground = "magenta"
+template = "→ "

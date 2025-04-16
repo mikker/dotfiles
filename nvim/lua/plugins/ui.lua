@@ -76,6 +76,9 @@ return {
           header = logo,
         },
       },
+      image = {
+        enabled = false,
+      },
     },
   },
 }

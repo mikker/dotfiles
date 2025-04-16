@@ -9,10 +9,6 @@ return {
     opts = {
       -- inlay_hints = { enabled = false },
       servers = {
-        stimulus_ls = {},
-        sorbet = {
-          root_dir = require("lspconfig").util.root_pattern("sorbet/config"),
-        },
         tailwindcss = {
           filetypes_include = { "slim", "ruby", "eruby" },
           settings = {
@@ -45,7 +41,6 @@ return {
         "shfmt",
         "rubyfmt",
         "rustywind",
-        "sorbet",
         "prettierd",
         "tailwindcss-language-server",
         "typescript-language-server",

@@ -8,7 +8,7 @@ export VISUAL=vim
 export EDITOR=$VISUAL
 
 source $ZSH_FILES/config.zsh
-source $ZSH_FILES/prompt.zsh
+# source $ZSH_FILES/prompt.zsh
 source $ZSH_FILES/bindkeys.zsh
 source $ZSH_FILES/aliases.zsh
 
@@ -42,6 +42,8 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice lucid wait'0' # what does this first line do?
 zinit light joshskidmore/zsh-fzf-history-search
+
+eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
 
 # Local modifications
 [[ -f ~/.lrc ]] && .  ~/.lrc

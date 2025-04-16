@@ -1,113 +1,182 @@
 {
   "actions" : [
     {
-      "value" : "/Applications/WezTerm.app",
-      "type" : "application",
-      "key" : "t",
-      "label" : "Terminal"
-    },
-    {
-      "key" : "b",
       "actions" : [
         {
-          "value" : "/Applications/Safari.app",
-          "type" : "application",
-          "label" : "",
-          "key" : "s"
+          "key" : "g",
+          "label" : "Gemini",
+          "type" : "url",
+          "value" : "https://gemini.google.com"
         },
         {
-          "type" : "application",
-          "label" : "",
-          "value" : "/Applications/Google Chrome.app",
-          "key" : "c"
-        },
-        {
-          "value" : "/Applications/Arc.app",
-          "type" : "application",
           "key" : "a",
-          "label" : ""
+          "label" : "Claude",
+          "type" : "url",
+          "value" : "https://claude.ai/chat/"
         },
         {
+          "key" : "c",
           "type" : "application",
-          "value" : "/Applications/Firefox.app",
-          "key" : "f",
-          "label" : ""
+          "value" : "/Applications/ChatGPT.app"
+        },
+        {
+          "key" : "m",
+          "label" : "MidJourney",
+          "type" : "url",
+          "value" : "https://alpha.midjourney.com/imagine"
         }
       ],
-      "type" : "group",
-      "label" : "Browsers"
+      "iconPath" : "sparkles",
+      "key" : "l",
+      "label" : "LLMs",
+      "type" : "group"
     },
     {
-      "label" : "Raycast",
-      "key" : "r",
-      "type" : "group",
       "actions" : [
         {
-          "value" : "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols",
-          "type" : "url",
-          "label" : "",
-          "key" : "e"
+          "key" : "s",
+          "type" : "application",
+          "value" : "/Applications/Safari.app"
         },
         {
-          "label" : "",
-          "value" : "raycast://confetti",
-          "key" : "p",
-          "type" : "url"
-        },
-        {
-          "value" : "raycast://extensions/raycast/system/open-camera",
-          "type" : "url",
           "key" : "c",
-          "label" : ""
+          "type" : "application",
+          "value" : "/Applications/Google Chrome.app"
+        },
+        {
+          "key" : "a",
+          "type" : "application",
+          "value" : "/Applications/Arc.app"
+        },
+        {
+          "key" : "f",
+          "type" : "application",
+          "value" : "/Applications/Firefox.app"
         }
-      ]
+      ],
+      "iconPath" : "safari",
+      "key" : "b",
+      "label" : "Browsers",
+      "type" : "group"
     },
     {
-      "key" : "w",
+      "actions" : [
+        {
+          "key" : "e",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
+        },
+        {
+          "key" : "p",
+          "type" : "url",
+          "value" : "raycast://confetti"
+        },
+        {
+          "key" : "c",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/system/open-camera"
+        }
+      ],
+      "iconPath" : "character.textbox",
+      "key" : "r",
+      "label" : "Raycast",
+      "type" : "group"
+    },
+    {
       "actions" : [
         {
           "key" : "f",
-          "value" : "raycast://extensions/raycast/window-management/maximize",
+          "label" : "Full screen",
           "type" : "url",
-          "label" : "Full screen"
+          "value" : "raycast://extensions/raycast/window-management/maximize"
         },
         {
-          "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/left-half",
           "key" : "h",
-          "label" : "Left"
+          "label" : "Left",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/left-half"
         },
         {
-          "type" : "url",
+          "key" : "l",
           "label" : "Right",
-          "value" : "raycast://extensions/raycast/window-management/right-half",
-          "key" : "l"
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/right-half"
         },
         {
+          "key" : "o",
           "type" : "url",
-          "label" : "",
-          "value" : "raycast://extensions/raycast/window-management/last-two-thirds",
-          "key" : "o"
+          "value" : "raycast://extensions/raycast/window-management/last-two-thirds"
         },
         {
           "key" : "n",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/first-third",
-          "label" : ""
+          "value" : "raycast://extensions/raycast/window-management/first-third"
         },
         {
-          "type" : "url",
-          "value" : "raycast://customWindowManagementCommand?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0",
           "key" : "2",
-          "label" : "Comfortable"
+          "label" : "Comfortable",
+          "type" : "url",
+          "value" : "raycast://customWindowManagementCommand?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0"
         },
         {
-          "key" : "=",
+          "key" : "H",
           "label" : "Max height",
-          "value" : "raycast://extensions/raycast/window-management/maximize-height",
-          "type" : "url"
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/maximize-height"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "h",
+              "label" : "First third",
+              "type" : "url",
+              "value" : "raycast://extensions/raycast/window-management/first-third"
+            },
+            {
+              "key" : "c",
+              "label" : "Center third",
+              "type" : "url",
+              "value" : "raycast://extensions/raycast/window-management/center-third"
+            },
+            {
+              "key" : "l",
+              "label" : "Last third",
+              "type" : "url",
+              "value" : "raycast://extensions/raycast/window-management/last-third"
+            },
+            {
+              "actions" : [
+                {
+                  "key" : "h",
+                  "label" : "First two thirds",
+                  "type" : "url",
+                  "value" : "raycast://extensions/raycast/window-management/first-two-thirds"
+                },
+                {
+                  "key" : "l",
+                  "label" : "Last two thirds",
+                  "type" : "url",
+                  "value" : "raycast://extensions/raycast/window-management/last-two-thirds"
+                }
+              ],
+              "key" : "2",
+              "label" : "Two thirds",
+              "type" : "group"
+            }
+          ],
+          "key" : "3",
+          "label" : "Thirds",
+          "type" : "group"
+        },
+        {
+          "key" : "C",
+          "label" : "Center",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/center"
         }
       ],
+      "iconPath" : "uiwindow.split.2x1",
+      "key" : "w",
       "label" : "Window",
       "type" : "group"
     },
@@ -115,237 +184,316 @@
       "actions" : [
         {
           "key" : "m",
-          "value" : "/System/Applications/Messages.app",
           "type" : "application",
-          "label" : ""
+          "value" : "/System/Applications/Messages.app"
         },
         {
           "key" : "t",
           "type" : "application",
-          "value" : "/Applications/Telegram.app",
-          "label" : ""
+          "value" : "/Applications/Telegram.app"
         },
         {
-          "type" : "application",
-          "label" : "",
           "key" : "s",
+          "type" : "application",
           "value" : "/Applications/Slack.app"
         },
         {
-          "value" : "/Applications/Discord.app",
+          "key" : "d",
           "type" : "application",
-          "label" : "",
-          "key" : "d"
+          "value" : "/Applications/Discord.app"
         },
         {
-          "type" : "application",
           "key" : "f",
-          "label" : "",
+          "type" : "application",
           "value" : "/Applications/Messenger.app"
         }
       ],
-      "type" : "group",
+      "iconPath" : "message",
       "key" : "m",
-      "label" : "Messaging"
-    },
-    {
-      "actions" : [
-        {
-          "label" : "Ceiling",
-          "value" : "shortcuts run \"Kontor-toggle\"",
-          "key" : "c",
-          "type" : "command"
-        },
-        {
-          "type" : "url",
-          "label" : "Key Light",
-          "key" : "e",
-          "value" : "raycast://extensions/thomas/elgato-key-light/toggle"
-        }
-      ],
-      "key" : "e",
-      "type" : "group",
-      "label" : ""
-    },
-    {
-      "actions" : [
-        {
-          "key" : "a",
-          "label" : "",
-          "value" : "/Users/mikker/Applications/DarkMode.app",
-          "type" : "application"
-        },
-        {
-          "type" : "url",
-          "label" : "",
-          "value" : "raycast://extensions/raycast/system/sleep",
-          "key" : "s"
-        },
-        {
-          "key" : "l",
-          "value" : "raycast://extensions/raycast/system/lock-screen",
-          "label" : "",
-          "type" : "url"
-        }
-      ],
-      "key" : "s",
-      "label" : "",
+      "label" : "Messaging",
       "type" : "group"
     },
     {
       "actions" : [
         {
-          "value" : "/Applications/Obsidian.app",
-          "label" : "",
-          "key" : "o",
-          "type" : "application"
+          "key" : "c",
+          "label" : "Ceiling",
+          "type" : "command",
+          "value" : "shortcuts run \"Kontor-toggle\""
         },
         {
-          "label" : "",
+          "key" : "e",
+          "label" : "Key Light",
+          "type" : "url",
+          "value" : "raycast://extensions/thomas/elgato-key-light/toggle"
+        }
+      ],
+      "iconPath" : "lightbulb",
+      "key" : "e",
+      "label" : "Environment",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "a",
           "type" : "application",
-          "key" : "t",
+          "value" : "/Users/mikker/Applications/DarkMode.app"
+        },
+        {
+          "key" : "s",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/system/sleep"
+        },
+        {
+          "key" : "l",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/system/lock-screen"
+        }
+      ],
+      "iconPath" : "laptopcomputer",
+      "key" : "s",
+      "label" : "System",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "o",
+          "type" : "application",
+          "value" : "/Applications/Obsidian.app"
+        },
+        {
+          "key" : "e",
+          "type" : "application",
           "value" : "/System/Applications/TextEdit.app"
         },
         {
-          "label" : "",
           "key" : "p",
           "type" : "application",
           "value" : "/Applications/Plain Text Editor.app"
         },
         {
-          "label" : "",
-          "value" : "/System/Applications/Music.app",
-          "type" : "application",
-          "key" : "i"
-        },
-        {
-          "label" : "",
-          "value" : "/System/Applications/Mail.app",
-          "key" : "m",
-          "type" : "application"
-        },
-        {
-          "value" : "/Applications/Things3.app",
-          "label" : "",
-          "type" : "application",
-          "key" : "d"
-        },
-        {
-          "type" : "application",
-          "value" : "/System/Applications/Calendar.app",
-          "key" : "c",
-          "label" : ""
-        }
-      ],
-      "label" : "",
-      "type" : "group",
-      "key" : "o"
-    },
-    {
-      "type" : "group",
-      "label" : "",
-      "actions" : [
-        {
-          "type" : "folder",
-          "key" : "g",
-          "label" : "",
-          "value" : "/Users/mikker/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents"
-        },
-        {
-          "label" : "",
-          "type" : "folder",
-          "key" : "a",
-          "value" : "/Applications"
-        },
-        {
-          "label" : "",
-          "type" : "folder",
-          "key" : "h",
-          "value" : "/Users/mikker"
-        }
-      ],
-      "key" : "g"
-    },
-    {
-      "label" : "Capture",
-      "actions" : [
-        {
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-window",
-          "key" : "w",
-          "type" : "url",
-          "label" : ""
-        },
-        {
-          "key" : "f",
-          "type" : "url",
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-fullscreen",
-          "label" : ""
-        },
-        {
-          "key" : "v",
-          "label" : "",
-          "type" : "url",
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/record-screen"
-        },
-        {
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-area",
-          "type" : "url",
-          "key" : "a",
-          "label" : ""
-        }
-      ],
-      "type" : "group",
-      "key" : "c"
-    },
-    {
-      "key" : "q",
-      "label" : "test",
-      "type" : "command",
-      "value" : "echo `date` >> ~/test.txt"
-    },
-    {
-      "value" : "https://x.com",
-      "label" : "test",
-      "key" : "a",
-      "type" : "url"
-    },
-    {
-      "label" : "Media",
-      "key" : "z",
-      "type" : "group",
-      "actions" : [
-        {
-          "label" : "",
-          "key" : "m",
+          "key" : "i",
           "type" : "application",
           "value" : "/System/Applications/Music.app"
         },
         {
-          "label" : "",
-          "type" : "group",
+          "key" : "m",
+          "type" : "application",
+          "value" : "/System/Applications/Mail.app"
+        },
+        {
+          "key" : "d",
+          "type" : "application",
+          "value" : "/Applications/Things3.app"
+        },
+        {
+          "key" : "c",
+          "type" : "application",
+          "value" : "/System/Applications/Calendar.app"
+        },
+        {
+          "key" : "t",
+          "type" : "application",
+          "value" : "/Applications/WezTerm.app"
+        },
+        {
+          "key" : "n",
+          "type" : "application",
+          "value" : "/Applications/Notion.app"
+        }
+      ],
+      "iconPath" : "app",
+      "key" : "a",
+      "label" : "Apps",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "g",
+          "type" : "folder",
+          "value" : "/Users/mikker/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents"
+        },
+        {
+          "key" : "a",
+          "type" : "folder",
+          "value" : "/Applications"
+        },
+        {
+          "key" : "h",
+          "type" : "folder",
+          "value" : "/Users/mikker"
+        }
+      ],
+      "iconPath" : "bookmark",
+      "key" : "g",
+      "label" : "Bookmarks",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "w",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-window"
+        },
+        {
+          "key" : "f",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-fullscreen"
+        },
+        {
+          "key" : "v",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/record-screen"
+        },
+        {
+          "key" : "a",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-area"
+        }
+      ],
+      "iconPath" : "camera.metering.center.weighted.average",
+      "key" : "c",
+      "label" : "Capture",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
           "actions" : [
             {
+              "key" : "x",
               "label" : "X",
               "type" : "url",
-              "key" : "x",
               "value" : "https://x.com"
             },
             {
-              "value" : "https://bsky.app",
               "key" : "b",
+              "label" : "BlueSky",
               "type" : "url",
-              "label" : "BlueSky"
+              "value" : "https://bsky.app"
             },
             {
+              "key" : "m",
               "label" : "Elk",
               "type" : "url",
-              "value" : "https://elk.zone",
-              "key" : "m"
+              "value" : "https://elk.zone"
             }
           ],
-          "key" : "s"
+          "key" : "d",
+          "label" : "Doomscroll",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "1",
+              "type" : "url",
+              "value" : "https://meta.brnbw.com/dashboard/2-10er?tab=1-tab-1"
+            },
+            {
+              "key" : "2",
+              "type" : "url",
+              "value" : "https://dashboard.simpleanalytics.com/10er.com"
+            }
+          ],
+          "key" : "t",
+          "label" : "10er",
+          "type" : "group"
+        },
+        {
+          "key" : "w",
+          "label" : "Typefully",
+          "type" : "url",
+          "value" : "https://typefully.com/"
         }
-      ]
+      ],
+      "iconPath" : "document.on.document",
+      "key" : "t",
+      "label" : "Tab sets",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "d",
+          "label" : "Daily",
+          "type" : "url",
+          "value" : "obsidian://daily"
+        },
+        {
+          "key" : "w",
+          "label" : "Weekly",
+          "type" : "command",
+          "value" : "open \"obsidian://open?file=02%20Calendar/Journals/`date +%Y-W%V`\""
+        },
+        {
+          "key" : "o",
+          "label" : "Open",
+          "type" : "application",
+          "value" : "/Applications/Obsidian.app"
+        }
+      ],
+      "iconPath" : "diamond",
+      "key" : "o",
+      "label" : "Obsidian",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "actions" : [
+            {
+              "actions" : [
+                {
+                  "actions" : [
+                    {
+                      "key" : "z",
+                      "label" : "🎉",
+                      "type" : "url",
+                      "value" : "raycast://confetti"
+                    }
+                  ],
+                  "key" : "z",
+                  "label" : "This",
+                  "type" : "group"
+                }
+              ],
+              "key" : "z",
+              "label" : "Is",
+              "type" : "group"
+            }
+          ],
+          "key" : "z",
+          "label" : "Cool",
+          "type" : "group"
+        }
+      ],
+      "iconPath" : "figure.dance",
+      "key" : "z",
+      "label" : "How",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "d",
+          "type" : "application",
+          "value" : "/Applications/Dash.app"
+        },
+        {
+          "key" : "t",
+          "type" : "application",
+          "value" : "/Applications/WezTerm.app"
+        }
+      ],
+      "iconPath" : "hammer",
+      "key" : "d",
+      "label" : "Devtools",
+      "type" : "group"
     }
   ],
   "type" : "group"

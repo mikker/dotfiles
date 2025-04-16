@@ -5,7 +5,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Akimbo cmd to F12",
+                        "description": "akimbo cmd to F12",
                         "manipulators": [
                             {
                                 "from": {
@@ -28,7 +28,7 @@
                         ]
                     },
                     {
-                        "description": "Vi Mode [left_control + hjkl]",
+                        "description": "vi movement (left_control + hjkl)",
                         "manipulators": [
                             {
                                 "from": {
@@ -77,7 +77,7 @@
                         ]
                     },
                     {
-                        "description": "Map f+j to Escape",
+                        "description": "mash f+j to esc",
                         "manipulators": [
                             {
                                 "from": {
@@ -141,6 +141,12 @@
                         "product_id": 6505,
                         "vendor_id": 12951
                     }
+                }
+            ],
+            "fn_function_keys": [
+                {
+                    "from": { "key_code": "f12" },
+                    "to": [{ "key_code": "f12" }]
                 }
             ],
             "name": "Default",

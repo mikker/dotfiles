@@ -25,8 +25,6 @@
   "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB",
   "lldb.suppressUpdateNotifications": true,
   "ruby.format": "rubyfmt",
-  "ruby.interpreter.commandPath": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/ruby",
-  "ruby.useLanguageServer": true,
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.sendKeybindingsToShell": true,
   "testing.followRunningTest": true,
@@ -108,7 +106,25 @@
   "workbench.preferredDarkColorTheme": "Zenbones Zenwritten Dark",
   "workbench.preferredHighContrastLightColorTheme": "Zenbones Light",
   "workbench.preferredLightColorTheme": "Zenbones Zenwritten Light",
-  "ruby.pathToBundler": "/Users/mikker/.local/share/mise/installs/ruby/3.3.6/bin/bundle",
   "rubyLsp.formatter": "rubyfmt",
-  "testing.automaticallyOpenTestResults": "neverOpen"
+  "rubyLsp.rubyVersionManager": {
+    "custom": {
+      "identifier": "mise"
+    }
+  },
+  "testing.automaticallyOpenTestResults": "neverOpen",
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp", // Use the Ruby LSP as the default formatter
+    "editor.formatOnSave": true, // Format files automatically when saving
+    "editor.tabSize": 2, // Use 2 spaces for indentation
+    "editor.insertSpaces": true, // Use spaces and not tabs for indentation
+    "editor.semanticHighlighting.enabled": true, // Enable semantic highlighting
+    "editor.formatOnType": true // Enable formatting while typing
+  },
+  "vim.enableNeovim": true,
+  "vim.neovimPath": "/opt/homebrew/bin/nvim",
+  "vim.neovimUseConfigFile": true,
+  "[erb]": {
+    "editor.defaultFormatter": "elia.erb-formatter"
+  }
 }
