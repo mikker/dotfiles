@@ -7,7 +7,7 @@ return {
       keys[#keys + 1] = { "]w", false }
     end,
     opts = {
-      -- inlay_hints = { enabled = false },
+      inlay_hints = { enabled = false },
       servers = {
         tailwindcss = {
           filetypes_include = { "slim", "ruby", "eruby" },
@@ -16,6 +16,7 @@ return {
               includeLanguages = {
                 slim = "html",
                 erb = "html",
+                eruby = "html",
                 ruby = "html",
               },
               emmetCompletions = true,
@@ -41,7 +42,6 @@ return {
         "shfmt",
         "rubyfmt",
         "rustywind",
-        "prettierd",
         "tailwindcss-language-server",
         "typescript-language-server",
         "erb-formatter",

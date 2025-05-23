@@ -9,7 +9,6 @@
   "editor.fontFamily": "\"Iosevka Nerd Font\"",
   "editor.fontSize": 16,
   "editor.fontWeight": "normal",
-  "editor.formatOnSave": true,
   "editor.stickyScroll.enabled": false,
   "editor.wordWrap": "on",
   "git.openRepositoryInParentFolders": "never",

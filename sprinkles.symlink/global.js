@@ -121,6 +121,7 @@ function focusSearchField() {
   if (!s) s = document.querySelector('input[type="text"][name="q"]');
   if (!s) s = document.querySelector('input[type="text"][name="search"]');
   if (!s) s = document.querySelector('input[role="search"]');
+  if (!s) s = document.querySelector('input[role="searchbox"]');
   if (!s) return;
 
   console.info("Focusing search input");

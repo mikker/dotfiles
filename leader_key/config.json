@@ -11,8 +11,8 @@
         {
           "key" : "a",
           "label" : "Claude",
-          "type" : "url",
-          "value" : "https://claude.ai/chat/"
+          "type" : "application",
+          "value" : "/Applications/Claude.app"
         },
         {
           "key" : "c",
@@ -22,8 +22,8 @@
         {
           "key" : "m",
           "label" : "MidJourney",
-          "type" : "url",
-          "value" : "https://alpha.midjourney.com/imagine"
+          "type" : "application",
+          "value" : "/Users/mikker/Applications/Midjourney.app"
         }
       ],
       "iconPath" : "sparkles",
@@ -88,41 +88,41 @@
           "key" : "f",
           "label" : "Full screen",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/maximize"
+          "value" : "moves://template/maximize"
         },
         {
           "key" : "h",
           "label" : "Left",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/left-half"
+          "value" : "moves://template/left-half"
         },
         {
           "key" : "l",
           "label" : "Right",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/right-half"
+          "value" : "moves://template/right-half"
         },
         {
           "key" : "o",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/last-two-thirds"
+          "value" : "moves://template/last-two-thirds"
         },
         {
           "key" : "n",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/first-third"
+          "value" : "moves://template/first-third"
         },
         {
           "key" : "2",
           "label" : "Comfortable",
           "type" : "url",
-          "value" : "raycast://customWindowManagementCommand?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0"
+          "value" : "moves://custom?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0"
         },
         {
           "key" : "H",
           "label" : "Max height",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/maximize-height"
+          "value" : "moves://template/maximize-height"
         },
         {
           "actions" : [
@@ -130,19 +130,19 @@
               "key" : "h",
               "label" : "First third",
               "type" : "url",
-              "value" : "raycast://extensions/raycast/window-management/first-third"
+              "value" : "moves://template/first-third"
             },
             {
               "key" : "c",
               "label" : "Center third",
               "type" : "url",
-              "value" : "raycast://extensions/raycast/window-management/center-third"
+              "value" : "moves://template/center-third"
             },
             {
               "key" : "l",
               "label" : "Last third",
               "type" : "url",
-              "value" : "raycast://extensions/raycast/window-management/last-third"
+              "value" : "moves://template/last-third"
             },
             {
               "actions" : [
@@ -150,13 +150,13 @@
                   "key" : "h",
                   "label" : "First two thirds",
                   "type" : "url",
-                  "value" : "raycast://extensions/raycast/window-management/first-two-thirds"
+                  "value" : "moves://template/first-two-thirds"
                 },
                 {
                   "key" : "l",
                   "label" : "Last two thirds",
                   "type" : "url",
-                  "value" : "raycast://extensions/raycast/window-management/last-two-thirds"
+                  "value" : "moves://template/last-two-thirds"
                 }
               ],
               "key" : "2",
@@ -172,7 +172,13 @@
           "key" : "C",
           "label" : "Center",
           "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/center"
+          "value" : "moves://template/center"
+        },
+        {
+          "key" : "s",
+          "label" : "sssslide",
+          "type" : "url",
+          "value" : "moves://custom?&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=0.0"
         }
       ],
       "iconPath" : "uiwindow.split.2x1",
@@ -226,6 +232,31 @@
           "label" : "Key Light",
           "type" : "url",
           "value" : "raycast://extensions/thomas/elgato-key-light/toggle"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "1",
+              "label" : "10%",
+              "type" : "url",
+              "value" : "BetterDisplay://set?name=27GN950&brightness=0.2"
+            },
+            {
+              "key" : "2",
+              "label" : "50%",
+              "type" : "url",
+              "value" : "BetterDisplay://set?name=27GN950&brightness=0.5"
+            },
+            {
+              "key" : "3",
+              "label" : "100%",
+              "type" : "url",
+              "value" : "BetterDisplay://set?name=27GN950&brightness=1.0"
+            }
+          ],
+          "key" : "m",
+          "label" : "Monitor",
+          "type" : "group"
         }
       ],
       "iconPath" : "lightbulb",
@@ -294,11 +325,6 @@
           "value" : "/System/Applications/Calendar.app"
         },
         {
-          "key" : "t",
-          "type" : "application",
-          "value" : "/Applications/WezTerm.app"
-        },
-        {
           "key" : "n",
           "type" : "application",
           "value" : "/Applications/Notion.app"
@@ -325,11 +351,16 @@
           "key" : "h",
           "type" : "folder",
           "value" : "/Users/mikker"
+        },
+        {
+          "key" : "l",
+          "type" : "folder",
+          "value" : "/Users/mikker/Downloads"
         }
       ],
       "iconPath" : "bookmark",
       "key" : "g",
-      "label" : "Bookmarks",
+      "label" : "Folders",
       "type" : "group"
     },
     {
@@ -398,6 +429,16 @@
               "key" : "2",
               "type" : "url",
               "value" : "https://dashboard.simpleanalytics.com/10er.com"
+            },
+            {
+              "key" : "3",
+              "type" : "url",
+              "value" : "https://dashboard.simpleanalytics.com/funnymost.com"
+            },
+            {
+              "key" : "4",
+              "type" : "url",
+              "value" : "https://meta.brnbw.com/dashboard/6-funnymost"
             }
           ],
           "key" : "t",
@@ -493,6 +534,27 @@
       "iconPath" : "hammer",
       "key" : "d",
       "label" : "Devtools",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "m",
+          "type" : "application",
+          "value" : "/System/Applications/Music.app"
+        },
+        {
+          "key" : "y",
+          "type" : "application",
+          "value" : "/Users/mikker/Applications/YouTube.app"
+        },
+        {
+          "key" : "o",
+          "type" : "application",
+          "value" : "/Applications/Overcast.app"
+        }
+      ],
+      "key" : "p",
       "type" : "group"
     }
   ],

@@ -141,12 +141,19 @@
                         "product_id": 6505,
                         "vendor_id": 12951
                     }
-                }
-            ],
-            "fn_function_keys": [
+                },
                 {
-                    "from": { "key_code": "f12" },
-                    "to": [{ "key_code": "f12" }]
+                    "fn_function_keys": [
+                        {
+                            "from": { "key_code": "f12" },
+                            "to": [{ "key_code": "f12" }]
+                        }
+                    ],
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 260,
+                        "vendor_id": 18003
+                    }
                 }
             ],
             "name": "Default",

@@ -35,4 +35,10 @@ branch_icon = ''
 type = "text"
 style = "plain"
 foreground = "magenta"
+template = "{{ if gt .Jobs 0 }}☆ {{ .Jobs }} {{ end }}"
+
+[[blocks.segments]]
+type = "text"
+style = "plain"
+foreground = "magenta"
 template = "→ "
