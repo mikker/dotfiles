@@ -1,9 +1,9 @@
-console.log("Loading global.js")
+console.log("Loading global.js");
 
 function main() {
   // Keyboard shortcuts
   document.addEventListener("keydown", handleKeyDown);
-  document.addEventListener("keyup", handleKeyUp)
+  document.addEventListener("keyup", handleKeyUp);
 
   // Video speed control
   document.addEventListener("mouseup", handleVideoSpeedClick);
@@ -90,7 +90,7 @@ function animateScroll(start, dest) {
 
     document.scrollingElement.scrollTo(
       0,
-      start + change * EasingFunctions.easeOutQuad(pos)
+      start + change * EasingFunctions.easeOutQuad(pos),
     );
 
     if (currentTime < duration) {
@@ -122,6 +122,7 @@ function focusSearchField() {
   if (!s) s = document.querySelector('input[type="text"][name="search"]');
   if (!s) s = document.querySelector('input[role="search"]');
   if (!s) s = document.querySelector('input[role="searchbox"]');
+  if (!s) s = document.querySelector("input.search-input");
   if (!s) return;
 
   console.info("Focusing search input");
@@ -196,7 +197,7 @@ function setupVideoSpeedThing() {
 
     console.log(
       `%cplayback rate set to ${video.playbackRate}`,
-      "color: purple"
+      "color: purple",
     );
   });
 }
@@ -231,7 +232,7 @@ function setupScrollByCtrlDAndU() {
 
       document.scrollingElement.scrollTo(
         0,
-        start + change * EasingFunctions.easeOutQuad(pos)
+        start + change * EasingFunctions.easeOutQuad(pos),
       );
 
       if (currentTime < duration) {

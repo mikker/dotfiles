@@ -62,4 +62,6 @@ return {
       { "-", "<CMD>Oil<cr>" },
     },
   },
+
+  "jonsmithers/vim-html-template-literals",
 }

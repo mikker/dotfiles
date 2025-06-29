@@ -1,9 +1,9 @@
-body {
-  --yt-spec-base-background: papayawhip;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    --yt-spec-base-background: #111;
-  }
-}
+/* body { */
+/*   --yt-spec-base-background: papayawhip; */
+/* } */
+/**/
+/* @media (prefers-color-scheme: dark) { */
+/*   body { */
+/*     --yt-spec-base-background: #111; */
+/*   } */
+/* } */

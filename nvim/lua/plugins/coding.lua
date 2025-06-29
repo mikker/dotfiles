@@ -1,12 +1,13 @@
 return {
   {
     "saghen/blink.cmp",
-    opts = {
-      keymap = { preset = "super-tab" },
-      sources = {
-        default = { "snippets", "lsp", "path", "buffer" },
-      },
-    },
+    opts = function(_, opts)
+      opts.keymap["<Tab>"] = {
+        require("blink.cmp.keymap.presets").get("super-tab")["<Tab>"][1],
+        LazyVim.cmp.map({ "snippet_forward", "ai_accept" }),
+        "fallback",
+      }
+    end,
   },
 
   { "rafamadriz/friendly-snippets", enabled = false },

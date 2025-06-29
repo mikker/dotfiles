@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Check for input
+if [ -z "$1" ]; then
+  echo "Usage: $0 image.png"
+  exit 1
+fi
+
+# Input file
+input="$1"
+
+# Get base name (strip extension)
+base="${input%.*}"
+
+# Output file
+output="${base}.webp"
+
+# Convert using vips
+vips copy "$input" "${output}[Q=90]"

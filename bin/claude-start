@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+issue=$1
+
+~/.claude/local/claude \
+  "Start working on issue #$issue
+- Keep an open mind. Feel free to reconsider the proposed approach
+- Use context7 for updated docs
+- Don't go out of your way to keep everything backwards compatible. Rather investigate if we can change things once and for all
+- Update the issue as you discover new relevant information, make progress or decisions
+- After you're done, read through your changes and see if there are things that can be simplified and remove any unused code or obsolete code paths
+- Finally, make a PR with your changes. If one exists for this issue, update it. Include progress made" \
+  --allowedTools "Edit" "Write" "Read" \
+  "Bash(gh:*)" "Bash(rg:*)" "Bash(find:*)" "Bash(ls:*)" "Bash(grep:*)" "context7:*" \
+  "Bash(bin/*)" \
+  "Bash(git:*)"

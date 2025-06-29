@@ -21,6 +21,7 @@
 	rb = rebase
 	st = status
 	sw = switch
+  wt = worktree
 	tree = "log --graph --decorate --abbrev=commit"
 	undo = reset HEAD~1 --mixed
 	up = !git fetch --all --prune && git pull
@@ -30,6 +31,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	editor = nvim
+	pager = diff-so-fancy | less --tabs=4 -RF
 [format]
 	pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -59,6 +61,7 @@
 	gpgsign = true
 [merge]
 	tool = diffconflicts
+	conflictStyle = zdiff3
 [mergetool]
 	prompt = false
 	keepBackup = false
@@ -69,3 +72,5 @@
 	trustExitCode = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch

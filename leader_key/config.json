@@ -178,7 +178,19 @@
           "key" : "s",
           "label" : "sssslide",
           "type" : "url",
-          "value" : "moves://custom?&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=0.0"
+          "value" : "moves://custom?&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=20.0"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "t",
+              "label" : "top",
+              "type" : "url",
+              "value" : "moves://custom/topLeft?position=center&relativeWidth=1.0&relativeHeight=0.666"
+            }
+          ],
+          "key" : "e",
+          "type" : "group"
         }
       ],
       "iconPath" : "uiwindow.split.2x1",
@@ -239,19 +251,19 @@
               "key" : "1",
               "label" : "10%",
               "type" : "url",
-              "value" : "BetterDisplay://set?name=27GN950&brightness=0.2"
+              "value" : "BetterDisplay://set?name=PG27UCDM&brightness=0.2"
             },
             {
               "key" : "2",
               "label" : "50%",
               "type" : "url",
-              "value" : "BetterDisplay://set?name=27GN950&brightness=0.5"
+              "value" : "BetterDisplay://set?name=PG27UCDM&brightness=0.66"
             },
             {
               "key" : "3",
               "label" : "100%",
               "type" : "url",
-              "value" : "BetterDisplay://set?name=27GN950&brightness=1.0"
+              "value" : "BetterDisplay://set?name=PG27UCDM&brightness=1.0"
             }
           ],
           "key" : "m",
@@ -315,7 +327,7 @@
           "value" : "/System/Applications/Mail.app"
         },
         {
-          "key" : "d",
+          "key" : "t",
           "type" : "application",
           "value" : "/Applications/Things3.app"
         },
@@ -528,7 +540,7 @@
         {
           "key" : "t",
           "type" : "application",
-          "value" : "/Applications/WezTerm.app"
+          "value" : "/Applications/Ghostty.app"
         }
       ],
       "iconPath" : "hammer",
@@ -540,6 +552,7 @@
       "actions" : [
         {
           "key" : "m",
+          "label" : " Music",
           "type" : "application",
           "value" : "/System/Applications/Music.app"
         },
