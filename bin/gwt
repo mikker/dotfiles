@@ -62,7 +62,6 @@ else
   git worktree add -b "$name" "$wtdir" $main_branch
   cd "$wtdir"
 fi
-exec \$SHELL
 EOF
 )
 

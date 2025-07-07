@@ -13,17 +13,29 @@ return {
 
   -- extras
   {
-    "razak17/tailwind-fold.nvim",
-    opts = {
-      enabled = false,
-      symbol = "󱏿",
+    "luckasRanarison/tailwind-tools.nvim",
+    name = "tailwind-tools",
+    build = ":UpdateRemotePlugins",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim", -- optional
+      "neovim/nvim-lspconfig", -- optional
     },
-    keys = {
-      { "<leader>ut", "<cmd>TailwindFoldToggle<cr>", desc = "Toggle Tailwind Fold" },
-    },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade", "slim", "eruby" },
+    opts = {}, -- your configuration
   },
+
+  -- {
+  --   "razak17/tailwind-fold.nvim",
+  --   opts = {
+  --     enabled = false,
+  --     symbol = "󱏿",
+  --   },
+  --   keys = {
+  --     { "<leader>ut", "<cmd>TailwindFoldToggle<cr>", desc = "Toggle Tailwind Fold" },
+  --   },
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade", "slim", "eruby" },
+  -- },
 
   {
     "echasnovski/mini.splitjoin",

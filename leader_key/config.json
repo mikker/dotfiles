@@ -194,7 +194,7 @@
         }
       ],
       "iconPath" : "uiwindow.split.2x1",
-      "key" : "w",
+      "key" : "f",
       "label" : "Window",
       "type" : "group"
     },
@@ -568,6 +568,192 @@
         }
       ],
       "key" : "p",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "f",
+          "label" : "fullscreen",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace fullscreen"
+        },
+        {
+          "key" : "R",
+          "label" : "reload-config",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace reload-config"
+        },
+        {
+          "key" : "F",
+          "label" : "flatten-workspace-tree",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace flatten-workspace-tree"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "f",
+              "label" : "floating",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace layout floating tiling"
+            },
+            {
+              "key" : "a",
+              "label" : "accordion",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace layout accordion horizontal vertical"
+            },
+            {
+              "key" : "t",
+              "label" : "tiles",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace layout tiles horizontal vertical"
+            }
+          ],
+          "key" : "l",
+          "label" : "layout",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "h",
+              "label" : "left",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move left"
+            },
+            {
+              "key" : "j",
+              "label" : "down",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move down"
+            },
+            {
+              "key" : "k",
+              "label" : "up",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move up"
+            },
+            {
+              "key" : "l",
+              "label" : "right",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move right"
+            },
+            {
+              "key" : "q",
+              "label" : "move-node-to-workspace 1",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 1"
+            },
+            {
+              "key" : "w",
+              "label" : "move-node-to-workspace 2",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 2"
+            },
+            {
+              "key" : "e",
+              "label" : "move-node-to-workspace 3",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 3"
+            },
+            {
+              "key" : "r",
+              "label" : "move-node-to-workspace 4",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 4"
+            },
+            {
+              "key" : "t",
+              "label" : "move-node-to-workspace 5",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 5"
+            }
+          ],
+          "key" : "m",
+          "label" : "move",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "q",
+              "label" : "workspace 1",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace workspace 1"
+            },
+            {
+              "key" : "w",
+              "label" : "workspace 2",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace workspace 2"
+            },
+            {
+              "key" : "e",
+              "label" : "workspace 3",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace workspace 3"
+            },
+            {
+              "key" : "r",
+              "label" : "workspace 4",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace workspace 4"
+            },
+            {
+              "key" : "t",
+              "label" : "workspace 5",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace workspace 5"
+            }
+          ],
+          "key" : "w",
+          "label" : "workspace",
+          "type" : "group"
+        },
+        {
+          "actions" : [
+            {
+              "key" : "h",
+              "label" : "left",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace join-with left"
+            },
+            {
+              "key" : "j",
+              "label" : "down",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace join-with down"
+            },
+            {
+              "key" : "k",
+              "label" : "up",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace join-with up"
+            },
+            {
+              "key" : "l",
+              "label" : "right",
+              "type" : "command",
+              "value" : "/opt/homebrew/bin/aerospace join-with right"
+            }
+          ],
+          "key" : "j",
+          "label" : "join-with",
+          "type" : "group"
+        },
+        {
+          "key" : "r",
+          "label" : "mode resize",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace mode resize"
+        }
+      ],
+      "iconPath" : "rectangle.grid.2x2",
+      "key" : "w",
+      "label" : "Aerospace",
       "type" : "group"
     }
   ],
