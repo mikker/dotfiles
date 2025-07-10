@@ -1,0 +1,42 @@
+#autoload
+
+local name="$1"
+local parent_dir
+local project_name
+local worktree_path
+
+# Check if we're inside a worktree by examining current path
+if [[ "$PWD" =~ /([^/]+)-worktrees/([^/]+)$ ]] && [[ -z "$name" ]]; then
+    # We're in a worktree and no arg provided
+    worktree_path="$PWD"
+    name="$match[2]"
+    project_name="$match[1]"
+elif [[ -n "$name" ]]; then
+    # Name provided as argument
+    parent_dir="${PWD:h}"
+    project_name="${PWD:t}"
+    worktree_path="$parent_dir/${project_name}-worktrees/${name}"
+else
+    # No argument and not in worktree - use fzf to select
+    local selected=$(git worktree list --porcelain | grep "^worktree" | cut -d' ' -f2- | grep -v "$(git worktree list | head -1 | awk '{print $1}')" | fzf)
+    [[ -z "$selected" ]] && return
+    worktree_path="$selected"
+    # Extract name from path
+    if [[ "$selected" =~ /([^/]+)-worktrees/([^/]+)$ ]]; then
+        name="$match[2]"
+    fi
+fi
+
+# Confirm deletion
+echo -n "Remove worktree '$name' at $worktree_path? [y/N] "
+read -r confirm
+[[ "$confirm" != [yY] ]] && return
+
+# Get the main worktree path before changing directories
+local main_worktree=$(git worktree list | head -1 | awk '{print $1}')
+
+# Change out of worktree if we're in it
+[[ "$PWD" == "$worktree_path" ]] && cd "$main_worktree"
+
+# Remove worktree
+git worktree remove "$worktree_path" --force

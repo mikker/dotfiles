@@ -1,0 +1,19 @@
+---
+name: nitro_kit
+root: ~/dev/nitro_kit
+
+# pre_window: chruby `ruby-vers`
+pre_window: export LOCAL_NITRO_KIT=1
+
+windows:
+  - "󰃣  ": cd nitro_kit && vim
+  - "󰃣 󰫏 ": cd nitro_kit && bin/dev
+  - "󰖟  ": cd site && vim
+  - "󰖟 󰫏 ": cd site && bin/dev
+#
+#
+#
+#
+#
+#
+# no modelines

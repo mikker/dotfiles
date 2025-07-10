@@ -1,0 +1,9 @@
+# /Users/mikker/.config/tmuxinator/dot.yml
+
+name: dot
+root: ~/.dotfiles
+
+windows:
+  - vim: vim ~/.vimrc
+
+# no mode line

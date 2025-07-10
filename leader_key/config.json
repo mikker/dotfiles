@@ -565,6 +565,11 @@
           "key" : "o",
           "type" : "application",
           "value" : "/Applications/Overcast.app"
+        },
+        {
+          "key" : "l",
+          "type" : "application",
+          "value" : "/Applications/Longplay.app"
         }
       ],
       "key" : "p",

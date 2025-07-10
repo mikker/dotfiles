@@ -1,0 +1,15 @@
+---
+name: funnymost
+root: ~/dev/funnymost
+
+windows:
+  - vim: vim
+  - srv: bin/dev
+  - cmd: bin/rails c
+  #
+  #
+  #
+  #
+  #
+  #
+# no modeline

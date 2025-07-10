@@ -1,0 +1,15 @@
+#compdef gwrm
+
+local -a worktrees
+worktrees=(${(f)"$(git worktree list --porcelain 2>/dev/null | grep '^worktree' | cut -d' ' -f2-)"})
+
+# Extract just the name from paths matching project-worktrees/name
+local project_name="${PWD:t}"
+local -a names
+for wt in $worktrees; do
+    if [[ "$wt" =~ /${project_name}-worktrees/([^/]+)$ ]]; then
+        names+=("$match[1]")
+    fi
+done
+
+_describe 'worktree' names

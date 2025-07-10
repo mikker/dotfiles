@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Symlink bordersrc
+mkdir -p ~/.config/borders
+ln -sf ~/.dotfiles/macos/bordersrc ~/.config/borders/bordersrc
+
 # Ask for the administrator password upfront
 sudo -v
 

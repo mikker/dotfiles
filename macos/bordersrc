@@ -1,0 +1,11 @@
+#!/bin/bash
+
+options=(
+  style=round
+  width=7.5
+  hidpi=on
+  active_color=0xffff0566
+  blacklist=Leader\ Key
+)
+
+borders "${options[@]}"

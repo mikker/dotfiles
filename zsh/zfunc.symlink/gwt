@@ -1,0 +1,53 @@
+#autoload
+
+local name="$1"
+local parent_dir="${PWD:h}"
+local project_name="${PWD:t}"
+
+if [[ -z "$name" ]]; then
+    # No argument - use fzf to select existing worktree
+    local selected=$(git worktree list --porcelain | grep "^worktree" | cut -d' ' -f2- | fzf)
+    if [[ -n "$selected" ]]; then
+        cd "$selected"
+        # Extract name from path
+        if [[ "$selected" =~ /${project_name}-worktrees/([^/]+)$ ]]; then
+            export WORKTREE="$match[1]"
+        fi
+        [[ -x ".gwt/env" ]] && source ".gwt/env"
+    fi
+    return
+fi
+
+# Determine base branch
+local base_branch
+if git show-ref --verify --quiet refs/heads/main; then
+    base_branch="main"
+elif git show-ref --verify --quiet refs/heads/master; then
+    base_branch="master"
+else
+    echo "No main or master branch found" >&2
+    return 1
+fi
+
+# Check if worktree exists
+local worktree_path="$parent_dir/${project_name}-worktrees/${name}"
+if git worktree list | grep -q "$worktree_path"; then
+    cd "$worktree_path"
+    export WORKTREE="$name"
+    # Execute .gwt/env if it exists
+    [[ -x ".gwt/env" ]] && source ".gwt/env"
+else
+    # Create new worktree branching from base branch
+    git worktree add "$worktree_path" -b "$name" "$base_branch" 2>/dev/null || \
+        git worktree add "$worktree_path" "$name"
+
+    # Execute .gwt/create if it exists
+    if [[ -x "$worktree_path/.gwt/create" ]]; then
+        "$worktree_path/.gwt/create" "$PWD"
+    fi
+
+    cd "$worktree_path"
+    export WORKTREE="$name"
+    # Execute .gwt/env if it exists
+    [[ -x ".gwt/env" ]] && source ".gwt/env"
+fi

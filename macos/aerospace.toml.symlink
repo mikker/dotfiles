@@ -85,6 +85,10 @@ ctrl-c = "mode main"
 enter = "mode main"
 
 [[on-window-detected]]
+check-further-callbacks = true
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
 run = "layout floating"
 

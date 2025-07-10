@@ -1,0 +1,19 @@
+---
+name: 10er
+root: ~/dev/10er
+
+# pre_window: chruby `ruby-vers`
+
+windows:
+  - " ": vim
+  - "󰫏 ": bin/dev
+  - " ": bin/rails c
+  # - bck: bin/bg
+  - " ": tail -f log/development.log
+#
+#
+#
+#
+#
+#
+# no modelines

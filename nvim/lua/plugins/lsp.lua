@@ -22,6 +22,7 @@ return {
     opts = {
       inlay_hints = { enabled = false },
       servers = {
+        herb_ls = {},
         tailwindcss = {
           filetypes_include = { "slim", "ruby", "eruby" },
           settings = {
