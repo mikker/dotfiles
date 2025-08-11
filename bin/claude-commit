@@ -1,0 +1,190 @@
+#!/bin/bash
+
+# Function to show usage
+show_usage() {
+  echo "Usage: commit-helper [OPTIONS]"
+  echo ""
+  echo "Intelligently stage changes and create commits with AI-generated messages"
+  echo ""
+  echo "Options:"
+  echo "  -a, --all          Stage all changes (including untracked files)"
+  echo "  -p, --push         Push to remote after committing"
+  echo "  -d, --dry-run      Show what would be committed without actually committing"
+  echo "  -h, --help         Show this help message"
+  echo ""
+  echo "Examples:"
+  echo "  commit-helper                  # Stage modified files and commit"
+  echo "  commit-helper --all            # Stage all changes including new files"
+  echo "  commit-helper --all --push     # Stage all, commit, and push"
+}
+
+# Default values
+STAGE_ALL=false
+PUSH_AFTER=false
+DRY_RUN=false
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  -a | --all)
+    STAGE_ALL=true
+    shift
+    ;;
+  -p | --push)
+    PUSH_AFTER=true
+    shift
+    ;;
+  -d | --dry-run)
+    DRY_RUN=true
+    shift
+    ;;
+  -h | --help)
+    show_usage
+    exit 0
+    ;;
+  *)
+    echo "Unknown option: $1"
+    show_usage
+    exit 1
+    ;;
+  esac
+done
+
+# Check if we're in a git repository
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+  echo "❌ Error: Not in a git repository"
+  exit 1
+fi
+
+# Get current status
+echo "📊 Checking git status..."
+STATUS=$(git status --porcelain)
+
+if [ -z "$STATUS" ]; then
+  echo "✨ Working directory is clean - nothing to commit"
+  exit 0
+fi
+
+# Show current changes
+echo ""
+echo "📝 Current changes:"
+echo "─────────────────────────────────────────"
+git status --short
+echo "─────────────────────────────────────────"
+echo ""
+
+# Stage files based on options
+if [ "$STAGE_ALL" = true ]; then
+  echo "📦 Staging all changes..."
+  git add -A
+else
+  # Stage only modified and deleted files (not untracked)
+  echo "📦 Staging modified and deleted files..."
+  git add -u
+fi
+
+# Get the diff of staged changes
+STAGED_DIFF=$(git diff --cached)
+
+if [ -z "$STAGED_DIFF" ]; then
+  echo "⚠️  No changes staged for commit"
+  echo ""
+  echo "Unstaged files:"
+  git ls-files --others --exclude-standard
+  echo ""
+  echo "💡 Tip: Use --all flag to include untracked files"
+  exit 1
+fi
+
+# Show what will be committed
+echo "📋 Changes to be committed:"
+echo "─────────────────────────────────────────"
+git diff --cached --stat
+echo "─────────────────────────────────────────"
+echo ""
+
+# Generate commit message using Claude
+echo "🤖 Generating commit message with Claude..."
+echo ""
+
+COMMIT_MSG=$(claude -p "Based on these git changes, write a concise commit message following conventional commit message format.
+
+The message should:
+- Start with a verb in imperative form, like Add, Change, Update, Remove, etc.
+- Be clear and descriptive
+- Be under 72 characters
+- Focus on WHAT changed and WHY, not HOW
+
+Output ONLY the commit message, no explanations or formatting.
+
+Git diff:
+$STAGED_DIFF")
+
+# Check if we got a commit message
+if [ -z "$COMMIT_MSG" ]; then
+  echo "❌ Failed to generate commit message"
+  exit 1
+fi
+
+# Display the generated message
+echo "💬 Generated commit message:"
+echo ""
+echo "  $COMMIT_MSG"
+echo ""
+
+# If dry run, stop here
+if [ "$DRY_RUN" = true ]; then
+  echo "🔍 Dry run complete - no changes made"
+  exit 0
+fi
+
+# Ask for confirmation
+read -p "Create commit with this message? (y/n/e to edit): " -n 1 -r REPLY
+echo ""
+
+if [[ $REPLY =~ ^[Ee]$ ]]; then
+  # Edit the message
+  echo ""
+  echo "✏️  Enter your commit message (press Enter when done):"
+  read -r EDITED_MSG
+  if [ -n "$EDITED_MSG" ]; then
+    COMMIT_MSG="$EDITED_MSG"
+  fi
+  echo ""
+  # Ask again after editing
+  read -p "Create commit with message: '$COMMIT_MSG'? (y/n): " -n 1 -r REPLY
+  echo ""
+fi
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo ""
+  echo "📝 Creating commit..."
+  git commit -m "$COMMIT_MSG"
+
+  if [ $? -eq 0 ]; then
+    echo "✅ Commit created successfully!"
+
+    # Push if requested
+    if [ "$PUSH_AFTER" = true ]; then
+      echo ""
+      echo "🚀 Pushing to remote..."
+      git push
+      if [ $? -eq 0 ]; then
+        echo "✅ Pushed successfully!"
+      else
+        echo "❌ Push failed"
+        exit 1
+      fi
+    fi
+  else
+    echo "❌ Commit failed"
+    exit 1
+  fi
+else
+  echo ""
+  echo "❌ Commit cancelled"
+  # Unstage the files we staged
+  git reset HEAD >/dev/null 2>&1
+  echo "🔄 Changes have been unstaged"
+fi
+

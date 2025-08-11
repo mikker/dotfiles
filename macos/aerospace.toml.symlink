@@ -13,6 +13,10 @@ after-startup-command = [
   # "exec-and-forget borders active_color=0xFFff0566e hidpi=on width=5.0",
 ]
 
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
 # Start AeroSpace at login
 start-at-login = true
 
@@ -23,10 +27,10 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 18
+accordion-padding = 20
 
 # Possible values: tiles|accordion
-default-root-container-layout = 'tiles'
+default-root-container-layout = 'accordion'
 
 # Possible values: horizontal|vertical|auto
 # 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
@@ -61,7 +65,11 @@ inner.horizontal = 8
 inner.vertical = 8
 outer.left = 8
 outer.bottom = 8
-outer.top = 8
+outer.top = [
+{ monitor."built-in" = 12 },
+{ monitor."main" = 42 },
+42
+]
 outer.right = 8
 
 # 'main' binding mode declaration
@@ -70,9 +78,9 @@ outer.right = 8
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
 alt-h = 'focus --boundaries all-monitors-outer-frame left'
+alt-l = 'focus --boundaries all-monitors-outer-frame right'
 alt-j = 'focus down --boundaries-action wrap-around-the-workspace'
 alt-k = 'focus up --boundaries-action wrap-around-the-workspace'
-alt-l = 'focus --boundaries all-monitors-outer-frame right'
 shift-alt-h = 'workspace prev'
 shift-alt-l = 'workspace next'
 
@@ -84,6 +92,7 @@ esc = "mode main"
 ctrl-c = "mode main"
 enter = "mode main"
 
+# make all windows float by default
 [[on-window-detected]]
 check-further-callbacks = true
 run = 'layout floating'
@@ -96,11 +105,23 @@ run = "layout floating"
 if.app-id = 'ru.keepcoder.Telegram'
 run = "layout floating"
 
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.mail'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'to.holepunch.runtime'
+run = "layout floating"
+
 [workspace-to-monitor-force-assignment]
-1 = "main"
-2 = "main"
-3 = "main"
-4 = "main"
-5 = "secondary"
+a1 = "secondary"
+b1 = "main"
+b2 = "main"
+b3 = "main"
+b4 = "main"
 
 # vim: ft=toml

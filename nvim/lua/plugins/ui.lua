@@ -21,18 +21,6 @@ return {
   -- no bufferline
   { "akinsho/bufferline.nvim", enabled = false },
 
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function(_, opts)
-      opts.options.section_separators = ""
-      opts.options.component_separators = ""
-      opts.sections.lualine_x = { { require("mcphub.extensions.lualine") } }
-      opts.sections.lualine_y = {}
-      opts.sections.lualine_z = {}
-      return opts
-    end,
-  },
-
   -- no indent guides
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
 

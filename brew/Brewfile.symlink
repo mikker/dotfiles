@@ -1,118 +1,138 @@
-# vim: set ft=ruby
+# vim: ft=ruby
 
-brew "asdf"
-brew "curl"
-brew "dark-mode"
-brew "fd"
-brew "ffmpeg"
-brew "fzf"
-brew "gh"
-brew "git"
-brew "jq"
-brew "lazygit"
-brew "libpq"
-brew "llm"
-brew "mas"
-brew "mosh"
-brew "node"
-brew "oven-sh/bun/bun"
-brew "pinentry-mac"
-brew "postgresql@16", link: true
-brew "qmk/qmk/qmk"
-brew "redis"
-brew "ripgrep"
-brew "rubyfmt"
-brew "s3cmd"
-brew "ssh-copy-id"
-brew "stripe/stripe-cli/stripe"
-brew "tmux"
-brew "tree"
-brew "vim"
-brew "vips"
-brew "wget"
-brew "yarn"
-brew "yt-dlp"
-brew "zsh"
+brew("ast-grep")
+brew("cloudflared")
+brew("coreutils")
+brew("curl")
+brew("dark-mode")
+brew("diff-so-fancy")
+brew("fd")
+brew("felixkratz/formulae/borders", restart_service: :always)
+brew("ffmpeg")
+brew("fzf")
+brew("gh")
+brew("git")
+brew("jandedobbeleer/oh-my-posh/oh-my-posh")
+brew("jq")
+brew("lazygit")
+brew("libpq")
+brew("llm")
+brew("mas")
+brew("mosh")
+brew("node")
+brew("oven-sh/bun/bun")
+brew("pinentry-mac")
+brew("postgresql@17", link: true)
+brew("qmk/qmk/qmk")
+brew("qmk/qmk/qmk")
+brew("ripgrep")
+brew("rubyfmt")
+brew("s3cmd")
+brew("ssh-copy-id")
+brew("stripe/stripe-cli/stripe")
+brew("tmux")
+brew("tree")
+brew("vim")
+brew("vips")
+brew("wget")
+brew("yarn")
+brew("yt-dlp")
+brew("zsh")
 
-brew "neovim", args: ["head"]
+brew("neovim", args: ["head"])
 
-tap "homebrew/services"
+cask_args(appdir: "/Applications")
 
-cask_args appdir: "/Applications"
+cask("acorn")
+cask("aerospace")
+cask("appzapper")
+cask("backblaze")
+cask("battery-buddy")
+cask("betterdisplay")
+cask("cleanshot")
+cask("cursor")
+cask("dash")
+cask("docker")
+cask("dropshare")
+cask("elgato-control-center")
+cask("figma")
+cask("firefox")
+cask("ghostty")
+cask("google-chrome")
+cask("grandperspective")
+cask("handbrake-app")
+cask("imageoptim")
+cask("jordanbaird-ice")
+cask("karabiner-elements")
+cask("monitorcontrol")
+cask("notion")
+cask("obs")
+cask("raycast")
+cask("signal")
+cask("sketch")
+cask("slack")
+cask("soulver")
+cask("superduper")
+cask("telegram")
+cask("transmission")
+cask("transmit")
+cask("vimr")
+cask("vlc")
+cask("webpquicklook")
+cask("wezterm@nightly")
 
-cask "acorn"
-cask "appzapper"
-cask "battery-buddy"
-cask "cleanshot"
-cask "cursor"
-cask "dash"
-cask "docker"
-cask "dropshare"
-cask "firefox"
-cask "google-chrome"
-# cask "gpg-suite" # download from https://gpgtools.org/sequoia
-cask "grandperspective"
-cask "handbrake"
-cask "imageoptim"
-cask "jordanbaird-ice"
-cask "monitorcontrol"
-cask "notion"
-cask "obs"
-cask "raycast"
-cask "signal"
-cask "sketch"
-cask "slack"
-cask "soulver"
-cask "superduper"
-cask "telegram"
-cask "transmission"
-cask "transmit"
-cask "vimr"
-cask "vlc"
-cask "wezterm@nightly"
+cask("font-cascadia-code-nf")
+cask("font-fantasque-sans-mono")
+cask("font-fira-code")
+cask("font-ia-writer-duo")
+cask("font-ia-writer-mono")
+cask("font-ia-writer-quattro")
+cask("font-inconsolata")
+cask("font-input")
+cask("font-inter")
+cask("font-iosevka")
+cask("font-iosevka-aile")
+cask("font-iosevka-curly")
+cask("font-iosevka-curly-slab")
+cask("font-iosevka-etoile")
+cask("font-iosevka-nerd-font")
+cask("font-iosevka-slab")
+cask("font-martian-mono")
+cask("font-sf-compact")
+cask("font-sf-mono")
+cask("font-sf-pro")
+cask("font-victor-mono")
 
-cask "font-fantasque-sans-mono"
-cask "font-fira-code"
-cask "font-ia-writer-mono"
-cask "font-ia-writer-duo"
-cask "font-ia-writer-quattro"
-cask "font-inconsolata"
-cask "font-input"
-cask "font-inter"
-cask "font-iosevka"
-cask "font-iosevka-aile"
-cask "font-iosevka-curly"
-cask "font-iosevka-curly-slab"
-cask "font-iosevka-etoile"
-cask "font-iosevka-slab"
-cask "font-iosevka-nerd-font"
-cask "font-sf-compact"
-cask "font-sf-mono"
-cask "font-sf-pro"
-cask "font-victor-mono"
-
-mas "1Password for Safari", id: 1569813296
-mas "Crouton", id: 1461650987
-mas "Developer", id: 640199958
-mas "Final Cut Pro", id: 424389933
-mas "Gifski", id: 1351639930
-mas "HEIC Converter", id: 1294126402
-mas "Hand Mirror", id: 1502839586
-mas "Hyperduck", id: 6444667067
-mas "JSONPeep", id: 1458969831
-mas "LilyView", id: 529490330
-mas "Logic Pro", id: 634148309
-mas "Marked 2", id: 890031187
-mas "N10", id: 6446053304
-mas "Numbers", id: 409203825
-mas "Pixelmator Pro", id: 1289583905
-mas "Plain Text Editor", id: 1572202501
-mas "Pure Paste", id: 1611378436
-mas "Reeder", id: 1529448980
-mas "Sprinkles", id: 1500209074
-mas "TestFlight", id: 899247664
-mas "Things", id: 904280696
-mas "Today", id: 6443714928
-mas "Velja", id: 1607635845
-mas "Xcode", id: 497799835
-mas "iA Writer", id: 775737590
+mas("1Password for Safari", id: 1569813296)
+mas("Crouton", id: 1461650987)
+mas("Dato", id: 1470584107)
+mas("Developer", id: 640199958)
+mas("Final Cut Pro", id: 424389933)
+mas("Gifski", id: 1351639930)
+mas("HEIC Converter", id: 1294126402)
+mas("Hand Mirror", id: 1502839586)
+mas("Hyperduck", id: 6444667067)
+mas("JSONPeep", id: 1458969831)
+mas("Keynote", id: 409183694)
+mas("LilyView", id: 529490330)
+mas("Logic Pro", id: 634148309)
+mas("Marked 2", id: 890031187)
+mas("Minimal Twitter", id: 1668204600)
+mas("N10", id: 6446053304)
+mas("Numbers", id: 409203825)
+mas("Obsidian Web Clipper", id: 6720708363)
+mas("Pages", id: 409201541)
+mas("Pixelmator Pro", id: 1289583905)
+mas("Plain Text Editor", id: 1572202501)
+mas("PolyCapture", id: 6504193234)
+mas("Poolsuite FM", id: 1514817810)
+mas("Pure Paste", id: 1611378436)
+mas("Reeder", id: 1529448980)
+mas("Reeder", id: 6475002485)
+mas("Sprinkles", id: 1500209074)
+mas("TestFlight", id: 899247664)
+mas("Things", id: 904280696)
+mas("Today", id: 6443714928)
+mas("Xcode", id: 497799835)
+mas("iA Writer", id: 775737590)
+mas("mymind", id: 1532801185)

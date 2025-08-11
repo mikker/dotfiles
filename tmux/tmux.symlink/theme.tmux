@@ -36,7 +36,7 @@ make_activatable_bubble() {
 }
 
 tmux set-option -gq status-left ""
-tmux set-option -gq status-right ""
+tmux set-option -gq status-right " $(make_bubble ' #S ' "$color_fg" "$color_bg_active")"
 
 # *********************************************************
 # Window                                                  *

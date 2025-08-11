@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Check if a request was provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <request>"
+    echo "Example: $0 'can you help me stash the git ignore that I'm not using'"
+    exit 1
+fi
+
+# Combine all arguments into a single request string
+REQUEST="$*"
+
+# Call Claude to get a bash command suggestion
+echo "🤔 Asking Claude for a command suggestion..."
+echo ""
+
+# Use Claude to get the command, asking specifically for just the command
+CLAUDE_OUTPUT=$(claude -p "The user wants to: $REQUEST
+
+Please provide ONLY the bash command that would accomplish this task. Do not include any explanation, markdown formatting, or additional text. Just output the raw command.")
+
+# Extract the command (remove any leading/trailing whitespace)
+SUGGESTED_CMD=$(echo "$CLAUDE_OUTPUT" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+# Check if we got a command
+if [ -z "$SUGGESTED_CMD" ]; then
+    echo "❌ Claude didn't provide a command suggestion."
+    exit 1
+fi
+
+# Display the suggested command
+echo "📋 Suggested command:"
+echo ""
+echo "  $SUGGESTED_CMD"
+echo ""
+
+# Ask user for confirmation
+read -p "Execute this command? (y/n): " -n 1 -r
+echo ""
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "▶️  Executing command..."
+    echo "─────────────────────────────────────────"
+    eval "$SUGGESTED_CMD"
+    EXIT_CODE=$?
+    echo "─────────────────────────────────────────"
+    echo "✅ Command completed with exit code: $EXIT_CODE"
+else
+    echo ""
+    echo "❌ Command not executed."
+fi

@@ -607,7 +607,7 @@
               "key" : "a",
               "label" : "accordion",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace layout accordion horizontal vertical"
+              "value" : "/opt/homebrew/bin/aerospace layout accordion vertical horizontal"
             },
             {
               "key" : "t",
@@ -648,33 +648,33 @@
             },
             {
               "key" : "q",
-              "label" : "move-node-to-workspace 1",
+              "label" : "move-node-to-workspace b1",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 1"
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b1"
             },
             {
               "key" : "w",
-              "label" : "move-node-to-workspace 2",
+              "label" : "move-node-to-workspace b2",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 2"
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b2"
             },
             {
               "key" : "e",
-              "label" : "move-node-to-workspace 3",
+              "label" : "move-node-to-workspace b3",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 3"
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b3"
             },
             {
               "key" : "r",
-              "label" : "move-node-to-workspace 4",
+              "label" : "move-node-to-workspace b4",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 4"
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b4"
             },
             {
               "key" : "t",
-              "label" : "move-node-to-workspace 5",
+              "label" : "move-node-to-workspace a1",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace 5"
+              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace a1"
             }
           ],
           "key" : "m",
@@ -682,41 +682,34 @@
           "type" : "group"
         },
         {
-          "actions" : [
-            {
-              "key" : "q",
-              "label" : "workspace 1",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace workspace 1"
-            },
-            {
-              "key" : "w",
-              "label" : "workspace 2",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace workspace 2"
-            },
-            {
-              "key" : "e",
-              "label" : "workspace 3",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace workspace 3"
-            },
-            {
-              "key" : "r",
-              "label" : "workspace 4",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace workspace 4"
-            },
-            {
-              "key" : "t",
-              "label" : "workspace 5",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace workspace 5"
-            }
-          ],
+          "key" : "q",
+          "label" : "workspace q",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace b1"
+        },
+        {
           "key" : "w",
-          "label" : "workspace",
-          "type" : "group"
+          "label" : "workspace w",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace b2"
+        },
+        {
+          "key" : "e",
+          "label" : "workspace e",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace b3"
+        },
+        {
+          "key" : "r",
+          "label" : "workspace r",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace b4"
+        },
+        {
+          "key" : "t",
+          "label" : "workspace t",
+          "type" : "command",
+          "value" : "/opt/homebrew/bin/aerospace workspace a1"
         },
         {
           "actions" : [
@@ -750,7 +743,7 @@
           "type" : "group"
         },
         {
-          "key" : "r",
+          "key" : "s",
           "label" : "mode resize",
           "type" : "command",
           "value" : "/opt/homebrew/bin/aerospace mode resize"

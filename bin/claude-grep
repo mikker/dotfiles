@@ -1,0 +1,122 @@
+#!/bin/bash
+
+# Default values
+CONTEXT_LINES=0
+OUTPUT_FORMAT="matches"
+
+# Function to show usage
+show_usage() {
+    echo "Usage: claude-grep [OPTIONS] <query>"
+    echo "       <command> | claude-grep [OPTIONS] <query>"
+    echo ""
+    echo "Semantic search using Claude AI"
+    echo ""
+    echo "Options:"
+    echo "  -c, --context N    Show N lines of context around matches"
+    echo "  -f, --format FMT   Output format: matches (default), summary, explain"
+    echo "  -h, --help         Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  claude-grep 'functions that handle authentication'"
+    echo "  git diff | claude-grep 'potential bugs'"
+    echo "  cat error.log | claude-grep 'what caused this error?'"
+    echo "  grep -r 'TODO' . | claude-grep 'which ones are critical?'"
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -c|--context)
+            CONTEXT_LINES="$2"
+            shift 2
+            ;;
+        -f|--format)
+            OUTPUT_FORMAT="$2"
+            shift 2
+            ;;
+        -h|--help)
+            show_usage
+            exit 0
+            ;;
+        -*)
+            echo "Unknown option: $1"
+            show_usage
+            exit 1
+            ;;
+        *)
+            QUERY="$*"
+            break
+            ;;
+    esac
+done
+
+# Check if query was provided
+if [ -z "$QUERY" ]; then
+    echo "Error: No search query provided"
+    show_usage
+    exit 1
+fi
+
+# Read input (either from pipe or files)
+if [ -t 0 ]; then
+    # No pipe input - search current directory
+    echo "🔍 Searching current directory for: $QUERY"
+    INPUT=$(find . -type f -name "*.txt" -o -name "*.md" -o -name "*.js" -o -name "*.py" -o -name "*.sh" -o -name "*.go" -o -name "*.java" -o -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.rs" -o -name "*.rb" -o -name "*.php" -o -name "*.ts" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.css" -o -name "*.html" -o -name "*.json" -o -name "*.yaml" -o -name "*.yml" | head -50 | xargs grep -n . 2>/dev/null | head -1000)
+else
+    # Read from pipe
+    INPUT=$(cat)
+fi
+
+# Check if we have any input
+if [ -z "$INPUT" ]; then
+    echo "No input to search"
+    exit 1
+fi
+
+# Prepare the prompt based on format
+case $OUTPUT_FORMAT in
+    summary)
+        PROMPT="Analyze this content and answer the query: '$QUERY'
+
+Provide a concise summary of your findings.
+
+Content to analyze:
+$INPUT"
+        ;;
+    explain)
+        PROMPT="Analyze this content and answer the query: '$QUERY'
+
+Provide a detailed explanation of what you found and why it's relevant.
+
+Content to analyze:
+$INPUT"
+        ;;
+    *)  # matches (default)
+        PROMPT="Search through this content for: '$QUERY'
+
+Instructions:
+- Find lines/sections that match the semantic meaning of the query
+- Output ONLY the relevant matches, one per line
+- Include line numbers if present in the input
+- If context was requested (${CONTEXT_LINES} lines), include surrounding context
+- Be selective - only show truly relevant matches
+- Preserve the original formatting of matched lines
+
+Content to search:
+$INPUT"
+        ;;
+esac
+
+# Call Claude
+echo "🤖 Analyzing with Claude..."
+echo ""
+
+CLAUDE_OUTPUT=$(claude -p "$PROMPT")
+
+# Display results
+if [ -z "$CLAUDE_OUTPUT" ]; then
+    echo "❌ No matches found"
+    exit 1
+else
+    echo "$CLAUDE_OUTPUT"
+fi

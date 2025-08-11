@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# This is a demo config to showcase some of the most important commands.
+# It is meant to be changed and configured, as it is intentionally kept sparse.
+# For a (much) more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+# Load colors
+source "$CONFIG_DIR/colors.sh"
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar.
+# These are only some of the options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+
+sketchybar --bar position=top height=36 blur_radius=30 color=$BAR_COLOR
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+default=(
+  padding_left=0
+  padding_right=0
+  icon.font="Hack Nerd Font:Regular:14.0"
+  label.font="SF Pro:Semibold:14.0"
+  icon.color=$WHITE
+  label.color=$WHITE
+  icon.padding_left=10
+  icon.padding_right=10
+  label.padding_left=0
+  label.padding_right=10
+  background.padding_left=4
+  background.padding_right=4
+)
+sketchybar --default "${default[@]}"
+
+sketchybar --add event aerospace_workspace_change
+
+# Simple numeric labels for workspaces
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "0")
+
+for sid in $(aerospace list-workspaces --all); do
+  # Determine icon based on workspace ID
+  space_icon=""
+  case "$sid" in
+  a1) space_icon="↖" ;;
+  b1) space_icon="1" ;;
+  b2) space_icon="2" ;;
+  b3) space_icon="3" ;;
+  b4) space_icon="4" ;;
+  *) space_icon="$sid" ;;
+  esac
+
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid \
+    background.color=$TRANSPARENT \
+    background.corner_radius=5 \
+    background.height=25 \
+    background.drawing=off \
+    icon="$space_icon" \
+    icon.font="SF Pro:Bold:14.0" \
+    icon.highlight_color=$ACCENT \
+    label.drawing=off \
+    label.font="sketchybar-app-font:Regular:14.0" \
+    click_script="aerospace workspace $sid" \
+    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+done
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar, where
+# only the properties deviating from the current defaults need to be set
+
+sketchybar --add item chevron left \
+  --set chevron icon= label.drawing=off \
+  --add item front_app left \
+  --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+sketchybar --add item clock right \
+  --set clock update_freq=10 icon= script="$PLUGIN_DIR/clock.sh" \
+  --add item battery right \
+  --set battery update_freq=120 icon.drawing=on icon.font="Hack Nerd Font:Regular:14.0" script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change \
+  --add item things_todo right \
+  --set things_todo update_freq=60 \
+  script="$PLUGIN_DIR/things_todo.sh" \
+  click_script="open -a Things3" \
+  background.drawing=on \
+  background.color=0x00000000 \
+  background.border_color=$YELLOW \
+  background.border_width=1 \
+  background.corner_radius=8 \
+  background.height=25
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

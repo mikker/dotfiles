@@ -50,9 +50,3 @@ eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
 
 # Initialize completion engine
 autoload -Uz compinit && compinit
-
-
-# Added by Pear Runtime, configures system with Pear CLI
-export PATH="/Users/mikker/Library/Application Support/pear/bin":$PATH
-
-alias claude="/Users/mikker/.claude/local/claude"

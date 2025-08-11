@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(brew services restart:*)",
+      "Bash(screencapture:*)"
+    ],
+    "deny": []
+  }
+}

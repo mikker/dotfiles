@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+function main() {
+  if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+  fi
+
+  case "$1" in
+  -h | --help)
+    usage
+    ;;
+  *)
+    if [[ "$1" =~ ^[0-9]+$ ]]; then
+      find_next_port "$1"
+    else
+      die "Error: Port must be a number"
+    fi
+    ;;
+  esac
+}
+
+usage() {
+  cat <<EOF
+Usage: nextport PORT
+
+Find the next available port starting from the given port number.
+
+Arguments:
+  PORT                         Starting port number to check
+
+Options:
+  -h, --help                   Show this help message and exit
+
+Examples:
+  nextport 3000
+  nextport 8080
+
+EOF
+}
+
+die() {
+  local message=$1
+  local code=${2:-1}
+  echo "Error: $message" >&2
+  exit "$code"
+}
+
+is_port_available() {
+  local port=$1
+  ! lsof -i ":$port" >/dev/null 2>&1
+}
+
+find_next_port() {
+  local port=$1
+  
+  while ! is_port_available "$port"; do
+    ((port++))
+  done
+  
+  echo "$port"
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi
