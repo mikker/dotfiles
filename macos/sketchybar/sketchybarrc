@@ -50,10 +50,10 @@ for sid in $(aerospace list-workspaces --all); do
   space_icon=""
   case "$sid" in
   a1) space_icon="↖" ;;
-  b1) space_icon="1" ;;
-  b2) space_icon="2" ;;
-  b3) space_icon="3" ;;
-  b4) space_icon="4" ;;
+  b1) space_icon="Q" ;;
+  b2) space_icon="W" ;;
+  b3) space_icon="E" ;;
+  b4) space_icon="R" ;;
   *) space_icon="$sid" ;;
   esac
 
@@ -64,11 +64,15 @@ for sid in $(aerospace list-workspaces --all); do
     background.corner_radius=5 \
     background.height=25 \
     background.drawing=off \
+    background.padding_left=6 \
+    background.padding_right=6 \
+    y_offset=1 \
     icon="$space_icon" \
-    icon.font="SF Pro:Bold:14.0" \
+    icon.font="SF Pro:Bold:16.0" \
     icon.highlight_color=$ACCENT \
     label.drawing=off \
     label.font="sketchybar-app-font:Regular:14.0" \
+    label.y_offset=-1 \
     click_script="aerospace workspace $sid" \
     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
@@ -104,9 +108,7 @@ sketchybar --add item clock right \
   script="$PLUGIN_DIR/things_todo.sh" \
   click_script="open -a Things3" \
   background.drawing=on \
-  background.color=0x00000000 \
-  background.border_color=$YELLOW \
-  background.border_width=1 \
+  background.color=$GREY_TRANSP \
   background.corner_radius=8 \
   background.height=25
 

@@ -8,13 +8,13 @@ source "$CONFIG_DIR/colors.sh"
 
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
   sketchybar --set $NAME background.drawing=on \
-                         background.color=$ACCENT_TRANSPARENT \
-                         icon.color=$ACCENT \
-                         label.color=$ACCENT
+    background.color=$ACCENT_TRANSPARENT \
+    icon.color=$ACCENT \
+    label.color=$ACCENT
 else
   sketchybar --set $NAME background.drawing=off \
-                         icon.color=$GREY \
-                         label.color=$GREY
+    icon.color=$GREY \
+    label.color=$GREY
 fi
 
 # Update app icons for this workspace
@@ -26,7 +26,7 @@ if [ -n "$apps" ]; then
   for app in $apps; do
     __icon_map "$app"
     if [ "$icon_result" != ":default:" ]; then
-      icon_string+="$icon_result "
+      icon_string+="$icon_result"
     fi
   done
 fi

@@ -24,5 +24,6 @@ fi
 if [ "$TODO" = "No todos" ] || [ "$TODO" = "" ]; then
   sketchybar --set "$NAME" drawing=off
 else
-  sketchybar --set "$NAME" drawing=on icon="☐" icon.color="$ACCENT" label="$TODO" label.color="$WHITE"
+  sketchybar --set "$NAME" drawing=on icon=":things:" icon.color="$YELLOW" label="$TODO" label.color="$WHITE" \
+    icon.font="sketchybar-app-font:Regular:14.0" 
 fi
