@@ -37,5 +37,5 @@ if [[ "$CHARGING" != "" ]]; then
   COLOR=$GREY
 fi
 
-sketchybar --set "$NAME" icon="$ICON" icon.drawing=on icon.color="$COLOR" label="${PERCENTAGE}%" label.color="$COLOR"
+sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${PERCENTAGE}%" label.color="$COLOR"
 
