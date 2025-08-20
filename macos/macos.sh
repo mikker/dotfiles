@@ -25,7 +25,8 @@ sudo spctl --master-disable
 sudo defaults write /var/db/SystemPolicy-prefs.plist enabled -string no
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-echo "Preventing Time Machine from prompting to use new hard drives as backup volume" defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # echo "Disabling disk image verification"
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
@@ -62,6 +63,9 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 
+echo 'Auto-hide menu bar'
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
 echo 'Hot corners'
 echo 'Top left / Bottom right screen corner → Mission Control'
 defaults write com.apple.dock wvous-tl-corner -int 2
@@ -87,8 +91,8 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # }}}
 # FINDER {{{
 
-# echo 'Disable Desktop'
-# defaults write com.apple.finder CreateDesktop -bool false
+echo 'Disable Desktop icons'
+defaults write com.apple.finder CreateDesktop -bool false
 
 echo "When performing a search, search the current folder by default"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"

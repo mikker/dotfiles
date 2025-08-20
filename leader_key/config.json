@@ -52,6 +52,12 @@
           "key" : "f",
           "type" : "application",
           "value" : "/Applications/Firefox.app"
+        },
+        {
+          "key" : "h",
+          "label" : "Chrome (holepunch)",
+          "type" : "command",
+          "value" : "open -a \"Google Chrome\" --args --profile-directory=Profile\\ 6"
         }
       ],
       "iconPath" : "safari",
@@ -224,6 +230,11 @@
           "key" : "f",
           "type" : "application",
           "value" : "/Applications/Messenger.app"
+        },
+        {
+          "key" : "k",
+          "type" : "application",
+          "value" : "/Applications/Keet.app"
         }
       ],
       "iconPath" : "message",
