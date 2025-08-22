@@ -10,5 +10,5 @@ return {
   },
 
   -- set
-  { "LazyVim/LazyVim", opts = { colorscheme = "zenwritten" } },
+  { "LazyVim/LazyVim", opts = { colorscheme = "zenbones" } },
 }

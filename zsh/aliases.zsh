@@ -9,7 +9,6 @@ alias doco='docker-compose'
 alias mux='tmuxinator'
 alias rm_orig="find . -name '*.orig' -exec rm {} \;"
 alias json='python -mjson.tool'
-alias pweb='python -m SimpleHTTPServer'
 alias online='ping -c 1 google.com &> /dev/null'
 alias dsay='say -v Sara'
 alias doc='docker-compose'

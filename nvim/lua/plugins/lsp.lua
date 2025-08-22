@@ -22,6 +22,13 @@ return {
     opts = {
       inlay_hints = { enabled = false },
       servers = {
+        vtsls = {
+          filetypes = {
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+          },
+        },
         tailwindcss = {
           filetypes_include = { "slim", "ruby", "eruby" },
           settings = {

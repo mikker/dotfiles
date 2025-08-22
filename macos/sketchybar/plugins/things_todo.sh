@@ -20,10 +20,29 @@ if [ ${#TODO} -gt 30 ]; then
   TODO="${TODO:0:27}..."
 fi
 
-# Hide widget when no todos, show when there are todos
+# Show icon only when no todos, show with label when there are todos
 if [ "$TODO" = "No todos" ] || [ "$TODO" = "" ]; then
-  sketchybar --set "$NAME" drawing=off
+  # Icon only - centered padding accounting for internal icon-label spacing
+  # Shift slightly right to compensate for internal spacing
+  sketchybar --set "$NAME" \
+    drawing=on \
+    icon=":things:" \
+    icon.color="$YELLOW" \
+    icon.padding_left=10 \
+    icon.padding_right=7 \
+    label="" \
+    label.padding_right=0 \
+    icon.font="sketchybar-app-font:Regular:14.0"
 else
-  sketchybar --set "$NAME" drawing=on icon=":things:" icon.color="$YELLOW" label="$TODO" label.color="$WHITE" \
-    icon.font="sketchybar-app-font:Regular:14.0" 
+  # Icon with label - normal padding
+  sketchybar --set "$NAME" \
+    drawing=on \
+    icon=":things:" \
+    icon.color="$YELLOW" \
+    icon.padding_left=10 \
+    icon.padding_right=10 \
+    label="$TODO" \
+    label.color="$WHITE" \
+    label.padding_right=10 \
+    icon.font="sketchybar-app-font:Regular:14.0"
 fi

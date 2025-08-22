@@ -15,8 +15,8 @@ setopt multios # perform implicit tees or cats when multiple redirections are at
 # HISTORY
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=100000
+SAVEHIST=100000
 
 setopt hist_ignore_all_dups # ignore duplicate history entries
 setopt inc_append_history # Appends every command to the history file once it is executed
