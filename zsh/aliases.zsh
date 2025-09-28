@@ -4,14 +4,10 @@ alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias ddate='date +"%Y-%m-%d"'
-alias ytdl='cd ~/Movies && youtube-dl `pbpaste`'
-alias doco='docker-compose'
 alias mux='tmuxinator'
 alias rm_orig="find . -name '*.orig' -exec rm {} \;"
-alias json='python -mjson.tool'
 alias online='ping -c 1 google.com &> /dev/null'
 alias dsay='say -v Sara'
-alias doc='docker-compose'
 alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1/"\"
 alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"
 
@@ -43,12 +39,10 @@ alias gb='gh browse'
 alias be='bundle exec'
 alias ra='rails'
 
-# JS
-alias yr="yarn run"
-alias npr="npm run"
-alias hh="yarn hardhat"
-
-
 # https://twitter.com/almonk/status/1576294814831718400
 alias todo='git grep -l TODO | xargs -n1 git blame -f -n -w | grep "$(git config user.name)" | grep TODO | sed "s/.\{9\}//" | sed "s/(.*)[[:space:]]*//"'
 
+
+alias codex="codex --search --yolo"
+alias amp="amp --dangerously-allow-all"
+alias claude="claude --dangerously-skip-permissions"

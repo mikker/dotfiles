@@ -3,6 +3,7 @@
 local name="$1"
 local parent_dir="${PWD:h}"
 local project_name="${PWD:t}"
+local base_dir="`pwd`"
 
 if [[ -z "$name" ]]; then
     # No argument - use fzf to select existing worktree
@@ -41,13 +42,14 @@ else
     git worktree add "$worktree_path" -b "$name" "$base_branch" 2>/dev/null || \
         git worktree add "$worktree_path" "$name"
 
-    # Execute .gwt/create if it exists
-    if [[ -x "$worktree_path/.gwt/create" ]]; then
-        "$worktree_path/.gwt/create" "$PWD"
-    fi
-
     cd "$worktree_path"
     export WORKTREE="$name"
+
+    # Execute .gwt/create if it exists
+    if [[ -x "$worktree_path/.gwt/create" ]]; then
+        "$worktree_path/.gwt/create" "$base_dir"
+    fi
+
     # Execute .gwt/env if it exists
     [[ -x ".gwt/env" ]] && source ".gwt/env"
 fi

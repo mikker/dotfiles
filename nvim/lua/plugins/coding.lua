@@ -11,7 +11,7 @@ return {
   },
 
   { "rafamadriz/friendly-snippets", enabled = false },
-  { "echasnovski/mini.pairs", enabled = false },
+  { "nvim-mini/mini.pairs", enabled = false },
 
   "tpope/vim-abolish", -- :S smart replace
   "tpope/vim-eunuch", -- unix things

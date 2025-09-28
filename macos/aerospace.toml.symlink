@@ -77,8 +77,12 @@ outer.right = 8
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
-alt-h = 'focus --boundaries all-monitors-outer-frame left'
-alt-l = 'focus --boundaries all-monitors-outer-frame right'
+# alt-h = 'focus --boundaries all-monitors-outer-frame left'
+# alt-l = 'focus --boundaries all-monitors-outer-frame right'
+# alt-h = 'focus left --boundaries-action wrap-around-the-workspace'
+# alt-l = 'focus right --boundaries-action wrap-around-the-workspace'
+alt-h = 'focus left'
+alt-l = 'focus right'
 alt-j = 'focus down --boundaries-action wrap-around-the-workspace'
 alt-k = 'focus up --boundaries-action wrap-around-the-workspace'
 shift-alt-h = 'workspace prev'
@@ -111,6 +115,10 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'pl.maketheweb.cleanshotx'
 run = "layout floating"
 
 [[on-window-detected]]
