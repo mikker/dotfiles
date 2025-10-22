@@ -50,3 +50,6 @@ eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
 
 # Initialize completion engine
 autoload -Uz compinit && compinit
+
+# bun completions
+[ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"

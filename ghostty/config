@@ -1,0 +1,52 @@
+font-family = "IBM Plex Mono"
+font-family = "Iosevka"
+font-size = 16
+
+theme = light:Zenbones Light,dark:Zenbones Dark
+
+cursor-style = block
+cursor-color = #dd0455
+cursor-text = #ffffff
+shell-integration-features = no-cursor
+
+window-padding-x = 8
+window-padding-y = 4,8
+window-colorspace = display-p3
+window-height = 36
+window-width = 120
+macos-titlebar-style = native
+
+# Word navigation
+keybind = opt+arrow_left=text:\x1bb
+keybind = opt+arrow_right=text:\x1bf
+keybind = opt+backspace=text:\x17
+
+# Line navigation
+keybind = cmd+arrow_left=csi:H
+keybind = cmd+arrow_right=csi:F
+keybind = cmd+backspace=text:\x15
+
+# Command palette
+keybind = cmd+k=toggle_quick_terminal
+
+# Tmux window switching (uses physical bracket keys on Ghostty 1.2+)
+keybind = cmd+shift+bracket_left=text:\x02p
+keybind = cmd+shift+bracket_right=text:\x02n
+
+# Tmux window numbers
+keybind = cmd+digit_1=text:\x021
+keybind = cmd+digit_2=text:\x022
+keybind = cmd+digit_3=text:\x023
+keybind = cmd+digit_4=text:\x024
+keybind = cmd+digit_5=text:\x025
+keybind = cmd+digit_6=text:\x026
+keybind = cmd+digit_7=text:\x027
+keybind = cmd+digit_8=text:\x028
+keybind = cmd+digit_9=text:\x029
+
+keybind = shift+enter=text:\n
+
+macos-option-as-alt = false
+macos-icon = xray
+macos-icon-ghost-color = #ff0000
+macos-icon-screen-color = #0000ff

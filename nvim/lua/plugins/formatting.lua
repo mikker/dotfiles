@@ -2,7 +2,6 @@ return {
   {
     "stevearc/conform.nvim",
     opts = {
-      -- Use LSP formatting for ERB via herb_ls (Conform lsp_fallback)
       lsp_fallback = true,
       formatters_by_ft = {
         solidity = { "forge" },

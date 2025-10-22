@@ -18,24 +18,6 @@ return {
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = { "[w", false }
       keys[#keys + 1] = { "]w", false }
-
-      -- Ensure herb_ls exists even if lspconfig is older/missing upstream config
-      local ok_lsp, lspconfig = pcall(require, "lspconfig")
-      if ok_lsp then
-        local configs = require("lspconfig.configs")
-        if not configs.herb_ls then
-          configs.herb_ls = {
-            default_config = {
-              cmd = { "herb-language-server", "--stdio" },
-              filetypes = { "html", "eruby" },
-              root_dir = function(fname)
-                local root = require("lspconfig.util").root_pattern("Gemfile", ".git")(fname)
-                return root or vim.loop.cwd()
-              end,
-            },
-          }
-        end
-      end
     end,
     opts = {
       inlay_hints = { enabled = false },

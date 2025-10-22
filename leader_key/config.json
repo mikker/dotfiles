@@ -42,6 +42,11 @@
           "key" : "t",
           "type" : "application",
           "value" : "/Applications/Things3.app"
+        },
+        {
+          "key" : "r",
+          "type" : "application",
+          "value" : "/Applications/Reeder.app"
         }
       ],
       "iconPath" : "cat",
@@ -617,7 +622,7 @@
               "key" : "a",
               "label" : "accordion",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace layout accordion vertical horizontal"
+              "value" : "/opt/homebrew/bin/aerospace layout accordion horizontal vertical"
             },
             {
               "key" : "f",
@@ -629,7 +634,7 @@
               "key" : "t",
               "label" : "tiles",
               "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace layout tiles horizontal vertical"
+              "value" : "/opt/homebrew/bin/aerospace layout tiles vertical horizontal"
             }
           ],
           "key" : "l",
@@ -732,6 +737,11 @@
           "label" : "workspace w",
           "type" : "command",
           "value" : "/opt/homebrew/bin/aerospace workspace b2"
+        },
+        {
+          "key" : "c",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/center"
         }
       ],
       "iconPath" : "rectangle.grid.2x2",

@@ -46,5 +46,5 @@ root: ~/dev/mikkelmalmberg
 
 windows:
   - vim: vim
-  - server: yarn dev
+  - server: npm run dev
 # no vim modelines

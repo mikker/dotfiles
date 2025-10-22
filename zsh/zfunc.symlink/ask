@@ -1,0 +1,9 @@
+ask() {
+  emulate -L zsh
+  setopt NO_GLOB
+  local query="$*"
+  local prompt="Request: ${query}. Return ONLY the exact shell command needed. Do not prepend with an explanation, no markdown, no code blocks - just return the raw command you think will solve their query."
+  local cmd
+  cmd=$(llm prompt -m gpt-5-nano "$prompt")
+  print -z -- "$cmd"
+}

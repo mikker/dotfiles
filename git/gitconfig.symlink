@@ -75,3 +75,5 @@
 	defaultBranch = main
 [interactive]
 	diffFilter = diff-so-fancy --patch
+[gpg]
+	program = /usr/local/bin/gpg

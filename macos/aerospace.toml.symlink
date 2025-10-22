@@ -97,24 +97,12 @@ ctrl-c = "mode main"
 enter = "mode main"
 
 # make all windows float by default
-[[on-window-detected]]
-check-further-callbacks = true
-run = 'layout floating'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.MobileSMS'
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = 'ru.keepcoder.Telegram'
-run = "layout floating"
+# [[on-window-detected]]
+# check-further-callbacks = true
+# run = "layout accordion"
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = "layout floating"
-
-[[on-window-detected]]
-if.app-id = 'com.apple.mail'
 run = "layout floating"
 
 [[on-window-detected]]
@@ -123,6 +111,10 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'to.holepunch.runtime'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.sindresorhus.Plain-Text-Editor'
 run = "layout floating"
 
 [workspace-to-monitor-force-assignment]
