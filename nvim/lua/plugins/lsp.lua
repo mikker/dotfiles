@@ -14,11 +14,11 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    init = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = { "[w", false }
-      keys[#keys + 1] = { "]w", false }
-    end,
+    -- init = function()
+    --   local keys = require("lazyvim.plugins.lsp.keymaps").get()
+    --   keys[#keys + 1] = { "[w", false }
+    --   keys[#keys + 1] = { "]w", false }
+    -- end,
     opts = {
       inlay_hints = { enabled = false },
       servers = {

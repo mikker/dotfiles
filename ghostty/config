@@ -1,5 +1,7 @@
-font-family = "IBM Plex Mono"
-font-family = "Iosevka"
+# font-family = "IBM Plex Mono"
+# font-family = "Iosevka"
+# font-family = "Berkeley Mono"
+font-family = "Berkeley Mono Condensed"
 font-size = 16
 
 theme = light:Zenbones Light,dark:Zenbones Dark

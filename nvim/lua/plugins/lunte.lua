@@ -8,7 +8,6 @@ return {
       if not configs.lunte then
         configs.lunte = {
           default_config = {
-            -- cmd = { "/Users/mikker/dev/holepunch/lunte-worktrees/amp/bin/lunte-lsp.js" },
             cmd = { "npx", "-y", "lunte-lsp" },
             filetypes = { "javascript" },
             root_dir = lspconfig.util.root_pattern("package.json", ".git"),
@@ -17,7 +16,7 @@ return {
         }
       end
 
-      lspconfig.lunte.setup({})
+      opts.servers.lunte = {}
     end,
   },
 }

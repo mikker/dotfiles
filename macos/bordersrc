@@ -6,7 +6,7 @@ options=(
   hidpi=on
   active_color=0xffff0566
   background_color=0x000000
-  blacklist="Leader Key,CleanShot"
+  blacklist="Leader Key,CleanShot,Tuna"
 )
 
 borders "${options[@]}"
