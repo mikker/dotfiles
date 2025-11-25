@@ -41,6 +41,7 @@ default=(
 sketchybar --default "${default[@]}"
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_mode_changed
 
 # Simple numeric labels for workspaces
 SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "0")
@@ -84,8 +85,22 @@ done
 sketchybar --add item chevron left \
   --set chevron icon= label.drawing=off \
   --add item front_app left \
-  --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-  --subscribe front_app front_app_switched
+  --set front_app icon.drawing=off label.drawing=on script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched \
+  --add item front_app_layout left \
+  --set front_app_layout \
+  icon.drawing=on \
+  icon.font="Hack Nerd Font:Regular:11.0" \
+  icon.color=$GREEN \
+  icon.padding_left=6 \
+  icon.padding_right=6 \
+  label.drawing=off \
+  background.drawing=on \
+  background.color=$GREY_TRANSP \
+  background.corner_radius=4 \
+  background.height=16 \
+  script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app_layout front_app_switched aerospace_mode_changed
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.

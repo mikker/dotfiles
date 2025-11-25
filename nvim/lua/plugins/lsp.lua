@@ -96,7 +96,6 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "herb-language-server",
-        "erb-formatter",
         "eslint-lsp",
       },
     },

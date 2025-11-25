@@ -1,821 +1,851 @@
 {
-  "actions" : [
+  "actions": [
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "c",
-          "type" : "application",
-          "value" : "/System/Applications/Calendar.app"
+          "key": "c",
+          "type": "application",
+          "value": "/System/Applications/Calendar.app"
         },
         {
-          "key" : "e",
-          "type" : "application",
-          "value" : "/System/Applications/TextEdit.app"
+          "key": "e",
+          "type": "application",
+          "value": "/System/Applications/TextEdit.app"
         },
         {
-          "key" : "i",
-          "type" : "application",
-          "value" : "/System/Applications/Music.app"
+          "key": "i",
+          "type": "application",
+          "value": "/System/Applications/Music.app"
         },
         {
-          "key" : "m",
-          "type" : "application",
-          "value" : "/System/Applications/Mail.app"
+          "key": "m",
+          "type": "application",
+          "value": "/System/Applications/Mail.app"
         },
         {
-          "key" : "n",
-          "type" : "application",
-          "value" : "/Applications/Notion.app"
+          "key": "n",
+          "type": "application",
+          "value": "/Applications/Notion.app"
         },
         {
-          "key" : "o",
-          "label" : "Obzi",
-          "type" : "application",
-          "value" : "/Applications/Obsidian.app"
+          "key": "o",
+          "label": "Obzi",
+          "type": "application",
+          "value": "/Applications/Obsidian.app"
         },
         {
-          "key" : "p",
-          "type" : "application",
-          "value" : "/Applications/Plain Text Editor.app"
+          "key": "p",
+          "type": "application",
+          "value": "/Applications/Plain Text Editor.app"
         },
         {
-          "key" : "t",
-          "type" : "application",
-          "value" : "/Applications/Things3.app"
+          "key": "t",
+          "type": "application",
+          "value": "/Applications/Things3.app"
         },
         {
-          "key" : "r",
-          "type" : "application",
-          "value" : "/Applications/Reeder.app"
+          "key": "r",
+          "type": "application",
+          "value": "/Applications/Reeder.app"
         }
       ],
-      "iconPath" : "cat",
-      "key" : "a",
-      "label" : "Apps",
-      "type" : "group"
+      "iconPath": "cat",
+      "key": "a",
+      "label": "Apps",
+      "type": "group"
     },
     {
-      "key" : "B",
-      "label" : "Browser",
-      "type" : "application",
-      "value" : "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
+      "key": "B",
+      "label": "Browser",
+      "type": "application",
+      "value": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "a",
-          "type" : "application",
-          "value" : "/Applications/Arc.app"
+          "key": "a",
+          "type": "application",
+          "value": "/Applications/Arc.app"
         },
         {
-          "key" : "c",
-          "type" : "application",
-          "value" : "/Applications/Google Chrome.app"
+          "key": "c",
+          "type": "application",
+          "value": "/Applications/Google Chrome.app"
         },
         {
-          "key" : "f",
-          "type" : "application",
-          "value" : "/Applications/Firefox.app"
+          "key": "f",
+          "type": "application",
+          "value": "/Applications/Firefox.app"
         },
         {
-          "key" : "h",
-          "label" : "Chrome (holepunch)",
-          "type" : "command",
-          "value" : "open -a \"Google Chrome\" --args --profile-directory=Profile\\ 6"
+          "key": "h",
+          "label": "Chrome (holepunch)",
+          "type": "command",
+          "value": "open -a \"Google Chrome\" --args --profile-directory=Profile\\ 6"
         },
         {
-          "key" : "s",
-          "type" : "application",
-          "value" : "/Applications/Safari.app"
+          "key": "s",
+          "type": "application",
+          "value": "/Applications/Safari.app"
         }
       ],
-      "iconPath" : "safari",
-      "key" : "b",
-      "label" : "Browsers",
-      "type" : "group"
+      "iconPath": "safari",
+      "key": "b",
+      "label": "Browsers",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "a",
-          "type" : "url",
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-area"
+          "key": "a",
+          "type": "url",
+          "value": "raycast://extensions/Aayush9029/cleanshotx/capture-area"
         },
         {
-          "key" : "f",
-          "type" : "url",
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-fullscreen"
+          "key": "f",
+          "type": "url",
+          "value": "raycast://extensions/Aayush9029/cleanshotx/capture-fullscreen"
         },
         {
-          "key" : "v",
-          "type" : "url",
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/record-screen"
+          "key": "v",
+          "type": "url",
+          "value": "raycast://extensions/Aayush9029/cleanshotx/record-screen"
         },
         {
-          "key" : "w",
-          "type" : "url",
-          "value" : "raycast://extensions/Aayush9029/cleanshotx/capture-window"
+          "key": "w",
+          "type": "url",
+          "value": "raycast://extensions/Aayush9029/cleanshotx/capture-window"
         }
       ],
-      "iconPath" : "camera.metering.center.weighted.average",
-      "key" : "c",
-      "label" : "Capture",
-      "type" : "group"
+      "iconPath": "camera.metering.center.weighted.average",
+      "key": "c",
+      "label": "Capture",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "d",
-          "type" : "application",
-          "value" : "/Applications/Dash.app"
+          "key": "d",
+          "type": "application",
+          "value": "/Applications/Dash.app"
         },
         {
-          "key" : "t",
-          "type" : "application",
-          "value" : "/Applications/Ghostty.app"
+          "key": "t",
+          "type": "application",
+          "value": "/Applications/Ghostty.app"
         }
       ],
-      "iconPath" : "hammer",
-      "key" : "d",
-      "label" : "Devtools",
-      "type" : "group"
+      "iconPath": "hammer",
+      "key": "d",
+      "label": "Devtools",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "c",
-          "label" : "Ceiling",
-          "type" : "command",
-          "value" : "shortcuts run \"Kontor-toggle\""
+          "key": "c",
+          "label": "Ceiling",
+          "type": "command",
+          "value": "shortcuts run \"Kontor-toggle\""
         },
         {
-          "key" : "e",
-          "label" : "Key Light",
-          "type" : "url",
-          "value" : "raycast://extensions/thomas/elgato-key-light/toggle"
+          "key": "e",
+          "label": "Key Light",
+          "type": "url",
+          "value": "raycast://extensions/thomas/elgato-key-light/toggle"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "1",
-              "label" : "10%",
-              "type" : "url",
-              "value" : "BetterDisplay://set?name=PG27UCDM&brightness=0.2"
+              "key": "1",
+              "label": "10%",
+              "type": "url",
+              "value": "BetterDisplay://set?name=PG27UCDM&brightness=0.2"
             },
             {
-              "key" : "2",
-              "label" : "50%",
-              "type" : "url",
-              "value" : "BetterDisplay://set?name=PG27UCDM&brightness=0.66"
+              "key": "2",
+              "label": "50%",
+              "type": "url",
+              "value": "BetterDisplay://set?name=PG27UCDM&brightness=0.66"
             },
             {
-              "key" : "3",
-              "label" : "100%",
-              "type" : "url",
-              "value" : "BetterDisplay://set?name=PG27UCDM&brightness=1.0"
+              "key": "3",
+              "label": "100%",
+              "type": "url",
+              "value": "BetterDisplay://set?name=PG27UCDM&brightness=1.0"
             }
           ],
-          "key" : "m",
-          "label" : "Monitor",
-          "type" : "group"
+          "key": "m",
+          "label": "Monitor",
+          "type": "group"
         }
       ],
-      "iconPath" : "lightbulb",
-      "key" : "e",
-      "label" : "Environment",
-      "type" : "group"
+      "iconPath": "lightbulb",
+      "key": "e",
+      "label": "Environment",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "2",
-          "label" : "Comfortable",
-          "type" : "url",
-          "value" : "moves://custom?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0"
+          "key": "2",
+          "label": "Comfortable",
+          "type": "url",
+          "value": "moves://custom?&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "actions" : [
+              "actions": [
                 {
-                  "key" : "h",
-                  "label" : "First two thirds",
-                  "type" : "url",
-                  "value" : "moves://template/first-two-thirds"
+                  "key": "h",
+                  "label": "First two thirds",
+                  "type": "url",
+                  "value": "moves://template/first-two-thirds"
                 },
                 {
-                  "key" : "l",
-                  "label" : "Last two thirds",
-                  "type" : "url",
-                  "value" : "moves://template/last-two-thirds"
+                  "key": "l",
+                  "label": "Last two thirds",
+                  "type": "url",
+                  "value": "moves://template/last-two-thirds"
                 }
               ],
-              "key" : "2",
-              "label" : "Two thirds",
-              "type" : "group"
+              "key": "2",
+              "label": "Two thirds",
+              "type": "group"
             },
             {
-              "key" : "c",
-              "label" : "Center third",
-              "type" : "url",
-              "value" : "moves://template/center-third"
+              "key": "c",
+              "label": "Center third",
+              "type": "url",
+              "value": "moves://template/center-third"
             },
             {
-              "key" : "h",
-              "label" : "First third",
-              "type" : "url",
-              "value" : "moves://template/first-third"
+              "key": "h",
+              "label": "First third",
+              "type": "url",
+              "value": "moves://template/first-third"
             },
             {
-              "key" : "l",
-              "label" : "Last third",
-              "type" : "url",
-              "value" : "moves://template/last-third"
+              "key": "l",
+              "label": "Last third",
+              "type": "url",
+              "value": "moves://template/last-third"
             }
           ],
-          "key" : "3",
-          "label" : "Thirds",
-          "type" : "group"
+          "key": "3",
+          "label": "Thirds",
+          "type": "group"
         },
         {
-          "key" : "C",
-          "label" : "Center",
-          "type" : "url",
-          "value" : "moves://template/center"
+          "key": "C",
+          "label": "Center",
+          "type": "url",
+          "value": "moves://template/center"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "t",
-              "label" : "top",
-              "type" : "url",
-              "value" : "moves://custom/topLeft?position=center&relativeWidth=1.0&relativeHeight=0.666"
+              "key": "t",
+              "label": "top",
+              "type": "url",
+              "value": "moves://custom/topLeft?position=center&relativeWidth=1.0&relativeHeight=0.666"
             }
           ],
-          "key" : "e",
-          "type" : "group"
+          "key": "e",
+          "type": "group"
         },
         {
-          "key" : "f",
-          "label" : "Full screen",
-          "type" : "url",
-          "value" : "moves://template/maximize"
+          "key": "f",
+          "label": "Full screen",
+          "type": "url",
+          "value": "moves://template/maximize"
         },
         {
-          "key" : "h",
-          "label" : "Left",
-          "type" : "url",
-          "value" : "moves://template/left-half"
+          "key": "h",
+          "label": "Left",
+          "type": "url",
+          "value": "moves://template/left-half"
         },
         {
-          "key" : "H",
-          "label" : "Max height",
-          "type" : "url",
-          "value" : "moves://template/maximize-height"
+          "key": "H",
+          "label": "Max height",
+          "type": "url",
+          "value": "moves://template/maximize-height"
         },
         {
-          "key" : "l",
-          "label" : "Right",
-          "type" : "url",
-          "value" : "moves://template/right-half"
+          "key": "l",
+          "label": "Right",
+          "type": "url",
+          "value": "moves://template/right-half"
         },
         {
-          "key" : "n",
-          "type" : "url",
-          "value" : "moves://template/first-third"
+          "key": "n",
+          "type": "url",
+          "value": "moves://template/first-third"
         },
         {
-          "key" : "o",
-          "type" : "url",
-          "value" : "moves://template/last-two-thirds"
+          "key": "o",
+          "type": "url",
+          "value": "moves://template/last-two-thirds"
         },
         {
-          "key" : "s",
-          "label" : "sssslide",
-          "type" : "url",
-          "value" : "moves://custom?&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=20.0"
+          "key": "s",
+          "label": "sssslide",
+          "type": "url",
+          "value": "moves://custom?&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=20.0"
         }
       ],
-      "iconPath" : "uiwindow.split.2x1",
-      "key" : "f",
-      "label" : "Window",
-      "type" : "group"
+      "iconPath": "uiwindow.split.2x1",
+      "key": "f",
+      "label": "Window",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "a",
-          "type" : "folder",
-          "value" : "/Applications"
+          "key": "a",
+          "type": "folder",
+          "value": "/Applications"
         },
         {
-          "key" : "g",
-          "type" : "folder",
-          "value" : "/Users/mikker/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents"
+          "key": "g",
+          "type": "folder",
+          "value": "/Users/mikker/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents"
         },
         {
-          "key" : "h",
-          "type" : "folder",
-          "value" : "/Users/mikker"
+          "key": "h",
+          "type": "folder",
+          "value": "/Users/mikker"
         },
         {
-          "key" : "l",
-          "type" : "folder",
-          "value" : "/Users/mikker/Downloads"
+          "key": "l",
+          "type": "folder",
+          "value": "/Users/mikker/Downloads"
         }
       ],
-      "iconPath" : "bookmark",
-      "key" : "g",
-      "label" : "Folders",
-      "type" : "group"
+      "iconPath": "bookmark",
+      "key": "g",
+      "label": "Folders",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "a",
-          "label" : "Claude",
-          "type" : "application",
-          "value" : "/Applications/Claude.app"
+          "key": "a",
+          "label": "Claude",
+          "type": "application",
+          "value": "/Applications/Claude.app"
         },
         {
-          "key" : "c",
-          "type" : "application",
-          "value" : "/Applications/ChatGPT.app"
+          "key": "c",
+          "type": "application",
+          "value": "/Applications/ChatGPT.app"
         },
         {
-          "key" : "g",
-          "label" : "Gemini",
-          "type" : "url",
-          "value" : "https://gemini.google.com"
+          "key": "g",
+          "label": "Gemini",
+          "type": "url",
+          "value": "https://gemini.google.com"
         },
         {
-          "key" : "m",
-          "label" : "MidJourney",
-          "type" : "application",
-          "value" : "/Users/mikker/Applications/Midjourney.app"
+          "key": "m",
+          "label": "MidJourney",
+          "type": "application",
+          "value": "/Users/mikker/Applications/Midjourney.app"
         }
       ],
-      "iconPath" : "sparkles",
-      "key" : "l",
-      "label" : "LLMs",
-      "type" : "group"
+      "iconPath": "sparkles",
+      "key": "l",
+      "label": "LLMs",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "d",
-          "type" : "application",
-          "value" : "/Applications/Discord.app"
+          "key": "d",
+          "type": "application",
+          "value": "/Applications/Discord.app"
         },
         {
-          "key" : "f",
-          "type" : "application",
-          "value" : "/Applications/Messenger.app"
+          "key": "f",
+          "type": "application",
+          "value": "/Applications/Messenger.app"
         },
         {
-          "key" : "k",
-          "type" : "application",
-          "value" : "/Applications/Keet.app"
+          "key": "k",
+          "type": "application",
+          "value": "/Applications/Keet.app"
         },
         {
-          "key" : "m",
-          "type" : "application",
-          "value" : "/System/Applications/Messages.app"
+          "key": "m",
+          "type": "application",
+          "value": "/System/Applications/Messages.app"
         },
         {
-          "key" : "s",
-          "type" : "application",
-          "value" : "/Applications/Slack.app"
+          "key": "s",
+          "type": "application",
+          "value": "/Applications/Slack.app"
         },
         {
-          "key" : "t",
-          "type" : "application",
-          "value" : "/Applications/Telegram.app"
+          "key": "t",
+          "type": "application",
+          "value": "/Applications/Telegram.app"
         }
       ],
-      "iconPath" : "message",
-      "key" : "m",
-      "label" : "Messaging",
-      "type" : "group"
+      "iconPath": "message",
+      "key": "m",
+      "label": "Messaging",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "d",
-          "label" : "Daily",
-          "type" : "url",
-          "value" : "obsidian://daily"
+          "key": "d",
+          "label": "Daily",
+          "type": "url",
+          "value": "obsidian://daily"
         },
         {
-          "key" : "o",
-          "label" : "Open",
-          "type" : "application",
-          "value" : "/Applications/Obsidian.app"
+          "key": "o",
+          "label": "Open",
+          "type": "application",
+          "value": "/Applications/Obsidian.app"
         },
         {
-          "key" : "w",
-          "label" : "Weekly",
-          "type" : "command",
-          "value" : "open \"obsidian://open?file=02%20Calendar/Journals/`date +%Y-W%V`\""
+          "key": "w",
+          "label": "Weekly",
+          "type": "command",
+          "value": "open \"obsidian://open?file=02%20Calendar/Journals/`date +%Y-W%V`\""
         }
       ],
-      "iconPath" : "diamond",
-      "key" : "o",
-      "label" : "Obsidian",
-      "type" : "group"
+      "iconPath": "diamond",
+      "key": "o",
+      "label": "Obsidian",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "l",
-          "type" : "application",
-          "value" : "/Applications/Longplay.app"
+          "key": "l",
+          "type": "application",
+          "value": "/Applications/Longplay.app"
         },
         {
-          "key" : "m",
-          "label" : " Music",
-          "type" : "application",
-          "value" : "/System/Applications/Music.app"
+          "key": "m",
+          "label": " Music",
+          "type": "application",
+          "value": "/System/Applications/Music.app"
         },
         {
-          "key" : "o",
-          "type" : "application",
-          "value" : "/Applications/Overcast.app"
+          "key": "o",
+          "type": "application",
+          "value": "/Applications/Overcast.app"
         },
         {
-          "key" : "y",
-          "type" : "application",
-          "value" : "/Users/mikker/Applications/YouTube.app"
+          "key": "y",
+          "type": "application",
+          "value": "/Users/mikker/Applications/YouTube.app"
         }
       ],
-      "iconPath" : "opticaldisc",
-      "key" : "p",
-      "label" : "Media",
-      "type" : "group"
+      "iconPath": "opticaldisc",
+      "key": "p",
+      "label": "Media",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "c",
-          "type" : "url",
-          "value" : "raycast://extensions/raycast/system/open-camera"
+          "key": "c",
+          "type": "url",
+          "value": "raycast://extensions/raycast/system/open-camera"
         },
         {
-          "key" : "e",
-          "type" : "url",
-          "value" : "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
+          "key": "e",
+          "type": "url",
+          "value": "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
         },
         {
-          "key" : "p",
-          "type" : "url",
-          "value" : "raycast://confetti"
+          "key": "p",
+          "type": "url",
+          "value": "raycast://confetti"
         }
       ],
-      "iconPath" : "character.textbox",
-      "key" : "r",
-      "label" : "Raycast",
-      "type" : "group"
+      "iconPath": "character.textbox",
+      "key": "r",
+      "label": "Raycast",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "a",
-          "type" : "application",
-          "value" : "/Users/mikker/Applications/DarkMode.app"
+          "key": "a",
+          "type": "application",
+          "value": "/Users/mikker/Applications/DarkMode.app"
         },
         {
-          "key" : "l",
-          "type" : "url",
-          "value" : "raycast://extensions/raycast/system/lock-screen"
+          "key": "l",
+          "type": "url",
+          "value": "raycast://extensions/raycast/system/lock-screen"
         },
         {
-          "key" : "s",
-          "type" : "url",
-          "value" : "raycast://extensions/raycast/system/sleep"
+          "key": "s",
+          "type": "url",
+          "value": "raycast://extensions/raycast/system/sleep"
         }
       ],
-      "iconPath" : "laptopcomputer",
-      "key" : "s",
-      "label" : "System",
-      "type" : "group"
+      "iconPath": "laptopcomputer",
+      "key": "s",
+      "label": "System",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "b",
-              "label" : "BlueSky",
-              "type" : "url",
-              "value" : "https://bsky.app"
+              "key": "b",
+              "label": "BlueSky",
+              "type": "url",
+              "value": "https://bsky.app"
             },
             {
-              "key" : "m",
-              "label" : "Elk",
-              "type" : "url",
-              "value" : "https://elk.zone"
+              "key": "m",
+              "label": "Elk",
+              "type": "url",
+              "value": "https://elk.zone"
             },
             {
-              "key" : "x",
-              "label" : "X",
-              "type" : "url",
-              "value" : "https://x.com"
+              "key": "x",
+              "label": "X",
+              "type": "url",
+              "value": "https://x.com"
             }
           ],
-          "key" : "d",
-          "label" : "Doomscroll",
-          "type" : "group"
+          "key": "d",
+          "label": "Doomscroll",
+          "type": "group"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "1",
-              "type" : "url",
-              "value" : "https://meta.brnbw.com/dashboard/2-10er?tab=1-tab-1"
+              "key": "1",
+              "type": "url",
+              "value": "https://meta.brnbw.com/dashboard/2-10er?tab=1-tab-1"
             },
             {
-              "key" : "2",
-              "type" : "url",
-              "value" : "https://dashboard.simpleanalytics.com/10er.com"
+              "key": "2",
+              "type": "url",
+              "value": "https://dashboard.simpleanalytics.com/10er.com"
             },
             {
-              "key" : "3",
-              "type" : "url",
-              "value" : "https://dashboard.simpleanalytics.com/funnymost.com"
+              "key": "3",
+              "type": "url",
+              "value": "https://dashboard.simpleanalytics.com/funnymost.com"
             },
             {
-              "key" : "4",
-              "type" : "url",
-              "value" : "https://meta.brnbw.com/dashboard/6-funnymost"
+              "key": "4",
+              "type": "url",
+              "value": "https://meta.brnbw.com/dashboard/6-funnymost"
             }
           ],
-          "key" : "t",
-          "label" : "10er",
-          "type" : "group"
+          "key": "t",
+          "label": "10er",
+          "type": "group"
         },
         {
-          "key" : "w",
-          "label" : "Typefully",
-          "type" : "url",
-          "value" : "https://typefully.com/"
+          "key": "w",
+          "label": "Typefully",
+          "type": "url",
+          "value": "https://typefully.com/"
         }
       ],
-      "iconPath" : "document.on.document",
-      "key" : "t",
-      "label" : "Tab sets",
-      "type" : "group"
+      "iconPath": "document.on.document",
+      "key": "t",
+      "label": "Tab sets",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "key" : "e",
-          "label" : "workspace e",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace workspace b3"
+          "key": "e",
+          "label": "workspace e",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace workspace b3"
         },
         {
-          "key" : "f",
-          "label" : "fullscreen",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace fullscreen"
+          "key": "f",
+          "label": "fullscreen",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace fullscreen && sketchybar --trigger aerospace_mode_changed"
         },
         {
-          "key" : "F",
-          "label" : "flatten-workspace-tree",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace flatten-workspace-tree"
+          "key": "F",
+          "label": "flatten-workspace-tree",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace flatten-workspace-tree && sketchybar --trigger aerospace_mode_changed"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "h",
-              "label" : "left",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace join-with left"
+              "key": "h",
+              "label": "left",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace join-with left"
             },
             {
-              "key" : "j",
-              "label" : "down",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace join-with down"
+              "key": "j",
+              "label": "down",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace join-with down"
             },
             {
-              "key" : "k",
-              "label" : "up",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace join-with up"
+              "key": "k",
+              "label": "up",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace join-with up"
             },
             {
-              "key" : "l",
-              "label" : "right",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace join-with right"
+              "key": "l",
+              "label": "right",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace join-with right"
             }
           ],
-          "key" : "j",
-          "label" : "join-with",
-          "type" : "group"
+          "key": "j",
+          "label": "join-with",
+          "type": "group"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "a",
-              "label" : "accordion",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace layout accordion horizontal vertical"
+              "key": "a",
+              "label": "accordion",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace layout accordion horizontal vertical && sketchybar --trigger aerospace_mode_changed"
             },
             {
-              "key" : "f",
-              "label" : "floating",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace layout floating tiling"
+              "key": "f",
+              "label": "floating",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace layout floating tiling && sketchybar --trigger aerospace_mode_changed"
             },
             {
-              "key" : "t",
-              "label" : "tiles",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace layout tiles vertical horizontal"
+              "key": "t",
+              "label": "tiles",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace layout tiles vertical horizontal && sketchybar --trigger aerospace_mode_changed"
             }
           ],
-          "key" : "l",
-          "label" : "layout",
-          "type" : "group"
+          "key": "l",
+          "label": "layout",
+          "type": "group"
         },
         {
-          "actions" : [
+          "actions": [
             {
-              "key" : "e",
-              "label" : "move-node-to-workspace b3",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b3 --focus-follows-window"
+              "key": "E",
+              "label": "move-node-to-workspace b3",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b3"
             },
             {
-              "key" : "h",
-              "label" : "left",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move left"
+              "key": "e",
+              "label": "move-node-to-workspace b3",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b3 --focus-follows-window"
             },
             {
-              "key" : "j",
-              "label" : "down",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move down"
+              "key": "h",
+              "label": "left",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move left"
             },
             {
-              "key" : "k",
-              "label" : "up",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move up"
+              "key": "j",
+              "label": "down",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move down"
             },
             {
-              "key" : "l",
-              "label" : "right",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move right"
+              "key": "k",
+              "label": "up",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move up"
             },
             {
-              "key" : "q",
-              "label" : "move-node-to-workspace b1",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b1 --focus-follows-window"
+              "key": "l",
+              "label": "right",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move right"
             },
             {
-              "key" : "r",
-              "label" : "move-node-to-workspace b4",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b4 --focus-follows-window"
+              "key": "Q",
+              "label": "move-node-to-workspace b1",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b1"
             },
             {
-              "key" : "t",
-              "label" : "move-node-to-workspace a1",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace a1 --focus-follows-window"
+              "key": "q",
+              "label": "move-node-to-workspace b1",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b1 --focus-follows-window"
             },
             {
-              "key" : "w",
-              "label" : "move-node-to-workspace b2",
-              "type" : "command",
-              "value" : "/opt/homebrew/bin/aerospace move-node-to-workspace b2 --focus-follows-window"
+              "key": "R",
+              "label": "move-node-to-workspace b4",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b4"
+            },
+            {
+              "key": "r",
+              "label": "move-node-to-workspace b4",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b4 --focus-follows-window"
+            },
+            {
+              "key": "T",
+              "label": "move-node-to-workspace a1",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace a1"
+            },
+            {
+              "key": "t",
+              "label": "move-node-to-workspace a1",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace a1 --focus-follows-window"
+            },
+            {
+              "key": "W",
+              "label": "move-node-to-workspace b2",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b2"
+            },
+            {
+              "key": "w",
+              "label": "move-node-to-workspace b2",
+              "type": "command",
+              "value": "/opt/homebrew/bin/aerospace move-node-to-workspace b2 --focus-follows-window"
             }
           ],
-          "key" : "m",
-          "label" : "move",
-          "type" : "group"
+          "key": "m",
+          "label": "move",
+          "type": "group"
         },
         {
-          "key" : "q",
-          "label" : "workspace q",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace workspace b1"
+          "key": "q",
+          "label": "workspace q",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace workspace b1"
         },
         {
-          "key" : "R",
-          "label" : "reload-config",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace reload-config"
+          "key": "R",
+          "label": "reload-config",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace reload-config"
         },
         {
-          "key" : "r",
-          "label" : "workspace r",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace workspace b4"
+          "key": "r",
+          "label": "workspace r",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace workspace b4"
         },
         {
-          "key" : "s",
-          "label" : "mode resize",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace mode resize"
+          "key": "s",
+          "label": "mode resize",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace mode resize && sketchybar --trigger aerospace_mode_changed"
         },
         {
-          "key" : "t",
-          "label" : "workspace t",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace workspace a1"
+          "key": "t",
+          "label": "workspace t",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace workspace a1"
         },
         {
-          "key" : "w",
-          "label" : "workspace w",
-          "type" : "command",
-          "value" : "/opt/homebrew/bin/aerospace workspace b2"
+          "key": "w",
+          "label": "workspace w",
+          "type": "command",
+          "value": "/opt/homebrew/bin/aerospace workspace b2"
         },
         {
-          "key" : "c",
-          "type" : "url",
-          "value" : "raycast://extensions/raycast/window-management/center"
+          "key": "c",
+          "type": "url",
+          "value": "raycast://extensions/raycast/window-management/center"
         }
       ],
-      "iconPath" : "rectangle.grid.2x2",
-      "key" : "w",
-      "label" : "Aerospace",
-      "type" : "group"
+      "iconPath": "rectangle.grid.2x2",
+      "key": "w",
+      "label": "Aerospace",
+      "type": "group"
     },
     {
-      "actions" : [
+      "actions": [
         {
-          "actions" : [
+          "actions": [
             {
-              "actions" : [
+              "actions": [
                 {
-                  "actions" : [
+                  "actions": [
                     {
-                      "actions" : [
+                      "actions": [
                         {
-                          "actions" : [
+                          "actions": [
                             {
-                              "actions" : [
+                              "actions": [
                                 {
-                                  "actions" : [
+                                  "actions": [
                                     {
-                                      "actions" : [
+                                      "actions": [
                                         {
-                                          "key" : "a",
-                                          "label" : "You found a secret!",
-                                          "type" : "url",
-                                          "value" : "raycast://confetti"
+                                          "key": "a",
+                                          "label": "You found a secret!",
+                                          "type": "url",
+                                          "value": "raycast://confetti"
                                         }
                                       ],
-                                      "key" : "b",
-                                      "type" : "group"
+                                      "key": "b",
+                                      "type": "group"
                                     }
                                   ],
-                                  "key" : "right",
-                                  "type" : "group"
+                                  "key": "right",
+                                  "type": "group"
                                 }
                               ],
-                              "key" : "left",
-                              "type" : "group"
+                              "key": "left",
+                              "type": "group"
                             }
                           ],
-                          "key" : "right",
-                          "type" : "group"
+                          "key": "right",
+                          "type": "group"
                         }
                       ],
-                      "key" : "left",
-                      "type" : "group"
+                      "key": "left",
+                      "type": "group"
                     }
                   ],
-                  "key" : "down",
-                  "type" : "group"
+                  "key": "down",
+                  "type": "group"
                 }
               ],
-              "key" : "down",
-              "type" : "group"
+              "key": "down",
+              "type": "group"
             }
           ],
-          "key" : "up",
-          "type" : "group"
+          "key": "up",
+          "type": "group"
         }
       ],
-      "iconPath" : "gamecontroller",
-      "key" : "up",
-      "type" : "group"
+      "iconPath": "gamecontroller",
+      "key": "up",
+      "type": "group"
     },
     {
-      "key" : "enter",
-      "label" : "Terminal",
-      "type" : "application",
-      "value" : "/Applications/Ghostty.app"
+      "key": "enter",
+      "label": "Terminal",
+      "type": "application",
+      "value": "/Applications/Ghostty.app"
     }
   ],
-  "type" : "group"
+  "type": "group"
 }

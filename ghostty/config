@@ -1,7 +1,12 @@
-# font-family = "IBM Plex Mono"
+font-family = "IBM Plex Mono"
 # font-family = "Iosevka"
 # font-family = "Berkeley Mono"
-font-family = "Berkeley Mono Condensed"
+# font-family = "Cartograph CF"
+# font-family = "Cascadia Code NF"
+# font-family = "Martian Mono"
+# font-family = "SF Mono"
+
+# font-style = "Curly"
 font-size = 16
 
 theme = light:Zenbones Light,dark:Zenbones Dark

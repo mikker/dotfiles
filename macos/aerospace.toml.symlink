@@ -1,21 +1,13 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
 
-# You can use it to add commands that run after login to macOS user session.
-# 'start-at-login' needs to be 'true' for 'after-login-command' to work
-# Available commands: https://nikitabobko.github.io/AeroSpace/commands
-after-login-command = []
+# Config version for compatibility and deprecations
+# Fallback value (if you omit the key): config-version = 1
+config-version = 2
 
 # You can use it to add commands that run after AeroSpace startup.
-# 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = [
-  # "exec-and-forget borders active_color=0xFFff0566e hidpi=on width=5.0",
-]
-
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
+after-startup-command = []
 
 # Start AeroSpace at login
 start-at-login = true
@@ -49,6 +41,23 @@ default-root-container-orientation = 'auto'
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
 
+# List of workspaces that should stay alive even when they contain no windows,
+# even when they are invisible.
+# This config version is only available since 'config-version = 2'
+# Fallback value (if you omit the key): persistent-workspaces = []
+persistent-workspaces = ["a1", "b1", "b2", "b3", "b4"]
+
+# Hooks
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+on-focus-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_changed']
+on-mode-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_changed']
+
+# Possible values: (qwerty|dvorak|colemak)
+# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
 [key-mapping]
 preset = 'qwerty'
 
@@ -105,8 +114,12 @@ enter = "mode main"
 if.app-id = 'com.apple.finder'
 run = "layout floating"
 
+# [[on-window-detected]]
+# if.app-id = 'pl.maketheweb.cleanshotx'
+# run = "layout floating"
+
 [[on-window-detected]]
-if.app-id = 'pl.maketheweb.cleanshotx'
+if.app-id = 'com.brnbw.Tuna'
 run = "layout floating"
 
 [[on-window-detected]]
