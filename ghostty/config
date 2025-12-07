@@ -1,12 +1,12 @@
-font-family = "IBM Plex Mono"
+# font-family = "IBM Plex Mono"
 # font-family = "Iosevka"
 # font-family = "Berkeley Mono"
-# font-family = "Cartograph CF"
-# font-family = "Cascadia Code NF"
+#font-family = "Cartograph CF"
+font-family = "Cascadia Code NF"
 # font-family = "Martian Mono"
 # font-family = "SF Mono"
 
-# font-style = "Curly"
+font-style = "Regular"
 font-size = 16
 
 theme = light:Zenbones Light,dark:Zenbones Dark
@@ -34,7 +34,7 @@ keybind = cmd+arrow_right=csi:F
 keybind = cmd+backspace=text:\x15
 
 # Command palette
-keybind = cmd+k=toggle_quick_terminal
+# keybind = cmd+k=toggle_quick_terminal
 
 # Tmux window switching (uses physical bracket keys on Ghostty 1.2+)
 keybind = cmd+shift+bracket_left=text:\x02p

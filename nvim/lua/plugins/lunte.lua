@@ -8,7 +8,7 @@ return {
       if not configs.lunte then
         configs.lunte = {
           default_config = {
-            cmd = { "npx", "-y", "lunte-lsp" },
+            cmd = { "npx", "-y", "lunte-lsp@latest" },
             filetypes = { "javascript" },
             root_dir = lspconfig.util.root_pattern("package.json", ".git"),
             single_file_support = true,

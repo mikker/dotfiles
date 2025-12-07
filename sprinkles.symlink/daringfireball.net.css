@@ -1,0 +1,18 @@
+#Box {
+  width: 960px;
+  position: relative;
+}
+
+#Sidebar {
+  width: 160px;
+  left: 0;
+}
+
+#Main {
+  width: auto;
+}
+
+.article {
+  font-size: 12pt;
+  line-height: 2;
+}

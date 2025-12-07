@@ -1,0 +1,9 @@
+bdc() {
+ local input="$1"
+ local first rest
+
+ first="${input%%$'\n\n'*}"
+ rest="${input#*$'\n\n'}"
+
+ bd create "$first" --description "$rest"
+}

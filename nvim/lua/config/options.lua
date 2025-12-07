@@ -57,4 +57,4 @@ end
 vim.g.snacks_animate = false
 vim.g.trouble_lualine = false
 vim.g.lazyvim_prettier_needs_config = false -- always enable prettier
-vim.g.lazyvim_ruby_formatter = "rubyfmt"
+-- vim.g.lazyvim_ruby_formatter = "rubyfmt"

@@ -45,11 +45,11 @@ zinit light joshskidmore/zsh-fzf-history-search
 
 eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
 
-# Local modifications
-[[ -f ~/.lrc ]] && .  ~/.lrc
-
 # Initialize completion engine
 autoload -Uz compinit && compinit
+
+# Local modifications
+[[ -f ~/.lrc ]] && .  ~/.lrc
 
 # bun completions
 [ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"

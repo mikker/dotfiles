@@ -90,7 +90,6 @@ return {
       ensure_installed = {
         "stylua",
         "shfmt",
-        "rubyfmt",
         "rubocop",
         "rustywind",
         "tailwindcss-language-server",

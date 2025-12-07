@@ -18,6 +18,13 @@ local logo = [[
 ]]
 
 return {
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      -- options
+    },
+  },
+
   -- no bufferline
   { "akinsho/bufferline.nvim", enabled = false },
 
