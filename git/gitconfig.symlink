@@ -37,6 +37,7 @@
 	pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
 	default = current
+	autoSetupRemote = true
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -49,6 +50,10 @@
 [rebase]
 	autostash = true
 	updateRefs = true
+[rerere]
+	enabled = true
+[column]
+	ui = auto
 [log]
 	decorate = full
 [pull]
@@ -76,4 +81,4 @@
 [interactive]
 	diffFilter = diff-so-fancy --patch
 [gpg]
-	program = /usr/local/bin/gpg
+	program = gpg

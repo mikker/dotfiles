@@ -4,7 +4,7 @@ export PROJECTS=$HOME/dev
 export XDG_CONFIG_HOME=$HOME/.config
 
 export PATH="$DOTFILES/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR=$VISUAL
 
 source $ZSH_FILES/config.zsh
@@ -12,7 +12,6 @@ source $ZSH_FILES/config.zsh
 source $ZSH_FILES/bindkeys.zsh
 source $ZSH_FILES/aliases.zsh
 
-export PATH="./bin:$PATH"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -27,16 +26,6 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk
-
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
 
@@ -45,11 +34,16 @@ zinit light joshskidmore/zsh-fzf-history-search
 
 eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
 
-# Initialize completion engine
-autoload -Uz compinit && compinit
+# Initialize completion engine with caching
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # Local modifications
 [[ -f ~/.lrc ]] && .  ~/.lrc
 
 # bun completions
-[ -s "/Users/mikker/.bun/_bun" ] && source "/Users/mikker/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

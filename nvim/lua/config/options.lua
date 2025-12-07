@@ -15,7 +15,7 @@ opt.statuscolumn = ""
 opt.spell = false
 
 opt.swapfile = false
-opt.undodir = "~/.tmp,/tmp"
+opt.undodir = vim.fn.expand("~/.tmp") .. ",/tmp"
 
 opt.wrap = true
 opt.gdefault = true
