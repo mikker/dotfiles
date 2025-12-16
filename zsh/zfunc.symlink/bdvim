@@ -1,0 +1,16 @@
+bdvim() {
+  local tmpfile=$(mktemp)
+  trap "rm -f '$tmpfile'" EXIT
+
+  ${EDITOR:-vim} "$tmpfile"
+
+  [[ -s "$tmpfile" ]] || return 1
+
+  local input=$(<"$tmpfile")
+  local first rest
+
+  first="${input%%$'\n\n'*}"
+  rest="${input#*$'\n\n'}"
+
+  bd create "$first" --description "$rest"
+}

@@ -3,7 +3,7 @@
 vimreview() {
   {
     echo "# [NOTE]\n# DIFF REVIEW:\n# The following is our current changes as a git diff with my comments added. Comments are denoted by a leading #\n# Please review and discuss or process my comments.\n# [/NOTE]\n"; \
-    git diff
+    git diff $@
   } | \
   vipe --suffix diff | \
   pbcopy
