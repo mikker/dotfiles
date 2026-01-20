@@ -7,7 +7,7 @@ config-version = 2
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = ['exec-and-forget sketchybar', 'exec-and-forget borders']
 
 # Start AeroSpace at login
 start-at-login = true
@@ -124,6 +124,10 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'to.holepunch.runtime'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
 run = "layout floating"
 
 [[on-window-detected]]

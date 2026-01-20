@@ -1,0 +1,780 @@
+schemaVersion = 1
+
+[catalogConfiguration]
+folderDepthOverrides = []
+
+    [[catalogConfiguration.customFolders]]
+    depthRawValue = 1
+    entryType = 'directory'
+    id = '7DD8B0C1-9632-4635-9E93-9896CD315580'
+    path = '~/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents'
+
+[catalogs]
+disabledIdentifiers = [
+    'Tuna.Internal.ApplicationProxyCatalog',
+    'Tuna.Internal.RecentObjectsCatalog',
+    'TunaCore.RecentsCatalog',
+    'TunaCore.RunningProcessesCatalog',
+    'TunaEmoji.EmojiCatalog',
+    'TunaObsidian.ObsidianNotesCatalog',
+    'TunaSafari.SafariBookmarksCatalog',
+    'TunaSafari.SafariFavoritesCatalog',
+    'TunaSafari.SafariReadingListCatalog',
+    'leader'
+]
+disabledItemKeys = []
+sortOrders = []
+
+[extensions]
+enabledIdentifiers = [
+    'com.brnbw.tuna.plugins.cleanshot',
+    'com.brnbw.tuna.plugins.notes',
+    'com.brnbw.tuna.plugins.obsidian',
+    'com.brnbw.tuna.plugins.reminders',
+    'com.brnbw.tuna.plugins.safari',
+    'com.brnbw.tuna.plugins.things'
+]
+
+[hotkeys.app.activate]
+carbonKeyCode = 49
+carbonModifiers = 256
+
+[hotkeys.app.dictation]
+carbonKeyCode = 1
+carbonModifiers = 6912
+
+[hotkeys.app.leaderMode]
+carbonKeyCode = 111
+carbonModifiers = 0
+
+[hotkeys.app.stageFinderSelection]
+carbonKeyCode = 7
+carbonModifiers = 4608
+
+[hotkeys.app.textMode]
+carbonKeyCode = 39
+carbonModifiers = 256
+
+[[hotkeys.custom]]
+id = '2F76A5E4-BACC-4FA2-929B-2C0D5AF4C03E'
+presentation = 'auto'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'Tuna.BasicActionsCatalog.Search'
+    subjectIdentifier = 'Tuna.Internal.ClipboardProxyCatalog.Clipboard History'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 42
+    carbonModifiers = 4352
+
+[[hotkeys.custom]]
+id = '4685557B-B7CA-4B05-A1A4-07383833E0BF'
+presentation = 'auto'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'Tuna.BasicActionsCatalog.Search'
+    subjectIdentifier = 'TunaEmoji.EmojiSearchCatalog.Emoji'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 49
+    carbonModifiers = 4352
+
+[[leaderMode.bindings]]
+iconPath = 'cat'
+key = 'a'
+label = 'Apps'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run/path.%252FSystem%252FApplications%252FCalendar.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'e'
+    url = 'tuna://run/path.%252FSystem%252FApplications%252FTextEdit.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'i'
+    url = 'tuna://run/path.%252FSystem%252FApplications%252FMusic.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'm'
+    url = 'tuna://run/path.%252FSystem%252FApplications%252FMail.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'n'
+    url = 'tuna://run/path.%252FApplications%252FNotion.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'o'
+    label = 'Obzi'
+    url = 'tuna://run/path.%252FApplications%252FObsidian.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'p'
+    url = 'tuna://run/path.%252FApplications%252FPlain%2520Text%2520Editor.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run/path.%252FApplications%252FThings3.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'r'
+    url = 'tuna://run/path.%252FApplications%252FReeder.app/Open'
+
+[[leaderMode.bindings]]
+key = 'B'
+label = 'Browser'
+url = 'tuna://run/path.%252FSystem%252FVolumes%252FPreboot%252FCryptexes%252FApp%252FSystem%252FApplications%252FSafari.app/Open'
+
+[[leaderMode.bindings]]
+iconPath = 'safari'
+key = 'b'
+label = 'Browsers'
+
+    [[leaderMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run/path.%252FApplications%252FArc.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run/path.%252FApplications%252FGoogle%2520Chrome.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'f'
+    url = 'tuna://run/path.%252FApplications%252FFirefox.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'h'
+    label = 'Chrome (holepunch)'
+    url = 'tuna://run/text.open%2520-a%2520%2522Google%2520Chrome%2522%2520--args%2520--profile-directory=Profile%255C%25206/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 's'
+    url = 'tuna://run/path.%252FApplications%252FSafari.app/Open'
+
+[[leaderMode.bindings]]
+iconPath = 'camera.metering.center.weighted.average'
+key = 'c'
+label = 'Capture'
+
+    [[leaderMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Fcapture-area/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'f'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Fcapture-fullscreen/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'v'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Frecord-screen/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'w'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Fcapture-window/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'hammer'
+key = 'd'
+label = 'Devtools'
+
+    [[leaderMode.bindings.children]]
+    key = 'd'
+    url = 'tuna://run/path.%252FApplications%252FDash.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run/path.%252FApplications%252FGhostty.app/Open'
+
+[[leaderMode.bindings]]
+iconPath = 'lightbulb'
+key = 'e'
+label = 'Environment'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    label = 'Ceiling'
+    url = 'tuna://run/text.shortcuts%2520run%2520%2522Kontor-toggle%2522/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'e'
+    label = 'Key Light'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fthomas%252Felgato-key-light%252Ftoggle/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'm'
+    label = 'Monitor'
+
+        [[leaderMode.bindings.children.children]]
+        key = '1'
+        label = '10%'
+        url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=0.2/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = '2'
+        label = '50%'
+        url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=0.66/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = '3'
+        label = '100%'
+        url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=1.0/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'uiwindow.split.2x1'
+key = 'f'
+label = 'Window'
+
+    [[leaderMode.bindings.children]]
+    key = '2'
+    label = 'Comfortable'
+    url = 'tuna://run/url.moves:%252F%252Fcustom%253F&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = '3'
+    label = 'Thirds'
+
+        [[leaderMode.bindings.children.children]]
+        key = '2'
+        label = 'Two thirds'
+
+            [[leaderMode.bindings.children.children.children]]
+            key = 'h'
+            label = 'First two thirds'
+            url = 'tuna://run/url.moves:%252F%252Ftemplate%252Ffirst-two-thirds/Open%20URL'
+
+            [[leaderMode.bindings.children.children.children]]
+            key = 'l'
+            label = 'Last two thirds'
+            url = 'tuna://run/url.moves:%252F%252Ftemplate%252Flast-two-thirds/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'c'
+        label = 'Center third'
+        url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fcenter-third/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'h'
+        label = 'First third'
+        url = 'tuna://run/url.moves:%252F%252Ftemplate%252Ffirst-third/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'l'
+        label = 'Last third'
+        url = 'tuna://run/url.moves:%252F%252Ftemplate%252Flast-third/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'C'
+    label = 'Center'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fcenter/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'e'
+
+        [[leaderMode.bindings.children.children]]
+        key = 't'
+        label = 'top'
+        url = 'tuna://run/url.moves:%252F%252Fcustom%252FtopLeft%253Fposition=center&relativeWidth=1.0&relativeHeight=0.666/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'f'
+    label = 'Full screen'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fmaximize/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'h'
+    label = 'Left'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fleft-half/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'H'
+    label = 'Max height'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fmaximize-height/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'l'
+    label = 'Right'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fright-half/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'n'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Ffirst-third/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'o'
+    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Flast-two-thirds/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 's'
+    label = 'sssslide'
+    url = 'tuna://run/url.moves:%252F%252Fcustom%253F&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=20.0/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'bookmark'
+key = 'g'
+label = 'Folders'
+
+    [[leaderMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run/path.%252FApplications/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'g'
+    url = 'tuna://run/path.%252FUsers%252Fmikker%252FLibrary%252FMobile%2520Documents%252FiCloud~com~jellystyle~GIFwrapped~library%252FDocuments/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'h'
+    url = 'tuna://run/path.%252FUsers%252Fmikker/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'l'
+    url = 'tuna://run/path.%252FUsers%252Fmikker%252FDownloads/Open'
+
+[[leaderMode.bindings]]
+iconPath = 'sparkles'
+key = 'l'
+label = 'LLMs'
+
+    [[leaderMode.bindings.children]]
+    key = 'a'
+    label = 'Claude'
+    url = 'tuna://run/path.%252FApplications%252FClaude.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run/path.%252FApplications%252FChatGPT.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'g'
+    label = 'Gemini'
+    url = 'tuna://run/url.https:%252F%252Fgemini.google.com/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'm'
+    label = 'MidJourney'
+    url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FMidjourney.app/Open'
+
+[[leaderMode.bindings]]
+iconPath = 'message'
+key = 'm'
+label = 'Messaging'
+
+    [[leaderMode.bindings.children]]
+    key = 'd'
+    url = 'tuna://run/path.%252FApplications%252FDiscord.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'f'
+    url = 'tuna://run/path.%252FApplications%252FMessenger.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'k'
+    url = 'tuna://run/path.%252FApplications%252FKeet.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'm'
+    url = 'tuna://run/path.%252FSystem%252FApplications%252FMessages.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 's'
+    url = 'tuna://run/path.%252FApplications%252FSlack.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run/path.%252FApplications%252FTelegram.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'i'
+    label = 'Open'
+    url = 'tuna://run/TunaCore.AllApplicationsCatalog.Signal/TunaCore.CommonActionsCatalog.Open'
+
+[[leaderMode.bindings]]
+iconPath = 'diamond'
+key = 'o'
+label = 'Obsidian'
+
+    [[leaderMode.bindings.children]]
+    key = 'd'
+    label = 'Daily'
+    url = 'tuna://run/url.obsidian:%252F%252Fdaily/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'o'
+    label = 'Open'
+    url = 'tuna://run/path.%252FApplications%252FObsidian.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'w'
+    label = 'Weekly'
+    url = 'tuna://run/text.open%2520%2522obsidian:%252F%252Fopen%253Ffile=02%252520Calendar%252FJournals%252F%2560date%2520+%2525Y-W%2525V%2560%2522/Run%20Text%20as%20Shell%20Command'
+
+[[leaderMode.bindings]]
+iconPath = 'opticaldisc'
+key = 'p'
+label = 'Media'
+
+    [[leaderMode.bindings.children]]
+    key = 'l'
+    url = 'tuna://run/path.%252FApplications%252FLongplay.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'm'
+    label = "\uF8FF Music"
+    url = 'tuna://run/path.%252FSystem%252FApplications%252FMusic.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'o'
+    url = 'tuna://run/path.%252FApplications%252FOvercast.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'y'
+    url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FYouTube.app/Open'
+
+[[leaderMode.bindings]]
+iconPath = 'character.textbox'
+key = 'r'
+label = 'Raycast'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fsystem%252Fopen-camera/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'e'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Femoji-symbols%252Fsearch-emoji-symbols/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'p'
+    url = 'tuna://run/url.raycast:%252F%252Fconfetti/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'laptopcomputer'
+key = 's'
+label = 'System'
+
+    [[leaderMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FDarkMode.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 'l'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fsystem%252Flock-screen/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 's'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fsystem%252Fsleep/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'document.on.document'
+key = 't'
+label = 'Tab sets'
+
+    [[leaderMode.bindings.children]]
+    key = 'd'
+    label = 'Doomscroll'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'b'
+        label = 'BlueSky'
+        url = 'tuna://run/url.https:%252F%252Fbsky.app/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'm'
+        label = 'Elk'
+        url = 'tuna://run/url.https:%252F%252Felk.zone/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'x'
+        label = 'X'
+        url = 'tuna://run/url.https:%252F%252Fx.com/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'l'
+        url = 'tuna://run/url.https:%252F%252Fwww.linkedin.com%252Fnotifications%252F%253Ffilter=all/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 't'
+    label = '10er'
+
+        [[leaderMode.bindings.children.children]]
+        key = '1'
+        url = 'tuna://run/url.https:%252F%252Fmeta.brnbw.com%252Fdashboard%252F2-10er%253Ftab=1-tab-1/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = '2'
+        url = 'tuna://run/url.https:%252F%252Fdashboard.simpleanalytics.com%252F10er.com/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = '3'
+        url = 'tuna://run/url.https:%252F%252Fdashboard.simpleanalytics.com%252Ffunnymost.com/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
+        key = '4'
+        url = 'tuna://run/url.https:%252F%252Fmeta.brnbw.com%252Fdashboard%252F6-funnymost/Open%20URL'
+
+    [[leaderMode.bindings.children]]
+    key = 'w'
+    label = 'Typefully'
+    url = 'tuna://run/url.https:%252F%252Ftypefully.com%252F/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'rectangle.grid.2x2'
+key = 'w'
+label = 'Aerospace'
+
+    [[leaderMode.bindings.children]]
+    key = 'e'
+    label = 'workspace e'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b3/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'f'
+    label = 'fullscreen'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520fullscreen%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'F'
+    label = 'flatten-workspace-tree'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520flatten-workspace-tree%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'j'
+    label = 'join-with'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'h'
+        label = 'left'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520left/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'j'
+        label = 'down'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520down/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'k'
+        label = 'up'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520up/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'l'
+        label = 'right'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520right/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'l'
+    label = 'layout'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'a'
+        label = 'accordion'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520layout%2520accordion%2520horizontal%2520vertical%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'f'
+        label = 'floating'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520layout%2520floating%2520tiling%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 't'
+        label = 'tiles'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520layout%2520tiles%2520vertical%2520horizontal%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'm'
+    label = 'move'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'E'
+        label = 'move-node-to-workspace b3'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b3/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'e'
+        label = 'move-node-to-workspace b3'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b3%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'h'
+        label = 'left'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520left/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'j'
+        label = 'down'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520down/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'k'
+        label = 'up'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520up/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'l'
+        label = 'right'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520right/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'Q'
+        label = 'move-node-to-workspace b1'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b1/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'q'
+        label = 'move-node-to-workspace b1'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b1%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'R'
+        label = 'move-node-to-workspace b4'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b4/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'r'
+        label = 'move-node-to-workspace b4'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b4%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'T'
+        label = 'move-node-to-workspace a1'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520a1/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 't'
+        label = 'move-node-to-workspace a1'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520a1%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'W'
+        label = 'move-node-to-workspace b2'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b2/Run%20Text%20as%20Shell%20Command'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'w'
+        label = 'move-node-to-workspace b2'
+        url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b2%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'q'
+    label = 'workspace q'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b1/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'R'
+    label = 'reload-config'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520reload-config/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'r'
+    label = 'workspace r'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b4/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 's'
+    label = 'mode resize'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520mode%2520resize%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 't'
+    label = 'workspace t'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520a1/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'w'
+    label = 'workspace w'
+    url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b2/Run%20Text%20as%20Shell%20Command'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fwindow-management%252Fcenter/Open%20URL'
+
+[[leaderMode.bindings]]
+iconPath = 'gamecontroller'
+key = 'up'
+
+    [[leaderMode.bindings.children]]
+    key = 'up'
+
+        [[leaderMode.bindings.children.children]]
+        key = 'down'
+
+            [[leaderMode.bindings.children.children.children]]
+            key = 'down'
+
+                [[leaderMode.bindings.children.children.children.children]]
+                key = 'left'
+
+                    [[leaderMode.bindings.children.children.children.children.children]]
+                    key = 'right'
+
+                        [[leaderMode.bindings.children.children.children.children.children.children]]
+                        key = 'left'
+
+                            [[leaderMode.bindings.children.children.children.children.children.children.children]]
+                            key = 'right'
+
+                                [[leaderMode.bindings.children.children.children.children.children.children.children.children]]
+                                key = 'b'
+
+                                    [[leaderMode.bindings.children.children.children.children.children.children.children.children.children]]
+                                    key = 'a'
+                                    label = 'You found a secret!'
+                                    url = 'tuna://run/url.raycast:%252F%252Fconfetti/Open%20URL'
+
+[[leaderMode.bindings]]
+key = 'enter'
+label = 'Terminal'
+url = 'tuna://run/path.%252FApplications%252FGhostty.app/Open'
+
+[settings]
+screenPreference = 'primary'
+themeIdentifier = 'com.brnbw.tuna.themes.default'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'GitHub'
+template = 'https://github.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Google'
+template = 'https://www.google.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Wikipedia'
+template = 'https://en.wikipedia.org/wiki/Special:Search?search={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'X'
+template = 'http://x.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'YouTube'
+template = 'https://www.youtube.com/results?search_query={{input}}'
+
+[[catalogSettings]]
+catalogIdentifier = 'TunaEmoji.EmojiCatalog'
+
+    [catalogSettings.values]
+    EmojiSkinTone = 'default'
+
+[[catalogSettings]]
+catalogIdentifier = 'TunaThings.ThingsActionsCatalog'
+
+    [catalogSettings.values]
+    ShowThingsWhenAdding = 'false'
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.plugins.things'
+
+    [catalogSettings.values]
+    ShowThingsWhenAdding = 'false'
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.themes.default'
+
+    [catalogSettings.values]
+    ThemeTint = 'system'

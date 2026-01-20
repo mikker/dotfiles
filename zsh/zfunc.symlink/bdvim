@@ -1,3 +1,5 @@
+# vim: set ft=zsh
+
 bdvim() {
   local tmpfile=$(mktemp)
   trap "rm -f '$tmpfile'" EXIT

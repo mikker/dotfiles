@@ -1,3 +1,11 @@
 #!/bin/bash
-echo "No local bin/dokku, using global"
-ssh -t dokku@hz1 $@
+
+# Check if $PWD/bin/dokku exists and is executable
+if [[ -x "./bin/dokku" ]]; then
+  # Use the local dokku
+  ./bin/dokku "$@"
+else
+  # Fall back to the ssh command
+  echo "No local bin/dokku, using global"
+  ssh -t dokku@hz1 "$@"
+fi

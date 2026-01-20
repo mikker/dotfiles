@@ -34,6 +34,7 @@ alias gs='git status -sb'
 alias gci='git commit -m'
 alias gdmb='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
 alias gb='gh browse'
+alias gan='git add --all -N'
 
 # Ruby
 alias be='bundle exec'
@@ -43,6 +44,7 @@ alias ra='rails'
 alias todo='git grep -l TODO | xargs -n1 git blame -f -n -w | grep "$(git config user.name)" | grep TODO | sed "s/.\{9\}//" | sed "s/(.*)[[:space:]]*//"'
 
 
-alias codex="codex --yolo --enable skills"
+alias codex="codex --yolo"
 alias amp="amp --dangerously-allow-all"
 alias claude="claude --dangerously-skip-permissions"
+alias gemini="gemini -y"

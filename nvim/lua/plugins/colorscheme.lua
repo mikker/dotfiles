@@ -1,12 +1,4 @@
 return {
-  -- list
-  {
-    "bjarneo/pixel.nvim",
-    priority = 1000,
-    config = function()
-      -- vim.cmd.colorscheme("pixel")
-    end,
-  },
   {
     "mcchrish/zenbones.nvim",
     dependencies = "rktjmp/lush.nvim",
