@@ -8,13 +8,13 @@ source "$CONFIG_DIR/colors.sh"
 
 if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
   sketchybar --set $NAME background.drawing=on \
-    background.color=$ACCENT_TRANSPARENT \
-    icon.color=$ACCENT \
-    label.color=$ACCENT
+    background.color=$SPACE_ACTIVE_BG_COLOR \
+    icon.color=$SPACE_ACTIVE_COLOR \
+    label.color=$SPACE_ACTIVE_COLOR
 else
   sketchybar --set $NAME background.drawing=off \
-    icon.color=$GREY \
-    label.color=$GREY
+    icon.color=$SPACE_INACTIVE_COLOR \
+    label.color=$SPACE_INACTIVE_COLOR
 fi
 
 # Update app icons for this workspace

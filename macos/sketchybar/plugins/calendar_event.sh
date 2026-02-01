@@ -49,7 +49,7 @@ if [ -z "$LABEL" ]; then
   # Shift slightly right to compensate for internal spacing
   sketchybar --set "$NAME" \
     icon="󰃮" \
-    icon.color="$RED" \
+    icon.color="$CAL_EVENT_ICON_COLOR" \
     icon.padding_left=10 \
     icon.padding_right=7 \
     label="" \
@@ -58,11 +58,10 @@ else
   # Icon with label - normal padding
   sketchybar --set "$NAME" \
     icon="󰃮" \
-    icon.color="$RED" \
+    icon.color="$CAL_EVENT_ICON_COLOR" \
     icon.padding_left=10 \
     icon.padding_right=10 \
     label="$LABEL" \
-    label.color="$WHITE" \
+    label.color="$CAL_EVENT_LABEL_COLOR" \
     label.padding_right=10
 fi
-

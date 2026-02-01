@@ -47,3 +47,9 @@ fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# zerobrew
+export PATH="/Users/mikker/.local/bin:$PATH"
+
+# zerobrew
+export PATH="/opt/zerobrew/prefix/bin:$PATH"

@@ -727,6 +727,8 @@ label = 'Terminal'
 url = 'tuna://run/path.%252FApplications%252FGhostty.app/Open'
 
 [settings]
+clipboardHistoryLimit = 500
+clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password' ]
 screenPreference = 'primary'
 themeIdentifier = 'com.brnbw.tuna.themes.default'
 

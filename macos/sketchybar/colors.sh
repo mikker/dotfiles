@@ -1,21 +1,55 @@
 #!/usr/bin/env bash
 
-# Color Palette - Shared between borders and sketchybar
-export ACCENT=0xffff0566             # Pink/Magenta accent (from borders)
-export ACCENT_TRANSPARENT=0x44ff0566 # Transparent version of accent
-
-export BAR_COLOR=0x40000000     # Bar background
-export ITEM_BG_COLOR=0x44ffffff # Item background
-
 export WHITE=0xffffffff
 export BLACK=0xff000000
-export RED=0xffed8796
+export RED=0xfffda7a6
 export GREEN=0xffa6da95
 export BLUE=0xff8aadf4
-export YELLOW=0xffeed49f
+export YELLOW=0xffffe4bf
 export ORANGE=0xfff5a97f
 export MAGENTA=0xffc6a0f6
 export GREY=0xff939ab7
-export GREY_TRANSP=0x33939ab7
+export GREY_TRANSP=0x11000000
 export TRANSPARENT=0x00000000
 
+# Color Palette - Shared between borders and sketchybar
+export ACCENT=$WHITE
+export ACCENT_TRANSPARENT=0x44ffffff # Transparent version of accent
+
+export BAR_COLOR=0xff000000     # Bar background
+export ITEM_BG_COLOR=0x44ffffff # Item background
+
+# Semantic colors
+export TEXT_PRIMARY=$WHITE
+export TEXT_MUTED=0xffffffff
+
+export DEFAULT_ICON_COLOR=$TEXT_PRIMARY
+export DEFAULT_LABEL_COLOR=$TEXT_PRIMARY
+
+export SPACE_ACTIVE_COLOR=$ACCENT
+export SPACE_ACTIVE_BG_COLOR=$ACCENT_TRANSPARENT
+export SPACE_HIGHLIGHT_COLOR=$ACCENT
+export SPACE_INACTIVE_COLOR=$TEXT_MUTED
+
+export FRONT_APP_LAYOUT_ICON_COLOR=$GREEN
+export FRONT_APP_LAYOUT_BG_COLOR=$GREY_TRANSP
+
+export CLOCK_COLOR=$TEXT_MUTED
+
+export VOLUME_COLOR=$GREY
+
+export BATTERY_COLOR_NORMAL=$GREY
+export BATTERY_COLOR_WARNING=$YELLOW
+export BATTERY_COLOR_LOW=$ORANGE
+export BATTERY_COLOR_CRITICAL=$RED
+export BATTERY_COLOR_CHARGING=$GREY
+
+export CAL_EVENT_ICON_COLOR=$RED
+export CAL_EVENT_LABEL_COLOR=$TEXT_PRIMARY
+export CAL_EVENT_BG_COLOR=$GREY_TRANSP
+
+export THINGS_TODO_ICON_COLOR=$YELLOW
+export THINGS_TODO_LABEL_COLOR=$TEXT_PRIMARY
+
+export BORDER_ACTIVE_COLOR=0xff3729ac
+export BORDER_BACKGROUND_COLOR=0x000000

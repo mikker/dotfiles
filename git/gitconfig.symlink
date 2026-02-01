@@ -82,3 +82,8 @@
 	diffFilter = diff-so-fancy --patch
 [gpg]
 	program = gpg
+[http]
+	version = HTTP/1.1
+	postBuffer = 524288000
+	lowSpeedLimit = 0
+	lowSpeedTime = 999999

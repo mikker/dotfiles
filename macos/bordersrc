@@ -1,11 +1,13 @@
 #!/bin/bash
 
+source "$HOME/.config/sketchybar/colors.sh"
+
 options=(
   style=round
   width=7.5
   hidpi=on
-  active_color=0xffff0566
-  background_color=0x000000
+  active_color=$BORDER_ACTIVE_COLOR
+  background_color=$BORDER_BACKGROUND_COLOR
   blacklist="Leader Key,CleanShot,Tuna"
 )
 

@@ -27,7 +27,7 @@ if [ "$TODO" = "No todos" ] || [ "$TODO" = "" ]; then
   sketchybar --set "$NAME" \
     drawing=on \
     icon=":things:" \
-    icon.color="$YELLOW" \
+    icon.color="$THINGS_TODO_ICON_COLOR" \
     icon.padding_left=10 \
     icon.padding_right=7 \
     label="" \
@@ -38,11 +38,11 @@ else
   sketchybar --set "$NAME" \
     drawing=on \
     icon=":things:" \
-    icon.color="$YELLOW" \
+    icon.color="$THINGS_TODO_ICON_COLOR" \
     icon.padding_left=10 \
     icon.padding_right=10 \
     label="$TODO" \
-    label.color="$WHITE" \
+    label.color="$THINGS_TODO_LABEL_COLOR" \
     label.padding_right=10 \
     icon.font="sketchybar-app-font:Regular:14.0"
 fi

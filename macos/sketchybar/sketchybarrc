@@ -29,8 +29,8 @@ default=(
   padding_right=0
   icon.font="Hack Nerd Font:Regular:14.0"
   label.font="SF Pro:Semibold:14.0"
-  icon.color=$WHITE
-  label.color=$WHITE
+  icon.color=$DEFAULT_ICON_COLOR
+  label.color=$DEFAULT_LABEL_COLOR
   icon.padding_left=10
   icon.padding_right=10
   label.padding_left=0
@@ -42,9 +42,6 @@ sketchybar --default "${default[@]}"
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode_changed
-
-# Simple numeric labels for workspaces
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "0")
 
 for sid in $(aerospace list-workspaces --all); do
   # Determine icon based on workspace ID
@@ -70,7 +67,7 @@ for sid in $(aerospace list-workspaces --all); do
     y_offset=1 \
     icon="$space_icon" \
     icon.font="SF Pro:Bold:16.0" \
-    icon.highlight_color=$ACCENT \
+    icon.highlight_color=$SPACE_HIGHLIGHT_COLOR \
     label.drawing=off \
     label.font="sketchybar-app-font:Regular:14.0" \
     label.y_offset=-1 \
@@ -91,12 +88,12 @@ sketchybar --add item chevron left \
   --set front_app_layout \
   icon.drawing=on \
   icon.font="Hack Nerd Font:Regular:11.0" \
-  icon.color=$GREEN \
+  icon.color=$FRONT_APP_LAYOUT_ICON_COLOR \
   icon.padding_left=6 \
   icon.padding_right=6 \
   label.drawing=off \
   background.drawing=on \
-  background.color=$GREY_TRANSP \
+  background.color=$FRONT_APP_LAYOUT_BG_COLOR \
   background.corner_radius=4 \
   background.height=16 \
   script="$PLUGIN_DIR/front_app.sh" \
@@ -124,19 +121,20 @@ sketchybar --add item clock right \
   script="$PLUGIN_DIR/calendar_event.sh" \
   click_script="open -a Calendar" \
   icon.font="Hack Nerd Font:Regular:14.0" \
-  label.color="$WHITE" \
+  label.color="$CAL_EVENT_LABEL_COLOR" \
   background.drawing=on \
-  background.color="$GREY_TRANSP" \
-  background.corner_radius=8 \
-  background.height=25 \
-  --add item things_todo right \
-  --set things_todo update_freq=60 \
-  script="$PLUGIN_DIR/things_todo.sh" \
-  click_script="open -a Things3" \
-  background.drawing=on \
-  background.color=$GREY_TRANSP \
+  background.color="$CAL_EVENT_BG_COLOR" \
   background.corner_radius=8 \
   background.height=25
+
+# --add item things_todo right \
+# --set things_todo update_freq=60 \
+# script="$PLUGIN_DIR/things_todo.sh" \
+# click_script="open -a Things3" \
+# background.drawing=on \
+# background.color=$GREY_TRANSP \
+# background.corner_radius=8 \
+# background.height=25
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
