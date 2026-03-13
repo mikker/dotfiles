@@ -1,0 +1,19 @@
+[[snippets]]
+trigger = ":date"
+replace = "{{date}}"
+description = "Current date"
+
+[[snippets]]
+trigger = ":time"
+replace = "{{time}}"
+description = "Current time"
+
+[[snippets]]
+trigger = ":clip"
+replace = "{{clipboard}}"
+description = "Paste current clipboard text"
+
+[[snippets]]
+trigger = ":sig"
+replace = "Best regards,\nYour Name{{cursor}}"
+description = "Signature snippet with cursor placement"

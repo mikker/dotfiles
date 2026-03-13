@@ -1,13 +1,15 @@
 # font-family = "IBM Plex Mono"
-font-family = "Iosevka"
-# font-family = "Berkeley Mono"
+#font-family = "Iosevka"
+#font-family = "Berkeley Mono"
 #font-family = "Cartograph CF"
 # font-family = "Cascadia Code NF"
 # font-family = "Martian Mono"
 # font-family = "SF Mono"
+font-family = "Pragmasevka Nerd Font"
 
 font-style = "Regular"
 font-size = 16
+adjust-cell-height = 20%
 
 theme = light:Zenbones Light,dark:Zenbones Dark
 

@@ -1,38 +1,64 @@
 schemaVersion = 1
 
-[catalogConfiguration]
-folderDepthOverrides = []
+[actionPreferences]
+objectOverrides = []
+version = 1
 
-    [[catalogConfiguration.customFolders]]
-    depthRawValue = 1
-    entryType = 'directory'
-    id = '7DD8B0C1-9632-4635-9E93-9896CD315580'
-    path = '~/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents'
+    [[actionPreferences.typeRankings]]
+    typeID = 'com.tuna.type.text-solver-result'
 
-[catalogs]
-disabledIdentifiers = [
-    'Tuna.Internal.ApplicationProxyCatalog',
-    'Tuna.Internal.RecentObjectsCatalog',
-    'TunaCore.RecentsCatalog',
-    'TunaCore.RunningProcessesCatalog',
-    'TunaEmoji.EmojiCatalog',
-    'TunaObsidian.ObsidianNotesCatalog',
-    'TunaSafari.SafariBookmarksCatalog',
-    'TunaSafari.SafariFavoritesCatalog',
-    'TunaSafari.SafariReadingListCatalog',
-    'leader'
-]
-disabledItemKeys = []
-sortOrders = []
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Copy Answer'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Resolve Result'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Copy Unformatted Answer'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Copy Question and Answer'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Swap Units'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+[[catalogConfiguration.customFolders]]
+depthRawValue = 1
+entryType = 'directory'
+id = '4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF'
+path = '~/dev'
+
+[[catalogConfiguration.customFolders]]
+depthRawValue = 1
+entryType = 'directory'
+id = '7DD8B0C1-9632-4635-9E93-9896CD315580'
+path = '~/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents'
+
+[[catalogConfiguration.folderDepthOverrides]]
+catalogIdentifier = 'TunaCore.AllApplicationsCatalog'
+depthRawValue = 1
+
+[[catalogConfiguration.scriptsDirectories]]
+id = '4F39FF93-1B75-49E4-80C6-B5817FC3B2C2'
+path = '~/dev/Tuna-worktrees/two/scripts/manual-script-catalog'
 
 [extensions]
 enabledIdentifiers = [
+    'com.brnbw.tuna.plugins.brew',
     'com.brnbw.tuna.plugins.cleanshot',
+    'com.brnbw.tuna.plugins.github',
     'com.brnbw.tuna.plugins.notes',
+    'com.brnbw.tuna.plugins.notion',
     'com.brnbw.tuna.plugins.obsidian',
     'com.brnbw.tuna.plugins.reminders',
     'com.brnbw.tuna.plugins.safari',
-    'com.brnbw.tuna.plugins.things'
+    'com.brnbw.tuna.plugins.things',
+    'com.example.TunaBrewDX'
 ]
 
 [hotkeys.app.activate]
@@ -60,7 +86,7 @@ id = '2F76A5E4-BACC-4FA2-929B-2C0D5AF4C03E'
 presentation = 'auto'
 
     [hotkeys.custom.command]
-    actionIdentifier = 'Tuna.BasicActionsCatalog.Search'
+    actionIdentifier = 'Tuna.BasicActionsCatalog.Browse'
     subjectIdentifier = 'Tuna.Internal.ClipboardProxyCatalog.Clipboard History'
 
     [hotkeys.custom.shortcut]
@@ -72,12 +98,36 @@ id = '4685557B-B7CA-4B05-A1A4-07383833E0BF'
 presentation = 'auto'
 
     [hotkeys.custom.command]
-    actionIdentifier = 'Tuna.BasicActionsCatalog.Search'
+    actionIdentifier = 'Tuna.BasicActionsCatalog.Browse'
     subjectIdentifier = 'TunaEmoji.EmojiSearchCatalog.Emoji'
 
     [hotkeys.custom.shortcut]
     carbonKeyCode = 49
     carbonModifiers = 4352
+
+[[hotkeys.custom]]
+id = '65966102-7E4A-4C40-8719-87DF69A6F59C'
+presentation = 'auto'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'Tuna.BasicActionsCatalog.Resolve'
+    subjectIdentifier = 'Tuna.CurrentSelectionCatalog.Current Selection'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 7
+    carbonModifiers = 6144
+
+[[hotkeys.custom]]
+id = 'E287933F-3EE0-4608-B02E-54B6AE92BD10'
+presentation = 'auto'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'TunaCore.CommonActionsCatalog.Run'
+    subjectIdentifier = 'TunaSystem.ColorToolsCatalog.Pick Color'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 35
+    carbonModifiers = 6144
 
 [[leaderMode.bindings]]
 iconPath = 'cat'
@@ -159,19 +209,19 @@ label = 'Capture'
 
     [[leaderMode.bindings.children]]
     key = 'a'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Fcapture-area/Open%20URL'
+    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Capture%20Area/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'f'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Fcapture-fullscreen/Open%20URL'
+    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Capture%20Full%20Screen/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'v'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Frecord-screen/Open%20URL'
+    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Record%20Screen/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'w'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252FAayush9029%252Fcleanshotx%252Fcapture-window/Open%20URL'
+    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Capture%20Window/TunaCore.CommonActionsCatalog.Run'
 
 [[leaderMode.bindings]]
 iconPath = 'hammer'
@@ -269,6 +319,7 @@ label = 'Window'
     url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fcenter/Open%20URL'
 
     [[leaderMode.bindings.children]]
+    iconPath = 'square.and.arrow.up.circle'
     key = 'e'
 
         [[leaderMode.bindings.children.children]]
@@ -284,7 +335,7 @@ label = 'Window'
     [[leaderMode.bindings.children]]
     key = 'h'
     label = 'Left'
-    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fleft-half/Open%20URL'
+    url = 'tuna://run/TunaSystem.WindowManagementCatalog.Left%20Half/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'H'
@@ -406,7 +457,7 @@ label = 'Obsidian'
     [[leaderMode.bindings.children]]
     key = 'w'
     label = 'Weekly'
-    url = 'tuna://run/text.open%2520%2522obsidian:%252F%252Fopen%253Ffile=02%252520Calendar%252FJournals%252F%2560date%2520+%2525Y-W%2525V%2560%2522/Run%20Text%20as%20Shell%20Command'
+    url = 'tuna://run/text.open%2520%2522obsidian:%252F%252Fopen%253Ffile=Calendar%252F%2560date%2520+%2525Y-W%2525V%2560%2522/Run%20Text%20as%20Shell%20Command'
 
 [[leaderMode.bindings]]
 iconPath = 'opticaldisc'
@@ -454,15 +505,15 @@ label = 'System'
 
     [[leaderMode.bindings.children]]
     key = 'a'
-    url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FDarkMode.app/Open'
+    url = 'tuna://run/TunaAutomation.SystemTasksCatalog.Toggle%20Light%2FDark%20Mode/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'l'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fsystem%252Flock-screen/Open%20URL'
+    url = 'tuna://run/TunaAutomation.SystemTasksCatalog.Lock%20Screen/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 's'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fsystem%252Fsleep/Open%20URL'
+    url = 'tuna://run/TunaAutomation.SystemTasksCatalog.Sleep/TunaCore.CommonActionsCatalog.Run'
 
 [[leaderMode.bindings]]
 iconPath = 'document.on.document'
@@ -726,11 +777,27 @@ key = 'enter'
 label = 'Terminal'
 url = 'tuna://run/path.%252FApplications%252FGhostty.app/Open'
 
+[[leaderMode.bindings]]
+key = 'y'
+url = 'tuna://run/TunaCore.AllApplicationsCatalog.Slack/Open'
+
 [settings]
-clipboardHistoryLimit = 500
-clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password' ]
+catalogPeriodicRescanEnabled = false
+clipboardHistoryRetention = 'oneYear'
+clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keychainaccess' ]
+dictationActivationMode = 'toggle'
+leaderModeCheatsheetShowDetails = false
+leaderModeModifierTrigger = 'hyper'
 screenPreference = 'primary'
+shelfAutoCloseWhenTasksComplete = true
+spacebarBehavior = 'switchToTextMode'
+talkModeModifierTrigger = 'rightOption'
 themeIdentifier = 'com.brnbw.tuna.themes.default'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Giphy'
+template = 'https://giphy.com/search/{{input}}'
 
 [[smartLinks.entries]]
 enabled = true
@@ -741,6 +808,11 @@ template = 'https://github.com/search?q={{input}}'
 enabled = true
 name = 'Google'
 template = 'https://www.google.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'TailwindCSS'
+template = 'https://www.google.com/search?q=site:tailwindcss.com%20{{input}}'
 
 [[smartLinks.entries]]
 enabled = true
@@ -756,6 +828,12 @@ template = 'http://x.com/search?q={{input}}'
 enabled = true
 name = 'YouTube'
 template = 'https://www.youtube.com/results?search_query={{input}}'
+
+[[catalogSettings]]
+catalogIdentifier = 'TunaCore.TextActionsCatalog'
+
+    [catalogSettings.values]
+    TextActionsFileExtension = 'txt'
 
 [[catalogSettings]]
 catalogIdentifier = 'TunaEmoji.EmojiCatalog'

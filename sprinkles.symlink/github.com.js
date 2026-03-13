@@ -1,4 +1,4 @@
-console.log("Loading github.js")
+console.log("Loading github.js");
 
 // ============================================
 // ctrl+r selects and clicks "Rebase and Merge"
@@ -8,7 +8,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function rebase() {
-  const button = q('[aria-describedby*="loading-announcement"]');
+  const button = q('[data-testid="mergebox-border-container"] button');
   console.log(button.innerText);
 
   if (button.innerText !== "Squash and merge") {
@@ -22,7 +22,7 @@ async function rebase() {
   button.click();
   await sleep(100);
 
-  q('[aria-describedby*="loading-announcement"]').click();
+  q('[data-testid="mergebox-border-container"] button').click();
 }
 
 function sleep(delay) {

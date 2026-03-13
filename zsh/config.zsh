@@ -2,7 +2,8 @@
 export CLICOLOR=1
 
 fpath=($HOME/.zfunc $fpath)
-autoload -U $HOME/.zfunc/*(:t)
+# Lazy load functions on first use (better startup performance)
+autoload -Uz $HOME/.zfunc/*(:t)
 
 # makes color constants available
 autoload -U colors

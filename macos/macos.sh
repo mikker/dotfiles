@@ -20,18 +20,8 @@ echo "Requiring password immediately after sleep or screen saver begins"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-echo "Disabling OS X Gate Keeper - run apps from anywhere"
-sudo spctl --master-disable
-sudo defaults write /var/db/SystemPolicy-prefs.plist enabled -string no
-defaults write com.apple.LaunchServices LSQuarantine -bool false
-
 echo "Preventing Time Machine from prompting to use new hard drives as backup volume"
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-# echo "Disabling disk image verification"
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # }}}
 # GENERAL {{{
@@ -46,8 +36,7 @@ echo "Use scroll gesture with the Ctrl (^) modifier key to zoom"
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 
-echo "Check for software updates daily, not just once per week"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
 
 echo "Saving screenshots to ~/Downloads"
 defaults write com.apple.screencapture location ~/Downloads
@@ -131,17 +120,7 @@ echo 'Disable the warning before emptying the Trash'
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 # }}}
-# SAFARI (and Technology Preview) {{{
 
-# echo "Prevent Safari from opening ‘safe’ files automatically after downloading"
-# defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-# defaults write com.apple.SafariTechnologyPreview AutoOpenSafeDownloads -bool false
-
-# echo "Show the full URL in the address bar (note: this still hides the scheme)"
-# defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
-# defaults write com.apple.SafariTechnologyPreview ShowFullURLInSmartSearchField -bool true
-
-# }}}
 # APPS {{{
 
 echo "TextEdit: Use plain text mode for new documents"

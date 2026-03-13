@@ -134,6 +134,18 @@ run = "layout floating"
 if.app-id = 'com.sindresorhus.Plain-Text-Editor'
 run = "layout floating"
 
+[[on-window-detected]]
+if.app-id = 'to.holepunch.runtime'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.github.Electron'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.brnbw.Poof'
+run = "layout floating"
+
 [workspace-to-monitor-force-assignment]
 a1 = "secondary"
 b1 = "main"

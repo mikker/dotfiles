@@ -1,0 +1,3 @@
+[[snippets]]
+trigger = ",refcom"
+replace = "$refactor-pass then update/close issue(s) and commit"

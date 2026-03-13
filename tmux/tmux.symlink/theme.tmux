@@ -12,6 +12,8 @@ tmux_get() {
 color_fg=$(tmux_get @tmux_bubbles_color_active 'color0')         # "black"
 color_bg_active=$(tmux_get @tmux_bubbles_color_grey 'colour15')  # "white"
 color_bg_inactive=$(tmux_get @tmux_bubbles_color_grey 'colour8') # "grey"
+color_bg_selected='#0951AF'
+color_fg_selected='colour255'
 
 tmux set-option -gq status on
 tmux set-option -gq status-fg "$color_fg"
@@ -41,12 +43,16 @@ tmux set-option -gq status-right " $(make_bubble ' #S ' "$color_fg" "$color_bg_a
 # *********************************************************
 # Window                                                  *
 # *********************************************************
-tmux set-option -gq window-status-format "#[fg=$color_bg_active,bg=0,bold]  #I #W  "
-tmux set-option -gq window-status-current-format "$(make_bubble ' #I #W#{?window_zoomed_flag,󰁌,} ' "$color_fg" "$color_bg_active")"
+tmux set-option -gq window-status-format "#[fg=$color_bg_active,bg=0,bold]#{?@codex_done, #[fg=yellow]●#[fg=$color_bg_active],}  #I #W  "
+tmux set-option -gq window-status-last-style "default"
+tmux set-option -gq window-status-activity-style "default"
+tmux set-option -gq window-status-bell-style "default"
+tmux set-option -gq window-status-current-format "$(make_bubble ' #I #W#{?window_zoomed_flag,󰁌,} ' "$color_fg_selected" "$color_bg_selected")"
 
 # *********************************************************
 # Others                                                  *
 # *********************************************************
 tmux set-option -gq mode-style "bg=$color_bg_active,fg=0"
-tmux set-option -gq pane-active-border-style "fg=$color_bg_active,bg=0"
+tmux set-option -gq pane-border-style "fg=$color_bg_inactive,bg=$color_fg"
+tmux set-option -gq pane-active-border-style "fg=$color_fg_selected,bg=$color_bg_selected,bold"
 tmux set-option -gq clock-mode-colour "$color_bg_active"

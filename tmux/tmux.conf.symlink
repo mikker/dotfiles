@@ -47,17 +47,28 @@ bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
+set -g pane-border-status top
+set -g pane-border-lines spaces
+set -g pane-border-format " #{pane_index} #{pane_title} "
 
 # Quickly switch between windows
 bind ^b last-window
 # Quickly switch between sessions
 bind ^s switch-client -l
 
+# Accordion panes: focused pane gets at least 100 columns,
+# unfocused panes share the rest evenly.
+# Also clear Codex completion markers once a window is focused.
+set-hook -g pane-focus-in 'run-shell "tmux-pane-focus-in"'
+
 # Select other pane, then zoom
 bind ^o select-pane -l\; resize-pane -Z
 
 # # Start new windows on current path
 bind c new-window -c "#{pane_current_path}"
+
+# Open lazygit in a temporary popup so the underlying pane stays untouched.
+bind g display-popup -B -E -d "#{pane_current_path}" -x 0 -y 0 -w 100% -h 95% "lazygit"
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
@@ -67,7 +78,7 @@ set -g @plugin 'joshmedeski/tmux-fzf-url'
 set -g @plugin 'nhdaly/tmux-scroll-copy-mode'
 #
 run -b '~/.tmux/plugins/tpm/tpm'
-run -b "~/.tmux/theme.tmux"
+run -b "~/.dotfiles/tmux/tmux.symlink/theme.tmux"
 
 set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
 set -as terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
