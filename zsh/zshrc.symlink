@@ -51,3 +51,6 @@ fi
 export PATH="/Users/mikker/.local/bin:$PATH"
 
 
+
+# Added by Pear Runtime, configures system with Pear CLI
+export PATH="/Users/mikker/Library/Application Support/pear/bin":$PATH

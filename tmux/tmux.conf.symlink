@@ -5,6 +5,9 @@ if-shell 'infocmp -x tmux-256color >/dev/null 2>&1' \
   'set -g default-terminal "tmux-256color"' \
   'set -g default-terminal "screen-256color"'
 
+# Pass through modified keys like C-1, M-S-Enter, etc.
+set -s extended-keys on
+
 # Advertise truecolor and extended underline support to common macOS terminals.
 set -as terminal-features ',tmux-256color:RGB'
 set -as terminal-features ',tmux-256color:usstyle'
@@ -69,6 +72,9 @@ bind c new-window -c "#{pane_current_path}"
 
 # Open lazygit in a temporary popup so the underlying pane stays untouched.
 bind g display-popup -B -E -d "#{pane_current_path}" -x 0 -y 0 -w 100% -h 95% "lazygit"
+
+# Toggle a yellow dot at end of window title (prefix + e)
+bind e run-shell "~/.dotfiles/tmux/tmux.symlink/cycle_circle.sh"
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'

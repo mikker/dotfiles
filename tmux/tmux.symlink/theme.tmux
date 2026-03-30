@@ -43,11 +43,11 @@ tmux set-option -gq status-right " $(make_bubble ' #S ' "$color_fg" "$color_bg_a
 # *********************************************************
 # Window                                                  *
 # *********************************************************
-tmux set-option -gq window-status-format "#[fg=$color_bg_active,bg=0,bold]#{?@codex_done, #[fg=yellow]●#[fg=$color_bg_active],}  #I #W  "
+tmux set-option -gq window-status-format "#[fg=$color_bg_active,bg=0,bold]#{?@codex_done, #[fg=yellow]●#[fg=$color_bg_active],}  #I #W#{?window_bell_flag, #[fg=yellow]󱠡#[fg=$color_bg_active],}  "
 tmux set-option -gq window-status-last-style "default"
 tmux set-option -gq window-status-activity-style "default"
 tmux set-option -gq window-status-bell-style "default"
-tmux set-option -gq window-status-current-format "$(make_bubble ' #I #W#{?window_zoomed_flag,󰁌,} ' "$color_fg_selected" "$color_bg_selected")"
+tmux set-option -gq window-status-current-format "$(make_bubble ' #I #W#{?window_bell_flag, #[fg=yellow]󱠡#[fg='"$color_fg_selected"'],}#{?window_zoomed_flag,󰁌,} ' "$color_fg_selected" "$color_bg_selected")"
 
 # *********************************************************
 # Others                                                  *

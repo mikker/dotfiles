@@ -1,3 +1,11 @@
 [[snippets]]
 trigger = ",refcom"
 replace = "$refactor-pass then update/close issue(s) and commit"
+
+[[snippets]]
+trigger = ",aii"
+replace = "Investigate and plan issue {{cursor}} then $ask-questions-if-underspecified"
+
+[[snippets]]
+trigger = ",airel"
+replace = "Gather a list of things to test since the last release. Do some manual testing on your own, non-destructive stuff, then give me a list of things to test for myself. Order things be importance. If there are things needing to be done since last release, give me a checklist. Not general stuff, specific stuff for these recent changes. Then lastly, provide a recommended order of deployment, distribution and so on."

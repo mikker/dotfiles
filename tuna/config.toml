@@ -1,32 +1,5 @@
 schemaVersion = 1
 
-[actionPreferences]
-objectOverrides = []
-version = 1
-
-    [[actionPreferences.typeRankings]]
-    typeID = 'com.tuna.type.text-solver-result'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Copy Answer'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Resolve Result'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Copy Unformatted Answer'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Copy Question and Answer'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Swap Units'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
 [[catalogConfiguration.customFolders]]
 depthRawValue = 1
 entryType = 'directory'
@@ -44,8 +17,20 @@ catalogIdentifier = 'TunaCore.AllApplicationsCatalog'
 depthRawValue = 1
 
 [[catalogConfiguration.scriptsDirectories]]
-id = '4F39FF93-1B75-49E4-80C6-B5817FC3B2C2'
-path = '~/dev/Tuna-worktrees/two/scripts/manual-script-catalog'
+id = '876D2A76-6AA6-42E2-8B29-5348570BF5BB'
+path = '~/dev/Tuna/scripts/manual-script-catalog'
+
+[[catalogs.sortOrders]]
+catalogIdentifier = 'Tuna.FileSystemBrowseSort'
+sortOrder = 'name.asc'
+
+[[catalogs.sortOrders]]
+catalogIdentifier = 'Tuna.Internal.ClipboardProxyCatalog'
+sortOrder = 'capturedAt.desc'
+
+[[catalogs.sortOrders]]
+catalogIdentifier = 'TunaEmoji.EmojiSearchCatalog'
+sortOrder = 'score.desc'
 
 [extensions]
 enabledIdentifiers = [
@@ -57,8 +42,7 @@ enabledIdentifiers = [
     'com.brnbw.tuna.plugins.obsidian',
     'com.brnbw.tuna.plugins.reminders',
     'com.brnbw.tuna.plugins.safari',
-    'com.brnbw.tuna.plugins.things',
-    'com.example.TunaBrewDX'
+    'com.brnbw.tuna.plugins.things'
 ]
 
 [hotkeys.app.activate]
@@ -107,15 +91,27 @@ presentation = 'auto'
 
 [[hotkeys.custom]]
 id = '65966102-7E4A-4C40-8719-87DF69A6F59C'
-presentation = 'auto'
+presentation = 'show'
 
     [hotkeys.custom.command]
     actionIdentifier = 'Tuna.BasicActionsCatalog.Resolve'
     subjectIdentifier = 'Tuna.CurrentSelectionCatalog.Current Selection'
 
     [hotkeys.custom.shortcut]
-    carbonKeyCode = 7
-    carbonModifiers = 6144
+    carbonKeyCode = 5
+    carbonModifiers = 6912
+
+[[hotkeys.custom]]
+id = 'BEAA276E-6DFD-4AE0-AF3A-77BABE5D785F'
+presentation = 'auto'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'TunaCore.CommonActionsCatalog.Run'
+    subjectIdentifier = 'Tuna.EffectsCatalog.Confetti'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 13
+    carbonModifiers = 6912
 
 [[hotkeys.custom]]
 id = 'E287933F-3EE0-4608-B02E-54B6AE92BD10'
@@ -164,12 +160,12 @@ label = 'Apps'
     url = 'tuna://run/path.%252FApplications%252FPlain%2520Text%2520Editor.app/Open'
 
     [[leaderMode.bindings.children]]
-    key = 't'
-    url = 'tuna://run/path.%252FApplications%252FThings3.app/Open'
-
-    [[leaderMode.bindings.children]]
     key = 'r'
     url = 'tuna://run/path.%252FApplications%252FReeder.app/Open'
+
+    [[leaderMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run/path.%252FApplications%252FThings3.app/Open'
 
 [[leaderMode.bindings]]
 key = 'B'
@@ -209,19 +205,19 @@ label = 'Capture'
 
     [[leaderMode.bindings.children]]
     key = 'a'
-    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Capture%20Area/TunaCore.CommonActionsCatalog.Run'
+    url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Capture%20Area/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'f'
-    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Capture%20Full%20Screen/TunaCore.CommonActionsCatalog.Run'
+    url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Capture%20Full%20Screen/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'v'
-    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Record%20Screen/TunaCore.CommonActionsCatalog.Run'
+    url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Record%20Screen/TunaCore.CommonActionsCatalog.Run'
 
     [[leaderMode.bindings.children]]
     key = 'w'
-    url = 'tuna://run/TunaCleanShot.CleanShotActionsCatalog.Capture%20Window/TunaCore.CommonActionsCatalog.Run'
+    url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Capture%20Window/TunaCore.CommonActionsCatalog.Run'
 
 [[leaderMode.bindings]]
 iconPath = 'hammer'
@@ -269,6 +265,11 @@ label = 'Environment'
         key = '3'
         label = '100%'
         url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=1.0/Open%20URL'
+
+[[leaderMode.bindings]]
+key = 'enter'
+label = 'Terminal'
+url = 'tuna://run/path.%252FApplications%252FGhostty.app/Open'
 
 [[leaderMode.bindings]]
 iconPath = 'uiwindow.split.2x1'
@@ -419,6 +420,11 @@ label = 'Messaging'
     url = 'tuna://run/path.%252FApplications%252FMessenger.app/Open'
 
     [[leaderMode.bindings.children]]
+    key = 'i'
+    label = 'Open'
+    url = 'tuna://run/TunaCore.AllApplicationsCatalog.Signal/TunaCore.CommonActionsCatalog.Open'
+
+    [[leaderMode.bindings.children]]
     key = 'k'
     url = 'tuna://run/path.%252FApplications%252FKeet.app/Open'
 
@@ -433,11 +439,6 @@ label = 'Messaging'
     [[leaderMode.bindings.children]]
     key = 't'
     url = 'tuna://run/path.%252FApplications%252FTelegram.app/Open'
-
-    [[leaderMode.bindings.children]]
-    key = 'i'
-    label = 'Open'
-    url = 'tuna://run/TunaCore.AllApplicationsCatalog.Signal/TunaCore.CommonActionsCatalog.Open'
 
 [[leaderMode.bindings]]
 iconPath = 'diamond'
@@ -530,6 +531,10 @@ label = 'Tab sets'
         url = 'tuna://run/url.https:%252F%252Fbsky.app/Open%20URL'
 
         [[leaderMode.bindings.children.children]]
+        key = 'l'
+        url = 'tuna://run/url.https:%252F%252Fwww.linkedin.com%252Fnotifications%252F%253Ffilter=all/Open%20URL'
+
+        [[leaderMode.bindings.children.children]]
         key = 'm'
         label = 'Elk'
         url = 'tuna://run/url.https:%252F%252Felk.zone/Open%20URL'
@@ -538,10 +543,6 @@ label = 'Tab sets'
         key = 'x'
         label = 'X'
         url = 'tuna://run/url.https:%252F%252Fx.com/Open%20URL'
-
-        [[leaderMode.bindings.children.children]]
-        key = 'l'
-        url = 'tuna://run/url.https:%252F%252Fwww.linkedin.com%252Fnotifications%252F%253Ffilter=all/Open%20URL'
 
     [[leaderMode.bindings.children]]
     key = 't'
@@ -572,6 +573,10 @@ label = 'Tab sets'
 iconPath = 'rectangle.grid.2x2'
 key = 'w'
 label = 'Aerospace'
+
+    [[leaderMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fwindow-management%252Fcenter/Open%20URL'
 
     [[leaderMode.bindings.children]]
     key = 'e'
@@ -735,10 +740,6 @@ label = 'Aerospace'
     label = 'workspace w'
     url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b2/Run%20Text%20as%20Shell%20Command'
 
-    [[leaderMode.bindings.children]]
-    key = 'c'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fwindow-management%252Fcenter/Open%20URL'
-
 [[leaderMode.bindings]]
 iconPath = 'gamecontroller'
 key = 'up'
@@ -770,16 +771,30 @@ key = 'up'
                                     [[leaderMode.bindings.children.children.children.children.children.children.children.children.children]]
                                     key = 'a'
                                     label = 'You found a secret!'
-                                    url = 'tuna://run/url.raycast:%252F%252Fconfetti/Open%20URL'
+                                    url = 'tuna://run/Tuna.EffectsCatalog.Confetti%20Rain/TunaCore.CommonActionsCatalog.Run'
 
 [[leaderMode.bindings]]
-key = 'enter'
-label = 'Terminal'
-url = 'tuna://run/path.%252FApplications%252FGhostty.app/Open'
+key = 'j'
+url = 'tuna://run/TunaSystem.AllWindowsSearchCatalog.Windows/Tuna.BasicActionsCatalog.Browse'
 
 [[leaderMode.bindings]]
-key = 'y'
-url = 'tuna://run/TunaCore.AllApplicationsCatalog.Slack/Open'
+key = 'M'
+
+    [[leaderMode.bindings.children]]
+    key = '1'
+    url = 'tuna://run/Tuna.ModesCatalog.Fuzzy%20Mode/TunaCore.CommonActionsCatalog.Switch'
+
+    [[leaderMode.bindings.children]]
+    key = '2'
+    url = 'tuna://run/Tuna.ModesCatalog.Text%20Mode/TunaCore.CommonActionsCatalog.Switch'
+
+    [[leaderMode.bindings.children]]
+    key = '4'
+    url = 'tuna://run/Tuna.ModesCatalog.Talk%20Mode/TunaCore.CommonActionsCatalog.Switch'
+
+[[leaderMode.bindings]]
+key = 'n'
+url = 'tuna://run/url.tuna:%252F%252Frun%252FTuna.CustomFolderCatalog.4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF.dev%252FTuna.BasicActionsCatalog.Browse/Open%20URL'
 
 [settings]
 catalogPeriodicRescanEnabled = false
@@ -788,8 +803,10 @@ clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keyc
 dictationActivationMode = 'toggle'
 leaderModeCheatsheetShowDetails = false
 leaderModeModifierTrigger = 'hyper'
+physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
+shelfWindowAlwaysOnTop = false
 spacebarBehavior = 'switchToTextMode'
 talkModeModifierTrigger = 'rightOption'
 themeIdentifier = 'com.brnbw.tuna.themes.default'
@@ -797,36 +814,43 @@ themeIdentifier = 'com.brnbw.tuna.themes.default'
 [[smartLinks.entries]]
 enabled = true
 name = 'Giphy'
+requiresInput = true
 template = 'https://giphy.com/search/{{input}}'
 
 [[smartLinks.entries]]
 enabled = true
 name = 'GitHub'
+requiresInput = true
 template = 'https://github.com/search?q={{input}}'
 
 [[smartLinks.entries]]
 enabled = true
 name = 'Google'
+requiresInput = true
 template = 'https://www.google.com/search?q={{input}}'
 
 [[smartLinks.entries]]
 enabled = true
 name = 'TailwindCSS'
+requiresInput = true
 template = 'https://www.google.com/search?q=site:tailwindcss.com%20{{input}}'
 
 [[smartLinks.entries]]
 enabled = true
 name = 'Wikipedia'
+requiresInput = true
 template = 'https://en.wikipedia.org/wiki/Special:Search?search={{input}}'
 
 [[smartLinks.entries]]
 enabled = true
 name = 'X'
+requiresInput = true
 template = 'http://x.com/search?q={{input}}'
 
 [[smartLinks.entries]]
 enabled = true
 name = 'YouTube'
+requiresInput = true
 template = 'https://www.youtube.com/results?search_query={{input}}'
 
 [[catalogSettings]]
@@ -846,6 +870,12 @@ catalogIdentifier = 'TunaThings.ThingsActionsCatalog'
 
     [catalogSettings.values]
     ShowThingsWhenAdding = 'false'
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.plugins.emoji'
+
+    [catalogSettings.values]
+    EmojiSkinTone = 'default'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.plugins.things'
