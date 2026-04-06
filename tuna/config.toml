@@ -1,5 +1,32 @@
 schemaVersion = 1
 
+[actionPreferences]
+objectOverrides = []
+version = 2
+
+    [[actionPreferences.typeRankings]]
+    typeID = 'com.tuna.type.text-solver-result'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Copy Answer'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Copy Unformatted Answer'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Copy Question and Answer'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Resolve Result'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Swap Units'
+        catalogIdentifier = 'Tuna.BasicActionsCatalog'
+
 [[catalogConfiguration.customFolders]]
 depthRawValue = 1
 entryType = 'directory'
@@ -99,6 +126,18 @@ presentation = 'show'
 
     [hotkeys.custom.shortcut]
     carbonKeyCode = 5
+    carbonModifiers = 6912
+
+[[hotkeys.custom]]
+id = 'BE292C99-6B22-4F48-B5B1-1973025FD436'
+presentation = 'auto'
+
+    [hotkeys.custom.command]
+    actionIdentifier = 'TunaCore.CommonActionsCatalog.Run'
+    subjectIdentifier = 'TunaSystem.WindowManagementCatalog.Left Half'
+
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 123
     carbonModifiers = 6912
 
 [[hotkeys.custom]]
@@ -774,7 +813,7 @@ key = 'up'
                                     url = 'tuna://run/Tuna.EffectsCatalog.Confetti%20Rain/TunaCore.CommonActionsCatalog.Run'
 
 [[leaderMode.bindings]]
-key = 'j'
+key = 'tab'
 url = 'tuna://run/TunaSystem.AllWindowsSearchCatalog.Windows/Tuna.BasicActionsCatalog.Browse'
 
 [[leaderMode.bindings]]
@@ -794,7 +833,7 @@ key = 'M'
 
 [[leaderMode.bindings]]
 key = 'n'
-url = 'tuna://run/url.tuna:%252F%252Frun%252FTuna.CustomFolderCatalog.4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF.dev%252FTuna.BasicActionsCatalog.Browse/Open%20URL'
+url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.X%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6/Open%20URL'
 
 [settings]
 catalogPeriodicRescanEnabled = false
@@ -806,8 +845,6 @@ leaderModeModifierTrigger = 'hyper'
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
-shelfWindowAlwaysOnTop = false
-spacebarBehavior = 'switchToTextMode'
 talkModeModifierTrigger = 'rightOption'
 themeIdentifier = 'com.brnbw.tuna.themes.default'
 
@@ -864,6 +901,13 @@ catalogIdentifier = 'TunaEmoji.EmojiCatalog'
 
     [catalogSettings.values]
     EmojiSkinTone = 'default'
+
+[[catalogSettings]]
+catalogIdentifier = 'TunaSystem.WindowManagementCatalog'
+
+    [catalogSettings.values]
+    Cycling = 'none'
+    Gap = '0'
 
 [[catalogSettings]]
 catalogIdentifier = 'TunaThings.ThingsActionsCatalog'

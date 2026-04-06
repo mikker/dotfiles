@@ -1,0 +1,19 @@
+{
+  "lastChangelogVersion": "0.65.2",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "high",
+  "theme": "zenbones-ansi",
+  "quietStartup": true,
+  "collapseChangelog": true,
+  "hideThinkingBlock": true,
+  "doubleEscapeAction": "tree",
+  "showHardwareCursor": true,
+  "editorPaddingX": 0,
+  "autocompleteMaxVisible": 8,
+  "transport": "auto",
+  "packages": [
+    "~/.dotfiles/pi"
+  ],
+  "enableSkillCommands": true
+}

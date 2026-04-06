@@ -1,0 +1,15 @@
+[[snippets]]
+trigger = "::ll"
+replace = "🩷"
+
+[[snippets]]
+trigger = "::sh"
+replace = "🤷‍♂️"
+
+[[snippets]]
+trigger = "::sa"
+replace = "🫡"
+
+[[snippets]]
+trigger = "::wa"
+replace = "👋"

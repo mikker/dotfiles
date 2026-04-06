@@ -1,0 +1,82 @@
+{
+  "$schema": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json",
+  "name": "amp-ish",
+  "vars": {
+    "bg": "#0f1115",
+    "panel": "#141821",
+    "panelAlt": "#171c26",
+    "accent": "#8fb7ff",
+    "accent2": "#a7c1ff",
+    "green": "#98c379",
+    "red": "#e06c75",
+    "yellow": "#e5c07b",
+    "gray": "#8b93a7",
+    "dimGray": "#5c6370",
+    "border": "#2a3140",
+    "borderSoft": "#202634"
+  },
+  "colors": {
+    "accent": "accent",
+    "border": "border",
+    "borderAccent": "accent2",
+    "borderMuted": "borderSoft",
+    "success": "green",
+    "error": "red",
+    "warning": "yellow",
+    "muted": "gray",
+    "dim": "dimGray",
+    "text": "",
+    "thinkingText": "gray",
+
+    "selectedBg": "panelAlt",
+    "userMessageBg": "panel",
+    "userMessageText": "",
+    "customMessageBg": "panel",
+    "customMessageText": "",
+    "customMessageLabel": "accent",
+    "toolPendingBg": "",
+    "toolSuccessBg": "",
+    "toolErrorBg": "",
+    "toolTitle": "",
+    "toolOutput": "gray",
+
+    "mdHeading": "#d7e3ff",
+    "mdLink": "accent2",
+    "mdLinkUrl": "gray",
+    "mdCode": "accent2",
+    "mdCodeBlock": "#c8d3f5",
+    "mdCodeBlockBorder": "border",
+    "mdQuote": "gray",
+    "mdQuoteBorder": "border",
+    "mdHr": "border",
+    "mdListBullet": "accent",
+
+    "toolDiffAdded": "green",
+    "toolDiffRemoved": "red",
+    "toolDiffContext": "gray",
+
+    "syntaxComment": "#6b7280",
+    "syntaxKeyword": "#c792ea",
+    "syntaxFunction": "#82aaff",
+    "syntaxVariable": "#d7e3ff",
+    "syntaxString": "#c3e88d",
+    "syntaxNumber": "#f78c6c",
+    "syntaxType": "#89ddff",
+    "syntaxOperator": "#c8d3f5",
+    "syntaxPunctuation": "#9aa5ce",
+
+    "thinkingOff": "borderSoft",
+    "thinkingMinimal": "#51607d",
+    "thinkingLow": "#5873a6",
+    "thinkingMedium": "#6f8fd8",
+    "thinkingHigh": "#8fb7ff",
+    "thinkingXhigh": "#b4c8ff",
+
+    "bashMode": "green"
+  },
+  "export": {
+    "pageBg": "#0f1115",
+    "cardBg": "#141821",
+    "infoBg": "#1b2230"
+  }
+}

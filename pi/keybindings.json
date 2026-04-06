@@ -1,0 +1,9 @@
+{
+  "tui.editor.cursorLeft": ["left", "ctrl+b", "alt+h"],
+  "tui.editor.cursorDown": ["down", "alt+j"],
+  "tui.editor.cursorUp": ["up", "alt+k"],
+  "tui.editor.cursorRight": ["right", "ctrl+f", "alt+l"],
+  "app.editor.external": ["ctrl+g", "alt+e"],
+  "tui.input.newLine": ["shift+enter", "alt+enter"],
+  "app.message.followUp": []
+}

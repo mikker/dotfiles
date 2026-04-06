@@ -32,7 +32,6 @@
 [core]
 	excludesfile = ~/.gitignore
 	editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RF
 [format]
 	pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -78,8 +77,6 @@
 	trustExitCode = true
 [init]
 	defaultBranch = main
-[interactive]
-	diffFilter = diff-so-fancy --patch
 [gpg]
 	program = gpg
 [http]
