@@ -1,0 +1,46 @@
+; vim: set ft=gitconfig
+
+[delta]
+    navigate = true
+    line-numbers = true
+
+[interactive]
+    diffFilter = ~/.dotfiles/bin/git-delta --color-only
+
+[delta "zenbones-dark"]
+    commit-style = "#B4BDC3"
+    commit-decoration-style = "#403833 box ul"
+    file-style = "#B4BDC3 bold"
+    file-decoration-style = "#403833 ul"
+    hunk-header-style = "#B4BDC3"
+    hunk-header-decoration-style = "#403833 box"
+    line-numbers-left-style = "#888F94"
+    line-numbers-right-style = "#888F94"
+    line-numbers-minus-style = "#DE6E7C"
+    line-numbers-plus-style = "#819B69"
+    minus-style = "#DE6E7C #2B1F22"
+    minus-emph-style = "#DE6E7C #40262B"
+    minus-empty-line-marker-style = "#DE6E7C #2B1F22"
+    plus-style = "#819B69 #1F261C"
+    plus-emph-style = "#8BAE68 #2B3525"
+    plus-empty-line-marker-style = "#819B69 #1F261C"
+    zero-style = "#888F94"
+
+[delta "zenbones-light"]
+    commit-style = "#2C363C"
+    commit-decoration-style = "#CFC1BA box ul"
+    file-style = "#2C363C bold"
+    file-decoration-style = "#CFC1BA ul"
+    hunk-header-style = "#2C363C"
+    hunk-header-decoration-style = "#CFC1BA box"
+    line-numbers-left-style = "#4F5E68"
+    line-numbers-right-style = "#4F5E68"
+    line-numbers-minus-style = "#A8334C"
+    line-numbers-plus-style = "#4F6C31"
+    minus-style = "#A8334C #F3E1E4"
+    minus-emph-style = "#94253E #EACBD0"
+    minus-empty-line-marker-style = "#A8334C #F3E1E4"
+    plus-style = "#4F6C31 #E4EBD9"
+    plus-emph-style = "#3F5A22 #D6E0C6"
+    plus-empty-line-marker-style = "#4F6C31 #E4EBD9"
+    zero-style = "#4F5E68"

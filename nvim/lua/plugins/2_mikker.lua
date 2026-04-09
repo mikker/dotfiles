@@ -1,29 +1,41 @@
 return {
-  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
-
-  { "folke/flash.nvim", enabled = false },
-  { "lewis6991/gitsigns.nvim", enabled = false },
+  -- moar
+  "tpope/vim-abolish", -- :S smart replace
+  "tpope/vim-eunuch", -- unix things
+  "tpope/vim-fugitive", -- git things
+  "tpope/vim-rhubarb", -- github things
+  "tpope/vim-projectionist", -- project navigation
 
   {
-    "ibhagwan/fzf-lua",
-    keys = {
-      { "<leader><space>", false },
-    },
+    "folke/which-key.nvim",
+    opts = function()
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>m", group = "+rerun" },
+        { "<leader>t", group = "+vimtest" },
+        { "<leader>v", group = "+nvimrc" },
+      })
+    end,
   },
 
-  -- {
-  --   "razak17/tailwind-fold.nvim",
-  --   opts = {
-  --     enabled = false,
-  --     symbol = "󱏿",
-  --   },
-  --   keys = {
-  --     { "<leader>ut", "<cmd>TailwindFoldToggle<cr>", desc = "Toggle Tailwind Fold" },
-  --   },
-  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --   ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade", "slim", "eruby" },
-  -- },
+  {
+    "mikker/vim-rerunner",
+    dev = true,
+    cmd = { "Rerun", "RerunWhat" },
+    keys = {
+      { "<cr>", "<cmd>Rerun<cr>", desc = "Run", mode = "n" },
+    },
+    config = function()
+      vim.g.rerunner_focus = "TestLast"
+    end,
+  },
 
+  {
+    "mattn/emmet-vim",
+    init = function()
+      vim.g.user_emmet_leader_key = "<c-.>"
+    end,
+  },
   {
     "nvim-mini/mini.splitjoin",
     init = function()
@@ -79,5 +91,4 @@ return {
       { "-", "<CMD>Oil<cr>" },
     },
   },
-
 }

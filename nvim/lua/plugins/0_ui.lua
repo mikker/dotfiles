@@ -18,36 +18,11 @@ local logo = [[
 ]]
 
 return {
-  {
-    "j-hui/fidget.nvim",
-    opts = {
-      -- options
-    },
-  },
-
-  -- no bufferline
   { "akinsho/bufferline.nvim", enabled = false },
-
-  -- no indent guides
-  { "lukas-reineke/indent-blankline.nvim", enabled = false },
-
-  -- no fancy ui
+  -- lualine
   { "folke/noice.nvim", enabled = false },
-  -- { "stevearc/dressing.nvim", enabled = false },
-
-  -- extend which-key legend
-  {
-    "folke/which-key.nvim",
-    opts = function()
-      local wk = require("which-key")
-      wk.add({
-        { "<leader>m", group = "+rerun" },
-        { "<leader>t", group = "+vimtest" },
-        { "<leader>v", group = "+nvimrc" },
-      })
-    end,
-  },
-
+  -- mini.icons
+  -- nui.nvim
   {
     "folke/snacks.nvim",
     opts = {

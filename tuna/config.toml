@@ -59,19 +59,6 @@ sortOrder = 'capturedAt.desc'
 catalogIdentifier = 'TunaEmoji.EmojiSearchCatalog'
 sortOrder = 'score.desc'
 
-[extensions]
-enabledIdentifiers = [
-    'com.brnbw.tuna.plugins.brew',
-    'com.brnbw.tuna.plugins.cleanshot',
-    'com.brnbw.tuna.plugins.github',
-    'com.brnbw.tuna.plugins.notes',
-    'com.brnbw.tuna.plugins.notion',
-    'com.brnbw.tuna.plugins.obsidian',
-    'com.brnbw.tuna.plugins.reminders',
-    'com.brnbw.tuna.plugins.safari',
-    'com.brnbw.tuna.plugins.things'
-]
-
 [hotkeys.app.activate]
 carbonKeyCode = 49
 carbonModifiers = 256
@@ -813,7 +800,7 @@ key = 'up'
                                     url = 'tuna://run/Tuna.EffectsCatalog.Confetti%20Rain/TunaCore.CommonActionsCatalog.Run'
 
 [[leaderMode.bindings]]
-key = 'tab'
+key = 'space'
 url = 'tuna://run/TunaSystem.AllWindowsSearchCatalog.Windows/Tuna.BasicActionsCatalog.Browse'
 
 [[leaderMode.bindings]]

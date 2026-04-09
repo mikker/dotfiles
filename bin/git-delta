@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euo pipefail
+
+if "$(dirname "$0")/is-this-dark-mode"; then
+  theme=zenbones-dark
+else
+  theme=zenbones-light
+fi
+
+exec delta --features "$theme" "$@"

@@ -12,17 +12,6 @@ return {
 
 	  let test#strategy = "tt"
 		" let test#strategy = "vtr"
-
-		let test#custom_runners = {'Solidity': ['Forge']}
-
-		let test#solidity#patterns = {
-		  \ 'test': [
-		    \ '\v^\s*function (test[^(]+)',
-		    \ ],
-		  \ 'namespace': [
-		    \ '\v^\s*contract (\S+)',
-		    \ ]
-		  \ }
 		]])
     end,
     keys = {

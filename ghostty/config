@@ -1,11 +1,11 @@
 #font-family = "IBM Plex Mono"
-#font-family = "Iosevka"
+font-family = "Iosevka"
 #font-family = "Berkeley Mono"
 #font-family = "Cartograph CF"
 #font-family = "Cascadia Code NF"
 #font-family = "Martian Mono"
 #font-family = "SF Mono"
-font-family = "Pragmasevka Nerd Font"
+#font-family = "Pragmasevka Nerd Font"
 #font-family = "Maple Mono NF"
 
 font-style = "Regular"

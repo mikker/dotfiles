@@ -28,7 +28,7 @@
 
     "selectedBg": "",
     "userMessageBg": "",
-    "userMessageText": "",
+    "userMessageText": "yellow",
     "customMessageBg": "",
     "customMessageText": "",
     "customMessageLabel": "blue",
