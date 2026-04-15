@@ -5,8 +5,6 @@
 	signingkey = 7B09867145A39CC3
 [includeIf "gitdir:~/dev/tp"]
   path = "~/dev/tp/.gitconfig"
-[include]
-  path = ~/.delta.gitconfig
 [color]
 	diff = auto
 	status = auto
@@ -34,7 +32,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	editor = nvim
-	pager = ~/.dotfiles/bin/git-delta
+	pager = git-delta
 [format]
 	pretty=format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
 [push]
@@ -87,3 +85,5 @@
 	postBuffer = 524288000
 	lowSpeedLimit = 0
 	lowSpeedTime = 999999
+[include]
+  path = ~/.dotfiles/git/delta.gitconfig.symlink

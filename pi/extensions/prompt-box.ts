@@ -1,6 +1,10 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import { complete, type Message } from "@mariozechner/pi-ai";
-import { CustomEditor, type ExtensionAPI, type ExtensionContext } from "@mariozechner/pi-coding-agent";
+import {
+  CustomEditor,
+  type ExtensionAPI,
+  type ExtensionContext,
+} from "@mariozechner/pi-coding-agent";
 import { basename } from "node:path";
 import {
   CombinedAutocompleteProvider,
@@ -43,7 +47,9 @@ type TextBlock = {
   text?: string;
 };
 
-function formatThinkingLevel(level: ReturnType<ExtensionAPI["getThinkingLevel"]>): string {
+function formatThinkingLevel(
+  level: ReturnType<ExtensionAPI["getThinkingLevel"]>,
+): string {
   switch (level) {
     case "off":
       return "◌ off";
@@ -57,6 +63,8 @@ function formatThinkingLevel(level: ReturnType<ExtensionAPI["getThinkingLevel"]>
       return "● high";
     case "xhigh":
       return "✹ max";
+    default:
+      return "";
   }
 }
 
@@ -74,7 +82,9 @@ function looksLikeEditorRule(line: string): boolean {
   return plain.startsWith("─");
 }
 
-function extractInlineMatch(lineBeforeCursor: string): { trigger: "$" | "#"; prefix: string } | null {
+function extractInlineMatch(
+  lineBeforeCursor: string,
+): { trigger: "$" | "#"; prefix: string } | null {
   const match = lineBeforeCursor.match(INLINE_SKILL_PATTERN);
   if (!match) return null;
   const trigger = match[2];
@@ -127,11 +137,13 @@ function buildSummaryContext(ctx: ExtensionContext): string {
     .join("\n\n");
 }
 
-async function generateTaskSummary(ctx: ExtensionContext): Promise<string | null> {
+async function generateTaskSummary(
+  ctx: ExtensionContext,
+): Promise<string | null> {
   const preferredModel =
-    ctx.modelRegistry.find("openai-codex", "gpt-5.4-mini")
-    ?? ctx.modelRegistry.find("openai-codex", "gpt-5.1-codex-mini")
-    ?? ctx.model;
+    ctx.modelRegistry.find("openai-codex", "gpt-5.4-mini") ??
+    ctx.modelRegistry.find("openai-codex", "gpt-5.1-codex-mini") ??
+    ctx.model;
   if (!preferredModel) return null;
 
   const auth = await ctx.modelRegistry.getApiKeyAndHeaders(preferredModel);
@@ -140,25 +152,35 @@ async function generateTaskSummary(ctx: ExtensionContext): Promise<string | null
   const conversation = buildSummaryContext(ctx);
   if (!conversation) return null;
 
-  const messages: Message[] = [{
-    role: "user",
-    content: [{
-      type: "text",
-      text: [
-        "Generate a very short coding task label for this session.",
-        "Return only the label.",
-        "Rules: 2-6 words, lowercase, concrete, no punctuation, no quotes.",
-        "Prefer active work like fix auth redirect or refactor prompt box.",
-        "",
-        conversation,
-      ].join("\n"),
-    }],
-    timestamp: Date.now(),
-  }];
+  const messages: Message[] = [
+    {
+      role: "user",
+      content: [
+        {
+          type: "text",
+          text: [
+            "Generate a very short coding task label for this session.",
+            "Return only the label.",
+            "Rules: 2-6 words, lowercase, concrete, no punctuation, no quotes.",
+            "Prefer active work like fix auth redirect or refactor prompt box.",
+            "",
+            conversation,
+          ].join("\n"),
+        },
+      ],
+      timestamp: Date.now(),
+    },
+  ];
 
-  const response = await complete(preferredModel, { messages }, { apiKey: auth.apiKey, headers: auth.headers });
+  const response = await complete(
+    preferredModel,
+    { messages },
+    { apiKey: auth.apiKey, headers: auth.headers },
+  );
   const summary = response.content
-    .filter((block): block is { type: "text"; text: string } => block.type === "text")
+    .filter(
+      (block): block is { type: "text"; text: string } => block.type === "text",
+    )
     .map((block) => block.text)
     .join(" ")
     .replace(/\s+/g, " ")
@@ -169,7 +191,10 @@ async function generateTaskSummary(ctx: ExtensionContext): Promise<string | null
   return summary ? truncateToWidth(summary, 28, "…") : null;
 }
 
-async function getGitMeta(pi: ExtensionAPI, cwd: string): Promise<GitMeta | null> {
+async function getGitMeta(
+  pi: ExtensionAPI,
+  cwd: string,
+): Promise<GitMeta | null> {
   const [branchResult, statusResult] = await Promise.all([
     pi.exec("git", ["-C", cwd, "branch", "--show-current"]),
     pi.exec("git", ["-C", cwd, "status", "--porcelain"]),
@@ -184,7 +209,8 @@ async function getGitMeta(pi: ExtensionAPI, cwd: string): Promise<GitMeta | null
     if ((line[0] ?? " ") !== " ") staged += 1;
     if ((line[1] ?? " ") !== " ") unstaged += 1;
   }
-  const status = staged === 0 && unstaged === 0 ? "clean" : `+${staged}/-${unstaged}`;
+  const status =
+    staged === 0 && unstaged === 0 ? "clean" : `+${staged}/-${unstaged}`;
   return { branch, status };
 }
 
@@ -192,7 +218,7 @@ class InlineSkillAutocompleteProvider implements AutocompleteProvider {
   constructor(
     private readonly getSkills: () => SkillRef[],
     private readonly fallback: AutocompleteProvider,
-  ) { }
+  ) {}
 
   async getSuggestions(
     lines: string[],
@@ -205,7 +231,12 @@ class InlineSkillAutocompleteProvider implements AutocompleteProvider {
     const inlineMatch = extractInlineMatch(beforeCursor);
 
     if (!inlineMatch) {
-      return this.fallback.getSuggestions(lines, cursorLine, cursorCol, options);
+      return this.fallback.getSuggestions(
+        lines,
+        cursorLine,
+        cursorCol,
+        options,
+      );
     }
 
     const items: AutocompleteItem[] = this.getSkills()
@@ -223,16 +254,30 @@ class InlineSkillAutocompleteProvider implements AutocompleteProvider {
     };
   }
 
-  applyCompletion(lines: string[], cursorLine: number, cursorCol: number, item: AutocompleteItem, prefix: string) {
+  applyCompletion(
+    lines: string[],
+    cursorLine: number,
+    cursorCol: number,
+    item: AutocompleteItem,
+    prefix: string,
+  ) {
     if (!prefix.startsWith("$") && !prefix.startsWith("#")) {
-      return this.fallback.applyCompletion(lines, cursorLine, cursorCol, item, prefix);
+      return this.fallback.applyCompletion(
+        lines,
+        cursorLine,
+        cursorCol,
+        item,
+        prefix,
+      );
     }
 
     const line = lines[cursorLine] ?? "";
     const beforeCursor = line.slice(0, cursorCol);
     const afterCursor = line.slice(cursorCol);
     const replacement = `${prefix[0]}${item.value}`;
-    const nextBeforeCursor = beforeCursor.slice(0, Math.max(0, beforeCursor.length - prefix.length)) + replacement;
+    const nextBeforeCursor =
+      beforeCursor.slice(0, Math.max(0, beforeCursor.length - prefix.length)) +
+      replacement;
     const nextLines = [...lines];
     nextLines[cursorLine] = `${nextBeforeCursor}${afterCursor}`;
 
@@ -275,20 +320,28 @@ class PromptBoxEditor extends CustomEditor {
     this.theme = theme;
     this.getSkillsRef = getSkills;
     const fallback = new CombinedAutocompleteProvider(getCommands(), basePath);
-    this.setAutocompleteProvider(new InlineSkillAutocompleteProvider(getSkills, fallback));
+    this.setAutocompleteProvider(
+      new InlineSkillAutocompleteProvider(getSkills, fallback),
+    );
   }
 
   refresh(): void {
     this.tui.requestRender();
   }
 
-  private getInlineContext(): { trigger: "$" | "#"; prefix: string; matches: SkillRef[] } | null {
+  private getInlineContext(): {
+    trigger: "$" | "#";
+    prefix: string;
+    matches: SkillRef[];
+  } | null {
     const cursor = this.getCursor();
     const line = this.getLines()[cursor.line] ?? "";
     const beforeCursor = line.slice(0, cursor.col);
     const match = extractInlineMatch(beforeCursor);
     if (!match) return null;
-    const matches = this.getSkillsRef().filter((skill) => skill.name.startsWith(match.prefix));
+    const matches = this.getSkillsRef().filter((skill) =>
+      skill.name.startsWith(match.prefix),
+    );
     if (matches.length === 0) return null;
     return { ...match, matches };
   }
@@ -298,7 +351,8 @@ class PromptBoxEditor extends CustomEditor {
     if (!first) return "";
     let prefix = first;
     for (const name of rest) {
-      while (!name.startsWith(prefix) && prefix.length > 0) prefix = prefix.slice(0, -1);
+      while (!name.startsWith(prefix) && prefix.length > 0)
+        prefix = prefix.slice(0, -1);
     }
     return prefix;
   }
@@ -308,7 +362,9 @@ class PromptBoxEditor extends CustomEditor {
       const context = this.getInlineContext();
       if (context) {
         const completionName =
-          context.matches.length === 1 ? context.matches[0]!.name : this.getCommonNamePrefix(context.matches);
+          context.matches.length === 1
+            ? context.matches[0]!.name
+            : this.getCommonNamePrefix(context.matches);
         const current = `${context.trigger}${context.prefix}`;
         const target = `${context.trigger}${completionName}`;
         if (target.startsWith(current) && target.length > current.length) {
@@ -340,39 +396,73 @@ class PromptBoxEditor extends CustomEditor {
     const inlineContext = this.getInlineContext();
     const inlineSuggestions = inlineContext
       ? inlineContext.matches.slice(0, 5).map((skill, index) => {
-        const prefix = index === 0 ? "→ " : "  ";
-        const text = `${prefix}${inlineContext.trigger}${skill.name}${skill.description ? ` — ${skill.description}` : ""}`;
-        return truncateToWidth(this.theme.selectList.description(text), Math.max(1, innerWidth));
-      })
+          const prefix = index === 0 ? "→ " : "  ";
+          const text = `${prefix}${inlineContext.trigger}${skill.name}${
+            skill.description ? ` — ${skill.description}` : ""
+          }`;
+          return truncateToWidth(
+            this.theme.selectList.description(text),
+            Math.max(1, innerWidth),
+          );
+        })
       : [];
 
-    const leftTitle = ` ${TITLE_GLYPH} ${this.title().trim() || DEFAULT_STATUS} `;
+    const leftTitle = ` ${TITLE_GLYPH} ${
+      this.title().trim() || DEFAULT_STATUS
+    } `;
     const summary = this.summary().trim();
     const badge = this.badge().trim();
     const model = this.model().trim();
     const thinking = this.thinking().trim();
-    const rightMeta = [summary, badge, model, thinking].filter(Boolean).join("  ");
-    const maxLeftWidth = Math.max(0, width - 8 - (rightMeta ? visibleWidth(` ${rightMeta} `) : 0));
+    const rightMeta = [summary, badge, model, thinking]
+      .filter(Boolean)
+      .join("  ");
+    const maxLeftWidth = Math.max(
+      0,
+      width - 8 - (rightMeta ? visibleWidth(` ${rightMeta} `) : 0),
+    );
     const titleText = truncateToWidth(leftTitle, maxLeftWidth, "");
-    const badgeText = rightMeta ? ` ${truncateToWidth(rightMeta, Math.max(0, width - visibleWidth(titleText) - 4), "")} ` : "";
-    const topFill = Math.max(0, width - visibleWidth(titleText) - visibleWidth(badgeText) - 2);
-    const top = `${SUBTLE_BORDER("╭")}${SUBTLE_TITLE(titleText)}${SUBTLE_BORDER("─".repeat(topFill))}${badgeText ? SUBTLE_BADGE(badgeText) : ""}${SUBTLE_BORDER("╮")}`;
+    const badgeText = rightMeta
+      ? ` ${truncateToWidth(
+          rightMeta,
+          Math.max(0, width - visibleWidth(titleText) - 4),
+          "",
+        )} `
+      : "";
+    const topFill = Math.max(
+      0,
+      width - visibleWidth(titleText) - visibleWidth(badgeText) - 2,
+    );
+    const top = `${SUBTLE_BORDER("╭")}${SUBTLE_TITLE(titleText)}${SUBTLE_BORDER(
+      "─".repeat(topFill),
+    )}${badgeText ? SUBTLE_BADGE(badgeText) : ""}${SUBTLE_BORDER("╮")}`;
     const separator = SUBTLE_BORDER(`├${"─".repeat(width - 2)}┤`);
     const bottom = SUBTLE_BORDER(`╰${"─".repeat(width - 2)}╯`);
 
     const boxedBody = (bodyLines.length > 0 ? bodyLines : [""]).map(
-      (line) => `${SUBTLE_BORDER("│")} ${padLine(line, innerWidth)} ${SUBTLE_BORDER("│")}`,
+      (line) =>
+        `${SUBTLE_BORDER("│")} ${padLine(line, innerWidth)} ${SUBTLE_BORDER(
+          "│",
+        )}`,
     );
     const boxedInlineSuggestions = inlineSuggestions.map(
-      (line) => `${SUBTLE_BORDER("│")} ${padLine(line, innerWidth)} ${SUBTLE_BORDER("│")}`,
+      (line) =>
+        `${SUBTLE_BORDER("│")} ${padLine(line, innerWidth)} ${SUBTLE_BORDER(
+          "│",
+        )}`,
     );
     const boxedAutocomplete = autocompleteLines.map(
-      (line) => `${SUBTLE_BORDER("│")} ${padLine(line, innerWidth)} ${SUBTLE_BORDER("│")}`,
+      (line) =>
+        `${SUBTLE_BORDER("│")} ${padLine(line, innerWidth)} ${SUBTLE_BORDER(
+          "│",
+        )}`,
     );
 
     const lines = [top, ...boxedBody];
-    if (boxedInlineSuggestions.length > 0) lines.push(separator, ...boxedInlineSuggestions);
-    if (boxedAutocomplete.length > 0) lines.push(separator, ...boxedAutocomplete);
+    if (boxedInlineSuggestions.length > 0)
+      lines.push(separator, ...boxedInlineSuggestions);
+    if (boxedAutocomplete.length > 0)
+      lines.push(separator, ...boxedAutocomplete);
     lines.push(bottom);
     return lines;
   }
@@ -388,6 +478,8 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   let gitMeta: GitMeta | null = null;
   let lastSummarizedLeafId: string | undefined;
   let summaryRun = 0;
+  let gitMetaPollTimer: ReturnType<typeof setInterval> | undefined;
+  let gitMetaRefreshInFlight = false;
 
   const setStatus = (status: string) => {
     currentStatus = status.trim() || DEFAULT_STATUS;
@@ -404,16 +496,42 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     editor?.refresh();
   };
 
+  const setStatusFromSessionName = () => {
+    setStatus(pi.getSessionName() ?? DEFAULT_STATUS);
+  };
+
   const refreshTitle = () => {
-    const parts = [currentCwd ? basename(currentCwd) : undefined, gitMeta?.branch, gitMeta?.status].filter(Boolean);
+    const parts = [
+      currentCwd ? basename(currentCwd) : undefined,
+      gitMeta?.branch,
+      gitMeta?.status,
+    ].filter(Boolean);
     currentTitle = parts.join(" · ") || DEFAULT_STATUS;
     editor?.refresh();
   };
 
   const refreshGitMeta = async () => {
-    if (!currentCwd) return;
-    gitMeta = await getGitMeta(pi, currentCwd);
-    refreshTitle();
+    if (!currentCwd || gitMetaRefreshInFlight) return;
+    gitMetaRefreshInFlight = true;
+    try {
+      gitMeta = await getGitMeta(pi, currentCwd);
+      refreshTitle();
+    } finally {
+      gitMetaRefreshInFlight = false;
+    }
+  };
+
+  const stopGitMetaPolling = () => {
+    if (!gitMetaPollTimer) return;
+    clearInterval(gitMetaPollTimer);
+    gitMetaPollTimer = undefined;
+  };
+
+  const startGitMetaPolling = () => {
+    stopGitMetaPolling();
+    gitMetaPollTimer = setInterval(() => {
+      void refreshGitMeta();
+    }, 5000);
   };
 
   const getSkills = (): SkillRef[] =>
@@ -437,13 +555,28 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
       description: command.description,
     }));
 
+  const resetState = () => {
+    stopGitMetaPolling();
+    currentCwd = undefined;
+    gitMeta = null;
+    currentModel = "";
+    currentTitle = DEFAULT_STATUS;
+    lastSummarizedLeafId = undefined;
+    summaryRun = 0;
+    editor = undefined;
+    setStatus(DEFAULT_STATUS);
+  };
+
   pi.on("session_start", (_event, ctx) => {
+    lastSummarizedLeafId = undefined;
+    summaryRun = 0;
     currentCwd = ctx.cwd;
     gitMeta = null;
-    setStatus(pi.getSessionName() ?? DEFAULT_STATUS);
+    setStatusFromSessionName();
     setModel(ctx.model?.id);
     refreshTitle();
     void refreshGitMeta();
+    startGitMetaPolling();
     ctx.ui.setEditorComponent((tui, theme, keybindings) => {
       editor = new PromptBoxEditor(
         tui,
@@ -473,7 +606,7 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
 
     const leafId = ctx.sessionManager.getLeafId();
     if (!leafId || leafId === lastSummarizedLeafId) {
-      setStatus(pi.getSessionName() ?? DEFAULT_STATUS);
+      setStatusFromSessionName();
       return;
     }
 
@@ -481,15 +614,14 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     try {
       const summary = await generateTaskSummary(ctx);
       if (runId !== summaryRun || !summary) {
-        setStatus(pi.getSessionName() ?? DEFAULT_STATUS);
+        setStatusFromSessionName();
         return;
       }
       lastSummarizedLeafId = leafId;
       pi.setSessionName(summary);
       setStatus(summary);
-    }
-    catch {
-      setStatus(pi.getSessionName() ?? DEFAULT_STATUS);
+    } catch {
+      setStatusFromSessionName();
     }
   });
 
@@ -498,11 +630,6 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   });
 
   pi.on("session_shutdown", async () => {
-    setStatus(DEFAULT_STATUS);
-    currentCwd = undefined;
-    gitMeta = null;
-    currentModel = "";
-    currentTitle = DEFAULT_STATUS;
-    editor = undefined;
+    resetState();
   });
 }

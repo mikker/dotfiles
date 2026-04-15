@@ -5,5 +5,5 @@
   "tui.editor.cursorRight": ["right", "ctrl+f", "alt+l"],
   "app.editor.external": ["ctrl+g", "alt+e"],
   "tui.input.newLine": ["shift+enter", "alt+enter"],
-  "app.message.followUp": []
+  "app.message.followUp": ["ctrl+enter"]
 }

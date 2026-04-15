@@ -820,7 +820,7 @@ key = 'M'
 
 [[leaderMode.bindings]]
 key = 'n'
-url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.X%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6/Open%20URL'
+url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.X%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6%252Ftext./Open%20URL'
 
 [settings]
 catalogPeriodicRescanEnabled = false
@@ -834,6 +834,12 @@ screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
 talkModeModifierTrigger = 'rightOption'
 themeIdentifier = 'com.brnbw.tuna.themes.default'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'Dash'
+requiresInput = true
+template = 'dash://?query={{input}}'
 
 [[smartLinks.entries]]
 enabled = true

@@ -1,0 +1,231 @@
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>Zenbones Light</string>
+  <key>author</key>
+  <string>Mikkel / derived from zenbones.nvim</string>
+  <key>colorSpaceName</key>
+  <string>sRGB</string>
+  <key>semanticClass</key>
+  <string>theme.light.zenbones</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key>
+        <string>#F0EDEC</string>
+        <key>foreground</key>
+        <string>#2C363C</string>
+        <key>caret</key>
+        <string>#2C363C</string>
+        <key>invisibles</key>
+        <string>#BBABA3</string>
+        <key>lineHighlight</key>
+        <string>#E9E4E2</string>
+        <key>selection</key>
+        <string>#CBD9E3</string>
+        <key>selectionBorder</key>
+        <string>#CFC1BA</string>
+        <key>guide</key>
+        <string>#E1DCDA</string>
+        <key>activeGuide</key>
+        <string>#BEB1AA</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Comment</string>
+      <key>scope</key>
+      <string>comment, punctuation.definition.comment</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#948985</string>
+        <key>fontStyle</key>
+        <string>italic</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>String</string>
+      <key>scope</key>
+      <string>string, meta.interpolation string, punctuation.definition.string</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#556570</string>
+        <key>fontStyle</key>
+        <string>italic</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Numbers and constants</string>
+      <key>scope</key>
+      <string>constant.numeric, constant.language, constant.character, constant.other, variable.other.constant</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#556570</string>
+        <key>fontStyle</key>
+        <string>italic</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Keywords and storage</string>
+      <key>scope</key>
+      <string>keyword, storage, storage.type, keyword.control, keyword.operator.word</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#2C363C</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>TypeScript keywords and modifiers</string>
+      <key>scope</key>
+      <string>keyword.control.import.ts, keyword.control.export.ts, keyword.control.flow.ts, storage.type.class.ts, storage.type.function.ts, storage.modifier.ts, storage.modifier.async.ts, storage.modifier.import.ts, storage.modifier.export.ts, keyword.operator.type.annotation.ts, keyword.operator.expression.typeof.ts</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#2C363C</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Types and classes</string>
+      <key>scope</key>
+      <string>entity.name.type, entity.name.class, entity.name.namespace, support.type, support.class, support.interface, meta.type</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#6A5549</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>TypeScript types</string>
+      <key>scope</key>
+      <string>entity.name.type.alias.ts, entity.name.type.interface.ts, entity.name.type.module.ts, entity.name.class.ts, support.type.primitive.ts, support.type.builtin.ts, support.class.builtin.ts</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#6A5549</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Functions and methods</string>
+      <key>scope</key>
+      <string>entity.name.function, support.function, support.macro, variable.function, meta.function-call, meta.method-call</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#2C363C</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Variables and identifiers</string>
+      <key>scope</key>
+      <string>variable, meta.definition.variable, entity.name.variable, support.variable, meta.parameter</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#44525B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>TypeScript parameters and properties</string>
+      <key>scope</key>
+      <string>variable.parameter.ts, variable.other.property.ts, variable.object.property.ts, meta.object-literal.key.ts, meta.property.object.ts</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#44525B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Specials and escapes</string>
+      <key>scope</key>
+      <string>constant.character.escape, keyword.operator, punctuation.definition.escape, regexp, support.constant, support.other</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#4F5E68</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Punctuation and delimiters</string>
+      <key>scope</key>
+      <string>punctuation, meta.brace, meta.delimiter</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#8E817B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Tags and attributes</string>
+      <key>scope</key>
+      <string>entity.name.tag, entity.other.attribute-name</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#44525B</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Markup headings</string>
+      <key>scope</key>
+      <string>markup.heading, markup.heading entity.name</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#2C363C</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Markup links</string>
+      <key>scope</key>
+      <string>markup.underline.link, string.other.link, markup.link</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#3B8992</string>
+        <key>fontStyle</key>
+        <string>underline</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Invalid</string>
+      <key>scope</key>
+      <string>invalid, invalid.illegal</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#A8334C</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+
+bat=/opt/homebrew/bin/bat
+
+if [[ "${1-}" == "cache" ]]; then
+  exec "$bat" "$@"
+fi
+
+if "$(dirname "$0")/is-this-dark-mode"; then
+  theme="Zenbones Dark"
+else
+  theme="Zenbones Light"
+fi
+
+exec "$bat" --theme "$theme" "$@"
