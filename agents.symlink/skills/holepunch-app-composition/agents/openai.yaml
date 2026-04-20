@@ -1,0 +1,4 @@
+interface:
+  display_name: "Holepunch App Composition"
+  short_description: "Compose Hyperstack and Pear into one app."
+  default_prompt: "Choose a practical architecture for a new Holepunch app and map responsibilities across runtime, domain, worker, and UI layers."

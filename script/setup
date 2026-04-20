@@ -1,123 +1,175 @@
-#!/bin/bash
-# set -x
-# set -e
+#!/usr/bin/env bash
+set -euo pipefail
 
-DOTFILES_ROOT="`pwd`"
+DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export DOTFILES_ROOT
 
-echo "Install"
+# Shared config assumes the checkout lives at ~/.dotfiles.
+EXPECTED_DOTFILES_ROOT="$HOME/.dotfiles"
 
-main () {
+source "$DOTFILES_ROOT/script/lib.sh"
+
+main() {
+  assert_checkout_path
+  echo "Install"
   submodules
   symlinks
   platform
   generic
 }
 
-submodules () {
-  echo "Initialising submodules"
-  git submodule init && git submodule update
-}
-
-platform () {
-  platform="unknown"
-  if [[ "$(uname)" == "Darwin" ]]; then
-     platform="macos"
-  elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-     platform="linux"
-  elif [[ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]]; then
-      platform="windows"
+assert_checkout_path() {
+  if [[ "$DOTFILES_ROOT" == "$EXPECTED_DOTFILES_ROOT" ]]; then
+    return
   fi
 
-  echo "Running installers for $platform"
-
-  find . -name $platform.sh |\
-    while read installer ; do echo $installer && sh "${installer}"; done
+  fail "expected dotfiles checkout at $EXPECTED_DOTFILES_ROOT, found $DOTFILES_ROOT"
 }
 
-generic () {
-  echo "Running generic installers"
-
-  find . -name all.sh |\
-    while read installer ; do sh -c "${installer}" > /dev/null ; done
+submodules() {
+  echo "Initialising submodules"
+  git -C "$DOTFILES_ROOT" submodule update --init --recursive
 }
 
-symlinks () {
+detect_platform() {
+  case "$(uname -s)" in
+    Darwin)
+      printf 'macos\n'
+      ;;
+    Linux)
+      printf 'linux\n'
+      ;;
+    MINGW32_NT*|MINGW64_NT*|MSYS_NT*)
+      printf 'windows\n'
+      ;;
+    *)
+      printf 'unknown\n'
+      ;;
+  esac
+}
+
+run_installers() {
+  local label="$1"
+  shift
+
+  local patterns=("$@")
+  local find_args=()
+  local pattern
+
+  for pattern in "${patterns[@]}"; do
+    if (( ${#find_args[@]} > 0 )); then
+      find_args+=(-o)
+    fi
+    find_args+=(-name "$pattern")
+  done
+
+  echo "Running $label"
+
+  mapfile -t installers < <(
+    find "$DOTFILES_ROOT" -type f \( "${find_args[@]}" \) -print | sort
+  )
+
+  local installer
+  for installer in "${installers[@]}"; do
+    echo "${installer#$DOTFILES_ROOT/}"
+    bash "$installer"
+  done
+}
+
+platform() {
+  local platform_name
+  platform_name="$(detect_platform)"
+
+  case "$platform_name" in
+    macos)
+      run_installers "installers for $platform_name" "macos.sh" "mac.sh"
+      ;;
+    linux|windows)
+      run_installers "installers for $platform_name" "$platform_name.sh"
+      ;;
+    *)
+      echo "Skipping platform installers for unknown platform"
+      ;;
+  esac
+}
+
+generic() {
+  run_installers "generic installers" "all.sh"
+}
+
+symlinks() {
   echo "Create symlinks"
 
-  overwrite_all=false
-  backup_all=false
-  skip_all=false
+  local overwrite_all=false
+  local backup_all=false
+  local skip_all=false
 
-  for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`; do
-    dest="$HOME/.`basename \"${source%.*}\"`"
+  mapfile -t sources < <(
+    find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -print | sort
+  )
 
-    if [ -f $dest ] || [ -d $dest ]; then
+  local source dest action overwrite backup skip
+  for source in "${sources[@]}"; do
+    dest="$HOME/.${source##*/}"
+    dest="${dest%.symlink}"
 
+    if same_link "$dest" "$source"; then
+      success "already linked $dest"
+      continue
+    fi
+
+    if path_exists "$dest"; then
       overwrite=false
       backup=false
       skip=false
 
-      if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
-          user "File already exists: `basename $source`, what do? [s]kip, [S]kip all, [o]verwrite, Overwrite [a]ll, [b]ackup, [B]ackup all?"
-          read -n 1 action
+      if [[ "$overwrite_all" == false && "$backup_all" == false && "$skip_all" == false ]]; then
+        user "File already exists: $(basename "$source"), what do? [s]kip, [S]kip all, [o]verwrite, Overwrite [a]ll, [b]ackup, [B]ackup all?"
+        IFS= read -r -n 1 action
+        echo
 
-          case "$action" in
-            o )
-              overwrite=true;;
-            a )
-              overwrite_all=true;;
-            b )
-              backup=true;;
-            B )
-              backup_all=true;;
-            s )
-              skip=true;;
-            S )
-              skip_all=true;;
-            * )
-              ;;
-          esac
-        fi
-
-        if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]; then
-          rm -rf $dest
-          success "removed $dest"
-        fi
-
-        if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]; then
-          mv $dest $dest\.backup
-          success "moved $dest to $dest.backup"
-        fi
-
-        if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]; then
-          link_files $source $dest
-        else
-          success "skipped $source"
-        fi
-      else
-        link_files $source $dest
+        case "$action" in
+          o) overwrite=true ;;
+          a) overwrite_all=true ;;
+          b) backup=true ;;
+          B) backup_all=true ;;
+          s) skip=true ;;
+          S) skip_all=true ;;
+        esac
       fi
+
+      if [[ "$overwrite" == true || "$overwrite_all" == true ]]; then
+        remove_path "$dest"
+        success "removed $dest"
+      fi
+
+      if [[ "$backup" == true || "$backup_all" == true ]]; then
+        mv "$dest" "$dest.backup"
+        success "moved $dest to $dest.backup"
+      fi
+
+      if [[ "$skip" == true || "$skip_all" == true ]]; then
+        success "skipped $source"
+        continue
+      fi
+    fi
+
+    link_path "$source" "$dest"
   done
 }
 
-info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
-}
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
+user() {
+  printf '\r  [ \033[0;33m?\033[0m ] %s ' "$1"
 }
 
-link_files () {
-  ln -s $1 $2
-  success "Linked $1 to $2"
+success() {
+  printf '\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n' "$1"
+}
+
+fail() {
+  printf '\r\033[2K  [\033[0;31mFAIL\033[0m] %s\n' "$1"
+  echo
+  exit 1
 }
 
 main

@@ -1,8 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -e
+source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
-~/.tmux/plugins/tpm/bin/install_plugins
+if [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
+  "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+else
+  echo "Skipping tmux plugin install; TPM is missing"
+fi
 
-mkdir -p ~/.config
-ln -sf ~/.dotfiles/tmux/tmuxinator/ ~/.config/tmuxinator
+link_path "tmux/tmuxinator" "$HOME/.config/tmuxinator"

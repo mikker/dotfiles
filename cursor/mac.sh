@@ -1,3 +1,6 @@
-# Copy settings.json to Cursor
-mkdir -p ~/Library/Application\ Support/Cursor/User
-ln -s ~/.dotfiles/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
+
+link_path "cursor/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"

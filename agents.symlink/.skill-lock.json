@@ -1,0 +1,127 @@
+{
+  "version": 3,
+  "skills": {
+    "swift-concurrency-expert": {
+      "source": "dimillian/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/dimillian/skills.git",
+      "skillPath": "swift-concurrency-expert/SKILL.md",
+      "skillFolderHash": "eedfdd5aa67acc20650cef65687751aa45de526a",
+      "installedAt": "2026-01-26T12:09:02.234Z",
+      "updatedAt": "2026-03-27T11:14:42.993Z"
+    },
+    "beautiful-mermaid": {
+      "source": "intellectronica/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/intellectronica/agent-skills.git",
+      "skillPath": "skills/beautiful-mermaid/SKILL.md",
+      "skillFolderHash": "88651e5cc10e4b028798dcfa45b1c1004e93f8b2",
+      "installedAt": "2026-01-29T21:35:33.308Z",
+      "updatedAt": "2026-01-29T21:35:33.308Z"
+    },
+    "swiftui-skills": {
+      "source": "ameyalambat128/swiftui-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ameyalambat128/swiftui-skills.git",
+      "skillPath": "src/skill/SKILL.md",
+      "skillFolderHash": "d84772c5ddcfead27f4ae6301281f6345d07a1db",
+      "installedAt": "2026-01-31T16:53:21.997Z",
+      "updatedAt": "2026-03-12T13:54:59.348Z"
+    },
+    "playwriter": {
+      "source": "remorses/playwriter",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/remorses/playwriter.git",
+      "skillPath": "skills/playwriter/SKILL.md",
+      "skillFolderHash": "e6cd918f821d35a79dca0277d197df667a240753",
+      "installedAt": "2026-02-23T09:08:11.173Z",
+      "updatedAt": "2026-03-27T11:14:45.173Z"
+    },
+    "swiftui-pro": {
+      "source": "twostraws/swiftui-agent-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/twostraws/swiftui-agent-skill.git",
+      "skillPath": "swiftui-pro/SKILL.md",
+      "skillFolderHash": "09b8fff9743cfc94eea3ada3727e3ec369ff10fb",
+      "installedAt": "2026-03-05T21:28:11.731Z",
+      "updatedAt": "2026-04-20T10:29:37.116Z"
+    },
+    "chrome-cdp": {
+      "source": "pasky/chrome-cdp-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pasky/chrome-cdp-skill.git",
+      "skillPath": "skills/chrome-cdp/SKILL.md",
+      "skillFolderHash": "4268904954a42efd9b977393b89d3f580600e2db",
+      "installedAt": "2026-03-14T21:13:44.891Z",
+      "updatedAt": "2026-03-27T11:14:46.790Z"
+    },
+    "sentry-cli": {
+      "source": "cli.sentry.dev",
+      "sourceType": "well-known",
+      "sourceUrl": "https://cli.sentry.dev/.well-known/skills/sentry-cli/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-24T08:25:57.327Z",
+      "updatedAt": "2026-03-24T08:25:57.327Z"
+    },
+    "stripe-best-practices": {
+      "source": "docs.stripe.com",
+      "sourceType": "well-known",
+      "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-best-practices/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-02T20:42:03.138Z",
+      "updatedAt": "2026-04-02T20:42:03.138Z"
+    },
+    "stripe-projects": {
+      "source": "docs.stripe.com",
+      "sourceType": "well-known",
+      "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-projects/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-02T20:42:03.139Z",
+      "updatedAt": "2026-04-02T20:42:03.139Z"
+    },
+    "upgrade-stripe": {
+      "source": "docs.stripe.com",
+      "sourceType": "well-known",
+      "sourceUrl": "https://docs.stripe.com/.well-known/skills/upgrade-stripe/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-04-02T20:42:03.139Z",
+      "updatedAt": "2026-04-02T20:42:03.139Z"
+    },
+    "rails-hotwire": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pproenca/dot-skills.git",
+      "skillPath": "skills/.experimental/rails-hotwire/SKILL.md",
+      "skillFolderHash": "141ae1979329dae377ac59a07ab76f1c8e875ccd",
+      "installedAt": "2026-04-19T12:48:19.446Z",
+      "updatedAt": "2026-04-19T12:48:19.446Z"
+    },
+    "make-interfaces-feel-better": {
+      "source": "jakubkrehel/make-interfaces-feel-better",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jakubkrehel/make-interfaces-feel-better.git",
+      "skillPath": "skills/make-interfaces-feel-better/SKILL.md",
+      "skillFolderHash": "320672d06e899682d8923286d864efe3719d9c77",
+      "installedAt": "2026-04-20T10:29:21.552Z",
+      "updatedAt": "2026-04-20T10:29:21.552Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "firebender",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "warp",
+    "claude-code"
+  ]
+}

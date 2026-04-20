@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
 # Symlink bordersrc
-mkdir -p ~/.config/borders
-ln -sf ~/.dotfiles/macos/bordersrc ~/.config/borders/bordersrc
+link_path "macos/bordersrc" "$HOME/.config/borders/bordersrc"
 
 # Ask for the administrator password upfront
 sudo -v
@@ -136,7 +138,7 @@ defaults write com.apple.TextEdit NSShowAppCentricOpenPanelInsteadOfUntitledFile
 # }}}
 
 echo "Installing DefaultKeyBindings"
-mkdir -p ~/Library/KeyBindings && cp ~/dotfiles/macos/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
+copy_path "macos/DefaultKeyBinding.dict" "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 
 echo "Disable font smoothing"
 defaults -currentHost write -g AppleFontSmoothing -int 0

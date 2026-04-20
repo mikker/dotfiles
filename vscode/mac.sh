@@ -1,3 +1,6 @@
-# Copy settings.json to vscode
-mkdir -p ~/Library/Application\ Support/Code/User
-ln -s ~/.dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
+
+link_path "vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"

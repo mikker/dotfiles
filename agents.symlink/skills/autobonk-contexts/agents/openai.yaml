@@ -1,0 +1,4 @@
+interface:
+  display_name: "Autobonk Contexts"
+  short_description: "Patterns for Autobonk schema, roles, and pairing."
+  default_prompt: "Define an Autobonk domain model, extend schema bundles, and implement context routes and lifecycle."

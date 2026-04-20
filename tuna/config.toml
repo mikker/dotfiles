@@ -116,18 +116,6 @@ presentation = 'show'
     carbonModifiers = 6912
 
 [[hotkeys.custom]]
-id = 'BE292C99-6B22-4F48-B5B1-1973025FD436'
-presentation = 'auto'
-
-    [hotkeys.custom.command]
-    actionIdentifier = 'TunaCore.CommonActionsCatalog.Run'
-    subjectIdentifier = 'TunaSystem.WindowManagementCatalog.Left Half'
-
-    [hotkeys.custom.shortcut]
-    carbonKeyCode = 123
-    carbonModifiers = 6912
-
-[[hotkeys.custom]]
 id = 'BEAA276E-6DFD-4AE0-AF3A-77BABE5D785F'
 presentation = 'auto'
 

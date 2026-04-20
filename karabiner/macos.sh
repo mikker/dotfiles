@@ -1,3 +1,6 @@
-#!/bin/bash
-mkdir -p ~/.config
-ln -sf ~/.dotfiles/karabiner ~/.config/karabiner
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
+
+link_path "karabiner" "$HOME/.config/karabiner"

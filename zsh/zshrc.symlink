@@ -48,9 +48,9 @@ fi
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-export PATH="/Users/mikker/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 
 
 # Added by Pear Runtime, configures system with Pear CLI
-export PATH="/Users/mikker/Library/Application Support/pear/bin":$PATH
+export PATH="$HOME/Library/Application Support/pear/bin:$PATH"

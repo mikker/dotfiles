@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proper Fix"
+  short_description: "Push for root-cause fixes, not patch stacking"
+  default_prompt: "Use $proper-fix to find the simplest root-cause fix instead of layering another workaround."

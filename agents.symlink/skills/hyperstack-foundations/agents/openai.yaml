@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hyperstack Foundations"
+  short_description: "Patterns for Corestore, Hyperswarm, Autobase, and app topology."
+  default_prompt: "Design or implement the shared peer-to-peer backend and storage model for a Holepunch app."

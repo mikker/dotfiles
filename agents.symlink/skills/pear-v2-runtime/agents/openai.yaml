@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pear V2 Runtime"
+  short_description: "Patterns for Pear v2 runtime and OTA wiring."
+  default_prompt: "Build or wire a Pear v2 app, especially Electron hosts with pear-runtime and update flow."

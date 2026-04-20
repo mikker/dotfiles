@@ -1,3 +1,6 @@
-#!/bin/bash
-mkdir -p ~/.config
-ln -sf ~/.dotfiles/ghostty ~/.config/ghostty
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
+
+link_path "ghostty" "$HOME/.config/ghostty"

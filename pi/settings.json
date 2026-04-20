@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.67.2",
+  "lastChangelogVersion": "0.67.68",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4",
   "defaultThinkingLevel": "high",
@@ -12,6 +12,9 @@
   "editorPaddingX": 0,
   "autocompleteMaxVisible": 8,
   "transport": "auto",
-  "packages": ["~/.dotfiles/pi"],
+  "packages": [
+    "~/.dotfiles/pi",
+    "https://github.com/davebcn87/pi-autoresearch"
+  ],
   "enableSkillCommands": true
 }

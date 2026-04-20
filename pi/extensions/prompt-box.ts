@@ -5,6 +5,11 @@ import {
   type ExtensionAPI,
   type ExtensionContext,
 } from "@mariozechner/pi-coding-agent";
+import {
+  CODEX_FAST_EVENT,
+  DEFAULT_CODEX_FAST_ENABLED,
+  formatCodexFastLabel,
+} from "./codex-fast-shared";
 import { basename } from "node:path";
 import {
   CombinedAutocompleteProvider,
@@ -22,6 +27,7 @@ import {
 const ANSI_REGEX = /\x1b\[[0-9;]*m/g;
 const SUBTLE_BORDER = (text: string) => `\x1b[38;5;240m${text}\x1b[0m`;
 const SUBTLE_TITLE = (text: string) => `\x1b[38;5;245m${text}\x1b[0m`;
+const ACCENT_YELLOW = (text: string) => `\x1b[33m${text}\x1b[0m`;
 const SUBTLE_BADGE = (text: string) => `\x1b[38;5;243m${text}\x1b[0m`;
 const TITLE_GLYPH = " ";
 const DEFAULT_STATUS = "You're doing great";
@@ -294,6 +300,7 @@ class PromptBoxEditor extends CustomEditor {
   private readonly summary: () => string;
   private readonly badge: () => string;
   private readonly model: () => string;
+  private readonly fastMode: () => string;
   private readonly thinking: () => string;
   private readonly theme: EditorTheme;
   private readonly getSkillsRef: () => SkillRef[];
@@ -306,6 +313,7 @@ class PromptBoxEditor extends CustomEditor {
     summary: () => string,
     badge: () => string,
     model: () => string,
+    fastMode: () => string,
     thinking: () => string,
     getSkills: () => SkillRef[],
     getCommands: () => Array<{ name: string; description?: string }>,
@@ -316,6 +324,7 @@ class PromptBoxEditor extends CustomEditor {
     this.summary = summary;
     this.badge = badge;
     this.model = model;
+    this.fastMode = fastMode;
     this.thinking = thinking;
     this.theme = theme;
     this.getSkillsRef = getSkills;
@@ -413,8 +422,9 @@ class PromptBoxEditor extends CustomEditor {
     const summary = this.summary().trim();
     const badge = this.badge().trim();
     const model = this.model().trim();
+    const fastMode = this.fastMode().trim();
     const thinking = this.thinking().trim();
-    const rightMeta = [summary, badge, model, thinking]
+    const rightMeta = [summary, badge, model, fastMode, thinking]
       .filter(Boolean)
       .join("  ");
     const maxLeftWidth = Math.max(
@@ -422,6 +432,12 @@ class PromptBoxEditor extends CustomEditor {
       width - 8 - (rightMeta ? visibleWidth(` ${rightMeta} `) : 0),
     );
     const titleText = truncateToWidth(leftTitle, maxLeftWidth, "");
+    const titlePrefix = ` ${TITLE_GLYPH}`;
+    const renderedTitleText = titleText.startsWith(titlePrefix)
+      ? `${SUBTLE_TITLE(" ")}${ACCENT_YELLOW(TITLE_GLYPH)}${SUBTLE_TITLE(
+          titleText.slice(titlePrefix.length),
+        )}`
+      : SUBTLE_TITLE(titleText);
     const badgeText = rightMeta
       ? ` ${truncateToWidth(
           rightMeta,
@@ -433,7 +449,7 @@ class PromptBoxEditor extends CustomEditor {
       0,
       width - visibleWidth(titleText) - visibleWidth(badgeText) - 2,
     );
-    const top = `${SUBTLE_BORDER("╭")}${SUBTLE_TITLE(titleText)}${SUBTLE_BORDER(
+    const top = `${SUBTLE_BORDER("╭")}${renderedTitleText}${SUBTLE_BORDER(
       "─".repeat(topFill),
     )}${badgeText ? SUBTLE_BADGE(badgeText) : ""}${SUBTLE_BORDER("╮")}`;
     const separator = SUBTLE_BORDER(`├${"─".repeat(width - 2)}┤`);
@@ -472,6 +488,8 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   let currentStatus = DEFAULT_STATUS;
   let currentBadge = BADGES.ready;
   let currentModel = "";
+  let currentProvider = "";
+  let currentFastEnabled = DEFAULT_CODEX_FAST_ENABLED;
   let currentTitle = DEFAULT_STATUS;
   let editor: PromptBoxEditor | undefined;
   let currentCwd: string | undefined;
@@ -491,8 +509,16 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     editor?.refresh();
   };
 
-  const setModel = (model: string | undefined) => {
-    currentModel = model?.trim() ?? "";
+  const setModel = (
+    model: { id?: string; provider?: string } | undefined,
+  ) => {
+    currentModel = model?.id?.trim() ?? "";
+    currentProvider = model?.provider?.trim() ?? "";
+    editor?.refresh();
+  };
+
+  const setFastEnabled = (enabled: boolean) => {
+    currentFastEnabled = enabled;
     editor?.refresh();
   };
 
@@ -560,6 +586,8 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     currentCwd = undefined;
     gitMeta = null;
     currentModel = "";
+    currentProvider = "";
+    currentFastEnabled = DEFAULT_CODEX_FAST_ENABLED;
     currentTitle = DEFAULT_STATUS;
     lastSummarizedLeafId = undefined;
     summaryRun = 0;
@@ -573,7 +601,7 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     currentCwd = ctx.cwd;
     gitMeta = null;
     setStatusFromSessionName();
-    setModel(ctx.model?.id);
+    setModel(ctx.model);
     refreshTitle();
     void refreshGitMeta();
     startGitMetaPolling();
@@ -586,6 +614,12 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
         () => formatTaskSummary(currentStatus),
         () => currentBadge,
         () => currentModel,
+        () =>
+          formatCodexFastLabel(
+            currentFastEnabled,
+            currentProvider,
+            currentModel,
+          ),
         () => formatThinkingLevel(pi.getThinkingLevel()),
         getSkills,
         getCommands,
@@ -597,7 +631,7 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
 
   pi.on("agent_start", async (_event, ctx) => {
     setBadge(BADGES.thinking);
-    setModel(ctx.model?.id);
+    setModel(ctx.model);
   });
 
   pi.on("agent_end", async (_event, ctx) => {
@@ -625,8 +659,15 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     }
   });
 
+  pi.events.on(CODEX_FAST_EVENT, (data) => {
+    if (!data || typeof data !== "object") return;
+    const enabled = (data as { enabled?: unknown }).enabled;
+    if (typeof enabled !== "boolean") return;
+    setFastEnabled(enabled);
+  });
+
   pi.on("model_select", async (event) => {
-    setModel(event.model.id);
+    setModel(event.model);
   });
 
   pi.on("session_shutdown", async () => {
