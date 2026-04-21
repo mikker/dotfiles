@@ -1,3 +1,0 @@
-IRB.conf[:PROMPT_MODE] = :SIMPLE
-
-# vim: ft=ruby

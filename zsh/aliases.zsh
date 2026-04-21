@@ -15,8 +15,6 @@ alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docke
 alias tm="tmux -u"
 alias ta='tmux attach'
 alias tat='tmux new-session -As "`basename $PWD | sed -e \"s/\./-/g\"`"'
-alias tk='tmux kill-session'
-alias tkall='while true; do tk || break; done'
 alias tmux-set-title='tmux rename-session `basename $PWD | sed -e "s/\./-/g"`'
 
 # Git
