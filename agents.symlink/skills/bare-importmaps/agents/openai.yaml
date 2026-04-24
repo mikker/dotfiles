@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bare Importmaps"
+  short_description: "Use bare polyfill imports and keep package-local import maps in sync"
+  default_prompt: "Replace node: builtin imports with plain builtin specifiers, update the nearest package import maps and bare polyfill dependencies, and verify the affected package still builds and tests."

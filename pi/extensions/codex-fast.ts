@@ -92,12 +92,15 @@ export default function codexFastExtension(pi: ExtensionAPI) {
         emitFastMode();
       }
 
-      const supported = supportsCodexFastMode(ctx.model?.provider, ctx.model?.id);
+      const supported = supportsCodexFastMode(
+        ctx.model?.provider,
+        ctx.model?.id,
+      );
       const message = supported
         ? `Fast mode ${fastEnabled ? "on" : "off"}.`
         : fastEnabled
-          ? "Fast mode requested, but the current model does not support it."
-          : "Fast mode off.";
+        ? "Fast mode requested, but the current model does not support it."
+        : "Fast mode off.";
       ctx.ui.notify(message, "info");
     },
   });

@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.68.0",
+  "lastChangelogVersion": "0.70.0",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "high",
   "theme": "zenbones-ansi",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -14,7 +14,8 @@
   "transport": "auto",
   "packages": [
     "~/.dotfiles/pi",
-    "https://github.com/davebcn87/pi-autoresearch"
+    "https://github.com/davebcn87/pi-autoresearch",
+    "git:https://github.com/badlogic/pi-diff-review"
   ],
   "enableSkillCommands": true
 }

@@ -509,9 +509,7 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     editor?.refresh();
   };
 
-  const setModel = (
-    model: { id?: string; provider?: string } | undefined,
-  ) => {
+  const setModel = (model: { id?: string; provider?: string } | undefined) => {
     currentModel = model?.id?.trim() ?? "";
     currentProvider = model?.provider?.trim() ?? "";
     editor?.refresh();
