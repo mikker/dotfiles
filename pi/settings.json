@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.70.0",
+  "lastChangelogVersion": "0.73.0",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "high",
@@ -15,7 +15,11 @@
   "packages": [
     "~/.dotfiles/pi",
     "https://github.com/davebcn87/pi-autoresearch",
-    "git:https://github.com/badlogic/pi-diff-review"
+    "git:https://github.com/badlogic/pi-diff-review",
+    "npm:@termdraw/pi"
   ],
-  "enableSkillCommands": true
+  "enableSkillCommands": true,
+  "terminal": {
+    "showTerminalProgress": true
+  }
 }

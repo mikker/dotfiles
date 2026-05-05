@@ -104,6 +104,42 @@
       "skillFolderHash": "320672d06e899682d8923286d864efe3719d9c77",
       "installedAt": "2026-04-20T10:29:21.552Z",
       "updatedAt": "2026-04-20T10:29:21.552Z"
+    },
+    "macos-design-guidelines": {
+      "source": "ehmo/platform-design-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ehmo/platform-design-skills.git",
+      "skillPath": "skills/macos/SKILL.md",
+      "skillFolderHash": "e0d7bccfcde02ddc429c2c1cd40f8c20be9ebb30",
+      "installedAt": "2026-04-28T21:29:08.802Z",
+      "updatedAt": "2026-04-28T21:29:08.802Z"
+    },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
+      "installedAt": "2026-04-30T08:30:37.072Z",
+      "updatedAt": "2026-04-30T08:30:37.072Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "343db72180d05814949fef7d46be96b5c6ee86b3",
+      "installedAt": "2026-04-30T12:27:50.516Z",
+      "updatedAt": "2026-04-30T12:27:50.516Z"
+    },
+    "oklch-skill": {
+      "source": "jakubkrehel/oklch-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jakubkrehel/oklch-skill.git",
+      "skillPath": "skills/oklch-skill/SKILL.md",
+      "skillFolderHash": "9831d14b4bf20f3267370470cc0912ca47798143",
+      "installedAt": "2026-04-30T19:20:17.766Z",
+      "updatedAt": "2026-04-30T19:20:17.766Z"
     }
   },
   "dismissed": {
@@ -116,6 +152,7 @@
     "codex",
     "cursor",
     "deepagents",
+    "dexto",
     "firebender",
     "gemini-cli",
     "github-copilot",

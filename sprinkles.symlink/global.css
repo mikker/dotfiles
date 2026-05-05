@@ -8,3 +8,8 @@
  * For example, uncomment the line below to get an extra creamy web experience: */
 
 /* body { background-color: papayawhip; } */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(gray 50%, transparent) transparent;
+}

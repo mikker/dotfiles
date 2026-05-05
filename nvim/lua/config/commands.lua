@@ -24,6 +24,27 @@ vim.api.nvim_create_user_command("F", function(args)
   vim.bo.filetype = args
 end, { nargs = 1 })
 
+local function copy_line_ref(opts)
+  local start_line = opts.range == 0 and vim.fn.line(".") or opts.line1
+  local end_line = opts.range == 0 and start_line or opts.line2
+  local path = vim.fn.expand("%:.")
+
+  if path == "" then
+    path = "[No Name]"
+  end
+
+  local lines = vim.fn.getline(start_line, end_line)
+  local text = string.format("@%s:%d\n%s", path, start_line, table.concat(lines, "\n"))
+
+  vim.fn.setreg("+", text)
+  vim.notify("Copied " .. path .. ":" .. start_line)
+end
+
+vim.api.nvim_create_user_command("CopyLineRef", copy_line_ref, {
+  desc = "Copy file:line plus code to clipboard",
+  range = true,
+})
+
 -- Strip trailing whitespace
 function StripTrailingWhitespace()
   -- Save the current cursor position

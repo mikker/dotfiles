@@ -4,9 +4,9 @@
 # $1: option
 # $2: default value
 tmux_get() {
-	local value
-	value="$(tmux show -gqv "$1")"
-	[ -n "$value" ] && echo "$value" || echo "$2"
+  local value
+  value="$(tmux show -gqv "$1")"
+  [ -n "$value" ] && echo "$value" || echo "$2"
 }
 
 color_fg=$(tmux_get @tmux_bubbles_color_active 'color0')         # "black"
@@ -24,17 +24,17 @@ tmux set-option -gq status-attr none
 # $2: fg_color
 # $3: bg_color
 make_bubble() {
-	echo "#[fg=$3]#[bg=0]#[fg=$2]#[bg=$3]$1#[fg=$3]#[bg=0]"
+  echo "#[fg=$3]#[bg=0]#[fg=$2]#[bg=$3]$1#[fg=$3]#[bg=0]"
 }
 
 # $1: modules
 make_activatable_bubble() {
-	local normal_bubble
-	local active_bubble
-	normal_bubble="$(make_bubble "$1" "$color_fg" "$color_bg_inactive")"
-	active_bubble="$(make_bubble "$1" "$color_fg" "$color_bg_active")"
+  local normal_bubble
+  local active_bubble
+  normal_bubble="$(make_bubble "$1" "$color_fg" "$color_bg_inactive")"
+  active_bubble="$(make_bubble "$1" "$color_fg" "$color_bg_active")"
 
-	echo "#{?client_prefix,$active_bubble,$normal_bubble}"
+  echo "#{?client_prefix,$active_bubble,$normal_bubble}"
 }
 
 tmux set-option -gq status-left ""
@@ -43,11 +43,11 @@ tmux set-option -gq status-right " $(make_bubble ' #S ' "$color_fg" "$color_bg_a
 # *********************************************************
 # Window                                                  *
 # *********************************************************
-tmux set-option -gq window-status-format "#[fg=$color_bg_active,bg=0,bold]#{?@codex_done, #[fg=yellow]●#[fg=$color_bg_active],}  #I #W#{?window_bell_flag, #[fg=yellow]󱠡#[fg=$color_bg_active],}  "
+tmux set-option -gq window-status-format "#[fg=$color_bg_active]  #I #W#{?window_bell_flag, #[fg=yellow]󱠡#[fg=$color_bg_active],}  "
+tmux set-option -gq window-status-current-format "$(make_bubble ' #I #W#{?window_bell_flag, #[fg=yellow]󱠡#[fg='"$color_fg_selected"'],}#{?window_zoomed_flag,󰁌,} ' "$color_fg_selected" "$color_bg_selected")"
 tmux set-option -gq window-status-last-style "default"
 tmux set-option -gq window-status-activity-style "default"
 tmux set-option -gq window-status-bell-style "default"
-tmux set-option -gq window-status-current-format "$(make_bubble ' #I #W#{?window_bell_flag, #[fg=yellow]󱠡#[fg='"$color_fg_selected"'],}#{?window_zoomed_flag,󰁌,} ' "$color_fg_selected" "$color_bg_selected")"
 
 # *********************************************************
 # Others                                                  *

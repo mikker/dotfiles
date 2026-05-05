@@ -10,7 +10,8 @@ import {
   DEFAULT_CODEX_FAST_ENABLED,
   formatCodexFastLabel,
 } from "./codex-fast-shared";
-import { basename } from "node:path";
+import { readFile } from "node:fs/promises";
+import { basename, resolve } from "node:path";
 import {
   CombinedAutocompleteProvider,
   matchesKey,
@@ -25,9 +26,13 @@ import {
 } from "@mariozechner/pi-tui";
 
 const ANSI_REGEX = /\x1b\[[0-9;]*m/g;
-const SUBTLE_BORDER = (text: string) => `\x1b[38;5;240m${text}\x1b[0m`;
-const SUBTLE_TITLE = (text: string) => `\x1b[38;5;245m${text}\x1b[0m`;
+const TITLE_MUTED = "\x1b[38;5;245m";
+const SUBTLE_BORDER = (text: string) => `\x1b[2;90m${text}\x1b[0m`;
+const SUBTLE_TITLE = (text: string) => `${TITLE_MUTED}${text}\x1b[0m`;
 const ACCENT_YELLOW = (text: string) => `\x1b[33m${text}\x1b[0m`;
+const TITLE_YELLOW = (text: string) => `\x1b[33m${text}${TITLE_MUTED}`;
+const TITLE_GREEN = (text: string) => `\x1b[32m${text}${TITLE_MUTED}`;
+const TITLE_RED = (text: string) => `\x1b[31m${text}${TITLE_MUTED}`;
 const SUBTLE_BADGE = (text: string) => `\x1b[38;5;243m${text}\x1b[0m`;
 const TITLE_GLYPH = " ";
 const DEFAULT_STATUS = "You're doing great";
@@ -108,6 +113,12 @@ function formatTaskSummary(summary: string): string {
   const compact = summary.replace(/\s+/g, " ").trim();
   if (!compact || compact === DEFAULT_STATUS) return "";
   return truncateToWidth(compact, 28, "…");
+}
+
+function formatGitStatusForTitle(status: string): string {
+  const diff = status.match(/^(\+\d+)(\/)(-\d+)$/);
+  if (diff) return `${TITLE_GREEN(diff[1]!)}${diff[2]}${TITLE_RED(diff[3]!)}`;
+  return status === "clean" ? TITLE_GREEN(status) : TITLE_RED(status);
 }
 
 function extractMessageText(message: AgentMessage): string {
@@ -197,26 +208,86 @@ async function generateTaskSummary(
   return summary ? truncateToWidth(summary, 28, "…") : null;
 }
 
+function parseNumstat(output: string): { additions: number; deletions: number } {
+  let additions = 0;
+  let deletions = 0;
+
+  for (const line of output.split("\n")) {
+    if (!line.trim()) continue;
+    const [added, deleted] = line.split("\t");
+    const addedCount = Number(added);
+    const deletedCount = Number(deleted);
+    if (Number.isFinite(addedCount)) additions += addedCount;
+    if (Number.isFinite(deletedCount)) deletions += deletedCount;
+  }
+
+  return { additions, deletions };
+}
+
+function countTextLines(buffer: Buffer): number | null {
+  if (buffer.includes(0)) return null;
+  if (buffer.length === 0) return 0;
+
+  let newlines = 0;
+  for (const byte of buffer) {
+    if (byte === 10) newlines += 1;
+  }
+  return newlines + (buffer[buffer.length - 1] === 10 ? 0 : 1);
+}
+
+async function countUntrackedAddedLines(
+  pi: ExtensionAPI,
+  cwd: string,
+): Promise<number> {
+  const result = await pi.exec("git", [
+    "-C",
+    cwd,
+    "ls-files",
+    "--others",
+    "--exclude-standard",
+    "-z",
+  ]);
+  if (result.code !== 0) return 0;
+
+  let additions = 0;
+  for (const path of (result.stdout ?? "").split("\0")) {
+    if (!path) continue;
+    try {
+      const lineCount = countTextLines(await readFile(resolve(cwd, path)));
+      if (lineCount !== null) additions += lineCount;
+    } catch {
+      // Ignore unreadable untracked files.
+    }
+  }
+  return additions;
+}
+
 async function getGitMeta(
   pi: ExtensionAPI,
   cwd: string,
 ): Promise<GitMeta | null> {
-  const [branchResult, statusResult] = await Promise.all([
-    pi.exec("git", ["-C", cwd, "branch", "--show-current"]),
-    pi.exec("git", ["-C", cwd, "status", "--porcelain"]),
-  ]);
+  const [branchResult, statusResult, diffResult, untrackedAdditions] =
+    await Promise.all([
+      pi.exec("git", ["-C", cwd, "branch", "--show-current"]),
+      pi.exec("git", ["-C", cwd, "status", "--porcelain"]),
+      pi.exec("git", ["-C", cwd, "diff", "--numstat", "HEAD", "--"]),
+      countUntrackedAddedLines(pi, cwd),
+    ]);
   if (branchResult.code !== 0 || statusResult.code !== 0) return null;
 
   const branch = (branchResult.stdout ?? "").trim() || "detached";
-  let staged = 0;
-  let unstaged = 0;
-  for (const line of (statusResult.stdout ?? "").split("\n")) {
-    if (!line) continue;
-    if ((line[0] ?? " ") !== " ") staged += 1;
-    if ((line[1] ?? " ") !== " ") unstaged += 1;
-  }
-  const status =
-    staged === 0 && unstaged === 0 ? "clean" : `+${staged}/-${unstaged}`;
+  const dirty = Boolean((statusResult.stdout ?? "").trim());
+  const diff =
+    diffResult.code === 0
+      ? parseNumstat(diffResult.stdout ?? "")
+      : { additions: 0, deletions: 0 };
+  const additions = diff.additions + untrackedAdditions;
+  const deletions = diff.deletions;
+  const status = !dirty
+    ? "clean"
+    : additions === 0 && deletions === 0
+      ? "dirty"
+      : `+${additions}/-${deletions}`;
   return { branch, status };
 }
 
@@ -527,8 +598,8 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   const refreshTitle = () => {
     const parts = [
       currentCwd ? basename(currentCwd) : undefined,
-      gitMeta?.branch,
-      gitMeta?.status,
+      gitMeta?.branch ? TITLE_YELLOW(gitMeta.branch) : undefined,
+      gitMeta?.status ? formatGitStatusForTitle(gitMeta.status) : undefined,
     ].filter(Boolean);
     currentTitle = parts.join(" · ") || DEFAULT_STATUS;
     editor?.refresh();

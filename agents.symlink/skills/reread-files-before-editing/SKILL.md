@@ -1,6 +1,6 @@
 ---
 name: reread-files-before-editing
-description: Ensure files are re-read before editing to avoid overwriting user changes. Use when modifying existing files in the workspace.
+description: Ensure files are re-read before editing to avoid overwriting user changes. Use only when explicitly encouraged to by user.
 ---
 
 # Re-read Files Before Editing

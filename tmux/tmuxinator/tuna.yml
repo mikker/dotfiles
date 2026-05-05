@@ -53,4 +53,4 @@ windows:
   - two: cd ~/dev/Tuna-worktrees/two && suite -no-autostart
   - three: cd ~/dev/Tuna-worktrees/three && codex
   - three: cd ~/dev/Tuna-worktrees/three && suite -no-autostart
-  - bdvim: while true; do bdvim && sleep 2 || break; done
+  - tkvim: while true; do tkvim && sleep 2 || break; done

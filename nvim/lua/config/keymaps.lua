@@ -59,3 +59,8 @@ vim.keymap.set("n", "<leader>oc", function()
   local line = vim.fn.line(".")
   vim.cmd(string.format("silent !cursor . -g %s:%s", file, line))
 end, { desc = "Open file in Cursor" })
+
+map("n", "<leader>yl", "<cmd>CopyLineRef<cr>", { desc = "Copy line ref" })
+map("x", "<leader>yl", function()
+  vim.cmd("'<,'>CopyLineRef")
+end, { desc = "Copy line ref" })

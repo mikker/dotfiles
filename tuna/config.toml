@@ -57,7 +57,7 @@ sortOrder = 'capturedAt.desc'
 
 [[catalogs.sortOrders]]
 catalogIdentifier = 'TunaEmoji.EmojiSearchCatalog'
-sortOrder = 'score.desc'
+sortOrder = 'capturedAt.desc'
 
 [[comboMode.bindings]]
 iconPath = 'cat'
@@ -417,23 +417,6 @@ label = 'Media'
     url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FYouTube.app/Open'
 
 [[comboMode.bindings]]
-iconPath = 'character.textbox'
-key = 'r'
-label = 'Raycast'
-
-    [[comboMode.bindings.children]]
-    key = 'c'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fsystem%252Fopen-camera/Open%20URL'
-
-    [[comboMode.bindings.children]]
-    key = 'e'
-    url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Femoji-symbols%252Fsearch-emoji-symbols/Open%20URL'
-
-    [[comboMode.bindings.children]]
-    key = 'p'
-    url = 'tuna://run/url.raycast:%252F%252Fconfetti/Open%20URL'
-
-[[comboMode.bindings]]
 iconPath = 'laptopcomputer'
 key = 's'
 label = 'System'
@@ -730,6 +713,10 @@ key = 'M'
 key = 'n'
 url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.X%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6%252Ftext./Open%20URL'
 
+[[comboMode.bindings]]
+key = 'N'
+url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.Dash%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6%252Ftext.something/Open%20URL'
+
 [hotkeys.app.activate]
 carbonKeyCode = 49
 carbonModifiers = 256
@@ -812,14 +799,15 @@ presentation = 'auto'
 
 [settings]
 catalogPeriodicRescanEnabled = false
-clipboardHistoryRetention = 'oneYear'
 clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keychainaccess' ]
+comboModeCheatsheetBehavior = 'never'
 comboModeCheatsheetShowDetails = false
 comboModeModifierTrigger = 'rightCommand'
 dictationActivationMode = 'toggle'
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
+switchToTextModeWhenNoResults = true
 talkModeModifierTrigger = 'rightOption'
 themeIdentifier = 'com.brnbw.tuna.themes.default'
 
@@ -849,6 +837,12 @@ template = 'https://www.google.com/search?q={{input}}'
 
 [[smartLinks.entries]]
 enabled = true
+name = 'Google Images'
+requiresInput = true
+template = 'https://www.google.com/search?q={{input}}&udm=2'
+
+[[smartLinks.entries]]
+enabled = true
 name = 'TailwindCSS'
 requiresInput = true
 template = 'https://www.google.com/search?q=site:tailwindcss.com%20{{input}}'
@@ -864,6 +858,12 @@ enabled = true
 name = 'X'
 requiresInput = true
 template = 'http://x.com/search?q={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'X (mikker)'
+requiresInput = true
+template = 'https://x.com/search?q=from%3Amikker%20{{input}}'
 
 [[smartLinks.entries]]
 enabled = true
