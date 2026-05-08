@@ -61,7 +61,7 @@
       "sourceUrl": "https://cli.sentry.dev/.well-known/skills/sentry-cli/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-03-24T08:25:57.327Z",
-      "updatedAt": "2026-03-24T08:25:57.327Z"
+      "updatedAt": "2026-05-08T11:22:39.146Z"
     },
     "stripe-best-practices": {
       "source": "docs.stripe.com",
@@ -69,7 +69,7 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-best-practices/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T20:42:03.138Z",
-      "updatedAt": "2026-04-02T20:42:03.138Z"
+      "updatedAt": "2026-05-08T11:22:43.548Z"
     },
     "stripe-projects": {
       "source": "docs.stripe.com",
@@ -77,7 +77,7 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-projects/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T20:42:03.139Z",
-      "updatedAt": "2026-04-02T20:42:03.139Z"
+      "updatedAt": "2026-05-08T11:22:43.560Z"
     },
     "upgrade-stripe": {
       "source": "docs.stripe.com",
@@ -85,7 +85,7 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/upgrade-stripe/SKILL.md",
       "skillFolderHash": "",
       "installedAt": "2026-04-02T20:42:03.139Z",
-      "updatedAt": "2026-04-02T20:42:03.139Z"
+      "updatedAt": "2026-05-08T11:22:43.561Z"
     },
     "rails-hotwire": {
       "source": "pproenca/dot-skills",
@@ -119,9 +119,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
+      "skillFolderHash": "c1470a475a0472fceda2401ea6763708a91680a8",
       "installedAt": "2026-04-30T08:30:37.072Z",
-      "updatedAt": "2026-04-30T08:30:37.072Z"
+      "updatedAt": "2026-05-08T11:21:51.026Z"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
@@ -140,6 +140,15 @@
       "skillFolderHash": "9831d14b4bf20f3267370470cc0912ca47798143",
       "installedAt": "2026-04-30T19:20:17.766Z",
       "updatedAt": "2026-04-30T19:20:17.766Z"
+    },
+    "swiftui_skills": {
+      "source": "ameyalambat128/swiftui-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ameyalambat128/swiftui-skills.git",
+      "skillPath": "src/skill/SKILL.md",
+      "skillFolderHash": "594ea08c13ee6d3f6adaddee96489ab9096b0571",
+      "installedAt": "2026-05-08T11:21:48.642Z",
+      "updatedAt": "2026-05-08T11:21:48.642Z"
     }
   },
   "dismissed": {

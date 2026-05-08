@@ -5,26 +5,28 @@ objectOverrides = []
 version = 2
 
     [[actionPreferences.typeRankings]]
-    typeID = 'com.tuna.type.text-solver-result'
+    typeID = 'com.tuna.type.obsidian.note'
 
         [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Resolve Result'
+        actionKey = 'Open'
+        catalogIdentifier = 'TunaObsidian.ObsidianActionsCatalog'
+
+    [[actionPreferences.typeRankings]]
+    typeID = 'com.tuna.type.obsidian.vault'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Open Vault in Obsidian'
+        catalogIdentifier = 'TunaObsidian.ObsidianActionsCatalog'
+
+    [[actionPreferences.typeRankings]]
+    typeID = 'com.tuna.type.smart-folder'
+
+        [[actionPreferences.typeRankings.actions]]
+        actionKey = 'Browse'
         catalogIdentifier = 'Tuna.BasicActionsCatalog'
 
         [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Copy Answer'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Copy Unformatted Answer'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Copy Question and Answer'
-        catalogIdentifier = 'Tuna.BasicActionsCatalog'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Swap Units'
+        actionKey = "Search for \u2026"
         catalogIdentifier = 'Tuna.BasicActionsCatalog'
 
 [[catalogConfiguration.customFolders]]
@@ -60,7 +62,6 @@ catalogIdentifier = 'TunaEmoji.EmojiSearchCatalog'
 sortOrder = 'capturedAt.desc'
 
 [[comboMode.bindings]]
-iconPath = 'cat'
 key = 'a'
 label = 'Apps'
 

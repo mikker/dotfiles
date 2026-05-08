@@ -41,7 +41,23 @@ Use the [Setup Intents API](https://docs.stripe.com/api/setup_intents.md) to sav
 
 ## Dynamic payment methods
 
-Advise users to enable dynamic payment methods in the Stripe Dashboard rather than passing specific [`payment_method_types`](https://docs.stripe.com/api/payment_intents/create.md#create_payment_intent-payment_method_types) in the PaymentIntent or SetupIntent. Stripe automatically selects payment methods based on the customer’s location, wallets, and preferences when the Payment Element is used.
+*Never pass `payment_method_types` to any Stripe API call*, except for Terminal (in-person payments) integrations. Omitting this parameter enables [dynamic payment methods](https://docs.stripe.com/payments/payment-methods/dynamic-payment-methods.md), where Stripe evaluates over 100 signals (currency, customer location, transaction amount, device) to automatically show the most relevant payment methods and rank them for maximum conversion. Payment methods are managed from the [Dashboard](https://dashboard.stripe.com/settings/payment_methods) with no code changes required.
+
+This applies to all integration patterns:
+
+- `checkout.sessions.create`: omit `payment_method_types` entirely. Dynamic method selection is the default behavior.
+- `paymentIntents.create`: omit `payment_method_types`. On API versions 2023-08-16+, dynamic methods are the default. On older versions, pass `automatic_payment_methods: { enabled: true }`.
+- `setupIntents.create`: same as PaymentIntents above.
+- `subscriptions.create`: omit `payment_settings.payment_method_types`. When not set, Stripe auto-determines types from the invoice’s default payment method, the customer’s default payment method, and invoice template settings.
+- **Terminal** (`paymentIntents.create`): pass `payment_method_types: ['card_present']`. Required for all in-person payments. In Canada, also include `interac_present`: `['card_present', 'interac_present']`. This is the only valid use of `payment_method_types`.
+
+See the [integration options guide](https://docs.stripe.com/payments/payment-methods/integration-options.md) for full details on dynamic versus manual configuration.
+
+**Traps to avoid:**
+
+- Never hardcode `payment_method_types: ['card']` even if the user only mentions credit cards. Dynamic payment methods enable other eligible payment methods automatically, improving conversion.
+- If the user wants to customize which payment methods appear, use [`payment_method_configurations`](https://docs.stripe.com/payments/payment-method-configurations.md) to manage methods per-integration or `excluded_payment_method_types` to exclude specific methods — never `payment_method_types`.
+- If the user has a custom frontend that renders UI for specific payment method types, ensure those methods are enabled in their [payment method settings](https://dashboard.stripe.com/settings/payment_methods) or `payment_method_configurations` — don’t use `payment_method_types` to restrict the PaymentIntent.
 
 ## Deprecated APIs and migration paths
 
