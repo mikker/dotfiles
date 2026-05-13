@@ -5,20 +5,6 @@ objectOverrides = []
 version = 2
 
     [[actionPreferences.typeRankings]]
-    typeID = 'com.tuna.type.obsidian.note'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Open'
-        catalogIdentifier = 'TunaObsidian.ObsidianActionsCatalog'
-
-    [[actionPreferences.typeRankings]]
-    typeID = 'com.tuna.type.obsidian.vault'
-
-        [[actionPreferences.typeRankings.actions]]
-        actionKey = 'Open Vault in Obsidian'
-        catalogIdentifier = 'TunaObsidian.ObsidianActionsCatalog'
-
-    [[actionPreferences.typeRankings]]
     typeID = 'com.tuna.type.smart-folder'
 
         [[actionPreferences.typeRankings.actions]]
@@ -266,7 +252,7 @@ label = 'Window'
     [[comboMode.bindings.children]]
     key = 'f'
     label = 'Full screen'
-    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fmaximize/Open%20URL'
+    url = 'tuna://run/TunaSystem.WindowManagementCatalog.Maximize/TunaCore.CommonActionsCatalog.Run'
 
     [[comboMode.bindings.children]]
     key = 'h'
@@ -281,7 +267,7 @@ label = 'Window'
     [[comboMode.bindings.children]]
     key = 'l'
     label = 'Right'
-    url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fright-half/Open%20URL'
+    url = 'tuna://run/TunaSystem.WindowManagementCatalog.Right%20Half/TunaCore.CommonActionsCatalog.Run'
 
     [[comboMode.bindings.children]]
     key = 'n'
@@ -800,11 +786,13 @@ presentation = 'auto'
 
 [settings]
 catalogPeriodicRescanEnabled = false
+clipboardHistoryRetention = 'oneYear'
 clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keychainaccess' ]
 comboModeCheatsheetBehavior = 'never'
 comboModeCheatsheetShowDetails = false
+comboModeDoublePressTrigger = 'rightOption'
 comboModeModifierTrigger = 'rightCommand'
-dictationActivationMode = 'toggle'
+holdToExecuteEnabled = true
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true

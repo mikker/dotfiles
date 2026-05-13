@@ -7,7 +7,7 @@ config-version = 2
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-# after-startup-command = ['exec-and-forget sketchybar', 'exec-and-forget borders']
+after-startup-command = ['exec-and-forget brew services restart sketchybar']
 
 # Start AeroSpace at login
 start-at-login = true

@@ -6,7 +6,7 @@
   "theme": "zenbones-ansi",
   "quietStartup": true,
   "collapseChangelog": true,
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "doubleEscapeAction": "tree",
   "showHardwareCursor": true,
   "editorPaddingX": 0,

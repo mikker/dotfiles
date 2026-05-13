@@ -1,7 +1,7 @@
 # /Users/mikker/.config/tmuxinator/mm.yml
 
 name: mm
-root: ~/dev/mikkelmalmberg
+root: ~/dev/mikkelmalmberg-rails
 
 # Optional tmux socket
 # socket_name: foo
@@ -45,6 +45,7 @@ root: ~/dev/mikkelmalmberg
 # attach: false
 
 windows:
-  - vim: vim
-  - server: npm run dev
+  - pi: pi
+  - server: bin/dev
+
 # no vim modelines

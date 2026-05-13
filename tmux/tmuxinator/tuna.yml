@@ -45,12 +45,9 @@ root: ~/dev/Tuna/
 # attach: false
 
 windows:
-  - main: codex
   - main: suite
-  - one: cd ~/dev/Tuna-worktrees/one && codex
-  - one: cd ~/dev/Tuna-worktrees/one && suite -no-autostart
-  - two: cd ~/dev/Tuna-worktrees/two && codex
-  - two: cd ~/dev/Tuna-worktrees/two && suite -no-autostart
-  - three: cd ~/dev/Tuna-worktrees/three && codex
-  - three: cd ~/dev/Tuna-worktrees/three && suite -no-autostart
-  - tkvim: while true; do tkvim && sleep 2 || break; done
+  - main: codex
+  - one: cd ~/dev/Tuna-worktrees/one && pi
+  - two: cd ~/dev/Tuna-worktrees/two && pi
+  - three: cd ~/dev/Tuna-worktrees/three && pi
+  - tkvim: while true; do tkvim && git add .tickets && git commit -m "Update tickets" && sleep 2 || break; done
