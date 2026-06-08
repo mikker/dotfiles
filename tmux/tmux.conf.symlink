@@ -71,8 +71,9 @@ bind ^o select-pane -l\; resize-pane -Z
 # # Start new windows on current path
 bind c new-window -c "#{pane_current_path}"
 
-# Open git diff in a temporary popup so the underlying pane stays untouched.
-bind g display-popup -B -E -d "#{pane_current_path}" -x 0 -y 0 -w 100% -h 95% "~/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh"
+# Open git diff in a temporary zoomed pane so tmux navigation still works.
+bind g split-window -c "#{pane_current_path}" "~/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh" \; resize-pane -Z
+bind G split-window -c "#{pane_current_path}" "~/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh --base" \; resize-pane -Z
 
 # Toggle a yellow dot at end of window title (prefix + e)
 bind e run-shell "~/.dotfiles/tmux/tmux.symlink/cycle_circle.sh"

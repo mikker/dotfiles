@@ -1,0 +1,33 @@
+theme = "custom"
+mode = "auto"
+watch = false
+exclude_untracked = false
+line_numbers = true
+wrap_lines = false
+hunk_headers = true
+agent_notes = true
+
+[custom_theme]
+base = "graphite"
+label = "Zenbones Dark"
+accent = "#B4BDC3"
+panel = "#1C1917"
+panelAlt = "#25211F"
+text = "#B4BDC3"
+muted = "#6E6763"
+border = "#403833"
+noteBorder = "#A1938C"
+add = "#A6B28B"
+delete = "#DCA3A3"
+selection = "#3D4042"
+
+[custom_theme.syntax]
+keyword = "#B4BDC3"
+string = "#868C91"
+comment = "#6E6763"
+function = "#B4BDC3"
+variable = "#979FA4"
+type = "#A1938C"
+number = "#868C91"
+operator = "#8D9499"
+punctuation = "#867A74"

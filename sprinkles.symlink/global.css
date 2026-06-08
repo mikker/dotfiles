@@ -9,7 +9,7 @@
 
 /* body { background-color: papayawhip; } */
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: color-mix(gray 50%, transparent) transparent;
-}
+/* * { */
+/*   scrollbar-width: thin; */
+/*   scrollbar-color: color-mix(gray 50%, transparent) transparent; */
+/* } */

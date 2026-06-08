@@ -1,5 +1,5 @@
-#font-family = "IBM Plex Mono"
-font-family = "Iosevka"
+font-family = "IBM Plex Mono"
+#font-family = "Iosevka"
 #font-family = "Berkeley Mono"
 #font-family = "Cartograph CF"
 #font-family = "Cascadia Code NF"
@@ -15,6 +15,7 @@ adjust-cell-height = 15%
 theme = light:Zenbones Light,dark:Zenbones Dark
 
 cursor-style = block
+cursor-style-blink = false
 cursor-color = #dd0455
 cursor-text = #ffffff
 shell-integration-features = no-cursor
@@ -54,8 +55,10 @@ keybind = cmd+digit_7=text:\x027
 keybind = cmd+digit_8=text:\x028
 keybind = cmd+digit_9=text:\x029
 
-macos-option-as-alt = right
-# macos-icon = xray
-macos-icon-ghost-color = #ff0000
-macos-icon-screen-color = #0000ff
 keybind = shift+enter=text:\x1b\r
+
+macos-option-as-alt = right
+macos-icon = blueprint
+# macos-icon-ghost-color = #ff0000
+# macos-icon-screen-color = #0000ff
+

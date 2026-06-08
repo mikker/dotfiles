@@ -17,16 +17,16 @@
       "skillPath": "skills/beautiful-mermaid/SKILL.md",
       "skillFolderHash": "88651e5cc10e4b028798dcfa45b1c1004e93f8b2",
       "installedAt": "2026-01-29T21:35:33.308Z",
-      "updatedAt": "2026-01-29T21:35:33.308Z"
+      "updatedAt": "2026-06-02T09:34:35.954Z"
     },
     "swiftui-skills": {
       "source": "ameyalambat128/swiftui-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/ameyalambat128/swiftui-skills.git",
       "skillPath": "src/skill/SKILL.md",
-      "skillFolderHash": "d84772c5ddcfead27f4ae6301281f6345d07a1db",
+      "skillFolderHash": "915867a69a4e1033dd74ebea65eb0fe97f44e666",
       "installedAt": "2026-01-31T16:53:21.997Z",
-      "updatedAt": "2026-03-12T13:54:59.348Z"
+      "updatedAt": "2026-06-02T20:49:12.297Z"
     },
     "playwriter": {
       "source": "remorses/playwriter",
@@ -92,9 +92,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/pproenca/dot-skills.git",
       "skillPath": "skills/.experimental/rails-hotwire/SKILL.md",
-      "skillFolderHash": "141ae1979329dae377ac59a07ab76f1c8e875ccd",
+      "skillFolderHash": "825a4c4b762f2b5bd3609bd8e67893672497fe49",
       "installedAt": "2026-04-19T12:48:19.446Z",
-      "updatedAt": "2026-04-19T12:48:19.446Z"
+      "updatedAt": "2026-06-02T20:49:16.733Z"
     },
     "make-interfaces-feel-better": {
       "source": "jakubkrehel/make-interfaces-feel-better",
@@ -168,6 +168,7 @@
     "kimi-cli",
     "opencode",
     "warp",
+    "zed",
     "claude-code"
   ]
 }

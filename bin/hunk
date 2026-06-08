@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eu
+
+DOTFILES=${DOTFILES:-$HOME/.dotfiles}
+CONFIG_DIR=$HOME/.config/hunk
+CONFIG=$CONFIG_DIR/config.toml
+
+if "$DOTFILES/bin/is-this-dark-mode"; then
+  SOURCE=$DOTFILES/hunk/config.dark.toml
+else
+  SOURCE=$DOTFILES/hunk/config.light.toml
+fi
+
+mkdir -p "$CONFIG_DIR"
+cp "$SOURCE" "$CONFIG"
+
+REAL_HUNK=${REAL_HUNK:-}
+if [ -z "$REAL_HUNK" ]; then
+  self=$(realpath "$DOTFILES/bin/hunk")
+  REAL_HUNK=$(which -a hunk | while IFS= read -r candidate; do
+    [ "$(realpath "$candidate")" = "$self" ] && continue
+    printf '%s\n' "$candidate"
+    break
+  done)
+fi
+
+exec "$REAL_HUNK" "$@"

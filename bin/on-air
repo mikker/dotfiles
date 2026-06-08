@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Presentation/recording mode.
+# Optional env:
+#   ON_AIR_DISPLAY_NAME=PG27UCDM
+#   ON_AIR_RESOLUTION=1920x1080
+#   ON_AIR_RESTORE_RESOLUTION=2560x1440
+#   ON_AIR_MENUBAR_NEVER_OPTION=3
+#   ON_AIR_MENUBAR_ALWAYS_OPTION=0
+#   ON_AIR_DND_ON_SHORTCUT="DND On"
+#   ON_AIR_DND_OFF_SHORTCUT="DND Off"
+
+DISPLAY_NAME="${ON_AIR_DISPLAY_NAME:-PG27UCDM}"
+RESOLUTION="${ON_AIR_RESOLUTION:-1920x1080}"
+RESTORE_RESOLUTION="${ON_AIR_RESTORE_RESOLUTION:-2560x1440}"
+MENUBAR_NEVER_OPTION="${ON_AIR_MENUBAR_NEVER_OPTION:-3}"
+MENUBAR_ALWAYS_OPTION="${ON_AIR_MENUBAR_ALWAYS_OPTION:-0}"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/on-air"
+DISPLAY_RESTORE="$STATE_DIR/displayplacer.restore.sh"
+DISPLAY_PRESENT=false
+
+say_step() { printf '\033[1m%s\033[0m\n' "$*"; }
+warn() { printf 'warning: %s\n' "$*" >&2; }
+
+run_shortcut() {
+  local name="$1" action="$2"
+
+  if shortcuts list | grep -Fxq "$name"; then
+    shortcuts run "$name"
+  else
+    warn "shortcut '$name' not found; skipping DND $action"
+    warn "create Shortcuts named 'DND On'/'DND Off' using Set Focus, or override ON_AIR_DND_*_SHORTCUT"
+  fi
+}
+
+dnd_on() { run_shortcut "${ON_AIR_DND_ON_SHORTCUT:-DND On}" on; }
+dnd_off() { run_shortcut "${ON_AIR_DND_OFF_SHORTCUT:-DND Off}" off; }
+
+apply_menubar_defaults() {
+  local hidden="$1" option="$2"
+
+  defaults write NSGlobalDomain _HIHideMenuBar -bool "$hidden" || true
+  defaults write -currentHost NSGlobalDomain _HIHideMenuBar -bool "$hidden" || true
+  defaults write com.apple.controlcenter AutoHideMenuBarOption -int "$option" || true
+  defaults write com.apple.WindowManager AutoHide -bool "$hidden" || true
+  killall Dock ControlCenter SystemUIServer >/dev/null 2>&1 || true
+}
+
+apply_menubar_system_settings() {
+  local title="$1"
+
+  command -v steve >/dev/null || return 1
+
+  open 'x-apple.systempreferences:com.apple.ControlCenter-Settings.extension'
+  steve wait --app 'System Settings' --window 'Menu Bar' --timeout 5 >/dev/null
+  steve find --app 'System Settings' --window 'Menu Bar' --identifier autohide-menubar --click >/dev/null
+  sleep 0.2
+  steve find --app 'System Settings' --title "$title" --click >/dev/null
+  sleep 0.2
+  steve quit --app 'System Settings' >/dev/null 2>&1 || true
+}
+
+menubar_never() { apply_menubar_system_settings Never || apply_menubar_defaults false "$MENUBAR_NEVER_OPTION"; }
+menubar_always() { apply_menubar_system_settings Always || apply_menubar_defaults true "$MENUBAR_ALWAYS_OPTION"; }
+
+save_display_layout() {
+  mkdir -p "$STATE_DIR"
+  : > "$DISPLAY_RESTORE"
+
+  system_profiler SPDisplaysDataType | grep -Fq "${DISPLAY_NAME}:" || return 1
+  DISPLAY_PRESENT=true
+
+  if command -v displayplacer >/dev/null; then
+    displayplacer list | awk '/^Execute the command below/ { getline; getline; print }' > "$DISPLAY_RESTORE"
+  fi
+}
+
+set_display_resolution() {
+  save_display_layout || {
+    say_step "Big monitor not detected; skipping resolution"
+    return
+  }
+
+  say_step "Setting $DISPLAY_NAME to $RESOLUTION"
+  if [[ -d /Applications/BetterDisplay.app ]]; then
+    open "BetterDisplay://set?name=$DISPLAY_NAME&resolution=$RESOLUTION" || true
+    sleep 1
+  else
+    warn "BetterDisplay.app not found; skipping resolution"
+  fi
+}
+
+restore_display_resolution() {
+  [[ "$DISPLAY_PRESENT" == true ]] || return
+
+  say_step "Restoring display layout"
+  if [[ -s "$DISPLAY_RESTORE" ]]; then
+    bash "$DISPLAY_RESTORE" || warn "displayplacer restore failed; trying BetterDisplay fallback"
+  fi
+  if [[ -d /Applications/BetterDisplay.app ]]; then
+    open "BetterDisplay://set?name=$DISPLAY_NAME&resolution=$RESTORE_RESOLUTION" || true
+  fi
+}
+
+enter_on_air() {
+  set_display_resolution
+
+  say_step "Stopping SketchyBar"
+  brew services stop sketchybar >/dev/null 2>&1 || true
+
+  say_step "Setting menu bar hiding to Never"
+  menubar_never
+
+  say_step "Turning DND on"
+  dnd_on
+
+  printf '\nOn air. Press return to restore... '
+  read -r _
+}
+
+leave_on_air() {
+  say_step "Turning DND off"
+  dnd_off
+
+  say_step "Setting menu bar hiding to Always"
+  menubar_always
+
+  say_step "Starting SketchyBar"
+  brew services start sketchybar >/dev/null 2>&1 || true
+
+  restore_display_resolution
+}
+
+trap leave_on_air EXIT
+trap 'exit 130' INT TERM
+enter_on_air

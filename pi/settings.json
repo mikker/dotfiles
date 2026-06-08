@@ -1,12 +1,12 @@
 {
-  "lastChangelogVersion": "0.74.0",
+  "lastChangelogVersion": "0.78.1",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
   "defaultThinkingLevel": "low",
   "theme": "zenbones-ansi",
   "quietStartup": true,
   "collapseChangelog": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "doubleEscapeAction": "tree",
   "showHardwareCursor": true,
   "editorPaddingX": 0,
@@ -14,12 +14,13 @@
   "transport": "auto",
   "packages": [
     "~/.dotfiles/pi",
-    "https://github.com/davebcn87/pi-autoresearch",
-    "git:https://github.com/badlogic/pi-diff-review",
-    "npm:@termdraw/pi"
+    "https://github.com/davebcn87/pi-autoresearch"
   ],
   "enableSkillCommands": true,
   "terminal": {
     "showTerminalProgress": true
+  },
+  "markdown": {
+    "codeBlockIndent": ""
   }
 }

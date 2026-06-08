@@ -1,9 +1,6 @@
-import type { AgentMessage } from "@mariozechner/pi-agent-core";
-import { complete, type Message } from "@mariozechner/pi-ai";
 import {
   CustomEditor,
   type ExtensionAPI,
-  type ExtensionContext,
 } from "@mariozechner/pi-coding-agent";
 import {
   CODEX_FAST_EVENT,
@@ -51,11 +48,6 @@ type SkillRef = {
 type GitMeta = {
   branch: string;
   status: string;
-};
-
-type TextBlock = {
-  type?: string;
-  text?: string;
 };
 
 function formatThinkingLevel(
@@ -109,103 +101,10 @@ function normalizeSkillName(commandName: string): string | null {
   return commandName.slice(SKILL_COMMAND_PREFIX.length);
 }
 
-function formatTaskSummary(summary: string): string {
-  const compact = summary.replace(/\s+/g, " ").trim();
-  if (!compact || compact === DEFAULT_STATUS) return "";
-  return truncateToWidth(compact, 28, "…");
-}
-
 function formatGitStatusForTitle(status: string): string {
   const diff = status.match(/^(\+\d+)(\/)(-\d+)$/);
   if (diff) return `${TITLE_GREEN(diff[1]!)}${diff[2]}${TITLE_RED(diff[3]!)}`;
   return status === "clean" ? TITLE_GREEN(status) : TITLE_RED(status);
-}
-
-function extractMessageText(message: AgentMessage): string {
-  const { content } = message;
-  if (typeof content === "string") return content.trim();
-  if (!Array.isArray(content)) return "";
-  return content
-    .filter((block): block is TextBlock => !!block && typeof block === "object")
-    .filter((block) => block.type === "text" && typeof block.text === "string")
-    .map((block) => block.text!.trim())
-    .filter(Boolean)
-    .join("\n");
-}
-
-function buildSummaryContext(ctx: ExtensionContext): string {
-  const messages: AgentMessage[] = [];
-  for (const entry of ctx.sessionManager.getBranch()) {
-    if (entry.type !== "message") continue;
-    const message = entry.message;
-    if (message.role !== "user" && message.role !== "assistant") continue;
-    messages.push(message);
-  }
-
-  return messages
-    .slice(-6)
-    .map((message) => {
-      const text = extractMessageText(message);
-      if (!text) return "";
-      const role = message.role === "user" ? "User" : "Assistant";
-      return `${role}: ${text}`;
-    })
-    .filter(Boolean)
-    .join("\n\n");
-}
-
-async function generateTaskSummary(
-  ctx: ExtensionContext,
-): Promise<string | null> {
-  const preferredModel =
-    ctx.modelRegistry.find("openai-codex", "gpt-5.4-mini") ??
-    ctx.modelRegistry.find("openai-codex", "gpt-5.1-codex-mini") ??
-    ctx.model;
-  if (!preferredModel) return null;
-
-  const auth = await ctx.modelRegistry.getApiKeyAndHeaders(preferredModel);
-  if (!auth?.ok || !auth.apiKey) return null;
-
-  const conversation = buildSummaryContext(ctx);
-  if (!conversation) return null;
-
-  const messages: Message[] = [
-    {
-      role: "user",
-      content: [
-        {
-          type: "text",
-          text: [
-            "Generate a very short coding task label for this session.",
-            "Return only the label.",
-            "Rules: 2-6 words, lowercase, concrete, no punctuation, no quotes.",
-            "Prefer active work like fix auth redirect or refactor prompt box.",
-            "",
-            conversation,
-          ].join("\n"),
-        },
-      ],
-      timestamp: Date.now(),
-    },
-  ];
-
-  const response = await complete(
-    preferredModel,
-    { messages },
-    { apiKey: auth.apiKey, headers: auth.headers },
-  );
-  const summary = response.content
-    .filter(
-      (block): block is { type: "text"; text: string } => block.type === "text",
-    )
-    .map((block) => block.text)
-    .join(" ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase()
-    .replace(/^["'`]+|["'`]+$/g, "");
-
-  return summary ? truncateToWidth(summary, 28, "…") : null;
 }
 
 function parseNumstat(output: string): { additions: number; deletions: number } {
@@ -368,7 +267,6 @@ class InlineSkillAutocompleteProvider implements AutocompleteProvider {
 
 class PromptBoxEditor extends CustomEditor {
   private readonly title: () => string;
-  private readonly summary: () => string;
   private readonly badge: () => string;
   private readonly model: () => string;
   private readonly fastMode: () => string;
@@ -381,7 +279,6 @@ class PromptBoxEditor extends CustomEditor {
     theme: EditorTheme,
     keybindings: KeybindingsManager,
     title: () => string,
-    summary: () => string,
     badge: () => string,
     model: () => string,
     fastMode: () => string,
@@ -392,7 +289,6 @@ class PromptBoxEditor extends CustomEditor {
   ) {
     super(tui, theme, keybindings, { paddingX: 1, autocompleteMaxVisible: 6 });
     this.title = title;
-    this.summary = summary;
     this.badge = badge;
     this.model = model;
     this.fastMode = fastMode;
@@ -490,12 +386,11 @@ class PromptBoxEditor extends CustomEditor {
     const leftTitle = ` ${TITLE_GLYPH} ${
       this.title().trim() || DEFAULT_STATUS
     } `;
-    const summary = this.summary().trim();
     const badge = this.badge().trim();
     const model = this.model().trim();
     const fastMode = this.fastMode().trim();
     const thinking = this.thinking().trim();
-    const rightMeta = [summary, badge, model, fastMode, thinking]
+    const rightMeta = [badge, model, fastMode, thinking]
       .filter(Boolean)
       .join("  ");
     const maxLeftWidth = Math.max(
@@ -556,8 +451,7 @@ class PromptBoxEditor extends CustomEditor {
 }
 
 export default function promptBoxExtension(pi: ExtensionAPI) {
-  let currentStatus = DEFAULT_STATUS;
-  let currentBadge = BADGES.ready;
+  let currentBadge: string = BADGES.ready;
   let currentModel = "";
   let currentProvider = "";
   let currentFastEnabled = DEFAULT_CODEX_FAST_ENABLED;
@@ -565,15 +459,8 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   let editor: PromptBoxEditor | undefined;
   let currentCwd: string | undefined;
   let gitMeta: GitMeta | null = null;
-  let lastSummarizedLeafId: string | undefined;
-  let summaryRun = 0;
   let gitMetaPollTimer: ReturnType<typeof setInterval> | undefined;
   let gitMetaRefreshInFlight = false;
-
-  const setStatus = (status: string) => {
-    currentStatus = status.trim() || DEFAULT_STATUS;
-    editor?.refresh();
-  };
 
   const setBadge = (badge: string) => {
     currentBadge = badge;
@@ -589,10 +476,6 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   const setFastEnabled = (enabled: boolean) => {
     currentFastEnabled = enabled;
     editor?.refresh();
-  };
-
-  const setStatusFromSessionName = () => {
-    setStatus(pi.getSessionName() ?? DEFAULT_STATUS);
   };
 
   const refreshTitle = () => {
@@ -658,18 +541,12 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     currentProvider = "";
     currentFastEnabled = DEFAULT_CODEX_FAST_ENABLED;
     currentTitle = DEFAULT_STATUS;
-    lastSummarizedLeafId = undefined;
-    summaryRun = 0;
     editor = undefined;
-    setStatus(DEFAULT_STATUS);
   };
 
   pi.on("session_start", (_event, ctx) => {
-    lastSummarizedLeafId = undefined;
-    summaryRun = 0;
     currentCwd = ctx.cwd;
     gitMeta = null;
-    setStatusFromSessionName();
     setModel(ctx.model);
     refreshTitle();
     void refreshGitMeta();
@@ -680,7 +557,6 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
         theme,
         keybindings,
         () => currentTitle,
-        () => formatTaskSummary(currentStatus),
         () => currentBadge,
         () => currentModel,
         () =>
@@ -703,29 +579,9 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     setModel(ctx.model);
   });
 
-  pi.on("agent_end", async (_event, ctx) => {
+  pi.on("agent_end", async () => {
     setBadge(BADGES.ready);
     void refreshGitMeta();
-
-    const leafId = ctx.sessionManager.getLeafId();
-    if (!leafId || leafId === lastSummarizedLeafId) {
-      setStatusFromSessionName();
-      return;
-    }
-
-    const runId = ++summaryRun;
-    try {
-      const summary = await generateTaskSummary(ctx);
-      if (runId !== summaryRun || !summary) {
-        setStatusFromSessionName();
-        return;
-      }
-      lastSummarizedLeafId = leafId;
-      pi.setSessionName(summary);
-      setStatus(summary);
-    } catch {
-      setStatusFromSessionName();
-    }
   });
 
   pi.events.on(CODEX_FAST_EVENT, (data) => {

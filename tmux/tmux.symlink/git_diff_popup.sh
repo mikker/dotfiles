@@ -1,11 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
+against_base=false
+if [[ "${1:-}" == "--base" ]]; then
+  against_base=true
+fi
+
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "Not inside a git repository."
-  echo
-  read -r -n 1 -p "Press any key to close..." _
-  echo
   exit 0
 fi
 
@@ -34,10 +36,18 @@ if ((${#untracked[@]})); then
   git add --intent-to-add -- "${untracked[@]}"
 fi
 
-status=0
-git diff HEAD || status=$?
+target=HEAD
+if $against_base; then
+  for ref in main master; do
+    if git rev-parse --verify --quiet "$ref" >/dev/null; then
+      target="$(git merge-base HEAD "$ref")"
+      break
+    fi
+  done
+fi
 
-echo
-echo "Press any key to close..."
-read -r -n 1 _
-exit "$status"
+# Always run our own pager. Git/less defaults often include -F/--quit-if-one-screen,
+# which makes short diffs close the tmux popup immediately. Disabling -F/-E makes
+# the popup consistently require exactly one q press to dismiss.
+git --no-pager diff "$target" |
+  ~/.dotfiles/bin/git-delta --paging=always --pager='less -R -+F -+E'

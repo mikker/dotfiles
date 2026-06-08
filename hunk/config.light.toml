@@ -1,0 +1,33 @@
+theme = "custom"
+mode = "auto"
+watch = false
+exclude_untracked = false
+line_numbers = true
+wrap_lines = false
+hunk_headers = true
+agent_notes = true
+
+[custom_theme]
+base = "paper"
+label = "Zenbones Light"
+accent = "#2C363C"
+panel = "#F0EDEC"
+panelAlt = "#E9E4E2"
+text = "#2C363C"
+muted = "#948985"
+border = "#CFC1BA"
+noteBorder = "#6A5549"
+add = "#5C6F3E"
+delete = "#A8334C"
+selection = "#CBD9E3"
+
+[custom_theme.syntax]
+keyword = "#2C363C"
+string = "#556570"
+comment = "#948985"
+function = "#2C363C"
+variable = "#44525B"
+type = "#6A5549"
+number = "#556570"
+operator = "#4F5E68"
+punctuation = "#8E817B"

@@ -123,11 +123,11 @@ if.app-id = 'com.brnbw.Tuna'
 run = "layout floating"
 
 [[on-window-detected]]
-if.app-id = 'to.holepunch.runtime'
+if.app-id = 'com.apple.Preview'
 run = "layout floating"
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Preview'
+if.app-id = 'com.apple.QuickTimePlayerX'
 run = "layout floating"
 
 [[on-window-detected]]
@@ -144,6 +144,10 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = 'com.brnbw.Poof'
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = 'com.brnbw.Egomaxxing'
 run = "layout floating"
 
 [workspace-to-monitor-force-assignment]
