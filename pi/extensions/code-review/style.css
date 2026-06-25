@@ -1,0 +1,257 @@
+:root {
+  color-scheme: light dark;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --add: color(display-p3 0.203934 0.463295 0.349859);
+  --add-bg: color(display-p3 0.203934 0.463295 0.349859 / 0.13);
+  --del: color(display-p3 0.72 0.18 0.18);
+  --del-bg: color(display-p3 0.72 0.18 0.18 / 0.11);
+  --accent: color(display-p3 0.45324 0.241651 0.895024);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --add: color(display-p3 0.556502 0.895101 0.729848);
+    --add-bg: color(display-p3 0.556502 0.895101 0.729848 / 0.13);
+    --del: color(display-p3 0.98 0.55 0.52);
+    --del-bg: color(display-p3 0.98 0.55 0.52 / 0.13);
+    --accent: color(display-p3 0.758616 0.711859 0.97189);
+  }
+}
+
+body {
+  font-family: var(--font-mono);
+}
+
+.add {
+  color: var(--add);
+}
+.del {
+  color: var(--del);
+}
+
+/* Tiny Spellbook-ish prose layer; Tailwind browser CDN does not ship typography. */
+.prose {
+  color: inherit;
+}
+.prose > * + * {
+  margin: 0;
+}
+.prose p {
+}
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: light-dark(var(--color-stone-950), var(--color-stone-50));
+  font: inherit;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+.prose h1::before {
+  content: "# ";
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+}
+.prose h2::before {
+  content: "## ";
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+}
+.prose h3::before {
+  content: "### ";
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+.prose ul {
+  list-style: disc;
+}
+.prose ol {
+  list-style: decimal;
+}
+.prose li {
+  padding-left: 0.1rem;
+}
+.prose li::marker {
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+}
+.prose strong {
+  color: light-dark(var(--color-stone-950), var(--color-stone-50));
+  font-weight: 600;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  font-weight: 500;
+  color: light-dark(var(--color-stone-950), var(--color-stone-50));
+  background: transparent;
+  padding: 0;
+  display: inline !important;
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: "\0060";
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+}
+.prose pre {
+  overflow-x: auto;
+  padding: 0;
+  background: transparent;
+}
+.prose pre::before,
+.prose pre::after {
+  display: block;
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+}
+.prose pre::before {
+  content: "\0060\0060\0060";
+}
+.prose pre::after {
+  content: "\0060\0060\0060";
+}
+.prose pre code {
+  color: inherit;
+  line-height: 2;
+  white-space: pre;
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+.prose pre code::before,
+.prose pre code::after {
+  content: none;
+}
+
+.mermaid {
+  min-height: 80px;
+  padding: 0;
+  background: transparent !important;
+  border: 0;
+  overflow: auto;
+}
+
+.file {
+  margin-bottom: 2rem;
+  border-top: 1px solid
+    light-dark(
+      var(--color-stone-300),
+      color-mix(in oklab, var(--color-stone-50) 22%, transparent)
+    );
+}
+#diff pre {
+  border-radius: 0;
+  background: transparent !important;
+  font-family: var(--font-mono) !important;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.raw-diff,
+.empty {
+  padding: 1rem 0;
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+  font-family: var(--font-mono);
+}
+
+[data-line],
+[data-line-number-content],
+[data-column-number] {
+  font-family: var(--font-mono) !important;
+}
+[data-line-type*="addition"] {
+  background: var(--add-bg) !important;
+}
+[data-line-type*="deletion"] {
+  background: var(--del-bg) !important;
+}
+[data-line-type*="addition"] [data-line-number-content],
+[data-line-type*="addition"][data-column-number] {
+  color: var(--add) !important;
+}
+[data-line-type*="deletion"] [data-line-number-content],
+[data-line-type*="deletion"][data-column-number] {
+  color: var(--del) !important;
+}
+[data-line] {
+  cursor: pointer;
+}
+[data-line]:hover {
+  outline: 1px solid var(--accent);
+  background: color-mix(in oklab, var(--accent) 12%, transparent) !important;
+}
+
+.general-comment,
+.inline-comment,
+.inline-comment-form {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.5rem 0 0.5rem 4.5rem;
+  border-top: 1px solid
+    light-dark(
+      var(--color-stone-200),
+      color-mix(in oklab, var(--color-stone-50) 14%, transparent)
+    );
+  border-bottom: 1px solid
+    light-dark(
+      var(--color-stone-200),
+      color-mix(in oklab, var(--color-stone-50) 14%, transparent)
+    );
+  position: relative;
+  z-index: 2;
+  background: light-dark(var(--color-stone-100), var(--color-stone-900));
+  color: inherit;
+}
+.general-comment button,
+.inline-comment button,
+.inline-comment-form button {
+  margin-right: 0.5rem;
+  color: light-dark(var(--color-blue-700), var(--color-blue-300));
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+.general-comment p,
+.inline-comment p {
+  margin: 0.2rem 0 0;
+  white-space: pre-wrap;
+}
+
+#general-comment-form textarea {
+  display: block;
+  width: min(64ch, 100%);
+  margin: 0.35rem 0;
+  padding: 0.35rem 0.45rem;
+  color: inherit;
+  background: light-dark(var(--color-stone-50), var(--color-stone-950));
+  border: 1px solid light-dark(var(--color-stone-300), color-mix(in oklab, var(--color-stone-50) 22%, transparent));
+  border-radius: 6px;
+  font: inherit;
+}
+
+#general-comment-form button {
+  color: light-dark(var(--color-blue-700), var(--color-blue-300));
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+.inline-comment-form label {
+  display: block;
+  color: light-dark(var(--color-stone-500), var(--color-stone-400));
+  font: 500 13px/1.4 var(--font-mono);
+}
+.inline-comment-form textarea {
+  display: block;
+  width: min(64ch, calc(100% - 1rem));
+  margin: 0.35rem 0;
+  padding: 0.35rem 0.45rem;
+  color: inherit;
+  background: light-dark(var(--color-stone-50), var(--color-stone-950));
+  border: 1px solid
+    light-dark(
+      var(--color-stone-300),
+      color-mix(in oklab, var(--color-stone-50) 22%, transparent)
+    );
+  border-radius: 6px;
+  font: inherit;
+}

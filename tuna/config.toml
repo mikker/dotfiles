@@ -370,9 +370,14 @@ catalogIdentifier = 'TunaObsidian.ObsidianNotesCatalog'
 mode = 'none'
 selectedItemKeys = []
 
+[[catalogs.globalScopes]]
+catalogIdentifier = 'TunaReminders.RemindersCatalog'
+mode = 'none'
+selectedItemKeys = []
+
 [[catalogs.sortOrders]]
 catalogIdentifier = 'Tuna.FileSystemBrowseSort'
-sortOrder = 'name.asc'
+sortOrder = 'capturedAt.desc'
 
 [[catalogs.sortOrders]]
 catalogIdentifier = 'Tuna.Internal.ClipboardProxyCatalog'
@@ -661,21 +666,6 @@ label = 'LLMs'
     key = 'm'
     label = 'MidJourney'
     url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FMidjourney.app/TunaCore.CommonActionsCatalog.Open'
-
-[[comboMode.bindings]]
-key = 'M'
-
-    [[comboMode.bindings.children]]
-    key = '1'
-    url = 'tuna://run/Tuna.ModesCatalog.Fuzzy%20Mode/TunaCore.CommonActionsCatalog.Switch'
-
-    [[comboMode.bindings.children]]
-    key = '2'
-    url = 'tuna://run/Tuna.ModesCatalog.Text%20Mode/TunaCore.CommonActionsCatalog.Switch'
-
-    [[comboMode.bindings.children]]
-    key = '4'
-    url = 'tuna://run/Tuna.ModesCatalog.Talk%20Mode/TunaCore.CommonActionsCatalog.Switch'
 
 [[comboMode.bindings]]
 iconPath = 'message'
@@ -1039,6 +1029,10 @@ label = 'Aerospace'
 key = 'y'
 url = 'tuna://run/TunaCore.AllApplicationsCatalog.Codex/TunaCore.CommonActionsCatalog.Open'
 
+[[comboMode.bindings]]
+key = 'M'
+url = 'tuna://run/TunaSystem.MenuItemsCatalog.Menu%20Items/TunaCore.CommonActionsCatalog.Browse'
+
 [hotkeys.app.activate]
 carbonKeyCode = 49
 carbonModifiers = 256
@@ -1128,6 +1122,7 @@ comboModeCheatsheetShowDetails = false
 comboModeDoublePressTrigger = 'rightOption'
 comboModeModifierTrigger = 'rightCommand'
 dictationActivationMode = 'toggle'
+dictationWindowPosition = 'bottomCenter'
 holdToExecuteEnabled = true
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
@@ -1240,8 +1235,10 @@ catalogIdentifier = 'TunaThings.ThingsActionsCatalog'
 catalogIdentifier = 'com.brnbw.TunaPrompts'
 
     [catalogSettings.values]
-    AgentAllowBashTool = 'false'
+    AgentAllowBashTool = 'true'
     AgentReasoningEffort = 'low'
+    BaseURL = 'http://localhost:11434/v1/'
+    Model = 'gemma4:e2b-mlx'
     Provider = 'openaiCompatible'
 
 [[catalogSettings]]

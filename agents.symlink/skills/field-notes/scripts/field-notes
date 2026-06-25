@@ -1,0 +1,320 @@
+#!/usr/bin/env node
+'use strict'
+
+const fs = require('fs')
+const path = require('path')
+const os = require('os')
+
+const NOTES_DIR = expand(process.env.FIELD_NOTES_DIR || '~/.field_notes')
+const TEXT_EXTS = new Set(['.md', '.markdown', '.txt'])
+const MAX_SNIPPET = 220
+
+main().catch((err) => {
+  console.error(err && err.stack ? err.stack : err)
+  process.exit(1)
+})
+
+async function main () {
+  const [cmd = 'help', ...args] = process.argv.slice(2)
+
+  if (cmd === 'help' || cmd === '-h' || cmd === '--help') return help()
+  if (cmd === 'init') return init()
+  if (cmd === 'dir') return console.log(NOTES_DIR)
+  if (cmd === 'list' || cmd === 'ls') return list(args.join(' '))
+  if (cmd === 'search' || cmd === 'find') return search(args.join(' '))
+  if (cmd === 'read' || cmd === 'cat') return read(args.join(' '))
+  if (cmd === 'new') return create(args)
+  if (cmd === 'append') return append(args)
+
+  console.error(`Unknown command: ${cmd}\n`)
+  help()
+  process.exit(1)
+}
+
+function help () {
+  console.log(`Field Notes (${NOTES_DIR})
+
+Usage:
+  field-notes init
+  field-notes dir
+  field-notes list [filter]
+  field-notes search <query>
+  field-notes read <relative-path-or-query>
+  field-notes new <name> [--title "Title"]
+  field-notes append <relative-path> [text]
+
+Env:
+  FIELD_NOTES_DIR=/path/to/notes
+`)
+}
+
+function init () {
+  fs.mkdirSync(NOTES_DIR, { recursive: true })
+
+  const readme = path.join(NOTES_DIR, 'README.md')
+  if (!fs.existsSync(readme)) {
+    fs.writeFileSync(readme, `# Field Notes
+
+User-owned cross-project notes for planning, progress, decisions, prompts, and external docs.
+
+Filename convention:
+
+\`\`\`txt
+<project-or-domain>-<topic>.md
+\`\`\`
+
+Examples:
+
+\`\`\`txt
+sample-app-progress.md
+sample-app-open-questions.md
+pi-field-notes-feature.md
+\`\`\`
+
+Do not store secrets here.
+`)
+  }
+
+  console.log(NOTES_DIR)
+}
+
+function list (filter) {
+  ensureDir()
+
+  const files = noteFiles()
+  const terms = tokenize(filter)
+  const matches = terms.length === 0
+    ? files
+    : files.filter((file) => terms.every((term) => file.toLowerCase().includes(term)))
+
+  for (const file of matches) console.log(file)
+}
+
+function search (query) {
+  ensureDir()
+
+  const terms = tokenize(query)
+  if (terms.length === 0) throw new Error('search needs a query')
+
+  const results = []
+
+  for (const rel of noteFiles()) {
+    const file = path.join(NOTES_DIR, rel)
+    const text = readText(file)
+    const haystack = `${rel}\n${text}`.toLowerCase()
+    const pathText = rel.toLowerCase()
+
+    let score = 0
+    for (const term of terms) {
+      if (pathText.includes(term)) score += 10
+      score += count(haystack, term)
+    }
+
+    if (score > 0) {
+      results.push({ rel, score, snippet: snippet(text, terms) })
+    }
+  }
+
+  results.sort((a, b) => b.score - a.score || a.rel.localeCompare(b.rel))
+
+  if (results.length === 0) return console.log('No matches')
+
+  for (const result of results.slice(0, 20)) {
+    console.log(`${result.rel} (${result.score})`)
+    if (result.snippet) console.log(`  ${result.snippet}`)
+  }
+}
+
+function read (target) {
+  ensureDir()
+
+  if (!target) throw new Error('read needs a relative path or query')
+
+  const exact = normalizeRelative(target)
+  if (exact) {
+    const file = path.join(NOTES_DIR, exact)
+    if (fs.existsSync(file) && fs.statSync(file).isFile()) {
+      process.stdout.write(readText(file))
+      return
+    }
+  }
+
+  const matches = rankedFiles(target)
+  if (matches.length === 0) throw new Error(`No note found for: ${target}`)
+
+  process.stdout.write(readText(path.join(NOTES_DIR, matches[0].rel)))
+}
+
+function create (args) {
+  ensureDir()
+
+  const name = args[0]
+  if (!name) throw new Error('new needs a note name')
+
+  let title = null
+  for (let i = 1; i < args.length; i++) {
+    if (args[i] === '--title') title = args[++i]
+  }
+
+  const rel = withMd(safeName(name))
+  const file = path.join(NOTES_DIR, rel)
+  if (fs.existsSync(file)) {
+    console.log(rel)
+    return
+  }
+
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, `# ${title || titleize(path.basename(rel, path.extname(rel)))}\n`)
+  console.log(rel)
+}
+
+function append (args) {
+  ensureDir()
+
+  const target = args[0]
+  if (!target) throw new Error('append needs a relative path')
+
+  const rel = withMd(normalizeRelative(target) || safeName(target))
+  const file = path.join(NOTES_DIR, rel)
+  const text = args.slice(1).join(' ')
+
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+
+  const input = text || fs.readFileSync(0, 'utf8')
+  if (!input.trim()) throw new Error('append needs text or stdin')
+
+  if (!fs.existsSync(file)) fs.writeFileSync(file, `# ${titleize(path.basename(rel, path.extname(rel)))}\n`)
+
+  const prefix = fs.readFileSync(file, 'utf8').endsWith('\n') ? '' : '\n'
+  fs.appendFileSync(file, `${prefix}\n${input.trim()}\n`)
+  console.log(rel)
+}
+
+function ensureDir () {
+  if (!fs.existsSync(NOTES_DIR)) init()
+}
+
+function noteFiles () {
+  return walk(NOTES_DIR)
+    .map((file) => path.relative(NOTES_DIR, file).split(path.sep).join('/'))
+    .filter((rel) => TEXT_EXTS.has(path.extname(rel).toLowerCase()))
+    .sort()
+}
+
+function walk (dir) {
+  const out = []
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith('.')) continue
+
+    const file = path.join(dir, entry.name)
+    if (entry.isDirectory()) out.push(...walk(file))
+    else if (entry.isFile()) out.push(file)
+  }
+  return out
+}
+
+function rankedFiles (query) {
+  const terms = tokenize(query)
+  return noteFiles()
+    .map((rel) => {
+      const text = readText(path.join(NOTES_DIR, rel)).toLowerCase()
+      const pathText = rel.toLowerCase()
+      let score = 0
+      for (const term of terms) {
+        if (pathText.includes(term)) score += 10
+        score += count(text, term)
+      }
+      return { rel, score }
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score || a.rel.localeCompare(b.rel))
+}
+
+function snippet (text, terms) {
+  const lower = text.toLowerCase()
+  let index = -1
+  for (const term of terms) {
+    index = lower.indexOf(term)
+    if (index !== -1) break
+  }
+  if (index === -1) return firstLine(text)
+
+  const start = Math.max(0, index - 80)
+  const end = Math.min(text.length, index + MAX_SNIPPET)
+  return squish((start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : ''))
+}
+
+function firstLine (text) {
+  return squish(text.split('\n').find((line) => line.trim()) || '')
+}
+
+function squish (text) {
+  return text.replace(/\s+/g, ' ').trim().slice(0, MAX_SNIPPET)
+}
+
+function count (text, term) {
+  let total = 0
+  let offset = 0
+  while (true) {
+    const index = text.indexOf(term, offset)
+    if (index === -1) return total
+    total++
+    offset = index + term.length
+  }
+}
+
+function tokenize (query) {
+  return String(query || '')
+    .toLowerCase()
+    .split(/[^a-z0-9._-]+/)
+    .map((term) => term.trim())
+    .filter(Boolean)
+}
+
+function readText (file) {
+  return fs.readFileSync(file, 'utf8')
+}
+
+function withMd (name) {
+  return path.extname(name) ? name : `${name}.md`
+}
+
+function safeName (name) {
+  return String(name)
+    .trim()
+    .replace(/^~?\/?\.field_notes\/?/, '')
+    .replace(/[^a-zA-Z0-9._/-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^[-/]+|[-/]+$/g, '')
+    .toLowerCase()
+}
+
+function normalizeRelative (target) {
+  let rel = String(target).trim()
+  if (!rel) return null
+
+  rel = expand(rel)
+  if (path.isAbsolute(rel)) {
+    if (!rel.startsWith(NOTES_DIR + path.sep)) return null
+    rel = path.relative(NOTES_DIR, rel)
+  }
+
+  rel = rel.split(path.sep).join('/')
+  rel = rel.replace(/^\.\//, '')
+  if (rel.startsWith('../') || rel === '..') return null
+  return rel
+}
+
+function titleize (slug) {
+  return slug
+    .split(/[-_]+/)
+    .filter(Boolean)
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+function expand (file) {
+  if (file === '~') return os.homedir()
+  if (file.startsWith('~/')) return path.join(os.homedir(), file.slice(2))
+  return path.resolve(file)
+}

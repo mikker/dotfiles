@@ -50,7 +50,6 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
-
-
 # Added by Pear Runtime, configures system with Pear CLI
 export PATH="$HOME/Library/Application Support/pear/bin:$PATH"
+

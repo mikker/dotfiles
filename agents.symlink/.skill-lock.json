@@ -26,16 +26,16 @@
       "skillPath": "src/skill/SKILL.md",
       "skillFolderHash": "915867a69a4e1033dd74ebea65eb0fe97f44e666",
       "installedAt": "2026-01-31T16:53:21.997Z",
-      "updatedAt": "2026-06-02T20:49:12.297Z"
+      "updatedAt": "2026-06-23T12:16:51.338Z"
     },
     "playwriter": {
       "source": "remorses/playwriter",
       "sourceType": "github",
       "sourceUrl": "https://github.com/remorses/playwriter.git",
       "skillPath": "skills/playwriter/SKILL.md",
-      "skillFolderHash": "e6cd918f821d35a79dca0277d197df667a240753",
+      "skillFolderHash": "67b1b1e1e53aa4e9d58b6bc09ea72a881e01984a",
       "installedAt": "2026-02-23T09:08:11.173Z",
-      "updatedAt": "2026-03-27T11:14:45.173Z"
+      "updatedAt": "2026-06-23T12:16:53.800Z"
     },
     "swiftui-pro": {
       "source": "twostraws/swiftui-agent-skill",
@@ -103,7 +103,7 @@
       "skillPath": "skills/make-interfaces-feel-better/SKILL.md",
       "skillFolderHash": "320672d06e899682d8923286d864efe3719d9c77",
       "installedAt": "2026-04-20T10:29:21.552Z",
-      "updatedAt": "2026-04-20T10:29:21.552Z"
+      "updatedAt": "2026-06-21T19:27:22.981Z"
     },
     "macos-design-guidelines": {
       "source": "ehmo/platform-design-skills",
@@ -119,9 +119,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "c1470a475a0472fceda2401ea6763708a91680a8",
+      "skillFolderHash": "9b31e495b887e4ca123960415eca69fc7e1bba28",
       "installedAt": "2026-04-30T08:30:37.072Z",
-      "updatedAt": "2026-05-08T11:21:51.026Z"
+      "updatedAt": "2026-06-23T12:16:54.781Z"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
@@ -149,6 +149,51 @@
       "skillFolderHash": "594ea08c13ee6d3f6adaddee96489ab9096b0571",
       "installedAt": "2026-05-08T11:21:48.642Z",
       "updatedAt": "2026-05-08T11:21:48.642Z"
+    },
+    "teach": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/teach/SKILL.md",
+      "skillFolderHash": "3b6a4245e2aaeacb308ba6175ab3e7f2e43b0c47",
+      "installedAt": "2026-06-09T12:21:57.343Z",
+      "updatedAt": "2026-06-23T12:16:56.156Z"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "skillFolderHash": "8320e7b87f7b208f50ce165b1dd43d1e93c8e801",
+      "installedAt": "2026-06-09T12:22:45.177Z",
+      "updatedAt": "2026-06-23T12:16:57.272Z"
+    },
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "skillFolderHash": "21adba95de7d93065d9fec725ddf37f871e01d05",
+      "installedAt": "2026-06-09T12:22:45.180Z",
+      "updatedAt": "2026-06-23T12:16:58.579Z"
+    },
+    "handoff": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/handoff/SKILL.md",
+      "skillFolderHash": "aa82ffd61d7a3bda110060b4e24ec782b983cb8d",
+      "installedAt": "2026-06-09T12:22:45.180Z",
+      "updatedAt": "2026-06-23T12:16:59.684Z"
+    },
+    "improve-codebase-architecture": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
+      "skillFolderHash": "e5beae48471adf87c513b5cbcb0ca347467546da",
+      "installedAt": "2026-06-09T12:22:45.181Z",
+      "updatedAt": "2026-06-23T12:17:01.555Z"
     }
   },
   "dismissed": {
@@ -157,15 +202,14 @@
   "lastSelectedAgents": [
     "amp",
     "antigravity",
+    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
     "deepagents",
-    "dexto",
-    "firebender",
     "gemini-cli",
     "github-copilot",
-    "kimi-cli",
+    "kimi-code-cli",
     "opencode",
     "warp",
     "zed",

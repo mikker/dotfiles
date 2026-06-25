@@ -1,0 +1,15 @@
+{
+  "name": "pi-code-review-extension",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@pierre/diffs": "1.2.11",
+    "marked": "^18.0.5",
+    "typebox": "^1.0.55"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
