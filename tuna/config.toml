@@ -36,6 +36,11 @@ mode = 'none'
 selectedItemKeys = []
 
 [[catalogs.globalScopes]]
+catalogIdentifier = 'NotionExtension.NotionPagesCatalog'
+mode = 'all'
+selectedItemKeys = [ 'Pages' ]
+
+[[catalogs.globalScopes]]
 catalogIdentifier = 'Tuna.CustomFolderCatalog.4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF'
 mode = 'none'
 selectedItemKeys = []
@@ -385,6 +390,10 @@ sortOrder = 'capturedAt.desc'
 
 [[catalogs.sortOrders]]
 catalogIdentifier = 'TunaEmoji.EmojiSearchCatalog'
+sortOrder = 'score.desc'
+
+[[catalogs.sortOrders]]
+catalogIdentifier = 'TunaGitHub.GitHubNotificationsCatalog'
 sortOrder = 'capturedAt.desc'
 
 [[comboMode.bindings]]
@@ -1129,7 +1138,6 @@ screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
 switchToTextModeWhenNoResults = true
 talkModeModifierTrigger = 'rightOption'
-themeIdentifier = 'com.brnbw.tuna.themes.default'
 
 [[smartLinks.entries]]
 enabled = true
@@ -1236,9 +1244,11 @@ catalogIdentifier = 'com.brnbw.TunaPrompts'
 
     [catalogSettings.values]
     AgentAllowBashTool = 'true'
+    AgentModel = 'gpt-5.5'
     AgentReasoningEffort = 'low'
-    BaseURL = 'http://localhost:11434/v1/'
-    Model = 'gemma4:e2b-mlx'
+    BaseURL = 'https://api.openai.com/v1'
+    Model = '''gpt-5.4-nano
+'''
     Provider = 'openaiCompatible'
 
 [[catalogSettings]]

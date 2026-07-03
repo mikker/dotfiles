@@ -194,6 +194,15 @@
       "skillFolderHash": "e5beae48471adf87c513b5cbcb0ca347467546da",
       "installedAt": "2026-06-09T12:22:45.181Z",
       "updatedAt": "2026-06-23T12:17:01.555Z"
+    },
+    "do-i-understand": {
+      "source": "anthonypalicea/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthonypalicea/skills.git",
+      "skillPath": "skills/do-i-understand/SKILL.md",
+      "skillFolderHash": "d14b4424f85b8a1a7ef5761452eff670ca3d425c",
+      "installedAt": "2026-07-02T09:27:48.733Z",
+      "updatedAt": "2026-07-02T09:27:48.733Z"
     }
   },
   "dismissed": {
