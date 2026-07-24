@@ -58,7 +58,7 @@
       "key": "B",
       "label": "Browser",
       "type": "application",
-      "value": "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
+      "value": "/Applications/Safari.app"
     },
     {
       "actions": [
@@ -577,13 +577,13 @@
           "key": "f",
           "label": "fullscreen",
           "type": "command",
-          "value": "/opt/homebrew/bin/aerospace fullscreen && sketchybar --trigger aerospace_mode_changed"
+          "value": "/opt/homebrew/bin/aerospace fullscreen && /opt/homebrew/bin/sketchybar --trigger aerospace_mode_changed"
         },
         {
           "key": "F",
           "label": "flatten-workspace-tree",
           "type": "command",
-          "value": "/opt/homebrew/bin/aerospace flatten-workspace-tree && sketchybar --trigger aerospace_mode_changed"
+          "value": "/opt/homebrew/bin/aerospace flatten-workspace-tree && /opt/homebrew/bin/sketchybar --trigger aerospace_mode_changed"
         },
         {
           "actions": [
@@ -622,19 +622,19 @@
               "key": "a",
               "label": "accordion",
               "type": "command",
-              "value": "/opt/homebrew/bin/aerospace layout accordion horizontal vertical && sketchybar --trigger aerospace_mode_changed"
+              "value": "/opt/homebrew/bin/aerospace layout accordion horizontal vertical && /opt/homebrew/bin/sketchybar --trigger aerospace_mode_changed"
             },
             {
               "key": "f",
               "label": "floating",
               "type": "command",
-              "value": "/opt/homebrew/bin/aerospace layout floating tiling && sketchybar --trigger aerospace_mode_changed"
+              "value": "/opt/homebrew/bin/aerospace layout floating tiling && /opt/homebrew/bin/sketchybar --trigger aerospace_mode_changed"
             },
             {
               "key": "t",
               "label": "tiles",
               "type": "command",
-              "value": "/opt/homebrew/bin/aerospace layout tiles vertical horizontal && sketchybar --trigger aerospace_mode_changed"
+              "value": "/opt/homebrew/bin/aerospace layout tiles vertical horizontal && /opt/homebrew/bin/sketchybar --trigger aerospace_mode_changed"
             }
           ],
           "key": "l",
@@ -754,7 +754,7 @@
           "key": "s",
           "label": "mode resize",
           "type": "command",
-          "value": "/opt/homebrew/bin/aerospace mode resize && sketchybar --trigger aerospace_mode_changed"
+          "value": "/opt/homebrew/bin/aerospace mode resize && /opt/homebrew/bin/sketchybar --trigger aerospace_mode_changed"
         },
         {
           "key": "t",

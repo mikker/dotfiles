@@ -1,7 +1,17 @@
-import { spawn, spawnSync } from "node:child_process";
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { spawn, type ChildProcess } from "node:child_process";
+import { existsSync } from "node:fs";
+import { writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { basename, join } from "node:path";
+import {
+  BorderedLoader,
+  DEFAULT_MAX_BYTES,
+  DEFAULT_MAX_LINES,
+  type ExtensionAPI,
+  truncateTail,
+} from "@earendil-works/pi-coding-agent";
 
-const MAX_BUFFER = 100 * 1024 * 1024;
+const CAPTURE_LIMIT = 2 * 1024 * 1024;
 
 type RunResult = {
   status: number | null;
@@ -9,46 +19,72 @@ type RunResult = {
   stderr: string;
 };
 
-function run(command: string, args: string[], cwd: string) {
-  return spawnSync(command, args, {
-    cwd,
-    encoding: "utf8",
-    maxBuffer: MAX_BUFFER,
-  });
+function getPiInvocation(args: string[]) {
+  const currentScript = process.argv[1];
+  const isBunVirtualScript = currentScript?.startsWith("/$bunfs/root/");
+  if (currentScript && !isBunVirtualScript && existsSync(currentScript)) {
+    return { command: process.execPath, args: [currentScript, ...args] };
+  }
+
+  const execName = basename(process.execPath).toLowerCase();
+  return /^(node|bun)(\.exe)?$/.test(execName)
+    ? { command: "pi", args }
+    : { command: process.execPath, args };
 }
 
-function runAsync(command: string, args: string[], cwd: string): Promise<RunResult> {
+function appendCapped(current: string, chunk: Buffer | string): string {
+  const next = current + chunk.toString();
+  return next.length <= CAPTURE_LIMIT ? next : next.slice(-CAPTURE_LIMIT);
+}
+
+function runPi(
+  args: string[],
+  cwd: string,
+  signal: AbortSignal,
+  onChild: (child: ChildProcess | null) => void,
+): Promise<RunResult> {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, { cwd, stdio: ["ignore", "pipe", "pipe"] });
+    const invocation = getPiInvocation(args);
+    const child = spawn(invocation.command, invocation.args, {
+      cwd,
+      shell: false,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    onChild(child);
+
     let stdout = "";
     let stderr = "";
+    child.stdout?.on("data", (chunk) => (stdout = appendCapped(stdout, chunk)));
+    child.stderr?.on("data", (chunk) => (stderr = appendCapped(stderr, chunk)));
 
-    child.stdout.setEncoding("utf8");
-    child.stderr.setEncoding("utf8");
-    child.stdout.on("data", (chunk) => {
-      stdout = (stdout + chunk).slice(-MAX_BUFFER);
-    });
-    child.stderr.on("data", (chunk) => {
-      stderr = (stderr + chunk).slice(-MAX_BUFFER);
-    });
+    const abort = () => child.kill("SIGTERM");
+    if (signal.aborted) abort();
+    else signal.addEventListener("abort", abort, { once: true });
+
     child.on("error", reject);
-    child.on("close", (status) => resolve({ status, stdout, stderr }));
+    child.on("close", (status) => {
+      signal.removeEventListener("abort", abort);
+      onChild(null);
+      resolve({ status, stdout, stderr });
+    });
   });
 }
 
-function git(cwd: string, args: string[]) {
-  const result = run("git", args, cwd);
-  return result.status === 0 ? result.stdout.trim() : "";
+async function git(pi: ExtensionAPI, cwd: string, args: string[]) {
+  const result = await pi.exec("git", ["-C", cwd, ...args], { timeout: 5_000 });
+  return result.code === 0 ? result.stdout.trim() : "";
 }
 
-function gitRoot(cwd: string) {
-  return git(cwd, ["rev-parse", "--show-toplevel"]);
+async function gitRoot(pi: ExtensionAPI, cwd: string) {
+  return git(pi, cwd, ["rev-parse", "--show-toplevel"]);
 }
 
-function buildPrompt(cwd: string, brief: string) {
-  const status = git(cwd, ["status", "--short"]);
-  const unstagedStat = git(cwd, ["diff", "--stat"]);
-  const stagedStat = git(cwd, ["diff", "--cached", "--stat"]);
+async function buildPrompt(pi: ExtensionAPI, cwd: string, brief: string) {
+  const [status, unstagedStat, stagedStat] = await Promise.all([
+    git(pi, cwd, ["status", "--short"]),
+    git(pi, cwd, ["diff", "--stat"]),
+    git(pi, cwd, ["diff", "--cached", "--stat"]),
+  ]);
 
   return [
     "You are a clean-context review subagent spawned by a parent Pi session.",
@@ -56,26 +92,20 @@ function buildPrompt(cwd: string, brief: string) {
     "",
     "Scope:",
     "- Default to reviewing uncommitted and staged changes.",
-    "- If the brief asks for another comparison/base, follow the brief and choose appropriate git commands.",
-    "- Inspect the full diff yourself; the summary below is only orientation.",
-    "- Do not edit files, commit, or perform destructive actions.",
-    "- Do not browse web or use external services unless the brief explicitly asks.",
+    "- If the brief asks for another comparison/base, follow it.",
+    "- Inspect the full diff yourself; this summary is orientation only.",
+    "- Do not edit, commit, or perform destructive actions.",
     "- Report only real issues. It is acceptable to find none.",
     "",
-    "Brief:",
-    brief.trim() || "Review current diff for bugs, regressions, security issues, and maintainability problems.",
+    `Brief:\n${brief.trim() || "Review for bugs, regressions, security issues, and maintainability problems."}`,
     "",
-    "Git status --short:",
-    status || "(clean or unavailable)",
+    `Git status --short:\n${status || "(clean or unavailable)"}`,
     "",
-    "Unstaged diff --stat:",
-    unstagedStat || "(none)",
+    `Unstaged diff --stat:\n${unstagedStat || "(none)"}`,
     "",
-    "Staged diff --cached --stat:",
-    stagedStat || "(none)",
+    `Staged diff --cached --stat:\n${stagedStat || "(none)"}`,
     "",
     "Return concise structured markdown:",
-    "",
     "## Review result",
     "Verdict: approve | changes requested | needs investigation",
     "",
@@ -84,41 +114,27 @@ function buildPrompt(cwd: string, brief: string) {
     "  Why:",
     "  Fix:",
     "",
-    "## Notes",
-    "...",
-    "",
     "## What I checked",
     "...",
-    "",
-    "If no issues are found, use:",
-    "Verdict: approve",
-    "",
-    "No issues found.",
-    "",
-    "Checked: ...",
   ].join("\n");
 }
 
-function reviewWithPi(cwd: string, prompt: string, showInternalOutput: boolean) {
-  return runAsync(
-    "pi",
-    [
-      "-p",
-      "--no-session",
-      "--thinking",
-      "medium",
-      "--tools",
-      "read,grep,find,ls,bash",
-      ...(showInternalOutput ? ["--verbose"] : []),
-      prompt,
-    ],
-    cwd,
-  );
+async function formatOutput(output: string): Promise<string> {
+  const truncation = truncateTail(output, {
+    maxBytes: DEFAULT_MAX_BYTES,
+    maxLines: DEFAULT_MAX_LINES,
+  });
+  if (!truncation.truncated) return truncation.content;
+
+  const file = join(tmpdir(), `pi-review-agent-${Date.now()}.md`);
+  await writeFile(file, output, "utf8");
+  return `${truncation.content}\n\n[Output truncated. Full review: ${file}]`;
 }
 
 export default function reviewAgentExtension(pi: ExtensionAPI) {
-  let running = false;
   let showInternalOutput = false;
+  let child: ChildProcess | null = null;
+  let controller: AbortController | null = null;
 
   pi.registerCommand("review-agent-output", {
     description: "Toggle raw review subagent output in review-agent results",
@@ -144,67 +160,84 @@ export default function reviewAgentExtension(pi: ExtensionAPI) {
     description: "Spawn a clean-context Pi review subagent for the current diff",
     handler: async (args, ctx) => {
       await ctx.waitForIdle();
+      if (controller) {
+        ctx.ui.notify("Review agent already running", "warning");
+        return;
+      }
 
-      const cwd = gitRoot(ctx.cwd);
+      const cwd = await gitRoot(pi, ctx.cwd);
       if (!cwd) {
         ctx.ui.notify("Not in a git repository", "error");
         return;
       }
 
-      if (running) {
-        ctx.ui.notify("Review agent already running", "warning");
-        return;
-      }
+      const prompt = await buildPrompt(pi, cwd, args);
+      const commandArgs = [
+        "-p",
+        "--no-session",
+        "--thinking",
+        "medium",
+        "--tools",
+        "read,grep,find,ls,bash",
+        ...(showInternalOutput ? ["--verbose"] : []),
+        prompt,
+      ];
 
-      running = true;
-      const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
-      let frame = 0;
-      const started = Date.now();
-      const timer = setInterval(() => {
-        const seconds = Math.floor((Date.now() - started) / 1000);
-        ctx.ui.setStatus("review-agent", `${frames[frame++ % frames.length]} reviewing ${seconds}s`);
-      }, 120);
+      controller = new AbortController();
+      const run = (signal: AbortSignal) =>
+        runPi(commandArgs, cwd, signal, (value) => (child = value));
 
-      ctx.ui.notify("Review agent running…", "info");
       try {
-        const result = await reviewWithPi(cwd, buildPrompt(cwd, args || ""), showInternalOutput);
-        const output = (result.stdout || result.stderr || "").trim();
-        const internalOutput = result.stderr
-          ? `## Review agent internal output\n\n\`\`\`\n${result.stderr.trim()}\n\`\`\``
-          : "";
+        const result =
+          ctx.mode === "tui"
+            ? await ctx.ui.custom<RunResult | null>((tui, theme, _keybindings, done) => {
+                const loader = new BorderedLoader(tui, theme, "Review agent running...");
+                loader.onAbort = () => {
+                  controller?.abort();
+                  done(null);
+                };
+                void run(controller!.signal).then(done, () => done(null));
+                return loader;
+              })
+            : await run(controller.signal);
 
-        if (result.status !== 0) {
-          ctx.ui.notify("Review agent failed", "error");
-          pi.sendMessage({
-            customType: "review-agent-result",
-            content: `## Review agent failed\n\n${output || `pi exited with status ${result.status}`}${showInternalOutput && internalOutput ? `\n\n---\n\n${internalOutput}` : ""}`,
-            display: true,
-            details: { status: result.status },
-          });
+        if (!result) {
+          ctx.ui.notify("Review agent cancelled", "info");
           return;
         }
 
+        const rawOutput = (result.stdout || result.stderr || "").trim();
+        const internalOutput =
+          showInternalOutput && result.stderr
+            ? `\n\n---\n\n## Review agent internal output\n\n\`\`\`\n${result.stderr.trim()}\n\`\`\``
+            : "";
+        const output = await formatOutput(rawOutput + internalOutput);
+
         pi.sendMessage({
           customType: "review-agent-result",
-          content: `${output || "Review agent returned no output."}${showInternalOutput && internalOutput ? `\n\n---\n\n${internalOutput}` : ""}`,
+          content:
+            result.status === 0
+              ? output || "Review agent returned no output."
+              : `## Review agent failed\n\n${output || `pi exited with status ${result.status}`}`,
           display: true,
-          details: { cwd, brief: args || "", showInternalOutput },
+          details: { cwd, brief: args, status: result.status },
         });
-        ctx.ui.notify("Review agent finished", "success");
+        ctx.ui.notify(result.status === 0 ? "Review agent finished" : "Review agent failed", result.status === 0 ? "info" : "error");
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        ctx.ui.notify("Review agent failed", "error");
-        pi.sendMessage({
-          customType: "review-agent-result",
-          content: `## Review agent failed\n\n${message}`,
-          display: true,
-          details: { error: message },
-        });
+        ctx.ui.notify(`Review agent failed: ${message}`, "error");
       } finally {
-        clearInterval(timer);
-        ctx.ui.setStatus("review-agent", undefined);
-        running = false;
+        controller?.abort();
+        controller = null;
+        child = null;
       }
     },
+  });
+
+  pi.on("session_shutdown", async () => {
+    controller?.abort();
+    child?.kill("SIGTERM");
+    controller = null;
+    child = null;
   });
 }

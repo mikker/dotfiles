@@ -11,10 +11,25 @@ alias dsay='say -v Sara'
 alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1/"\"
 alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"
 
+claude-bash() {
+  local suggestion
+  suggestion=$("$DOTFILES/bin/claude-bash" "$@") || return
+
+  if [[ -o interactive ]]; then
+    print -z -- "$suggestion"
+    print "Command inserted for review. Press Enter to run it."
+  else
+    print -r -- "$suggestion"
+  fi
+}
+
 # tmux
 alias tm="tmux -u"
 alias ta='tmux attach'
-alias tat='tmux new-session -As "`basename $PWD | sed -e \"s/\./-/g\"`"'
+tat() {
+  local session=${PWD:t}
+  tmux new-session -As "${session//./-}"
+}
 alias tmux-set-title='tmux rename-session `basename $PWD | sed -e "s/\./-/g"`'
 
 # Git

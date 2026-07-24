@@ -23,7 +23,7 @@ opt.gdefault = true
 opt.listchars:append({ trail = "·", nbsp = "·" })
 
 -- Automatic dark mode on boot
-if vim.fn.executable("is-this-dark-mode") then
+if vim.fn.executable("is-this-dark-mode") == 1 then
   vim.fn.system("is-this-dark-mode")
   if vim.v.shell_error == 0 then
     vim.opt.background = "dark"
@@ -32,7 +32,7 @@ if vim.fn.executable("is-this-dark-mode") then
   end
 end
 
-if not vim.fn.has("gui_vimr") then
+if vim.fn.has("gui_vimr") == 0 then
   -- vim.opt.guifont = { "Iosevka Light", ":h20" }
   vim.opt.guifont = "Iosevka:h20"
 end

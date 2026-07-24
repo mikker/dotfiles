@@ -17,7 +17,7 @@ end, { nargs = "*", complete = "file" })
 
 -- Open current file in "Marked 2.app"
 vim.api.nvim_create_user_command("Marked", function()
-  vim.system({ "open -a Marked\\ 2 " .. vim.fn.expand("%") })
+  vim.system({ "open", "-a", "Marked 2", vim.fn.expand("%:p") })
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("F", function(args)

@@ -12,16 +12,11 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "ruby",
       })
+      opts.matchup = { enable = true, disable = { "ruby" } }
     end,
   },
 
   -- better matchup for ruby
   { "andymass/vim-matchup" },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    config = function(_, opts)
-      opts.matchup = { enable = true, disable = { "ruby" } }
-    end,
-  },
   "tpope/vim-endwise",
 }

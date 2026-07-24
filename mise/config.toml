@@ -1,7 +1,7 @@
 [tools]
-node = "latest"
-bun = "latest"
-ruby = "latest"
+node = "26"
+bun = "1"
+ruby = "4"
 
 [settings]
-idiomatic_version_file_enable_tools = ["ruby", "nodejs", "bun"]
+idiomatic_version_file_enable_tools = ["ruby", "node", "bun"]

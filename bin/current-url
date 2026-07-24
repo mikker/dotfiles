@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 osascript -e '
 tell application "System Events"
   set numSafari to count (every process whose name is "Safari")

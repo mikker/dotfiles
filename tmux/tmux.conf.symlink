@@ -73,7 +73,7 @@ bind c new-window -c "#{pane_current_path}"
 
 # Open git diff in a temporary zoomed pane so tmux navigation still works.
 bind g split-window -c "#{pane_current_path}" "~/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh" \; resize-pane -Z
-bind G split-window -h -f -c "#{pane_current_path}" "hunk diff"
+bind G split-window -h -f -c "#{pane_current_path}" "~/.dotfiles/bin/hunk diff"
 bind _ split-window -v -c "#{pane_current_path}"
 bind v split-window -h -f -c "#{pane_current_path}" "nvim"
 

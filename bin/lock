@@ -1,2 +1,4 @@
 #!/bin/sh
-/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+set -eu
+
+osascript -e 'tell application "System Events" to key code 12 using {control down, command down}'

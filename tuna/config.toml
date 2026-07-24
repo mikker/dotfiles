@@ -1,4 +1,4 @@
-schemaVersion = 1
+schemaVersion = 3
 
 [[catalogConfiguration.customFolders]]
 depthRawValue = 1
@@ -19,7 +19,7 @@ kind = 'path'
 value = '~/Documents'
 
 [[catalogConfiguration.folderDepthOverrides]]
-catalogIdentifier = 'TunaCore.AllApplicationsCatalog'
+catalogIdentifier = 'tuna.applications.all'
 depthRawValue = 1
 
 [[catalogConfiguration.scriptsDirectories]]
@@ -30,666 +30,753 @@ path = '~/Library/Scripts'
 id = '876D2A76-6AA6-42E2-8B29-5348570BF5BB'
 path = '~/dev/Tuna/scripts/manual-script-catalog'
 
-[[catalogs.globalScopes]]
-catalogIdentifier = 'Tuna.CustomFolderCatalog.4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF'
-mode = 'none'
-selectedItemKeys = []
+[catalogs]
+searchPriorities = []
 
-[[catalogs.globalScopes]]
-catalogIdentifier = 'Tuna.CustomItemsCatalog'
-mode = 'all'
-selectedItemKeys = ['Documents']
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'brew.packages'
 
-[[catalogs.globalScopes]]
-catalogIdentifier = 'TunaContacts.ContactsCatalog'
-mode = 'some'
-selectedItemKeys = ['David Brent']
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'notes'
+
+        [catalogs.globalScopes.scope]
+        itemIDs = [
+            '041D6B89-D02F-48CD-81AC-7AE5B7EAA1D4',
+            '08843309-45DC-45F3-9D73-E0C4B7419CE9',
+            '0FEF7474-AAAC-409E-A022-473670BF9CA2',
+            '210DBB99-4450-4891-A547-B6784DEDCB1B',
+            '30D90CB2-79F7-496D-97F5-A65BDFE31639',
+            '35368AB9-EEE5-47AE-BACF-5FC817A88AE8',
+            '3F30A131-5FA8-442E-8773-013E6EBC29C5',
+            '4B9300D6-0068-4ADC-B10F-A8262AF10F98',
+            '6DB07FE5-DFFF-43D4-A061-24E13DB6D5A9',
+            '71C1C2FA-6F48-4189-8176-14EC5DF18836',
+            '74A6A6D1-BBB7-485F-A775-99AF25217F93',
+            '8A72D57C-E7CE-4837-90D2-EF5844C06857',
+            'A5B8798C-0390-4511-88E4-D61806C22886',
+            'AA973052-F597-4FE8-B615-858FD45BC8AE',
+            'BA608B1B-1B29-44AC-847E-D859E7FBA238',
+            'C590E436-B476-4288-9201-477C011D8AAA',
+            'D526139F-AAE7-4B83-83B1-D80CB64C345E',
+            'D78A235C-816E-4F83-B962-8097BDAE0655',
+            'DD8E1AD4-6DEF-49EF-840B-73245B503825',
+            'EAD88B74-E477-4E65-A38E-B538C0C0B21A',
+            'F5287FB0-B250-4981-824D-F3160B44071D',
+            'FC80F13D-BC47-4DD5-9FF7-35954B3F1936',
+            'FE70C311-CBE6-4BF2-A2C0-D4A54581C0E9',
+            'notes.new'
+        ]
+        kind = 'excluding'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'notion'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'obsidian.notes'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'reminders'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.contacts'
+
+        [catalogs.globalScopes.scope]
+        itemIDs = [ 'addressbook://3ABFD129-B923-44B2-AE76-3F710569A9FC%3AABPerson' ]
+        kind = 'only'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.custom-folder.4920bdbb-e032-4f00-97c9-9cd2a2ecfedf'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.effects'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.emoji'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.sortOrders]]
+    catalogIdentifier = 'Tuna.FileSystemBrowseSort'
+    sortOrder = 'capturedAt.desc'
+
+    [[catalogs.sortOrders]]
+    catalogIdentifier = 'github.notifications'
+    sortOrder = 'capturedAt.desc'
+
+    [[catalogs.sortOrders]]
+    catalogIdentifier = 'tuna.clipboard'
+    sortOrder = 'capturedAt.desc'
+
+    [[catalogs.sortOrders]]
+    catalogIdentifier = 'tuna.emoji.search'
+    sortOrder = 'score.desc'
 
 [[comboMode.bindings]]
+iconPath = 'cat.fill'
 key = 'a'
 label = 'Apps'
 
-[[comboMode.bindings.children]]
-key = 'c'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FCalendar.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run?subject=path:/System/Applications/Calendar.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'e'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FTextEdit.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'e'
+    url = 'tuna://run?subject=path:/System/Applications/TextEdit.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'i'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FMusic.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'i'
+    url = 'tuna://run?subject=path:/System/Applications/Music.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'm'
-url = 'tuna://run/TunaCore.ApplicationsCatalog.Mail/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'm'
+    url = 'tuna://run?subject=tuna.applications//System/Applications/Mail.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'n'
-url = 'tuna://run/path.%252FApplications%252FNotion.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'n'
+    url = 'tuna://run?subject=path:/Applications/Notion.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'o'
-label = 'Obzi'
-url = 'tuna://run/path.%252FApplications%252FObsidian.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'o'
+    label = 'Obzi'
+    url = 'tuna://run?subject=path:/Applications/Obsidian.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'p'
-url = 'tuna://run/path.%252FApplications%252FPlain%2520Text%2520Editor.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'p'
+    url = 'tuna://run?subject=path:/Applications/Plain%20Text%20Editor.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'r'
-url = 'tuna://run/path.%252FApplications%252FReeder.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'r'
+    url = 'tuna://run?subject=path:/Applications/Reeder.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 't'
-url = 'tuna://run/path.%252FApplications%252FThings3.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run?subject=path:/Applications/Things3.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 key = 'B'
 label = 'Browser'
-url = 'tuna://run/path.%252FSystem%252FVolumes%252FPreboot%252FCryptexes%252FApp%252FSystem%252FApplications%252FSafari.app/TunaCore.CommonActionsCatalog.Open'
+url = 'tuna://run?subject=path:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'safari'
 key = 'b'
 label = 'Browsers'
 
-[[comboMode.bindings.children]]
-key = 'a'
-url = 'tuna://run/path.%252FApplications%252FArc.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run?subject=path:/Applications/Arc.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'c'
-url = 'tuna://run/path.%252FApplications%252FGoogle%2520Chrome.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run?subject=path:/Applications/Google%20Chrome.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'f'
-url = 'tuna://run/path.%252FApplications%252FFirefox.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'f'
+    url = 'tuna://run?subject=path:/Applications/Firefox.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'h'
-label = 'Chrome (holepunch)'
-url = 'tuna://run/text.open%2520-a%2520%2522Google%2520Chrome%2522%2520--args%2520--profile-directory=Profile%255C%25206/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'h'
+    label = 'Chrome (holepunch)'
+    url = 'tuna://run?subject=text:open%20-a%20%22Google%20Chrome%22%20--args%20--profile-directory%3DProfile%5C%206&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 's'
-url = 'tuna://run/path.%252FApplications%252FSafari.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 's'
+    url = 'tuna://run?subject=path:/Applications/Safari.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'camera.metering.center.weighted.average'
 key = 'c'
 label = 'Capture'
 
-[[comboMode.bindings.children]]
-key = 'a'
-url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Capture%20Area/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run?subject=cleanshot.commands/capture-area&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'f'
-url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Capture%20Full%20Screen/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'f'
+    url = 'tuna://run?subject=cleanshot.commands/capture-full-screen&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'v'
-url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Record%20Screen/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'v'
+    url = 'tuna://run?subject=cleanshot.commands/record-screen&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'w'
-url = 'tuna://run/TunaCleanShot.CleanShotCommandsCatalog.Capture%20Window/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'w'
+    url = 'tuna://run?subject=cleanshot.commands/capture-window&action=tuna.common-actions/run'
 
 [[comboMode.bindings]]
 iconPath = 'hammer'
 key = 'd'
 label = 'Devtools'
 
-[[comboMode.bindings.children]]
-key = 'd'
-url = 'tuna://run/path.%252FApplications%252FDash.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'd'
+    url = 'tuna://run?subject=path:/Applications/Dash.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 't'
-url = 'tuna://run/path.%252FApplications%252FGhostty.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run?subject=path:/Applications/Ghostty.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'lightbulb'
 key = 'e'
 label = 'Environment'
 
-[[comboMode.bindings.children]]
-key = 'c'
-label = 'Ceiling'
-url = 'tuna://run/text.shortcuts%2520run%2520%2522Kontor-toggle%2522/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'c'
+    label = 'Ceiling'
+    url = 'tuna://run?subject=text:shortcuts%20run%20%22Kontor-toggle%22&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'e'
-label = 'Key Light'
-url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fthomas%252Felgato-key-light%252Ftoggle/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'e'
+    label = 'Key Light'
+    url = 'tuna://run?subject=url:raycast://extensions/thomas/elgato-key-light/toggle&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'm'
-label = 'Monitor'
+    [[comboMode.bindings.children]]
+    key = 'm'
+    label = 'Monitor'
 
-[[comboMode.bindings.children.children]]
-key = '1'
-label = '10%'
-url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=0.2/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '1'
+        label = '10%'
+        url = 'tuna://run?subject=url:BetterDisplay://set?name%3DPG27UCDM%26brightness%3D0.2&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = '2'
-label = '50%'
-url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=0.66/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '2'
+        label = '50%'
+        url = 'tuna://run?subject=url:BetterDisplay://set?name%3DPG27UCDM%26brightness%3D0.66&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = '3'
-label = '100%'
-url = 'tuna://run/url.BetterDisplay:%252F%252Fset%253Fname=PG27UCDM&brightness=1.0/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '3'
+        label = '100%'
+        url = 'tuna://run?subject=url:BetterDisplay://set?name%3DPG27UCDM%26brightness%3D1.0&action=tuna.common-actions/open-url'
 
 [[comboMode.bindings]]
 key = 'enter'
 label = 'Terminal'
-url = 'tuna://run/path.%252FApplications%252FGhostty.app/TunaCore.CommonActionsCatalog.Open'
+url = 'tuna://run?subject=path:/Applications/Ghostty.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'uiwindow.split.2x1'
 key = 'f'
 label = 'Window'
 
-[[comboMode.bindings.children]]
-key = '2'
-label = 'Comfortable'
-url = 'tuna://run/url.moves:%252F%252Fcustom%253F&name=two&position=center&relativeWidth=0.86&relativeHeight=1.0/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = '2'
+    label = 'Comfortable'
+    url = 'tuna://run?subject=url:moves://custom?%26name%3Dtwo%26position%3Dcenter%26relativeWidth%3D0.86%26relativeHeight%3D1.0&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = '3'
-label = 'Thirds'
+    [[comboMode.bindings.children]]
+    key = '3'
+    label = 'Thirds'
 
-[[comboMode.bindings.children.children]]
-key = '2'
-label = 'Two thirds'
+        [[comboMode.bindings.children.children]]
+        key = '2'
+        label = 'Two thirds'
 
-[[comboMode.bindings.children.children.children]]
-key = 'h'
-label = 'First two thirds'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Ffirst-two-thirds/TunaCore.CommonActionsCatalog.Open%20URL'
+            [[comboMode.bindings.children.children.children]]
+            key = 'h'
+            label = 'First two thirds'
+            url = 'tuna://run?subject=url:moves://template/first-two-thirds&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children.children]]
-key = 'l'
-label = 'Last two thirds'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Flast-two-thirds/TunaCore.CommonActionsCatalog.Open%20URL'
+            [[comboMode.bindings.children.children.children]]
+            key = 'l'
+            label = 'Last two thirds'
+            url = 'tuna://run?subject=url:moves://template/last-two-thirds&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = 'c'
-label = 'Center third'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fcenter-third/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'c'
+        label = 'Center third'
+        url = 'tuna://run?subject=url:moves://template/center-third&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = 'h'
-label = 'First third'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Ffirst-third/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'h'
+        label = 'First third'
+        url = 'tuna://run?subject=url:moves://template/first-third&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = 'l'
-label = 'Last third'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Flast-third/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'l'
+        label = 'Last third'
+        url = 'tuna://run?subject=url:moves://template/last-third&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'C'
-label = 'Center'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fcenter/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'C'
+    label = 'Center'
+    url = 'tuna://run?subject=url:moves://template/center&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-iconPath = 'square.and.arrow.up.circle'
-key = 'e'
+    [[comboMode.bindings.children]]
+    iconPath = 'square.and.arrow.up.circle'
+    key = 'e'
 
-[[comboMode.bindings.children.children]]
-key = 't'
-label = 'top'
-url = 'tuna://run/url.moves:%252F%252Fcustom%252FtopLeft%253Fposition=center&relativeWidth=1.0&relativeHeight=0.666/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 't'
+        label = 'top'
+        url = 'tuna://run?subject=url:moves://custom/topLeft?position%3Dcenter%26relativeWidth%3D1.0%26relativeHeight%3D0.666&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'f'
-label = 'Full screen'
-url = 'tuna://run/TunaSystem.WindowManagementCatalog.Maximize/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'f'
+    label = 'Full screen'
+    url = 'tuna://run?subject=tuna.window-management/maximize&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'h'
-label = 'Left'
-url = 'tuna://run/TunaSystem.WindowManagementCatalog.Left%20Half/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'h'
+    label = 'Left'
+    url = 'tuna://run?subject=tuna.window-management/left-half&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'H'
-label = 'Max height'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Fmaximize-height/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'H'
+    label = 'Max height'
+    url = 'tuna://run?subject=url:moves://template/maximize-height&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'l'
-label = 'Right'
-url = 'tuna://run/TunaSystem.WindowManagementCatalog.Right%20Half/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'l'
+    label = 'Right'
+    url = 'tuna://run?subject=tuna.window-management/right-half&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'n'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Ffirst-third/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'n'
+    url = 'tuna://run?subject=url:moves://template/first-third&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'o'
-url = 'tuna://run/url.moves:%252F%252Ftemplate%252Flast-two-thirds/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'o'
+    url = 'tuna://run?subject=url:moves://template/last-two-thirds&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 's'
-label = 'sssslide'
-url = 'tuna://run/url.moves:%252F%252Fcustom%253F&name=slide&position=centerRight&absoluteWidth=1400.0&absoluteHeight=1000.0&absoluteXOffset=-20.0&absoluteYOffset=20.0/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 's'
+    label = 'sssslide'
+    url = 'tuna://run?subject=url:moves://custom?%26name%3Dslide%26position%3DcenterRight%26absoluteWidth%3D1400.0%26absoluteHeight%3D1000.0%26absoluteXOffset%3D-20.0%26absoluteYOffset%3D20.0&action=tuna.common-actions/open-url'
 
 [[comboMode.bindings]]
 iconPath = 'bookmark'
 key = 'g'
 label = 'Folders'
 
-[[comboMode.bindings.children]]
-key = 'a'
-url = 'tuna://run/path.%252FApplications/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run?subject=path:/Applications&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'g'
-url = 'tuna://run/path.%252FUsers%252Fmikker%252FLibrary%252FMobile%2520Documents%252FiCloud~com~jellystyle~GIFwrapped~library%252FDocuments/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'g'
+    url = 'tuna://run?subject=path:/Users/mikker/Library/Mobile%20Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'h'
-url = 'tuna://run/path.%252FUsers%252Fmikker/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'h'
+    url = 'tuna://run?subject=path:/Users/mikker&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'l'
-url = 'tuna://run/path.%252FUsers%252Fmikker%252FDownloads/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'l'
+    url = 'tuna://run?subject=path:/Users/mikker/Downloads&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'sparkles'
 key = 'l'
 label = 'LLMs'
 
-[[comboMode.bindings.children]]
-key = 'a'
-label = 'Claude'
-url = 'tuna://run/path.%252FApplications%252FClaude.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'a'
+    label = 'Claude'
+    url = 'tuna://run?subject=path:/Applications/Claude.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'c'
-url = 'tuna://run/path.%252FApplications%252FChatGPT.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'c'
+    label = 'ChatGPT'
+    url = 'tuna://run?subject=tuna.applications//Applications/ChatGPT%20Classic.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'g'
-label = 'Gemini'
-url = 'tuna://run/url.https:%252F%252Fgemini.google.com/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'g'
+    label = 'Gemini'
+    url = 'tuna://run?subject=url:https://gemini.google.com&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'm'
-label = 'MidJourney'
-url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FMidjourney.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'm'
+    label = 'MidJourney'
+    url = 'tuna://run?subject=path:/Users/mikker/Applications/Midjourney.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'message'
 key = 'm'
 label = 'Messaging'
 
-[[comboMode.bindings.children]]
-key = 'd'
-url = 'tuna://run/path.%252FApplications%252FDiscord.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'd'
+    url = 'tuna://run?subject=path:/Applications/Discord.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'i'
-label = 'Open'
-url = 'tuna://run/TunaCore.AllApplicationsCatalog.Signal/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'i'
+    label = 'Open'
+    url = 'tuna://run?subject=tuna.applications.all//Applications/Signal.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'k'
-url = 'tuna://run/TunaCore.ApplicationsCatalog.Keet-Internal/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'k'
+    url = 'tuna://run?subject=tuna.applications//Applications/Keet-Internal.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'm'
-url = 'tuna://run/path.%252FSystem%252FApplications%252FMessages.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'm'
+    url = 'tuna://run?subject=path:/System/Applications/Messages.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 's'
-url = 'tuna://run/path.%252FApplications%252FSlack.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 's'
+    url = 'tuna://run?subject=path:/Applications/Slack.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 't'
-url = 'tuna://run/path.%252FApplications%252FTelegram.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 't'
+    url = 'tuna://run?subject=path:/Applications/Telegram.app&action=tuna.common-actions/open'
+
+[[comboMode.bindings]]
+key = 'M'
+url = 'tuna://run?subject=tuna.menu-items/menuItems.search&action=tuna.common-actions/browse'
 
 [[comboMode.bindings]]
 key = 'n'
-url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.X%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6%252Ftext./TunaCore.CommonActionsCatalog.Open%20URL'
+url = 'tuna://stage?subject=tuna.smart-links/X&action=tuna.smart-links.actions/open-smart-link&target=text:'
 
 [[comboMode.bindings]]
 key = 'N'
-url = 'tuna://run/url.tuna:%252F%252Fstage%252FTunaSmartLinks.SmartLinksCatalog.Dash%252FTunaSmartLinks.SmartLinksActionsCatalog.Open%252520Smart%252520Link%2525E2%252580%2525A6%252Ftext.something/TunaCore.CommonActionsCatalog.Open%20URL'
+url = 'tuna://stage?subject=tuna.smart-links/Dash&action=tuna.smart-links.actions/open-smart-link&target=text:something'
 
 [[comboMode.bindings]]
 iconPath = 'diamond'
 key = 'o'
 label = 'Obsidian'
 
-[[comboMode.bindings.children]]
-key = 'd'
-label = 'Daily'
-url = 'tuna://run/url.obsidian:%252F%252Fdaily/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'd'
+    label = 'Daily'
+    url = 'tuna://run?subject=url:obsidian://daily&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'o'
-label = 'Open'
-url = 'tuna://run/path.%252FApplications%252FObsidian.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'o'
+    label = 'Open'
+    url = 'tuna://run?subject=path:/Applications/Obsidian.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'w'
-label = 'Weekly'
-url = 'tuna://run/text.open%2520%2522obsidian:%252F%252Fopen%253Ffile=Calendar%252F%2560date%2520+%2525Y-W%2525V%2560%2522/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'w'
+    label = 'Weekly'
+    url = 'tuna://run?subject=text:open%20%22obsidian://open?file%3DCalendar/%60date%20+%25Y-W%25V%60%22&action=tuna.common-actions/run-text-as-shell-command'
 
 [[comboMode.bindings]]
 iconPath = 'opticaldisc'
 key = 'p'
 label = 'Media'
 
-[[comboMode.bindings.children]]
-key = 'l'
-url = 'tuna://run/path.%252FApplications%252FLongplay.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'l'
+    url = 'tuna://run?subject=path:/Applications/Longplay.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'm'
-label = "\uF8FF Music"
-url = 'tuna://run/path.%252FSystem%252FApplications%252FMusic.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'm'
+    label = "\uF8FF Music"
+    url = 'tuna://run?subject=path:/System/Applications/Music.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'o'
-url = 'tuna://run/path.%252FApplications%252FOvercast.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'o'
+    url = 'tuna://run?subject=path:/Applications/Overcast.app&action=tuna.common-actions/open'
 
-[[comboMode.bindings.children]]
-key = 'y'
-url = 'tuna://run/path.%252FUsers%252Fmikker%252FApplications%252FYouTube.app/TunaCore.CommonActionsCatalog.Open'
+    [[comboMode.bindings.children]]
+    key = 'y'
+    url = 'tuna://run?subject=path:/Users/mikker/Applications/YouTube.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'laptopcomputer'
 key = 's'
 label = 'System'
 
-[[comboMode.bindings.children]]
-key = 'a'
-url = 'tuna://run/TunaAutomation.SystemTasksCatalog.Toggle%20Light%2FDark%20Mode/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'a'
+    url = 'tuna://run?subject=tuna.system-tasks/Toggle%20Light/Dark%20Mode&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 'l'
-url = 'tuna://run/TunaAutomation.SystemTasksCatalog.Lock%20Screen/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 'l'
+    url = 'tuna://run?subject=tuna.system-tasks/Lock%20Screen&action=tuna.common-actions/run'
 
-[[comboMode.bindings.children]]
-key = 's'
-url = 'tuna://run/TunaAutomation.SystemTasksCatalog.Sleep/TunaCore.CommonActionsCatalog.Run'
+    [[comboMode.bindings.children]]
+    key = 's'
+    url = 'tuna://run?subject=tuna.system-tasks/Sleep&action=tuna.common-actions/run'
 
 [[comboMode.bindings]]
 key = 'space'
-url = 'tuna://run/TunaSystem.AllWindowsSearchCatalog.Windows/Tuna.BasicActionsCatalog.Browse'
+url = 'tuna://run?subject=tuna.windows.search/allWindows.search&action=tuna.common-actions/browse'
 
 [[comboMode.bindings]]
 iconPath = 'document.on.document'
 key = 't'
 label = 'Tab sets'
 
-[[comboMode.bindings.children]]
-key = 'd'
-label = 'Doomscroll'
+    [[comboMode.bindings.children]]
+    key = 'd'
+    label = 'Doomscroll'
 
-[[comboMode.bindings.children.children]]
-key = 'b'
-label = 'BlueSky'
-url = 'tuna://run/url.https:%252F%252Fbsky.app/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'b'
+        label = 'BlueSky'
+        url = 'tuna://run?subject=url:https://bsky.app&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = 'l'
-url = 'tuna://run/url.https:%252F%252Fwww.linkedin.com%252Fnotifications%252F%253Ffilter=all/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'l'
+        url = 'tuna://run?subject=url:https://www.linkedin.com/notifications/?filter%3Dall&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = 'm'
-label = 'Elk'
-url = 'tuna://run/url.https:%252F%252Felk.zone/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'm'
+        label = 'Elk'
+        url = 'tuna://run?subject=url:https://elk.zone&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = 'x'
-label = 'X'
-url = 'tuna://run/url.https:%252F%252Fx.com/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = 'x'
+        label = 'X'
+        url = 'tuna://run?subject=url:https://x.com&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 't'
-label = '10er'
+    [[comboMode.bindings.children]]
+    key = 't'
+    label = '10er'
 
-[[comboMode.bindings.children.children]]
-key = '1'
-url = 'tuna://run/url.https:%252F%252Fmeta.brnbw.com%252Fdashboard%252F2-10er%253Ftab=1-tab-1/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '1'
+        url = 'tuna://run?subject=url:https://meta.brnbw.com/dashboard/2-10er?tab%3D1-tab-1&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = '2'
-url = 'tuna://run/url.https:%252F%252Fdashboard.simpleanalytics.com%252F10er.com/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '2'
+        url = 'tuna://run?subject=url:https://dashboard.simpleanalytics.com/10er.com&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = '3'
-url = 'tuna://run/url.https:%252F%252Fdashboard.simpleanalytics.com%252Ffunnymost.com/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '3'
+        url = 'tuna://run?subject=url:https://dashboard.simpleanalytics.com/funnymost.com&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children.children]]
-key = '4'
-url = 'tuna://run/url.https:%252F%252Fmeta.brnbw.com%252Fdashboard%252F6-funnymost/TunaCore.CommonActionsCatalog.Open%20URL'
+        [[comboMode.bindings.children.children]]
+        key = '4'
+        url = 'tuna://run?subject=url:https://meta.brnbw.com/dashboard/6-funnymost&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'w'
-label = 'Typefully'
-url = 'tuna://run/url.https:%252F%252Ftypefully.com%252F/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'w'
+    label = 'Typefully'
+    url = 'tuna://run?subject=url:https://typefully.com/&action=tuna.common-actions/open-url'
 
 [[comboMode.bindings]]
 iconPath = 'gamecontroller'
 key = 'up'
 
-[[comboMode.bindings.children]]
-key = 'up'
+    [[comboMode.bindings.children]]
+    key = 'up'
 
-[[comboMode.bindings.children.children]]
-key = 'down'
+        [[comboMode.bindings.children.children]]
+        key = 'down'
 
-[[comboMode.bindings.children.children.children]]
-key = 'down'
+            [[comboMode.bindings.children.children.children]]
+            key = 'down'
 
-[[comboMode.bindings.children.children.children.children]]
-key = 'left'
+                [[comboMode.bindings.children.children.children.children]]
+                key = 'left'
 
-[[comboMode.bindings.children.children.children.children.children]]
-key = 'right'
+                    [[comboMode.bindings.children.children.children.children.children]]
+                    key = 'right'
 
-[[comboMode.bindings.children.children.children.children.children.children]]
-key = 'left'
+                        [[comboMode.bindings.children.children.children.children.children.children]]
+                        key = 'left'
 
-[[comboMode.bindings.children.children.children.children.children.children.children]]
-key = 'right'
+                            [[comboMode.bindings.children.children.children.children.children.children.children]]
+                            key = 'right'
 
-[[comboMode.bindings.children.children.children.children.children.children.children.children]]
-key = 'b'
+                                [[comboMode.bindings.children.children.children.children.children.children.children.children]]
+                                key = 'b'
 
-[[comboMode.bindings.children.children.children.children.children.children.children.children.children]]
-key = 'a'
-label = 'You found a secret!'
-url = 'tuna://run/Tuna.EffectsCatalog.Confetti%20Rain/TunaCore.CommonActionsCatalog.Run'
+                                    [[comboMode.bindings.children.children.children.children.children.children.children.children.children]]
+                                    key = 'a'
+                                    label = 'You found a secret!'
+                                    url = 'tuna://run?subject=tuna.effects/Confetti%20Rain&action=tuna.common-actions/run'
 
 [[comboMode.bindings]]
 iconPath = 'rectangle.grid.2x2'
 key = 'w'
 label = 'Aerospace'
 
-[[comboMode.bindings.children]]
-key = 'c'
-url = 'tuna://run/url.raycast:%252F%252Fextensions%252Fraycast%252Fwindow-management%252Fcenter/TunaCore.CommonActionsCatalog.Open%20URL'
+    [[comboMode.bindings.children]]
+    key = 'c'
+    url = 'tuna://run?subject=url:raycast://extensions/raycast/window-management/center&action=tuna.common-actions/open-url'
 
-[[comboMode.bindings.children]]
-key = 'e'
-label = 'workspace e'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b3/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'e'
+    label = 'workspace e'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20workspace%20b3&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'f'
-label = 'fullscreen'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520fullscreen%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'f'
+    label = 'fullscreen'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20fullscreen%20%26%26%20sketchybar%20--trigger%20aerospace_mode_changed&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'F'
-label = 'flatten-workspace-tree'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520flatten-workspace-tree%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'F'
+    label = 'flatten-workspace-tree'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20flatten-workspace-tree%20%26%26%20sketchybar%20--trigger%20aerospace_mode_changed&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'j'
-label = 'join-with'
+    [[comboMode.bindings.children]]
+    key = 'j'
+    label = 'join-with'
 
-[[comboMode.bindings.children.children]]
-key = 'h'
-label = 'left'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520left/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'h'
+        label = 'left'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20join-with%20left&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'j'
-label = 'down'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520down/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'j'
+        label = 'down'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20join-with%20down&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'k'
-label = 'up'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520up/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'k'
+        label = 'up'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20join-with%20up&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'l'
-label = 'right'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520join-with%2520right/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'l'
+        label = 'right'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20join-with%20right&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'l'
-label = 'layout'
+    [[comboMode.bindings.children]]
+    key = 'l'
+    label = 'layout'
 
-[[comboMode.bindings.children.children]]
-key = 'a'
-label = 'accordion'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520layout%2520accordion%2520horizontal%2520vertical%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'a'
+        label = 'accordion'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20layout%20accordion%20horizontal%20vertical%20%26%26%20sketchybar%20--trigger%20aerospace_mode_changed&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'f'
-label = 'floating'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520layout%2520floating%2520tiling%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'f'
+        label = 'floating'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20layout%20floating%20tiling%20%26%26%20sketchybar%20--trigger%20aerospace_mode_changed&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 't'
-label = 'tiles'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520layout%2520tiles%2520vertical%2520horizontal%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 't'
+        label = 'tiles'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20layout%20tiles%20vertical%20horizontal%20%26%26%20sketchybar%20--trigger%20aerospace_mode_changed&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'm'
-label = 'move'
+    [[comboMode.bindings.children]]
+    key = 'm'
+    label = 'move'
 
-[[comboMode.bindings.children.children]]
-key = 'E'
-label = 'move-node-to-workspace b3'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b3/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'E'
+        label = 'move-node-to-workspace b3'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b3&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'e'
-label = 'move-node-to-workspace b3'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b3%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'e'
+        label = 'move-node-to-workspace b3'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b3%20--focus-follows-window&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'h'
-label = 'left'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520left/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'h'
+        label = 'left'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move%20left&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'j'
-label = 'down'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520down/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'j'
+        label = 'down'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move%20down&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'k'
-label = 'up'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520up/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'k'
+        label = 'up'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move%20up&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'l'
-label = 'right'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move%2520right/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'l'
+        label = 'right'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move%20right&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'Q'
-label = 'move-node-to-workspace b1'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b1/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'Q'
+        label = 'move-node-to-workspace b1'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b1&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'q'
-label = 'move-node-to-workspace b1'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b1%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'q'
+        label = 'move-node-to-workspace b1'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b1%20--focus-follows-window&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'R'
-label = 'move-node-to-workspace b4'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b4/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'R'
+        label = 'move-node-to-workspace b4'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b4&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'r'
-label = 'move-node-to-workspace b4'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b4%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'r'
+        label = 'move-node-to-workspace b4'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b4%20--focus-follows-window&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'T'
-label = 'move-node-to-workspace a1'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520a1/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'T'
+        label = 'move-node-to-workspace a1'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20a1&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 't'
-label = 'move-node-to-workspace a1'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520a1%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 't'
+        label = 'move-node-to-workspace a1'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20a1%20--focus-follows-window&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'W'
-label = 'move-node-to-workspace b2'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b2/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'W'
+        label = 'move-node-to-workspace b2'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b2&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children.children]]
-key = 'w'
-label = 'move-node-to-workspace b2'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520move-node-to-workspace%2520b2%2520--focus-follows-window/Run%20Text%20as%20Shell%20Command'
+        [[comboMode.bindings.children.children]]
+        key = 'w'
+        label = 'move-node-to-workspace b2'
+        url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20move-node-to-workspace%20b2%20--focus-follows-window&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'q'
-label = 'workspace q'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b1/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'q'
+    label = 'workspace q'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20workspace%20b1&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'R'
-label = 'reload-config'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520reload-config/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'R'
+    label = 'reload-config'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20reload-config&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'r'
-label = 'workspace r'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b4/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'r'
+    label = 'workspace r'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20workspace%20b4&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 's'
-label = 'mode resize'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520mode%2520resize%2520&&%2520sketchybar%2520--trigger%2520aerospace_mode_changed/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 's'
+    label = 'mode resize'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20mode%20resize%20%26%26%20sketchybar%20--trigger%20aerospace_mode_changed&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 't'
-label = 'workspace t'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520a1/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 't'
+    label = 'workspace t'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20workspace%20a1&action=tuna.common-actions/run-text-as-shell-command'
 
-[[comboMode.bindings.children]]
-key = 'w'
-label = 'workspace w'
-url = 'tuna://run/text.%252Fopt%252Fhomebrew%252Fbin%252Faerospace%2520workspace%2520b2/Run%20Text%20as%20Shell%20Command'
+    [[comboMode.bindings.children]]
+    key = 'w'
+    label = 'workspace w'
+    url = 'tuna://run?subject=text:/opt/homebrew/bin/aerospace%20workspace%20b2&action=tuna.common-actions/run-text-as-shell-command'
 
 [[comboMode.bindings]]
 key = 'y'
-url = 'tuna://run/TunaCore.AllApplicationsCatalog.Codex/TunaCore.CommonActionsCatalog.Open'
-
-[[comboMode.bindings]]
-key = 'M'
-url = 'tuna://run/TunaSystem.MenuItemsCatalog.Menu%20Items/TunaCore.CommonActionsCatalog.Browse'
+url = 'tuna://run?subject=TunaCore.AllApplicationsCatalog.Codex&action=tuna.common-actions/open'
 
 [hotkeys.app.activate]
 carbonKeyCode = 49
@@ -715,75 +802,72 @@ carbonModifiers = 256
 id = '2F76A5E4-BACC-4FA2-929B-2C0D5AF4C03E'
 presentation = 'auto'
 
-[hotkeys.custom.command]
-actionIdentifier = 'TunaCore.CommonActionsCatalog.Browse'
-subjectIdentifier = 'Tuna.Internal.ClipboardProxyCatalog.Clipboard History'
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/browse'
+    subjectIdentifier = 'tuna.clipboard/clipboard.history.root'
 
-[hotkeys.custom.shortcut]
-carbonKeyCode = 42
-carbonModifiers = 4352
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 42
+    carbonModifiers = 4352
 
 [[hotkeys.custom]]
 id = '4685557B-B7CA-4B05-A1A4-07383833E0BF'
 presentation = 'auto'
 
-[hotkeys.custom.command]
-actionIdentifier = 'Tuna.BasicActionsCatalog.Browse'
-subjectIdentifier = 'TunaEmoji.EmojiSearchCatalog.Emoji'
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/browse'
+    subjectIdentifier = 'tuna.emoji.search/emoji.search'
 
-[hotkeys.custom.shortcut]
-carbonKeyCode = 49
-carbonModifiers = 4352
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 49
+    carbonModifiers = 4352
 
 [[hotkeys.custom]]
 id = '65966102-7E4A-4C40-8719-87DF69A6F59C'
 presentation = 'show'
 
-[hotkeys.custom.command]
-actionIdentifier = 'Tuna.BasicActionsCatalog.Resolve'
-subjectIdentifier = 'Tuna.CurrentSelectionCatalog.Current Selection'
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/resolve'
+    subjectIdentifier = 'Tuna.CurrentSelectionCatalog.Current Selection'
 
-[hotkeys.custom.shortcut]
-carbonKeyCode = 5
-carbonModifiers = 6912
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 5
+    carbonModifiers = 6912
 
 [[hotkeys.custom]]
 id = 'BEAA276E-6DFD-4AE0-AF3A-77BABE5D785F'
 presentation = 'auto'
 
-[hotkeys.custom.command]
-actionIdentifier = 'TunaCore.CommonActionsCatalog.Run'
-subjectIdentifier = 'Tuna.EffectsCatalog.Confetti'
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/run'
+    subjectIdentifier = 'tuna.effects/Confetti'
 
-[hotkeys.custom.shortcut]
-carbonKeyCode = 13
-carbonModifiers = 6912
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 13
+    carbonModifiers = 6912
 
 [[hotkeys.custom]]
 id = 'E287933F-3EE0-4608-B02E-54B6AE92BD10'
 presentation = 'auto'
 
-[hotkeys.custom.command]
-actionIdentifier = 'TunaCore.CommonActionsCatalog.Run'
-subjectIdentifier = 'TunaSystem.ColorToolsCatalog.Pick Color'
+    [hotkeys.custom.command]
+    actionIdentifier = 'tuna.common-actions/run'
+    subjectIdentifier = 'tuna.color-tools/pick-color'
 
-[hotkeys.custom.shortcut]
-carbonKeyCode = 35
-carbonModifiers = 6144
+    [hotkeys.custom.shortcut]
+    carbonKeyCode = 35
+    carbonModifiers = 6144
 
 [settings]
 catalogPeriodicRescanEnabled = false
 clipboardHistoryRetention = 'oneYear'
-clipboardIgnoredBundleIdentifiers = [
-  'com.1password.1password',
-  'com.apple.keychainaccess',
-]
+clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keychainaccess' ]
 comboModeCheatsheetBehavior = 'never'
 comboModeCheatsheetShowDetails = false
 comboModeDoublePressTrigger = 'rightOption'
 comboModeModifierTrigger = 'rightCommand'
 dictationActivationMode = 'toggle'
-dictationWindowPosition = 'bottomCenter'
+dictationWindowPosition = 'bottomLeft'
 holdToExecuteEnabled = true
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
@@ -854,75 +938,74 @@ template = 'https://www.youtube.com/results?search_query={{input}}'
 [[catalogSettings]]
 catalogIdentifier = 'Tuna.Internal.AgentCommands'
 
-[catalogSettings.values]
-AllowBashTool = 'true'
-Model = 'gpt-5.4-mini'
-ReasoningEffort = 'low'
-
-[[catalogSettings]]
-catalogIdentifier = 'TunaCore.TextActionsCatalog'
-
-[catalogSettings.values]
-TextActionsFileExtension = 'txt'
-
-[[catalogSettings]]
-catalogIdentifier = 'TunaEmoji.EmojiCatalog'
-
-[catalogSettings.values]
-EmojiSkinTone = 'default'
-
-[[catalogSettings]]
-catalogIdentifier = 'TunaPrompts.AIPromptCatalog'
-
-[catalogSettings.values]
-Model = 'gpt-5.4-nano-2026-03-17'
-Provider = 'openaiCompatible'
-
-[[catalogSettings]]
-catalogIdentifier = 'TunaSystem.WindowManagementCatalog'
-
-[catalogSettings.values]
-Cycling = 'none'
-Gap = '0'
-
-[[catalogSettings]]
-catalogIdentifier = 'TunaThings.ThingsActionsCatalog'
-
-[catalogSettings.values]
-ShowThingsWhenAdding = 'false'
+    [catalogSettings.values]
+    AllowBashTool = 'true'
+    Model = 'gpt-5.4-mini'
+    ReasoningEffort = 'low'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.TunaPrompts'
 
-[catalogSettings.values]
-AgentAllowBashTool = 'true'
-AgentModel = 'gpt-5.5'
-AgentReasoningEffort = 'low'
-BaseURL = 'https://api.openai.com/v1'
-Model = '''gpt-5.4-nano
-'''
-Provider = 'openaiCompatible'
+    [catalogSettings.values]
+    AgentAllowBashTool = 'true'
+    AgentModel = 'gpt-5.6-luna'
+    AgentReasoningEffort = 'low'
+    BaseURL = 'https://api.openai.com/v1'
+    Model = 'gpt-5.6-luna'
+    Provider = 'openaiCompatible'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.plugins.emoji'
 
-[catalogSettings.values]
-EmojiSkinTone = 'default'
+    [catalogSettings.values]
+    EmojiSkinTone = 'default'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.plugins.things'
 
-[catalogSettings.values]
-ShowThingsWhenAdding = 'false'
+    [catalogSettings.values]
+    ShowThingsWhenAdding = 'false'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.themes.default'
 
-[catalogSettings.values]
-ThemeTint = 'system'
+    [catalogSettings.values]
+    ThemeTint = 'system'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.themes.nuggets'
 
-[catalogSettings.values]
-ThemeTint = 'system'
+    [catalogSettings.values]
+    ThemeTint = 'system'
+
+[[catalogSettings]]
+catalogIdentifier = 'things.actions'
+
+    [catalogSettings.values]
+    ShowThingsWhenAdding = 'false'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.emoji'
+
+    [catalogSettings.values]
+    EmojiSkinTone = 'default'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.prompts'
+
+    [catalogSettings.values]
+    Model = 'gpt-5.4-nano-2026-03-17'
+    Provider = 'openaiCompatible'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.text-actions'
+
+    [catalogSettings.values]
+    TextActionsFileExtension = 'txt'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.window-management'
+
+    [catalogSettings.values]
+    Cycling = 'none'
+    Gap = '0'

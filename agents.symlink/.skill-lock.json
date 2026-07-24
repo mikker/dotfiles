@@ -19,23 +19,14 @@
       "installedAt": "2026-01-29T21:35:33.308Z",
       "updatedAt": "2026-06-02T09:34:35.954Z"
     },
-    "swiftui-skills": {
-      "source": "ameyalambat128/swiftui-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/ameyalambat128/swiftui-skills.git",
-      "skillPath": "src/skill/SKILL.md",
-      "skillFolderHash": "915867a69a4e1033dd74ebea65eb0fe97f44e666",
-      "installedAt": "2026-01-31T16:53:21.997Z",
-      "updatedAt": "2026-06-23T12:16:51.338Z"
-    },
     "playwriter": {
       "source": "remorses/playwriter",
       "sourceType": "github",
       "sourceUrl": "https://github.com/remorses/playwriter.git",
       "skillPath": "skills/playwriter/SKILL.md",
-      "skillFolderHash": "67b1b1e1e53aa4e9d58b6bc09ea72a881e01984a",
+      "skillFolderHash": "e07f981a95b1764f5f0d7efe59a134d5c24fa151",
       "installedAt": "2026-02-23T09:08:11.173Z",
-      "updatedAt": "2026-06-23T12:16:53.800Z"
+      "updatedAt": "2026-07-23T21:35:38.948Z"
     },
     "swiftui-pro": {
       "source": "twostraws/swiftui-agent-skill",
@@ -101,9 +92,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/jakubkrehel/make-interfaces-feel-better.git",
       "skillPath": "skills/make-interfaces-feel-better/SKILL.md",
-      "skillFolderHash": "320672d06e899682d8923286d864efe3719d9c77",
+      "skillFolderHash": "ae0b04b484f3c222048395723a253f6959bf727d",
       "installedAt": "2026-04-20T10:29:21.552Z",
-      "updatedAt": "2026-06-21T19:27:22.981Z"
+      "updatedAt": "2026-07-23T21:35:40.563Z"
     },
     "macos-design-guidelines": {
       "source": "ehmo/platform-design-skills",
@@ -119,9 +110,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "9b31e495b887e4ca123960415eca69fc7e1bba28",
+      "skillFolderHash": "037e8078db4b20b4aa25c04f21c6de7d335ec449",
       "installedAt": "2026-04-30T08:30:37.072Z",
-      "updatedAt": "2026-06-23T12:16:54.781Z"
+      "updatedAt": "2026-07-23T21:35:42.830Z"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
@@ -141,59 +132,50 @@
       "installedAt": "2026-04-30T19:20:17.766Z",
       "updatedAt": "2026-04-30T19:20:17.766Z"
     },
-    "swiftui_skills": {
-      "source": "ameyalambat128/swiftui-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/ameyalambat128/swiftui-skills.git",
-      "skillPath": "src/skill/SKILL.md",
-      "skillFolderHash": "594ea08c13ee6d3f6adaddee96489ab9096b0571",
-      "installedAt": "2026-05-08T11:21:48.642Z",
-      "updatedAt": "2026-05-08T11:21:48.642Z"
-    },
     "teach": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/teach/SKILL.md",
-      "skillFolderHash": "3b6a4245e2aaeacb308ba6175ab3e7f2e43b0c47",
+      "skillFolderHash": "15f8c86d39ef834e643d092733ca899b59049067",
       "installedAt": "2026-06-09T12:21:57.343Z",
-      "updatedAt": "2026-06-23T12:16:56.156Z"
+      "updatedAt": "2026-07-23T21:35:45.160Z"
     },
     "grill-me": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "8320e7b87f7b208f50ce165b1dd43d1e93c8e801",
+      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
       "installedAt": "2026-06-09T12:22:45.177Z",
-      "updatedAt": "2026-06-23T12:16:57.272Z"
+      "updatedAt": "2026-07-23T21:35:46.680Z"
     },
     "grill-with-docs": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
-      "skillFolderHash": "21adba95de7d93065d9fec725ddf37f871e01d05",
+      "skillFolderHash": "5fdcdeedf2d0c73b3ecb1da0a464dd885590f8d6",
       "installedAt": "2026-06-09T12:22:45.180Z",
-      "updatedAt": "2026-06-23T12:16:58.579Z"
+      "updatedAt": "2026-07-23T21:35:49.516Z"
     },
     "handoff": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/handoff/SKILL.md",
-      "skillFolderHash": "aa82ffd61d7a3bda110060b4e24ec782b983cb8d",
+      "skillFolderHash": "184d485ae68a2132893a94239b2b85d253e6152b",
       "installedAt": "2026-06-09T12:22:45.180Z",
-      "updatedAt": "2026-06-23T12:16:59.684Z"
+      "updatedAt": "2026-07-23T21:35:52.128Z"
     },
     "improve-codebase-architecture": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
-      "skillFolderHash": "e5beae48471adf87c513b5cbcb0ca347467546da",
+      "skillFolderHash": "bce229692e60dff3462e49bc5e774e83bef348e6",
       "installedAt": "2026-06-09T12:22:45.181Z",
-      "updatedAt": "2026-06-23T12:17:01.555Z"
+      "updatedAt": "2026-07-23T21:35:53.834Z"
     },
     "do-i-understand": {
       "source": "anthonypalicea/skills",
@@ -203,6 +185,33 @@
       "skillFolderHash": "d14b4424f85b8a1a7ef5761452eff670ca3d425c",
       "installedAt": "2026-07-02T09:27:48.733Z",
       "updatedAt": "2026-07-02T09:27:48.733Z"
+    },
+    "better-colors": {
+      "source": "jakubkrehel/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jakubkrehel/skills.git",
+      "skillPath": "skills/better-colors/SKILL.md",
+      "skillFolderHash": "e8e61f41adde851dc81ab89b1c7018fded733364",
+      "installedAt": "2026-07-14T21:15:19.158Z",
+      "updatedAt": "2026-07-23T21:35:55.488Z"
+    },
+    "better-typography": {
+      "source": "jakubkrehel/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jakubkrehel/skills.git",
+      "skillPath": "skills/better-typography/SKILL.md",
+      "skillFolderHash": "aa2023ab30970ccff8bc03f3a553885441c5dc05",
+      "installedAt": "2026-07-14T21:15:19.159Z",
+      "updatedAt": "2026-07-23T21:35:57.385Z"
+    },
+    "better-ui": {
+      "source": "jakubkrehel/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/jakubkrehel/skills.git",
+      "skillPath": "skills/better-ui/SKILL.md",
+      "skillFolderHash": "d361264b6e851d2b47dd76b85488f4298f163a94",
+      "installedAt": "2026-07-14T21:15:19.160Z",
+      "updatedAt": "2026-07-23T21:35:59.751Z"
     }
   },
   "dismissed": {

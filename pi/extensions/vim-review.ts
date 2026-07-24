@@ -2,9 +2,10 @@ import { spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const REVIEW_COMMENT_PATTERN = /^\s*#\$#\s+/;
+const MAX_DIFF_BYTES = 5 * 1024 * 1024;
 
 const PROMPT_PREFIX = [
   "The following is an annotated git diff with review comments/requests.",
@@ -158,6 +159,10 @@ export default function vimReviewExtension(pi: ExtensionAPI) {
   pi.registerCommand("vim-review", {
     description: "Open the current git diff in vim, then place annotated review notes in the prompt",
     handler: async (_args, ctx) => {
+      if (ctx.mode !== "tui") {
+        ctx.ui.notify("vim-review is only available in the interactive TUI", "error");
+        return;
+      }
       await ctx.waitForIdle();
 
       const rootResult = git(ctx.cwd, ["rev-parse", "--show-toplevel"]);
@@ -180,43 +185,46 @@ export default function vimReviewExtension(pi: ExtensionAPI) {
         return;
       }
 
+      if (Buffer.byteLength(built.body, "utf8") > MAX_DIFF_BYTES) {
+        ctx.ui.notify("Diff exceeds 5MB; narrow it before using vim-review", "error");
+        return;
+      }
+
       const dir = mkdtempSync(join(tmpdir(), "pi-vim-review-"));
       const file = join(dir, "annotated.diff");
-      writeFileSync(file, BUFFER_INSTRUCTIONS + built.body + "\n", "utf8");
+      try {
+        writeFileSync(file, BUFFER_INSTRUCTIONS + built.body + "\n", "utf8");
 
-      ctx.ui.notify(`Opening vim for diff against ${built.base} (:wq submits, :cq cancels)`, "info");
-      const vim = spawnSync(
-        process.env.VISUAL || process.env.EDITOR || "vim",
-        [
-          "-c",
-          "setlocal filetype=diff number cursorline signcolumn=no nowrap foldmethod=syntax",
-          "-c",
-          "normal! gg",
-          file,
-        ],
-        {
-          cwd,
-          stdio: "inherit",
-        },
-      );
+        ctx.ui.notify(`Opening vim for diff against ${built.base} (:wq submits, :cq cancels)`, "info");
+        const vim = spawnSync(
+          process.env.VISUAL || process.env.EDITOR || "vim",
+          [
+            "-c",
+            "setlocal filetype=diff number cursorline signcolumn=no nowrap foldmethod=syntax",
+            "-c",
+            "normal! gg",
+            file,
+          ],
+          { cwd, stdio: "inherit" },
+        );
 
-      if (vim.status !== 0) {
+        if (vim.status !== 0) {
+          ctx.ui.notify("vim-review cancelled", "info");
+          return;
+        }
+
+        const annotated = readFileSync(file, "utf8").trimEnd();
+        const reviewed = stripUncommentedHunks(built.body, annotated);
+        if (!reviewed) {
+          ctx.ui.notify("No review comments found; prompt unchanged", "info");
+          return;
+        }
+
+        ctx.ui.setEditorText(PROMPT_PREFIX + reviewed);
+        ctx.ui.notify("Commented diff hunks loaded into prompt. Press Enter to send.", "info");
+      } finally {
         rmSync(dir, { recursive: true, force: true });
-        ctx.ui.notify("vim-review cancelled", "info");
-        return;
       }
-
-      const annotated = readFileSync(file, "utf8").trimEnd();
-      rmSync(dir, { recursive: true, force: true });
-
-      const reviewed = stripUncommentedHunks(built.body, annotated);
-      if (!reviewed) {
-        ctx.ui.notify("No review comments found; prompt unchanged", "info");
-        return;
-      }
-
-      ctx.ui.setEditorText(PROMPT_PREFIX + reviewed);
-      ctx.ui.notify("Commented diff hunks loaded into prompt. Press Enter to send.", "success");
     },
   });
 }

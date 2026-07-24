@@ -1,4 +1,4 @@
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const emptyFooter = () => ({
   render() {
@@ -9,6 +9,6 @@ const emptyFooter = () => ({
 
 export default function hideFooterExtension(pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
-    ctx.ui.setFooter(emptyFooter);
+    if (ctx.mode === "tui") ctx.ui.setFooter(emptyFooter);
   });
 }

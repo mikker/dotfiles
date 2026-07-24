@@ -1,26 +1,24 @@
 import {
   CustomEditor,
   type ExtensionAPI,
-} from "@mariozechner/pi-coding-agent";
+  type KeybindingsManager,
+} from "@earendil-works/pi-coding-agent";
 import {
   CODEX_FAST_EVENT,
   DEFAULT_CODEX_FAST_ENABLED,
   formatCodexFastLabel,
-} from "./codex-fast-shared";
-import { readFile } from "node:fs/promises";
-import { basename, resolve } from "node:path";
+} from "./codex-fast";
+import { basename } from "node:path";
 import {
   CombinedAutocompleteProvider,
-  matchesKey,
   truncateToWidth,
   visibleWidth,
   type AutocompleteItem,
   type AutocompleteProvider,
   type AutocompleteSuggestions,
   type EditorTheme,
-  type KeybindingsManager,
   type TUI,
-} from "@mariozechner/pi-tui";
+} from "@earendil-works/pi-tui";
 
 const ANSI_REGEX = /\x1b\[[0-9;]*m/g;
 const TITLE_MUTED = "\x1b[38;5;245m";
@@ -42,7 +40,7 @@ const SKILL_COMMAND_PREFIX = "skill:";
 
 type SkillRef = {
   name: string;
-  description?: string;
+  description: string | undefined;
 };
 
 type GitMeta = {
@@ -123,55 +121,16 @@ function parseNumstat(output: string): { additions: number; deletions: number } 
   return { additions, deletions };
 }
 
-function countTextLines(buffer: Buffer): number | null {
-  if (buffer.includes(0)) return null;
-  if (buffer.length === 0) return 0;
-
-  let newlines = 0;
-  for (const byte of buffer) {
-    if (byte === 10) newlines += 1;
-  }
-  return newlines + (buffer[buffer.length - 1] === 10 ? 0 : 1);
-}
-
-async function countUntrackedAddedLines(
-  pi: ExtensionAPI,
-  cwd: string,
-): Promise<number> {
-  const result = await pi.exec("git", [
-    "-C",
-    cwd,
-    "ls-files",
-    "--others",
-    "--exclude-standard",
-    "-z",
-  ]);
-  if (result.code !== 0) return 0;
-
-  let additions = 0;
-  for (const path of (result.stdout ?? "").split("\0")) {
-    if (!path) continue;
-    try {
-      const lineCount = countTextLines(await readFile(resolve(cwd, path)));
-      if (lineCount !== null) additions += lineCount;
-    } catch {
-      // Ignore unreadable untracked files.
-    }
-  }
-  return additions;
-}
-
 async function getGitMeta(
   pi: ExtensionAPI,
   cwd: string,
 ): Promise<GitMeta | null> {
-  const [branchResult, statusResult, diffResult, untrackedAdditions] =
-    await Promise.all([
-      pi.exec("git", ["-C", cwd, "branch", "--show-current"]),
-      pi.exec("git", ["-C", cwd, "status", "--porcelain"]),
-      pi.exec("git", ["-C", cwd, "diff", "--numstat", "HEAD", "--"]),
-      countUntrackedAddedLines(pi, cwd),
-    ]);
+  const options = { timeout: 3_000 };
+  const [branchResult, statusResult, diffResult] = await Promise.all([
+    pi.exec("git", ["-C", cwd, "branch", "--show-current"], options),
+    pi.exec("git", ["-C", cwd, "status", "--porcelain"], options),
+    pi.exec("git", ["-C", cwd, "diff", "--numstat", "HEAD", "--"], options),
+  ]);
   if (branchResult.code !== 0 || statusResult.code !== 0) return null;
 
   const branch = (branchResult.stdout ?? "").trim() || "detached";
@@ -180,7 +139,7 @@ async function getGitMeta(
     diffResult.code === 0
       ? parseNumstat(diffResult.stdout ?? "")
       : { additions: 0, deletions: 0 };
-  const additions = diff.additions + untrackedAdditions;
+  const additions = diff.additions;
   const deletions = diff.deletions;
   const status = !dirty
     ? "clean"
@@ -271,8 +230,9 @@ class PromptBoxEditor extends CustomEditor {
   private readonly model: () => string;
   private readonly fastMode: () => string;
   private readonly thinking: () => string;
-  private readonly theme: EditorTheme;
+  private readonly editorTheme: EditorTheme;
   private readonly getSkillsRef: () => SkillRef[];
+  private readonly appKeybindings: KeybindingsManager;
 
   constructor(
     tui: TUI,
@@ -293,8 +253,9 @@ class PromptBoxEditor extends CustomEditor {
     this.model = model;
     this.fastMode = fastMode;
     this.thinking = thinking;
-    this.theme = theme;
+    this.editorTheme = theme;
     this.getSkillsRef = getSkills;
+    this.appKeybindings = keybindings;
     const fallback = new CombinedAutocompleteProvider(getCommands(), basePath);
     this.setAutocompleteProvider(
       new InlineSkillAutocompleteProvider(getSkills, fallback),
@@ -334,7 +295,7 @@ class PromptBoxEditor extends CustomEditor {
   }
 
   override handleInput(data: string): void {
-    if (matchesKey(data, "tab")) {
+    if (this.appKeybindings.matches(data, "tui.input.tab")) {
       const context = this.getInlineContext();
       if (context) {
         const completionName =
@@ -377,7 +338,7 @@ class PromptBoxEditor extends CustomEditor {
             skill.description ? ` — ${skill.description}` : ""
           }`;
           return truncateToWidth(
-            this.theme.selectList.description(text),
+            this.editorTheme.selectList.description(text),
             Math.max(1, innerWidth),
           );
         })
@@ -459,7 +420,6 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   let editor: PromptBoxEditor | undefined;
   let currentCwd: string | undefined;
   let gitMeta: GitMeta | null = null;
-  let gitMetaPollTimer: ReturnType<typeof setInterval> | undefined;
   let gitMetaRefreshInFlight = false;
 
   const setBadge = (badge: string) => {
@@ -490,26 +450,16 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
 
   const refreshGitMeta = async () => {
     if (!currentCwd || gitMetaRefreshInFlight) return;
+    const cwd = currentCwd;
     gitMetaRefreshInFlight = true;
     try {
-      gitMeta = await getGitMeta(pi, currentCwd);
+      const next = await getGitMeta(pi, cwd);
+      if (currentCwd !== cwd) return;
+      gitMeta = next;
       refreshTitle();
     } finally {
       gitMetaRefreshInFlight = false;
     }
-  };
-
-  const stopGitMetaPolling = () => {
-    if (!gitMetaPollTimer) return;
-    clearInterval(gitMetaPollTimer);
-    gitMetaPollTimer = undefined;
-  };
-
-  const startGitMetaPolling = () => {
-    stopGitMetaPolling();
-    gitMetaPollTimer = setInterval(() => {
-      void refreshGitMeta();
-    }, 5000);
   };
 
   const getSkills = (): SkillRef[] =>
@@ -534,8 +484,8 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     }));
 
   const resetState = () => {
-    stopGitMetaPolling();
     currentCwd = undefined;
+    currentBadge = BADGES.ready;
     gitMeta = null;
     currentModel = "";
     currentProvider = "";
@@ -545,12 +495,12 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
   };
 
   pi.on("session_start", (_event, ctx) => {
+    if (ctx.mode !== "tui") return;
     currentCwd = ctx.cwd;
     gitMeta = null;
     setModel(ctx.model);
     refreshTitle();
     void refreshGitMeta();
-    startGitMetaPolling();
     ctx.ui.setEditorComponent((tui, theme, keybindings) => {
       editor = new PromptBoxEditor(
         tui,
@@ -579,7 +529,7 @@ export default function promptBoxExtension(pi: ExtensionAPI) {
     setModel(ctx.model);
   });
 
-  pi.on("agent_end", async () => {
+  pi.on("agent_settled", async () => {
     setBadge(BADGES.ready);
     void refreshGitMeta();
   });

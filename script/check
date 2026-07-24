@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+set -u
+
+DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+failures=0
+warnings=0
+
+pass() { printf 'ok   %s\n' "$1"; }
+warn() { printf 'warn %s\n' "$1"; warnings=$((warnings + 1)); }
+fail() { printf 'FAIL %s\n' "$1" >&2; failures=$((failures + 1)); }
+
+check_shell_syntax() {
+  local file first
+  while IFS= read -r file; do
+    first=$(head -n 1 "$DOTFILES_ROOT/$file" 2>/dev/null || true)
+    case "$first" in
+      '#!'*bash*|'#!'*'/sh')
+        /bin/bash -n "$DOTFILES_ROOT/$file" || fail "shell syntax: $file"
+        ;;
+      '#!'*zsh*)
+        if command -v zsh >/dev/null; then
+          zsh -n "$DOTFILES_ROOT/$file" || fail "zsh syntax: $file"
+        fi
+        ;;
+    esac
+  done < <(git -C "$DOTFILES_ROOT" ls-files)
+  if grep -n 'mapfile' "$DOTFILES_ROOT/script/setup" "$DOTFILES_ROOT/script/lib.sh" >/dev/null; then
+    fail "bootstrap uses Bash features unavailable in macOS Bash 3.2"
+  fi
+  pass "shell syntax"
+}
+
+check_link_safety() {
+  local sandbox
+  sandbox=$(mktemp -d)
+  mkdir -p "$sandbox/repo" "$sandbox/home"
+  printf 'source\n' > "$sandbox/repo/source"
+  printf 'keep\n' > "$sandbox/home/dest"
+
+  (
+    DOTFILES_ROOT="$sandbox/repo"
+    source "$DOTFILES_ROOT_ORIGINAL/script/lib.sh"
+    if link_path source "$sandbox/home/dest" >/dev/null 2>&1; then exit 1; fi
+    [[ "$(cat "$sandbox/home/dest")" == keep ]]
+    rm "$sandbox/home/dest"
+    link_path source "$sandbox/home/dest" >/dev/null
+    same_link "$sandbox/home/dest" "$sandbox/repo/source"
+  ) || fail "link_path replacement safety"
+  rm -rf "$sandbox"
+  pass "link safety and idempotence"
+}
+
+check_executables() {
+  local file first kind
+  while IFS= read -r file; do
+    [[ "$file" == agents.symlink/skills/* ]] && continue
+    [[ -f "$DOTFILES_ROOT/$file" && ! -L "$DOTFILES_ROOT/$file" ]] || continue
+    [[ -x "$DOTFILES_ROOT/$file" ]] || continue
+    first=$(head -c 2 "$DOTFILES_ROOT/$file" 2>/dev/null || true)
+    [[ "$first" == '#!' ]] && continue
+    kind=$(file -b "$DOTFILES_ROOT/$file")
+    case "$kind" in
+      Mach-O*|ELF*) ;;
+      *) fail "executable lacks shebang: $file" ;;
+    esac
+  done < <(git -C "$DOTFILES_ROOT" ls-files)
+  pass "executable shebangs"
+}
+
+check_structured_files() {
+  if command -v python3 >/dev/null; then
+    python3 - "$DOTFILES_ROOT" <<'PY' || fail "JSON/TOML parsing"
+import json, pathlib, sys, tomllib
+root = pathlib.Path(sys.argv[1])
+for path in root.rglob("*.json"):
+    if ".git" not in path.parts:
+        json.loads(path.read_text())
+for path in root.rglob("*.toml"):
+    if ".git" not in path.parts:
+        tomllib.loads(path.read_text())
+PY
+    pass "JSON/TOML parsing"
+  else
+    warn "python3 unavailable; skipped JSON/TOML parsing"
+  fi
+}
+
+check_brewfile() {
+  local formula
+  for formula in aria2 displayplacer git-lfs ical-buddy mise moreutils the_silver_searcher; do
+    grep -Fq "brew(\"$formula\")" "$DOTFILES_ROOT/brew/Brewfile.symlink" ||
+      fail "Brewfile missing $formula"
+  done
+
+  if grep -Fq 'oven-sh/bun/bun' "$DOTFILES_ROOT/brew/Brewfile.symlink"; then
+    fail "Bun has multiple owners (Brew and Mise)"
+  fi
+
+  if command -v brew >/dev/null; then
+    brew bundle check --file="$DOTFILES_ROOT/brew/Brewfile.symlink" >/dev/null 2>&1 ||
+      warn "some Brewfile dependencies are not installed"
+  fi
+  pass "Brew dependency declarations"
+}
+
+check_mise() {
+  grep -Fq 'node = "26"' "$DOTFILES_ROOT/mise/config.toml" || fail "Node major is not pinned"
+  grep -Fq 'bun = "1"' "$DOTFILES_ROOT/mise/config.toml" || fail "Bun major is not pinned"
+  grep -Fq 'ruby = "4"' "$DOTFILES_ROOT/mise/config.toml" || fail "Ruby major is not pinned"
+  grep -Fq 'mise activate zsh' "$DOTFILES_ROOT/zsh/zshrc.symlink" || fail "Mise is not activated by zshrc"
+  pass "Mise ownership"
+}
+
+check_symlinks() {
+  local source dest target
+  while IFS= read -r source; do
+    dest="$HOME/.${source##*/}"
+    dest="${dest%.symlink}"
+    [[ -e "$dest" || -L "$dest" ]] || { warn "missing managed path: $dest"; continue; }
+    if [[ -L "$dest" ]]; then
+      target=$(readlink "$dest")
+      [[ "$target" == "$DOTFILES_ROOT/$source" ]] || warn "$dest points outside this checkout"
+    else
+      warn "$dest is not a symlink"
+    fi
+  done < <(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -print | sed "s#^$DOTFILES_ROOT/##" | sort)
+  pass "managed symlink inspection"
+}
+
+check_architecture() {
+  [[ "$(uname -m)" == arm64 ]] || return
+  local file kind
+  while IFS= read -r file; do
+    kind=$(file -b "$DOTFILES_ROOT/$file")
+    case "$kind" in
+      'Mach-O 64-bit executable x86_64'*) fail "x86-only binary on arm64: $file" ;;
+    esac
+  done < <(git -C "$DOTFILES_ROOT" ls-files 'bin/*')
+  pass "vendored binary architectures"
+}
+
+check_safety_helpers() {
+  if grep -Eq '(^|[[:space:]])eval[[:space:]]' "$DOTFILES_ROOT/bin/claude-bash"; then
+    fail "claude-bash executes model output with eval"
+  fi
+  grep -Fq 'status --short --untracked-files=all' "$DOTFILES_ROOT/zsh/zfunc.symlink/gwrm" ||
+    fail "gwrm does not inspect worktree changes"
+  grep -Fq 'Re-run with --force' "$DOTFILES_ROOT/zsh/zfunc.symlink/gwrm" ||
+    fail "gwrm lacks explicit dirty-worktree override"
+  pass "destructive helper safeguards"
+}
+
+check_configs() {
+  git -C "$DOTFILES_ROOT" config --file git/gitconfig.symlink --list >/dev/null || fail "Git config"
+  [[ ! -e "$DOTFILES_ROOT/hunk/config.toml" ]] || fail "tracked Hunk runtime config"
+
+  if command -v nvim >/dev/null; then
+    nvim --headless '+lua assert(loadfile("nvim/lua/config/commands.lua"))' +qa >/dev/null 2>&1 ||
+      fail "Neovim Lua loading"
+  fi
+  pass "application configs"
+}
+
+cd "$DOTFILES_ROOT"
+DOTFILES_ROOT_ORIGINAL="$DOTFILES_ROOT"
+check_shell_syntax
+check_link_safety
+check_executables
+check_structured_files
+check_brewfile
+check_mise
+check_symlinks
+check_architecture
+check_safety_helpers
+check_configs
+
+printf '\n%d failure(s), %d warning(s)\n' "$failures" "$warnings"
+(( failures == 0 ))

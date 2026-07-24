@@ -1,42 +1,77 @@
 #autoload
 
-local name="$1"
-local parent_dir
-local project_name
-local worktree_path
+local force=false
+local name=""
+local argument
 
-# Check if we're inside a worktree by examining current path
-if [[ "$PWD" =~ /([^/]+)-worktrees/([^/]+)$ ]] && [[ -z "$name" ]]; then
-    # We're in a worktree and no arg provided
-    worktree_path="$PWD"
-    name="$match[2]"
-    project_name="$match[1]"
-elif [[ -n "$name" ]]; then
-    # Name provided as argument
-    parent_dir="${PWD:h}"
-    project_name="${PWD:t}"
-    worktree_path="$parent_dir/${project_name}-worktrees/${name}"
-else
-    # No argument and not in worktree - use fzf to select
-    local selected=$(git worktree list --porcelain | grep "^worktree" | cut -d' ' -f2- | grep -v "$(git worktree list | head -1 | awk '{print $1}')" | fzf)
-    [[ -z "$selected" ]] && return
-    worktree_path="$selected"
-    # Extract name from path
-    if [[ "$selected" =~ /([^/]+)-worktrees/([^/]+)$ ]]; then
-        name="$match[2]"
-    fi
+for argument in "$@"; do
+  case "$argument" in
+    --force) force=true ;;
+    -*)
+      print -u2 "Usage: gwrm [--force] [name]"
+      return 2
+      ;;
+    *)
+      if [[ -n "$name" ]]; then
+        print -u2 "Usage: gwrm [--force] [name]"
+        return 2
+      fi
+      name="$argument"
+      ;;
+  esac
+done
+
+local main_worktree
+main_worktree=$(git worktree list --porcelain | awk '/^worktree / { print substr($0, 10); exit }')
+if [[ -z "$main_worktree" ]]; then
+  print -u2 "gwrm: not in a Git repository"
+  return 1
 fi
 
-# Confirm deletion
-echo -n "Remove worktree '$name' at $worktree_path? [y/N] "
+local worktree_path
+if [[ "$PWD" =~ /([^/]+)-worktrees/([^/]+)$ ]] && [[ -z "$name" ]]; then
+  worktree_path="$PWD"
+  name="$match[2]"
+elif [[ -n "$name" ]]; then
+  worktree_path="${main_worktree:h}/${main_worktree:t}-worktrees/$name"
+else
+  worktree_path=$(
+    git worktree list --porcelain |
+      awk '/^worktree / { print substr($0, 10) }' |
+      grep -Fvx "$main_worktree" |
+      fzf
+  )
+  [[ -n "$worktree_path" ]] || return
+  name="${worktree_path:t}"
+fi
+
+if ! git worktree list --porcelain | grep -Fxq "worktree $worktree_path"; then
+  print -u2 "gwrm: not a registered worktree: $worktree_path"
+  return 1
+fi
+
+local worktree_status
+worktree_status=$(git -C "$worktree_path" status --short --untracked-files=all) || return
+if [[ -n "$worktree_status" ]]; then
+  print -u2 "Dirty worktree:"
+  print -u2 -- "$worktree_status"
+  if [[ "$force" != true ]]; then
+    print -u2 "Refusing to remove it. Re-run with --force to discard these changes."
+    return 1
+  fi
+fi
+
+local qualifier=""
+[[ -n "$worktree_status" ]] && qualifier=" DIRTY"
+print -n "Remove${qualifier} worktree '$name' at $worktree_path? [y/N] "
+local confirm
 read -r confirm
-[[ "$confirm" != [yY] ]] && return
+[[ "$confirm" == [yY] ]] || return
 
-# Get the main worktree path before changing directories
-local main_worktree=$(git worktree list | head -1 | awk '{print $1}')
+[[ "$PWD" == "$worktree_path" ]] && builtin cd "$main_worktree"
 
-# Change out of worktree if we're in it
-[[ "$PWD" == "$worktree_path" ]] && cd "$main_worktree"
-
-# Remove worktree
-git worktree remove "$worktree_path" --force
+if [[ "$force" == true ]]; then
+  git worktree remove --force "$worktree_path"
+else
+  git worktree remove "$worktree_path"
+fi

@@ -13,6 +13,7 @@ main() {
   assert_checkout_path
   echo "Install"
   submodules
+  dependencies
   symlinks
   platform
   generic
@@ -65,11 +66,14 @@ run_installers() {
 
   echo "Running $label"
 
-  mapfile -t installers < <(
+  local installers=()
+  local installer
+  while IFS= read -r installer; do
+    installers+=("$installer")
+  done < <(
     find "$DOTFILES_ROOT" -type f \( "${find_args[@]}" \) -print | sort
   )
 
-  local installer
   for installer in "${installers[@]}"; do
     echo "${installer#$DOTFILES_ROOT/}"
     bash "$installer"
@@ -97,6 +101,14 @@ generic() {
   run_installers "generic installers" "all.sh"
 }
 
+dependencies() {
+  [[ "$(detect_platform)" == macos ]] || return
+  command_exists brew || fail "Homebrew is required; install it with Strap first"
+
+  echo "Install Homebrew dependencies"
+  brew bundle --file "$DOTFILES_ROOT/brew/Brewfile.symlink"
+}
+
 symlinks() {
   echo "Create symlinks"
 
@@ -104,11 +116,15 @@ symlinks() {
   local backup_all=false
   local skip_all=false
 
-  mapfile -t sources < <(
+  local sources=()
+  local source
+  while IFS= read -r source; do
+    sources+=("$source")
+  done < <(
     find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -print | sort
   )
 
-  local source dest action overwrite backup skip
+  local dest action overwrite backup skip
   for source in "${sources[@]}"; do
     dest="$HOME/.${source##*/}"
     dest="${dest%.symlink}"
@@ -135,6 +151,7 @@ symlinks() {
           B) backup_all=true ;;
           s) skip=true ;;
           S) skip_all=true ;;
+          *) skip=true ;;
         esac
       fi
 

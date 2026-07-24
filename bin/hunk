@@ -12,7 +12,11 @@ else
 fi
 
 mkdir -p "$CONFIG_DIR"
-cp "$SOURCE" "$CONFIG"
+temporary=$(mktemp "$CONFIG_DIR/config.toml.XXXXXX")
+trap 'rm -f "$temporary"' EXIT HUP INT TERM
+cp "$SOURCE" "$temporary"
+mv -f "$temporary" "$CONFIG"
+trap - EXIT HUP INT TERM
 
 REAL_HUNK=${REAL_HUNK:-}
 if [ -z "$REAL_HUNK" ]; then
@@ -22,6 +26,11 @@ if [ -z "$REAL_HUNK" ]; then
     printf '%s\n' "$candidate"
     break
   done)
+fi
+
+if [ -z "$REAL_HUNK" ]; then
+  echo "hunk: real executable not found; set REAL_HUNK" >&2
+  exit 127
 fi
 
 exec "$REAL_HUNK" "$@"

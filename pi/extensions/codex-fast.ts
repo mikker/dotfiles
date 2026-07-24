@@ -1,17 +1,45 @@
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { streamOpenAICodexResponses } from "@mariozechner/pi-ai";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import {
-  CODEX_FAST_ENTRY_TYPE,
-  CODEX_FAST_EVENT,
-  DEFAULT_CODEX_FAST_ENABLED,
-  supportsCodexFastMode,
-} from "./codex-fast-shared";
+  streamOpenAICodexResponses,
+  streamOpenAIResponses,
+} from "@earendil-works/pi-ai";
+export const CODEX_FAST_ENTRY_TYPE = "codex-fast-mode";
+export const CODEX_FAST_EVENT = "codex-fast:changed";
+export const DEFAULT_CODEX_FAST_ENABLED = true;
+
+const CODEX_FAST_MODELS = new Set(["gpt-5.4", "gpt-5.5"]);
+const CODEX_FAST_MODEL_FAMILIES = ["gpt-5.6-"];
+
+export function supportsCodexFastMode(
+  provider: string | undefined,
+  modelId: string | undefined,
+): boolean {
+  if (!modelId) return false;
+
+  const isFastModel =
+    CODEX_FAST_MODELS.has(modelId) ||
+    CODEX_FAST_MODEL_FAMILIES.some((prefix) => modelId.startsWith(prefix));
+
+  return (
+    (provider === "openai-codex" && isFastModel) ||
+    (provider === "openai" && modelId.startsWith("gpt-5.6-"))
+  );
+}
+
+export function formatCodexFastLabel(
+  enabled: boolean,
+  provider: string | undefined,
+  modelId: string | undefined,
+): string {
+  if (supportsCodexFastMode(provider, modelId)) return enabled ? "fast" : "std";
+  return enabled ? "fast n/a" : "";
+}
 
 function readFastMode(
   entries: Array<{
     type?: string;
     customType?: string;
-    data?: { enabled?: boolean };
+    data?: unknown;
   }>,
 ): boolean {
   let enabled = DEFAULT_CODEX_FAST_ENABLED;
@@ -19,11 +47,13 @@ function readFastMode(
     if (
       entry.type !== "custom" ||
       entry.customType !== CODEX_FAST_ENTRY_TYPE ||
-      typeof entry.data?.enabled !== "boolean"
+      !entry.data ||
+      typeof entry.data !== "object" ||
+      typeof (entry.data as { enabled?: unknown }).enabled !== "boolean"
     ) {
       continue;
     }
-    enabled = entry.data.enabled;
+    enabled = (entry.data as { enabled: boolean }).enabled;
   }
   return enabled;
 }
@@ -43,17 +73,36 @@ export default function codexFastExtension(pi: ExtensionAPI) {
     emitFastMode();
   };
 
+  const serviceTierFor = (provider: string, modelId: string) =>
+    fastEnabled && supportsCodexFastMode(provider, modelId)
+      ? "priority"
+      : undefined;
+
   pi.registerProvider("openai-codex", {
     api: "openai-codex-responses",
     streamSimple(model, context, options) {
       // Codex `/fast` maps to OpenAI Responses `service_tier: "priority"`.
-      return streamOpenAICodexResponses(model, context, {
+      return streamOpenAICodexResponses(
+        model as Parameters<typeof streamOpenAICodexResponses>[0],
+        context,
+        {
         ...options,
         reasoningEffort: options?.reasoning,
-        serviceTier:
-          fastEnabled && supportsCodexFastMode(model.provider, model.id)
-            ? "priority"
-            : undefined,
+        serviceTier: serviceTierFor(model.provider, model.id),
+      });
+    },
+  });
+
+  pi.registerProvider("openai", {
+    api: "openai-responses",
+    streamSimple(model, context, options) {
+      return streamOpenAIResponses(
+        model as Parameters<typeof streamOpenAIResponses>[0],
+        context,
+        {
+        ...options,
+        reasoningEffort: options?.reasoning,
+        serviceTier: serviceTierFor(model.provider, model.id),
       });
     },
   });

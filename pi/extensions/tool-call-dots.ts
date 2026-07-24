@@ -1,61 +1,70 @@
-import type {
-  ExtensionAPI,
-  ToolRenderContext,
-} from "@mariozechner/pi-coding-agent";
 import {
   createBashTool,
   createEditTool,
   createFindTool,
   createGrepTool,
   createLsTool,
+  createReadTool,
   createWriteTool,
-} from "@mariozechner/pi-coding-agent";
-import { Text } from "@mariozechner/pi-tui";
+  type ExtensionAPI,
+  type ExtensionContext,
+  type ReadToolDetails,
+} from "@earendil-works/pi-coding-agent";
+import { Text, truncateToWidth } from "@earendil-works/pi-tui";
 import { homedir } from "node:os";
 
-function getTextContent(result: {
+const MAX_PREVIEW_CHARS = 8_000;
+
+type ToolTheme = ExtensionContext["ui"]["theme"];
+type ToolRenderContext = {
+  isError: boolean;
+  executionStarted: boolean;
+  isPartial: boolean;
+};
+
+type ToolResult = {
   content?: Array<{ type: string; text?: string }>;
-}): string {
+  details?: unknown;
+};
+
+function getTextContent(result: ToolResult): string {
   return result.content?.find((content) => content.type === "text")?.text ?? "";
 }
 
-function summarizeText(text: string): { lines: number; bytes: number } {
-  if (!text) return { lines: 0, bytes: 0 };
+function summarizeText(text: string) {
   return {
-    lines: text.split("\n").length,
+    lines: text ? text.split("\n").length : 0,
     bytes: Buffer.byteLength(text, "utf8"),
   };
 }
 
+function preview(text: string): string {
+  if (text.length <= MAX_PREVIEW_CHARS) return text;
+  return `${text.slice(0, MAX_PREVIEW_CHARS)}\n… (${text.length - MAX_PREVIEW_CHARS} characters hidden)`;
+}
+
 function compactResult(
-  result: { content?: Array<{ type: string; text?: string }> },
+  result: ToolResult,
   options: { expanded?: boolean; isPartial?: boolean },
-  theme: any,
+  theme: ToolTheme,
+  context: ToolRenderContext,
   pendingLabel: string,
   successLabel: string,
 ) {
-  if (options.isPartial)
-    return new Text(theme.fg("warning", pendingLabel), 0, 0);
+  if (options.isPartial) return new Text(theme.fg("warning", pendingLabel), 0, 0);
 
   const text = getTextContent(result);
-  if (!options.expanded) {
-    if (text.startsWith("Error"))
-      return new Text(theme.fg("error", text.split("\n")[0] || "Error"), 0, 0);
-    return new Text("", 0, 0);
+  if (context.isError) {
+    return new Text(theme.fg("error", preview(text || "Tool failed")), 0, 0);
   }
-
+  if (!options.expanded) return new Text("", 0, 0);
   if (!text) return new Text(theme.fg("success", successLabel), 0, 0);
-  if (text.startsWith("Error")) return new Text(theme.fg("error", text), 0, 0);
 
   const summary = summarizeText(text);
-  let output = theme.fg("success", successLabel);
-  if (summary.lines > 0 || summary.bytes > 0) {
-    output += theme.fg(
-      "dim",
-      ` (${summary.lines} lines, ${summary.bytes} bytes)`,
-    );
-  }
-  output += `\n${theme.fg("toolOutput", text)}`;
+  const output =
+    theme.fg("success", successLabel) +
+    theme.fg("dim", ` (${summary.lines} lines, ${summary.bytes} bytes)`) +
+    `\n${theme.fg("toolOutput", preview(text))}`;
   return new Text(output, 0, 0);
 }
 
@@ -64,129 +73,130 @@ function shortenPath(path: string): string {
   return path.startsWith(home) ? `~${path.slice(home.length)}` : path;
 }
 
-function renderStatusDot(theme: any, context: ToolRenderContext): string {
+function compactArg(value: unknown, width = 120): string {
+  return truncateToWidth(String(value ?? ""), width, "…");
+}
+
+function renderStatusDot(theme: ToolTheme, context: ToolRenderContext): string {
   if (context.isError) return theme.fg("error", "●");
   if (context.executionStarted && !context.isPartial)
     return theme.fg("success", "●");
   return theme.fg("warning", "●");
 }
 
-const toolCache = new Map<string, ReturnType<typeof createBuiltInTools>>();
-const rootTools = createBuiltInTools(process.cwd());
-
-type BuiltInTools = ReturnType<typeof createBuiltInTools>;
-type BuiltInToolName = keyof BuiltInTools;
-
-type ToolSpec<TName extends BuiltInToolName> = {
-  name: TName;
-  pendingLabel: string;
-  successLabel: string;
-  renderCall: (args: any, theme: any, context: ToolRenderContext) => Text;
+const factories = {
+  bash: createBashTool,
+  edit: createEditTool,
+  write: createWriteTool,
+  read: createReadTool,
+  find: createFindTool,
+  grep: createGrepTool,
+  ls: createLsTool,
 };
 
-function createBuiltInTools(cwd: string) {
-  return {
-    bash: createBashTool(cwd),
-    edit: createEditTool(cwd),
-    write: createWriteTool(cwd),
-    find: createFindTool(cwd),
-    grep: createGrepTool(cwd),
-    ls: createLsTool(cwd),
-  };
-}
+type BuiltInToolName = keyof typeof factories;
 
-function getBuiltInTools(cwd: string) {
-  let tools = toolCache.get(cwd);
-  if (!tools) {
-    tools = createBuiltInTools(cwd);
-    toolCache.set(cwd, tools);
-  }
-  return tools;
+type ToolSpec = {
+  name: BuiltInToolName;
+  pendingLabel: string;
+  successLabel: string;
+  renderCall: (args: any, theme: ToolTheme, context: ToolRenderContext) => Text;
+  renderResult?: (
+    result: ToolResult,
+    options: { expanded?: boolean; isPartial?: boolean },
+    theme: ToolTheme,
+    context: ToolRenderContext,
+  ) => Text;
+};
+
+function callHeader(
+  name: string,
+  detail: string,
+  theme: ToolTheme,
+  context: ToolRenderContext,
+): Text {
+  return new Text(
+    `${renderStatusDot(theme, context)} ${theme.fg("toolTitle", theme.bold(`${name} `))}${theme.fg("accent", detail)}`,
+    0,
+    0,
+  );
 }
 
 export default function toolCallDotsExtension(pi: ExtensionAPI) {
-  const specs: ToolSpec<BuiltInToolName>[] = [
+  const specs: ToolSpec[] = [
     {
       name: "bash",
       pendingLabel: "Running...",
       successLabel: "Done",
       renderCall(args, theme, context) {
-        let text = `${renderStatusDot(theme, context)} `;
-        text += theme.fg("toolTitle", theme.bold("bash "));
-        text += theme.fg("accent", args.command);
-        if (args.timeout)
-          text += theme.fg("dim", ` (timeout ${args.timeout}s)`);
-        return new Text(text, 0, 0);
+        const detail = `${compactArg(args.command)}${
+          args.timeout ? ` (${args.timeout}s)` : ""
+        }`;
+        return callHeader("bash", detail, theme, context);
       },
     },
+    ...(["edit", "write"] as const).map((name) => ({
+      name,
+      pendingLabel: name === "edit" ? "Editing..." : "Writing...",
+      successLabel: name === "edit" ? "Applied" : "Written",
+      renderCall: (args: any, theme: ToolTheme, context: ToolRenderContext) =>
+        callHeader(name, compactArg(shortenPath(args.path)), theme, context),
+    })),
     {
-      name: "edit",
-      pendingLabel: "Editing...",
-      successLabel: "Applied",
+      name: "read",
+      pendingLabel: "Reading...",
+      successLabel: "Read",
       renderCall(args, theme, context) {
-        let text = `${renderStatusDot(theme, context)} `;
-        text += theme.fg("toolTitle", theme.bold("edit "));
-        text += theme.fg("accent", shortenPath(args.path));
-        return new Text(text, 0, 0);
+        const range = [
+          args.offset ? `offset=${args.offset}` : "",
+          args.limit ? `limit=${args.limit}` : "",
+        ].filter(Boolean);
+        const detail = `${compactArg(shortenPath(args.path))}${range.length ? ` (${range.join(", ")})` : ""}`;
+        return callHeader("read", detail, theme, context);
+      },
+      renderResult(result, { isPartial }, theme, context) {
+        if (isPartial) return new Text(theme.fg("warning", "Reading..."), 0, 0);
+        if (context.isError) {
+          return new Text(theme.fg("error", preview(getTextContent(result) || "Read failed")), 0, 0);
+        }
+        const content = result.content?.[0];
+        if (content?.type === "image") return new Text(theme.fg("success", "Image loaded"), 0, 0);
+        const text = content?.type === "text" ? content.text ?? "" : "";
+        const summary = summarizeText(text);
+        const details = result.details as ReadToolDetails | undefined;
+        let label = theme.fg("success", `Read ${summary.lines} lines`);
+        label += theme.fg("dim", ` (${summary.bytes} bytes shown)`);
+        if (details?.truncation?.truncated) {
+          label += theme.fg(
+            "warning",
+            ` • truncated from ${details.truncation.totalLines} lines / ${details.truncation.totalBytes} bytes`,
+          );
+        }
+        return new Text(label, 0, 0);
       },
     },
-    {
-      name: "write",
-      pendingLabel: "Writing...",
-      successLabel: "Written",
-      renderCall(args, theme, context) {
-        let text = `${renderStatusDot(theme, context)} `;
-        text += theme.fg("toolTitle", theme.bold("write "));
-        text += theme.fg("accent", shortenPath(args.path));
-        return new Text(text, 0, 0);
+    ...(["find", "grep", "ls"] as const).map((name) => ({
+      name,
+      pendingLabel: name === "find" ? "Finding..." : name === "grep" ? "Searching..." : "Listing...",
+      successLabel: name === "ls" ? "Listed" : "Found matches",
+      renderCall: (args: any, theme: ToolTheme, context: ToolRenderContext) => {
+        const value =
+          name === "ls"
+            ? shortenPath(args.path || ".")
+            : `${name === "grep" ? `/${args.pattern}/` : args.pattern} in ${shortenPath(args.path || ".")}`;
+        return callHeader(name, compactArg(value), theme, context);
       },
-    },
-    {
-      name: "find",
-      pendingLabel: "Finding...",
-      successLabel: "Found matches",
-      renderCall(args, theme, context) {
-        let text = `${renderStatusDot(theme, context)} `;
-        text += theme.fg("toolTitle", theme.bold("find "));
-        text += theme.fg("accent", args.pattern);
-        text += theme.fg("dim", ` in ${shortenPath(args.path || ".")}`);
-        return new Text(text, 0, 0);
-      },
-    },
-    {
-      name: "grep",
-      pendingLabel: "Searching...",
-      successLabel: "Found matches",
-      renderCall(args, theme, context) {
-        let text = `${renderStatusDot(theme, context)} `;
-        text += theme.fg("toolTitle", theme.bold("grep "));
-        text += theme.fg("accent", `/${args.pattern}/`);
-        text += theme.fg("dim", ` in ${shortenPath(args.path || ".")}`);
-        return new Text(text, 0, 0);
-      },
-    },
-    {
-      name: "ls",
-      pendingLabel: "Listing...",
-      successLabel: "Listed",
-      renderCall(args, theme, context) {
-        let text = `${renderStatusDot(theme, context)} `;
-        text += theme.fg("toolTitle", theme.bold("ls "));
-        text += theme.fg("accent", shortenPath(args.path || "."));
-        return new Text(text, 0, 0);
-      },
-    },
+    })),
   ];
 
   for (const spec of specs) {
-    const rootTool = rootTools[spec.name];
+    const rootTool = factories[spec.name](process.cwd()) as any;
     pi.registerTool({
+      ...rootTool,
       name: spec.name,
       label: spec.name,
-      description: rootTool.description,
-      parameters: rootTool.parameters,
       async execute(toolCallId, params, signal, onUpdate, ctx) {
-        return getBuiltInTools(ctx.cwd)[spec.name].execute(
+        return (factories[spec.name](ctx.cwd) as any).execute(
           toolCallId,
           params,
           signal,
@@ -194,11 +204,13 @@ export default function toolCallDotsExtension(pi: ExtensionAPI) {
         );
       },
       renderCall: spec.renderCall,
-      renderResult(result, options, theme) {
+      renderResult(result, options, theme, context) {
+        if (spec.renderResult) return spec.renderResult(result, options, theme, context);
         return compactResult(
           result,
           options,
           theme,
+          context,
           spec.pendingLabel,
           spec.successLabel,
         );

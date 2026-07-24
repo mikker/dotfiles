@@ -1,52 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Check if a request was provided
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <request>"
-    echo "Example: $0 'can you help me stash the git ignore that I'm not using'"
-    exit 1
+if [[ $# -eq 0 ]]; then
+  echo "Usage: claude-bash REQUEST" >&2
+  exit 2
 fi
 
-# Combine all arguments into a single request string
-REQUEST="$*"
+request="$*"
+echo "Asking Claude for a command suggestion…" >&2
 
-# Call Claude to get a bash command suggestion
-echo "🤔 Asking Claude for a command suggestion..."
-echo ""
+suggestion=$(claude -p "The user wants to: $request
 
-# Use Claude to get the command, asking specifically for just the command
-CLAUDE_OUTPUT=$(claude -p "The user wants to: $REQUEST
+Return one shell command that accomplishes the task. Output only the raw command: no explanation, markdown, or code fences. Never assume the command will be executed automatically; the user will review and edit it first.")
+suggestion=$(printf '%s' "$suggestion" | sed '1s/^[[:space:]]*//')
 
-Please provide ONLY the bash command that would accomplish this task. Do not include any explanation, markdown formatting, or additional text. Just output the raw command.")
-
-# Extract the command (remove any leading/trailing whitespace)
-SUGGESTED_CMD=$(echo "$CLAUDE_OUTPUT" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-
-# Check if we got a command
-if [ -z "$SUGGESTED_CMD" ]; then
-    echo "❌ Claude didn't provide a command suggestion."
-    exit 1
+if [[ -z "$suggestion" ]]; then
+  echo "Claude returned no command." >&2
+  exit 1
 fi
 
-# Display the suggested command
-echo "📋 Suggested command:"
-echo ""
-echo "  $SUGGESTED_CMD"
-echo ""
-
-# Ask user for confirmation
-read -p "Execute this command? (y/n): " -n 1 -r
-echo ""
-
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo ""
-    echo "▶️  Executing command..."
-    echo "─────────────────────────────────────────"
-    eval "$SUGGESTED_CMD"
-    EXIT_CODE=$?
-    echo "─────────────────────────────────────────"
-    echo "✅ Command completed with exit code: $EXIT_CODE"
-else
-    echo ""
-    echo "❌ Command not executed."
-fi
+printf '%s\n' "$suggestion"

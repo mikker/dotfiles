@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.81.1",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
+  "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "low",
   "theme": "zenbones-ansi",
   "quietStartup": true,
@@ -14,8 +14,9 @@
   "transport": "auto",
   "packages": [
     "~/.dotfiles/pi",
-    "https://github.com/davebcn87/pi-autoresearch",
-    "npm:sideshow"
+    "npm:pi-autoresearch",
+    "npm:sideshow",
+    "npm:@rendotdev/lgtm"
   ],
   "enableSkillCommands": true,
   "terminal": {

@@ -1,23 +1,20 @@
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { readFileSync } from "node:fs";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { readFile } from "node:fs/promises";
 
 type SkillRef = {
   name: string;
-  description?: string;
+  description: string | undefined;
   path: string;
 };
 
 const INLINE_SKILL_PATTERN_GLOBAL =
   /(^|[\s([{"'])([$#])([a-z0-9][a-z0-9-]*)\b/gm;
 const SKILL_COMMAND_PREFIX = "skill:";
+const MAX_INLINE_SKILL_BYTES = 100 * 1024;
 
 function normalizeSkillName(commandName: string): string | null {
   if (!commandName.startsWith(SKILL_COMMAND_PREFIX)) return null;
   return commandName.slice(SKILL_COMMAND_PREFIX.length);
-}
-
-function loadSkillText(skill: SkillRef): string {
-  return readFileSync(skill.path, "utf8").trim();
 }
 
 function replaceInlineSkillTokens(
@@ -33,21 +30,27 @@ function replaceInlineSkillTokens(
   );
 }
 
-function injectInlineSkills(text: string, skills: SkillRef[]): string {
+async function injectInlineSkills(text: string, skills: SkillRef[]): Promise<string> {
   if (skills.length === 0) return text;
 
   const skillsByName = new Map(skills.map((skill) => [skill.name, skill]));
   const rewrittenPrompt = replaceInlineSkillTokens(text, skillsByName);
-  const skillBlocks = skills
-    .map((skill) => {
-      const content = loadSkillText(skill);
-      return [
-        `--- BEGIN INLINE SKILL ${skill.name} ---`,
-        content,
-        `--- END INLINE SKILL ${skill.name} ---`,
-      ].join("\n");
-    })
-    .join("\n\n");
+  const blocks: string[] = [];
+  let totalBytes = 0;
+
+  for (const skill of skills) {
+    const content = (await readFile(skill.path, "utf8")).trim();
+    totalBytes += Buffer.byteLength(content, "utf8");
+    if (totalBytes > MAX_INLINE_SKILL_BYTES) {
+      throw new Error(`Inline skills exceed ${MAX_INLINE_SKILL_BYTES / 1024}KB`);
+    }
+    blocks.push([
+      `--- BEGIN INLINE SKILL ${skill.name} ---`,
+      content,
+      `--- END INLINE SKILL ${skill.name} ---`,
+    ].join("\n"));
+  }
+  const skillBlocks = blocks.join("\n\n");
 
   return [
     "The user referenced inline skills. Load and follow them for this task.",
@@ -76,7 +79,7 @@ export default function inlineSkillsExtension(pi: ExtensionAPI) {
       .filter((skill): skill is SkillRef => skill !== null)
       .sort((a, b) => a.name.localeCompare(b.name));
 
-  pi.on("input", (event) => {
+  pi.on("input", async (event, ctx) => {
     if (event.source === "extension") return { action: "continue" };
 
     const matches = [...event.text.matchAll(INLINE_SKILL_PATTERN_GLOBAL)];
@@ -96,10 +99,18 @@ export default function inlineSkillsExtension(pi: ExtensionAPI) {
 
     if (uniqueSkills.length === 0) return { action: "continue" };
 
-    return {
-      action: "transform",
-      text: injectInlineSkills(event.text, uniqueSkills),
-    };
+    try {
+      return {
+        action: "transform",
+        text: await injectInlineSkills(event.text, uniqueSkills),
+      };
+    } catch (error) {
+      ctx.ui.notify(
+        `Could not load inline skills: ${error instanceof Error ? error.message : String(error)}`,
+        "error",
+      );
+      return { action: "continue" };
+    }
   });
 
   pi.registerCommand("skills-inline", {
