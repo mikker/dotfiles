@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+herdr_bin="${HERDR_BIN_PATH:-herdr}"
+pane_id="${HERDR_ACTIVE_PANE_ID:?HERDR_ACTIVE_PANE_ID is unavailable}"
+xre="$HOME/.dotfiles/tmux/tmux.symlink/plugins/tmux-fzf-url/bin/xre"
+
+url_pattern='(?:https?|ftp|file):/?//[-\w+&@#/%?=~|!:,.;]*[-\w+&@#/%=~|]'
+git_pattern='(?:ssh://)?git@([^\s'\''"`:]+)[:/]([^\s'\''"`]+)'
+www_pattern='www\.[a-zA-Z](?:-?[a-zA-Z0-9])+\.[a-zA-Z]{2,}(?:/[^\s'\''"`]+)*'
+ip_pattern='\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?::\d{1,5})?(?:/[^\s'\''"`]+)*'
+
+content="$($herdr_bin pane read "$pane_id" --source visible --format text)"
+items="$(
+  printf '%s\n' "$content" |
+    "$xre" --strip-ansi \
+      -e "$url_pattern" \
+      -e "$git_pattern" -r 'https://$1/$2' \
+      -e "$www_pattern" -r 'http://$0' \
+      -e "$ip_pattern" -r 'http://$0' |
+    awk '!seen[$0]++'
+)"
+
+if [[ -z "$items" ]]; then
+  echo "No URLs found in the visible pane."
+  sleep 1
+  exit 0
+fi
+
+printf '%s\n' "$items" |
+  fzf --multi --exit-0 --no-preview --prompt='Open URL › ' |
+  while IFS= read -r url; do
+    open "$url"
+  done

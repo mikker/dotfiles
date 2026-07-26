@@ -1,0 +1,24 @@
+id = "mikker.project-runner"
+name = "Project Runner"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "Run a project-defined long-running command in a Herdr tab"
+platforms = ["macos", "linux"]
+
+[[actions]]
+id = "restart"
+title = "Restart project runner"
+contexts = ["workspace"]
+command = ["python3", "runner.py", "restart"]
+
+[[actions]]
+id = "stop"
+title = "Stop project runner"
+contexts = ["workspace"]
+command = ["python3", "runner.py", "stop"]
+
+[[panes]]
+id = "runner"
+title = "Project runner"
+placement = "tab"
+command = ["sh", "-c", "exec python3 \"$HERDR_PLUGIN_ROOT/runner.py\" run"]

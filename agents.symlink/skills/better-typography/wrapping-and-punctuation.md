@@ -50,21 +50,9 @@ Keyboard characters are not always the best characters:
 ## Internationalization
 
 - Set the `lang` attribute so browsers choose the right quotes, hyphenation and pronunciation.
-- Use `dir="rtl"` for right-to-left content.
-- To support both directions, use logical properties everywhere a directional one exists:
+- Set `dir` at the document or content boundary where direction changes. Spatial mirroring and the logical-property table live in `better-layout`.
 
-```css
-/* Good */
-p {
-  margin-inline-start: 8px;
-  text-align: start;
-}
+Two refinements for mixed-direction text:
 
-/* Bad: breaks in RTL */
-p {
-  margin-left: 8px;
-  text-align: left;
-}
-```
-
-The same applies to `padding` and every other directional property.
+- **Long paragraphs align by their own language.** A one- or two-line snippet follows the surrounding UI's direction, but a paragraph of three or more lines aligns to its own script's direction: an English paragraph stays start-aligned LTR even inside an RTL interface. `text-align: start` with the correct `lang`/`dir` on the paragraph element handles this.
+- **Never reverse digits.** Numbers keep their digit order in every direction: a phone number or "541" reads identically in RTL. Browsers handle this via the Unicode bidi algorithm; don't fight it with manual reordering, and wrap mixed number/text values in `<bdi>` if adjacent RTL text disturbs them.

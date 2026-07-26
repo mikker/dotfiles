@@ -994,6 +994,7 @@ catalogIdentifier = 'tuna.emoji'
 catalogIdentifier = 'tuna.prompts'
 
     [catalogSettings.values]
+    AgentAllowBashTool = 'true'
     Model = 'gpt-5.4-nano-2026-03-17'
     Provider = 'openaiCompatible'
 

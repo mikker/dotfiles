@@ -52,7 +52,7 @@ This rule is most useful when nested surfaces are close together. If padding is 
 </div>
 ```
 
-Mismatched border radii on nested elements is one of the most common things that makes interfaces feel off. Always calculate concentrically.
+Mismatched border radii on closely nested surfaces is a common source of visual tension. Calculate concentrically when the layers share a visible, even inset; preserve an established component token when the layers are independent or the padding is intentionally asymmetric.
 
 ## Optical Alignment
 
@@ -60,25 +60,25 @@ When geometric centering looks off, align optically instead.
 
 ### Buttons with Text + Icon
 
-Use slightly less padding on the icon side to make the button feel balanced. A reliable rule of thumb is:
+When an icon makes otherwise symmetric padding look unbalanced, use slightly less padding on the icon side. A useful starting point is:
 `icon-side padding = text-side padding - 2px`.
 
 ```css
 /* Good: less padding on icon side */
 .button-with-icon {
-  padding-left: 16px;
-  padding-right: 14px; /* icon side = text side - 2px */
+  padding-inline-start: 16px;
+  padding-inline-end: 14px; /* trailing icon side = text side - 2px */
 }
 
 /* Bad: equal padding looks like icon is pushed too far right */
 .button-with-icon {
-  padding: 0 16px;
+  padding-inline: 16px;
 }
 ```
 
 ```tsx
 // Tailwind
-<button className="pl-4 pr-3.5 flex items-center gap-2">
+<button className="ps-4 pe-3.5 flex items-center gap-2">
   <span>Continue</span>
   <ArrowRightIcon />
 </button>
@@ -91,7 +91,7 @@ Play icons are triangular and their geometric center is not their visual center.
 ```css
 /* Good: optically centered */
 .play-button svg {
-  margin-left: 2px; /* shift right to account for triangle shape */
+  transform: translateX(2px); /* physical correction to the glyph itself */
 }
 
 /* Bad: geometrically centered but looks off */
@@ -109,7 +109,7 @@ Some icons have uneven visual weight. The best fix is adjusting the SVG directly
 // Adjust the viewBox or path to visually center the icon
 
 // Fallback: adjust with margin
-<span className="ml-px">
+<span className="translate-x-px">
   <StarIcon />
 </span>
 ```

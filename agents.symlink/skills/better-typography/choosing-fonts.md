@@ -23,6 +23,7 @@ CSS exposes `cursive` and `fantasy` keywords for the last two categories.
 - Fewer fonts is usually better. Rarely use more than three. Marketing pages can be more expressive than apps.
 - The same applies to sizes and weights. They define hierarchy, but overusing them hurts readability quickly.
 - Pair for contrast, not similarity. A serif headline with a sans body looks like a deliberate display/reading split. Two near-identical sans-serifs look like a mistake.
+- Thin weights are display-only. Below `18px`, stay at weight `400`+; Ultralight/Thin/Light (`100`–`300`) strokes disappear at text sizes and on low-DPI screens. Reserve them for `28px`+ display text, and even there check they hold up against the background.
 
 ## Font family scope
 

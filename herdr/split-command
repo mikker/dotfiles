@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if (( $# < 2 )); then
+  echo "usage: split-command <right|down> <command> [argument ...]" >&2
+  exit 2
+fi
+
+direction="$1"
+shift
+
+herdr_bin="${HERDR_BIN_PATH:-herdr}"
+active_pane="${HERDR_ACTIVE_PANE_ID:-}"
+active_cwd="${HERDR_ACTIVE_PANE_CWD:-$PWD}"
+
+split_args=(--direction "$direction" --cwd "$active_cwd" --focus)
+[[ -n "$active_pane" ]] && split_args+=(--pane "$active_pane")
+
+response="$($herdr_bin pane split "${split_args[@]}")"
+pane_id="$(jq -er '.result.pane.pane_id' <<<"$response")"
+
+if ! "$herdr_bin" pane run "$pane_id" "$@"; then
+  "$herdr_bin" pane close "$pane_id" >/dev/null 2>&1 || true
+  exit 1
+fi

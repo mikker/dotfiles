@@ -42,8 +42,8 @@ Unless the only thing animating is a color change, build the underline as a cust
 ## Selection
 
 - `::selection` changes the background and color of selected text; a subtle way to embed brand. Keep the combination legible.
-- `user-select: none` on button labels: copying a label is unlikely and selection there feels distracting. Also make sure `cmd+A` only grabs text the user expects to copy.
-- In cross-platform apps that feel closer to native, disable text selection for the interface and keep it enabled only for content the user may actually want to copy.
+- Keep text selectable by default, including application chrome; users copy labels, identifiers, errors, and values in ways the designer may not predict.
+- Use `user-select: none` only on a specific draggable or gesture-driven surface where accidental selection conflicts with the interaction. Do not apply it globally or solely to imitate native chrome.
 - `::target-text` styles the phrase a shared link scrolls to.
 - The Custom Highlight API styles ranges you pick yourself, like search matches, without extra markup.
 
@@ -76,25 +76,18 @@ Avoid the `maximum-scale=1` viewport meta as a fix: Safari ignores the cap for p
 
 If a text stroke draws lines inside the letters, that is the font: the stroke traces every contour and variable fonts usually keep overlapping shapes unmerged. Static fonts do not have this issue.
 
-## Sizes and contrast
+## Sizes
 
 Typography must survive the reader changing it: zoom, a larger browser font size, overridden line height or letter spacing.
 
 | Text | Size |
 | --- | --- |
-| Body | `16px` (the web default, the right reading size) |
-| Inputs and menus | `14px` |
+| Long-form body starting point | Around `16px`, verified in the actual typeface and measure |
+| Inputs and menus starting point | Around `14px` |
 | Captions | `13px` |
 | Floor | Rarely below `12px` |
 
-WCAG AA contrast:
-
-| Text | Minimum |
-| --- | --- |
-| Regular text | `4.5:1` |
-| Large text (`24px`+, or `18.5px`+ bold) | `3:1` |
-
-Bigger, heavier letters stay legible at lower contrast.
+When text appears low-contrast, use `better-colors` to measure the rendered foreground/background pair and `better-accessibility` to classify the applicable requirement. Changing the project's colors remains a design decision unless the user asks for remediation.
 
 ## Font smoothing
 
@@ -114,4 +107,3 @@ html {
   </body>
 </html>
 ```
-

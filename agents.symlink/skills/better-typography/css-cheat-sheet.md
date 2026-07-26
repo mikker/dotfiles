@@ -12,8 +12,8 @@ One-line lookup for every typography CSS declaration covered by this skill, with
 | `font-size` | Size from the type scale | `text-*` |
 | `font-weight` | Any value from 1 to 1000 | `font-*` |
 | `font-style: italic` | Switch to italic style | `italic` |
-| `-webkit-font-smoothing` + `-moz-osx-font-smoothing` | Smooth macOS font rendering | `antialiased` |
-| `font-synthesis: none` | No faux bold or italic | `[font-synthesis:none]` |
+| `-webkit-font-smoothing` + `-moz-osx-font-smoothing` | Smooth macOS font rendering; apply once at the root | `antialiased` |
+| `font-synthesis: none` | Disable all synthesized forms after verifying fallbacks and emphasis | `[font-synthesis:none]` |
 | `font-feature-settings` | Toggle OpenType features | `[font-feature-settings:"ss01"]` |
 | `font-variation-settings` | Tune variable font axes | `[font-variation-settings:"GRAD"_80]` |
 | `font-optical-sizing` | Adjust details per size | `[font-optical-sizing:auto]` |
@@ -58,7 +58,7 @@ One-line lookup for every typography CSS declaration covered by this skill, with
 | `text-decoration-thickness: from-font` | Underline set by the font | `decoration-from-font` |
 | `text-decoration-skip-ink` | Gaps around descenders | `[text-decoration-skip-ink:auto]` |
 | `caret-color` | Tint the text cursor | `caret-*` |
-| `user-select: none` | Stop text selection | `select-none` |
+| `user-select: none` | Suppress selection on a verified drag/gesture conflict only | `select-none` |
 | `text-shadow` | Shadow behind the letters | `text-shadow-*` |
 | `-webkit-text-stroke` | Outline the letters | `[-webkit-text-stroke:1px_black]` |
 | `background-clip: text` | Clip a background to the letters | `bg-clip-text` |

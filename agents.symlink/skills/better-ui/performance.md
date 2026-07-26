@@ -4,7 +4,7 @@ Transition specificity and GPU compositing hints.
 
 ## Transition Only What Changes
 
-Never use `transition: all` or Tailwind's `transition-all`. Always specify the exact properties that change. (Tailwind's bare `transition` maps to a curated default list — colors, opacity, shadow, transforms — not to `all`; still prefer naming exactly what changes.)
+Never use `transition: all` or Tailwind's `transition-all`. Always specify the exact properties that change. (Tailwind's bare `transition` maps to a curated default list of colors, opacity, shadow and transforms, not to `all`; still prefer naming exactly what changes.)
 
 ### Why
 

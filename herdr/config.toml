@@ -1,0 +1,77 @@
+onboarding = false
+# Herdr configuration managed by ~/.dotfiles.
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+[theme.custom]
+accent = "cyan"
+
+[terminal]
+new_cwd = "follow"
+
+[keys]
+prefix = "ctrl+b"
+goto = "prefix+shift+f"
+new_worktree = "prefix+alt+g"
+previous_workspace = ["prefix+ctrl+s", "prefix+up", "cmd+up"]
+next_workspace = ["prefix+down", "cmd+down"]
+switch_workspace = "ctrl+1..9"
+new_tab = "prefix+c"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+last_pane = "prefix+ctrl+o"
+split_vertical = "prefix+shift+v"
+split_horizontal = "prefix+minus"
+zoom = "prefix+z"
+resize_mode = "prefix+r"
+
+[[keys.command]]
+key = "prefix+g"
+type = "pane"
+command = "~/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh"
+description = "open git diff"
+
+[[keys.command]]
+key = "prefix+shift+g"
+type = "shell"
+command = "~/.dotfiles/herdr/split-command right hunk diff"
+description = "open Hunk in a right split"
+
+[[keys.command]]
+key = "prefix+v"
+type = "shell"
+command = "~/.dotfiles/herdr/split-command right nvim"
+description = "open Neovim in a right split"
+
+[[keys.command]]
+key = "prefix+u"
+type = "popup"
+command = "~/.dotfiles/herdr/fzf-url"
+description = "open URLs with fzf"
+width = "100%"
+height = "50%"
+
+[[keys.command]]
+key = "ctrl+space"
+type = "plugin_action"
+command = "mikker.project-runner.restart"
+description = "restart project runner"
+
+[ui]
+# accent = "#0951AF"
+mouse_capture = true
+copy_on_select = true
+pane_borders = true
+sidebar_start_collapsed = true
+prompt_new_tab_name = false
+
+show_agent_labels_on_pane_borders = false
+[ui.sound]
+enabled = false

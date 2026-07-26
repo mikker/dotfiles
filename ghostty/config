@@ -1,5 +1,5 @@
-#font-family = "IBM Plex Mono"
-font-family = "Iosevka"
+font-family = "IBM Plex Mono"
+#font-family = "Iosevka"
 #font-family = "Berkeley Mono"
 #font-family = "Cartograph CF"
 #font-family = "Cascadia Code NF"
@@ -9,7 +9,7 @@ font-family = "Iosevka"
 #font-family = "Maple Mono NF"
 
 font-style = "Regular"
-font-size = 16
+font-size = 14
 adjust-cell-height = 15%
 
 theme = light:Zenbones Light,dark:Zenbones Dark
@@ -37,6 +37,10 @@ keybind = cmd+arrow_left=csi:H
 keybind = cmd+arrow_right=csi:F
 keybind = cmd+backspace=text:\x15
 
+# Herdr workspace switching
+keybind = cmd+arrow_up=text:\x02\x1b[A
+keybind = cmd+arrow_down=text:\x02\x1b[B
+
 # Command palette
 # keybind = cmd+k=toggle_quick_terminal
 
@@ -61,4 +65,3 @@ macos-option-as-alt = right
 macos-icon = blueprint
 # macos-icon-ghost-color = #ff0000
 # macos-icon-screen-color = #0000ff
-
