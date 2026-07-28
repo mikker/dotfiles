@@ -1,3 +1,4 @@
+// Archived in favor of the shared Pi setup.
 import {
   createBashTool,
   createEditTool,

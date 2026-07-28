@@ -41,6 +41,7 @@ brew("vim")
 brew("vips")
 brew("wget")
 brew("yarn")
+brew("yq")
 brew("yt-dlp")
 brew("zsh")
 

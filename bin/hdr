@@ -1,300 +1,281 @@
-#!/usr/bin/env python3
-import argparse
-import json
-import os
-from pathlib import Path
-import shlex
-import subprocess
-import sys
-import time
-import tomllib
+#!/usr/bin/env ruby
 
-GLOBAL_CONFIG_DIR = Path("~/.config/herdr/projects").expanduser()
-LOCAL_CONFIG_PATH = Path(".herdr/session.toml")
-ROUTING_ENV = {
-    "HERDR_PANE_ID",
-    "HERDR_SESSION",
-    "HERDR_SOCKET_PATH",
-    "HERDR_TAB_ID",
-    "HERDR_WORKSPACE_ID",
-}
+require "fileutils"
+require "json"
+require "open3"
+require "optparse"
+require "pathname"
+require "shellwords"
 
+GLOBAL_CONFIG_DIR = Pathname("~/.config/herdr/projects").expand_path
+LOCAL_CONFIG_PATH = Pathname(".herdr/session.toml")
+ROUTING_ENV = %w[
+  HERDR_PANE_ID
+  HERDR_SESSION
+  HERDR_SOCKET_PATH
+  HERDR_TAB_ID
+  HERDR_WORKSPACE_ID
+].freeze
 
-def read_toml(path: Path) -> dict:
-    try:
-        with path.open("rb") as file:
-            return tomllib.load(file)
-    except (OSError, tomllib.TOMLDecodeError) as error:
-        raise SystemExit(f"hdr: cannot read {path}: {error}")
+def read_toml(path)
+  output, error, status = Open3.capture3("yq", "-p=toml", "-o=json", ".", path.to_s)
+  raise "cannot read #{path}: #{error.strip}" unless status.success?
 
+  JSON.parse(output)
+rescue Errno::ENOENT
+  raise "yq is required to read #{path}"
+rescue JSON::ParserError => error
+  raise "cannot read #{path}: #{error.message}"
+end
 
-def nearest_local_config(start: Path) -> Path | None:
-    current = start.resolve()
-    for directory in (current, *current.parents):
-        candidate = directory / LOCAL_CONFIG_PATH
-        if candidate.is_file():
-            return candidate
-    return None
+def nearest_local_config(start)
+  start.realpath.ascend do |directory|
+    candidate = directory / LOCAL_CONFIG_PATH
+    return candidate if candidate.file?
+  end
+  nil
+end
 
+def expanded_path(value, base)
+  value = value.gsub(/\$(?:\{([^}]+)\}|([A-Za-z_][A-Za-z0-9_]*))/) do
+    ENV.fetch(Regexp.last_match(1) || Regexp.last_match(2), Regexp.last_match(0))
+  end
+  path = Pathname(value)
+  return path.expand_path if value.start_with?("~") || path.absolute?
 
-def expanded_path(value: str, base: Path) -> Path:
-    expanded = Path(os.path.expandvars(os.path.expanduser(value)))
-    return (base / expanded).resolve() if not expanded.is_absolute() else expanded.resolve()
+  (base / path).expand_path
+end
 
+def load_config(requested_name)
+  global_path = GLOBAL_CONFIG_DIR / "#{requested_name}.toml" if requested_name
+  global_config = global_path&.file? ? read_toml(global_path) : {}
 
-def load_config(requested_name: str | None) -> tuple[str, Path, dict]:
-    global_path = GLOBAL_CONFIG_DIR / f"{requested_name}.toml" if requested_name else None
-    global_config = read_toml(global_path) if global_path and global_path.is_file() else {}
+  if global_config["root"]
+    root = expanded_path(global_config["root"].to_s, Pathname.home)
+    local_path = root / LOCAL_CONFIG_PATH
+  else
+    local_path = nearest_local_config(Pathname.pwd)
+    root = local_path ? local_path.parent.parent : Pathname.pwd.realpath
+  end
 
-    if global_config.get("root"):
-        root = expanded_path(str(global_config["root"]), Path.home())
-        local_path = root / LOCAL_CONFIG_PATH
-    else:
-        local_path = nearest_local_config(Path.cwd())
-        root = local_path.parent.parent if local_path else Path.cwd().resolve()
+  local_config = local_path&.file? ? read_toml(local_path) : {}
+  config = global_config.merge(local_config)
+  root = expanded_path(config["root"].to_s, root) if config["root"]
+  raise "project root does not exist: #{root}" unless root.directory?
 
-    local_config = read_toml(local_path) if local_path and local_path.is_file() else {}
-    config = {**global_config, **local_config}
-    if config.get("root"):
-        root = expanded_path(str(config["root"]), root)
-    if not root.is_dir():
-        raise SystemExit(f"hdr: project root does not exist: {root}")
+  [requested_name || config["name"] || root.basename.to_s, root, config]
+end
 
-    name = requested_name or config.get("name") or root.name
-    return str(name), root, config
+def neutral_env
+  ENV.to_h.reject { |key, _| ROUTING_ENV.include?(key) }
+end
 
+def session_env(name)
+  neutral_env.merge("HERDR_SESSION" => name)
+end
 
-def neutral_env() -> dict[str, str]:
-    env = os.environ.copy()
-    for key in ROUTING_ENV:
-        env.pop(key, None)
-    return env
+def run_cli(args, env)
+  output, error, status = Open3.capture3(env, "herdr", *args, unsetenv_others: true)
+  return output if status.success?
 
+  message = error.strip.empty? ? output.strip : error.strip
+  raise "herdr #{args.join(" ")} failed: #{message}"
+end
 
-def session_env(name: str) -> dict[str, str]:
-    env = neutral_env()
-    env["HERDR_SESSION"] = name
-    return env
+def run_json(args, env)
+  output = run_cli(args, env)
+  JSON.parse(output)
+rescue JSON::ParserError
+  raise "invalid Herdr response: #{output.strip}"
+end
 
+def sessions
+  JSON.parse(run_cli(%w[session list --json], neutral_env)).fetch("sessions")
+end
 
-def run_cli(args: list[str], env: dict[str, str]) -> str:
-    result = subprocess.run(
-        ["herdr", *args],
-        env=env,
-        text=True,
-        capture_output=True,
+def attach(name)
+  exec(neutral_env, "herdr", "session", "attach", name, unsetenv_others: true)
+end
+
+def pick_session(available)
+  names = available.map { |session| session.fetch("name") }.join("\n")
+  names << "\n" unless names.empty?
+  output, _, status = Open3.capture3("fzf", stdin_data: names)
+  status.success? ? output.strip : nil
+rescue Errno::ENOENT
+  raise "fzf is required for -a"
+end
+
+def command_argv(value, cwd)
+  command = case value
+  when nil
+    return
+  when String
+    raise "command must be a non-empty string or array of strings" if value.strip.empty?
+    value
+  when Array
+    unless value.any? && value.all? { |argument| argument.is_a?(String) }
+      raise "command must be a non-empty string or array of strings"
+    end
+    value.shelljoin
+  else
+    raise "command must be a non-empty string or array of strings"
+  end
+
+  ["/bin/sh", "-lc", "cd #{cwd.to_s.shellescape} && exec #{command}"]
+end
+
+def pane_run(pane_id, command, cwd, env)
+  argv = command_argv(command, cwd)
+  run_cli(["pane", "run", pane_id, *argv], env) if argv
+end
+
+def pane_split(parent_pane, pane, root, env)
+  direction = pane.fetch("direction", "right")
+  raise "pane direction must be right or down" unless %w[right down].include?(direction)
+
+  cwd = expanded_path(pane.fetch("cwd", ".").to_s, root)
+  args = ["pane", "split", "--pane", parent_pane, "--direction", direction, "--cwd", cwd.to_s, "--no-focus"]
+  args.concat(["--ratio", pane["ratio"].to_s]) if pane.key?("ratio")
+  pane_id = run_json(args, env).dig("result", "pane", "pane_id")
+  pane_run(pane_id, pane["command"], cwd, env)
+  pane_id
+end
+
+def configure_tab(tab_id, root_pane, tab, root, env)
+  name = tab.fetch("name", "shell").to_s
+  cwd = expanded_path(tab.fetch("cwd", ".").to_s, root)
+  run_json(["tab", "rename", tab_id, name], env)
+  pane_run(root_pane, tab["command"], cwd, env)
+
+  panes = tab.fetch("panes", [])
+  raise "panes for tab #{name} must be an array" unless panes.is_a?(Array)
+
+  created_panes = [root_pane]
+  panes.each do |pane|
+    raise "each pane for tab #{name} must be a table" unless pane.is_a?(Hash)
+
+    target = Integer(pane.fetch("target", 0))
+    raise "pane target #{target} does not exist in tab #{name}" unless target.between?(0, created_panes.length - 1)
+
+    created_panes << pane_split(created_panes[target], pane, root, env)
+  end
+end
+
+def create_tab(workspace_id, tab, root, env)
+  name = tab.fetch("name", "shell").to_s
+  cwd = expanded_path(tab.fetch("cwd", ".").to_s, root)
+  result = run_json([
+    "tab", "create", "--workspace", workspace_id, "--cwd", cwd.to_s,
+    "--label", name, "--no-focus"
+  ], env).fetch("result")
+  tab_id = result.dig("tab", "tab_id")
+  configure_tab(tab_id, result.dig("root_pane", "pane_id"), tab, root, env)
+  tab_id
+end
+
+def start_server(name)
+  log_dir = Pathname("~/.local/state/herdr/hdr").expand_path
+  FileUtils.mkdir_p(log_dir)
+  File.open(log_dir / "#{name}.log", "ab") do |log|
+    Process.spawn(
+      session_env(name), "herdr", "server",
+      in: File::NULL, out: log, err: log, pgroup: true, unsetenv_others: true
     )
-    if result.returncode != 0:
-        message = result.stderr.strip() or result.stdout.strip()
-        raise RuntimeError(f"herdr {' '.join(args)} failed: {message}")
-    return result.stdout
+  end
+end
 
+def wait_for_server(name, pid)
+  env = session_env(name)
+  100.times do
+    if Process.waitpid(pid, Process::WNOHANG)
+      raise "Herdr server exited with status #{$?&.exitstatus}"
+    end
 
-def run_json(args: list[str], env: dict[str, str]) -> dict:
-    output = run_cli(args, env)
-    try:
-        return json.loads(output)
-    except json.JSONDecodeError as error:
-        raise RuntimeError(f"invalid Herdr response: {output.strip()}") from error
+    _, _, status = Open3.capture3(env, "herdr", "workspace", "list", unsetenv_others: true)
+    return if status.success?
+    sleep 0.05
+  end
+  raise "timed out waiting for Herdr server"
+end
 
+def bootstrap(name, root, config)
+  pid = start_server(name)
+  env = session_env(name)
+  begin
+    wait_for_server(name, pid)
+    initial = run_json(%w[workspace list], env).dig("result", "workspaces")
+    result = run_json([
+      "workspace", "create", "--cwd", root.to_s, "--label", name, "--focus"
+    ], env).fetch("result")
+    workspace_id = result.dig("workspace", "workspace_id")
+    placeholder_tab = result.dig("tab", "tab_id")
+    placeholder_pane = result.dig("root_pane", "pane_id")
 
-def sessions() -> list[dict]:
-    result = subprocess.run(
-        ["herdr", "session", "list", "--json"],
-        env=neutral_env(),
-        text=True,
-        capture_output=True,
-        check=True,
-    )
-    return json.loads(result.stdout)["sessions"]
+    tabs = config.fetch("tabs", [])
+    raise "tabs must be an array" unless tabs.is_a?(Array)
 
+    if tabs.any?
+      raise "each tab must be a table" unless tabs.first.is_a?(Hash)
+      configure_tab(placeholder_tab, placeholder_pane, tabs.first, root, env)
+    end
 
-def attach(name: str) -> None:
-    os.execvpe("herdr", ["herdr", "session", "attach", name], neutral_env())
+    tabs.drop(1).each do |tab|
+      raise "each tab must be a table" unless tab.is_a?(Hash)
+      create_tab(workspace_id, tab, root, env)
+    end
 
+    run_json(["tab", "focus", placeholder_tab], env)
+    initial.each { |workspace| run_json(["workspace", "close", workspace.fetch("workspace_id")], env) }
+  rescue StandardError
+    system(env, "herdr", "server", "stop", out: File::NULL, err: File::NULL, unsetenv_others: true)
+    raise
+  end
+end
 
-def command_argv(value: object, cwd: Path) -> list[str] | None:
-    if value is None:
-        return None
-    if isinstance(value, str) and value.strip():
-        return ["/bin/sh", "-lc", f"cd {shlex.quote(str(cwd))} && exec {value}"]
-    if isinstance(value, list) and value and all(isinstance(arg, str) for arg in value):
-        command = " ".join(shlex.quote(arg) for arg in value)
-        return ["/bin/sh", "-lc", f"cd {shlex.quote(str(cwd))} && exec {command}"]
-    raise ValueError("command must be a non-empty string or array of strings")
+def main
+  options = { no_attach: !!ARGV.delete("--no-attach") }
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: hdr [-l | -a] [name]"
+    opts.on("-l", "--list", "List sessions") { options[:list] = true }
+    opts.on("-a", "--attach", "Pick a session with fzf and attach") { options[:attach] = true }
+  end
+  parser.parse!
+  raise OptionParser::InvalidOption, "-l and -a are mutually exclusive" if options[:list] && options[:attach]
+  raise OptionParser::InvalidArgument, "too many session names" if ARGV.length > 1
 
+  if options[:list]
+    puts sessions.map { |session| session.fetch("name") }
+    return
+  end
 
-def pane_run(pane_id: str, command: object, cwd: Path, env: dict[str, str]) -> None:
-    argv = command_argv(command, cwd)
-    if argv:
-        run_cli(["pane", "run", pane_id, *argv], env)
+  if options[:attach]
+    name = pick_session(sessions)
+    attach(name) if name
+    return
+  end
 
+  name, root, config = load_config(ARGV.first)
+  if sessions.any? { |session| session["name"] == name }
+    if options[:no_attach]
+      puts "hdr: session #{name} already exists"
+      return
+    end
+    attach(name)
+  end
 
-def pane_split(parent_pane: str, pane: dict, root: Path, env: dict[str, str]) -> str:
-    direction = pane.get("direction", "right")
-    if direction not in {"right", "down"}:
-        raise ValueError("pane direction must be right or down")
-    cwd = expanded_path(str(pane.get("cwd", ".")), root)
-    args = [
-        "pane",
-        "split",
-        "--pane",
-        parent_pane,
-        "--direction",
-        direction,
-        "--cwd",
-        str(cwd),
-        "--no-focus",
-    ]
-    if "ratio" in pane:
-        args.extend(["--ratio", str(pane["ratio"])])
-    response = run_json(args, env)
-    pane_id = response["result"]["pane"]["pane_id"]
-    pane_run(pane_id, pane.get("command"), cwd, env)
-    return pane_id
+  bootstrap(name, root, config)
+  if options[:no_attach]
+    puts "hdr: started #{name}"
+  else
+    attach(name)
+  end
+rescue OptionParser::ParseError => error
+  warn "hdr: #{error.message}"
+  warn parser
+  exit 1
+rescue StandardError => error
+  abort "hdr: #{error.message}"
+end
 
-
-def configure_tab(tab_id: str, root_pane: str, tab: dict, root: Path, env: dict[str, str]) -> None:
-    name = str(tab.get("name", "shell"))
-    cwd = expanded_path(str(tab.get("cwd", ".")), root)
-    run_json(["tab", "rename", tab_id, name], env)
-    pane_run(root_pane, tab.get("command"), cwd, env)
-
-    panes = tab.get("panes", [])
-    if not isinstance(panes, list):
-        raise ValueError(f"panes for tab {name} must be an array")
-    created_panes = [root_pane]
-    for pane in panes:
-        if not isinstance(pane, dict):
-            raise ValueError(f"each pane for tab {name} must be a table")
-        target = int(pane.get("target", 0))
-        if target < 0 or target >= len(created_panes):
-            raise ValueError(f"pane target {target} does not exist in tab {name}")
-        created_panes.append(pane_split(created_panes[target], pane, root, env))
-
-
-def create_tab(workspace_id: str, tab: dict, root: Path, env: dict[str, str]) -> str:
-    name = str(tab.get("name", "shell"))
-    cwd = expanded_path(str(tab.get("cwd", ".")), root)
-    response = run_json(
-        [
-            "tab",
-            "create",
-            "--workspace",
-            workspace_id,
-            "--cwd",
-            str(cwd),
-            "--label",
-            name,
-            "--no-focus",
-        ],
-        env,
-    )
-    result = response["result"]
-    tab_id = result["tab"]["tab_id"]
-    root_pane = result["root_pane"]["pane_id"]
-    configure_tab(tab_id, root_pane, tab, root, env)
-    return tab_id
-
-
-def start_server(name: str) -> subprocess.Popen:
-    log_dir = Path("~/.local/state/herdr/hdr").expanduser()
-    log_dir.mkdir(parents=True, exist_ok=True)
-    log = (log_dir / f"{name}.log").open("ab")
-    return subprocess.Popen(
-        ["herdr", "server"],
-        env=session_env(name),
-        stdin=subprocess.DEVNULL,
-        stdout=log,
-        stderr=subprocess.STDOUT,
-        start_new_session=True,
-    )
-
-
-def wait_for_server(name: str, process: subprocess.Popen) -> None:
-    env = session_env(name)
-    for _ in range(100):
-        if process.poll() is not None:
-            raise RuntimeError(f"Herdr server exited with status {process.returncode}")
-        result = subprocess.run(
-            ["herdr", "workspace", "list"],
-            env=env,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        if result.returncode == 0:
-            return
-        time.sleep(0.05)
-    raise RuntimeError("timed out waiting for Herdr server")
-
-
-def bootstrap(name: str, root: Path, config: dict) -> None:
-    process = start_server(name)
-    env = session_env(name)
-    try:
-        wait_for_server(name, process)
-        initial = run_json(["workspace", "list"], env)["result"]["workspaces"]
-        response = run_json(
-            ["workspace", "create", "--cwd", str(root), "--label", name, "--focus"],
-            env,
-        )["result"]
-        workspace_id = response["workspace"]["workspace_id"]
-        placeholder_tab = response["tab"]["tab_id"]
-        placeholder_pane = response["root_pane"]["pane_id"]
-
-        tabs = config.get("tabs", [])
-        if not isinstance(tabs, list):
-            raise ValueError("tabs must be an array")
-
-        if tabs:
-            first_tab = tabs[0]
-            if not isinstance(first_tab, dict):
-                raise ValueError("each tab must be a table")
-            configure_tab(placeholder_tab, placeholder_pane, first_tab, root, env)
-
-        for tab in tabs[1:]:
-            if not isinstance(tab, dict):
-                raise ValueError("each tab must be a table")
-            create_tab(workspace_id, tab, root, env)
-
-        run_json(["tab", "focus", placeholder_tab], env)
-
-        for workspace in initial:
-            run_json(["workspace", "close", workspace["workspace_id"]], env)
-    except Exception:
-        subprocess.run(
-            ["herdr", "server", "stop"],
-            env=env,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        raise
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Start or attach to a configured Herdr session")
-    parser.add_argument("name", nargs="?", help="session/project name")
-    parser.add_argument("--no-attach", action="store_true", help=argparse.SUPPRESS)
-    args = parser.parse_args()
-
-    name, root, config = load_config(args.name)
-    existing = next((session for session in sessions() if session["name"] == name), None)
-    if existing:
-        if args.no_attach:
-            print(f"hdr: session {name} already exists")
-            return
-        attach(name)
-
-    try:
-        bootstrap(name, root, config)
-    except (RuntimeError, ValueError, KeyError, subprocess.SubprocessError) as error:
-        raise SystemExit(f"hdr: {error}")
-
-    if args.no_attach:
-        print(f"hdr: started {name}")
-    else:
-        attach(name)
-
-
-if __name__ == "__main__":
-    main()
+main if $PROGRAM_NAME == __FILE__

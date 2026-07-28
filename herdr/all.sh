@@ -8,4 +8,5 @@ link_path "herdr/projects" "$HOME/.config/herdr/projects"
 
 if command_exists herdr; then
   herdr plugin link "$DOTFILES_ROOT/herdr/plugins/project-runner" --enabled >/dev/null
+  herdr plugin link "$DOTFILES_ROOT/herdr/plugins/cwd-title" --enabled >/dev/null
 fi

@@ -1,0 +1,17 @@
+id = "mikker.cwd-title"
+name = "CWD Title"
+version = "0.1.0"
+min_herdr_version = "0.7.5"
+description = "Show the focused pane's CWD basename in the outer terminal title"
+platforms = ["macos", "linux"]
+
+[[startup]]
+command = ["sh", "title", "monitor"]
+
+[[events]]
+on = "pane.focused"
+command = ["sh", "title", "update"]
+
+[[events]]
+on = "workspace.focused"
+command = ["sh", "title", "update"]

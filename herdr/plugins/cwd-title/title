@@ -1,0 +1,25 @@
+#!/bin/sh
+
+herdr_bin="${HERDR_BIN_PATH:-herdr}"
+
+update_title() {
+  cwd="$($herdr_bin api snapshot | jq -er '
+    .result.snapshot as $snapshot
+    | $snapshot.panes[]
+    | select(.pane_id == $snapshot.focused_pane_id)
+    | .cwd
+  ')" || return
+
+  cwd="${cwd%/}"
+  title="${cwd##*/}"
+  [ -n "$title" ] || title="/"
+  "$herdr_bin" terminal title set "$title" >/dev/null
+}
+
+if [ "${1:-update}" = monitor ]; then
+  while sleep 1; do
+    update_title || true
+  done
+else
+  update_title
+fi

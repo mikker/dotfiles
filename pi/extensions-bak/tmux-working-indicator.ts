@@ -1,3 +1,4 @@
+// Archived in favor of the shared Pi setup.
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";

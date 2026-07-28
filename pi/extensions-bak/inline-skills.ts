@@ -1,3 +1,4 @@
+// Archived in favor of the shared Pi setup.
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { readFile } from "node:fs/promises";
 

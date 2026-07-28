@@ -1,4 +1,4 @@
-schemaVersion = 3
+schemaVersion = 4
 
 [[catalogConfiguration.customFolders]]
 depthRawValue = 1
@@ -995,7 +995,8 @@ catalogIdentifier = 'tuna.prompts'
 
     [catalogSettings.values]
     AgentAllowBashTool = 'true'
-    Model = 'gpt-5.4-nano-2026-03-17'
+    AgentModel = 'gpt-5.6-sol'
+    Model = 'gpt-5.6-luna'
     Provider = 'openaiCompatible'
 
 [[catalogSettings]]
