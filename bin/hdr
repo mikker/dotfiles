@@ -1,5 +1,29 @@
 #!/usr/bin/env ruby
 
+# Start or attach to a named Herdr project session:
+#   hdr                    # use the nearest .herdr/session.toml
+#   hdr my-project         # merge ~/.config/herdr/projects/my-project.toml
+#   hdr -l                 # list running sessions
+#   hdr -a                 # choose a running session with fzf
+#   hdr --no-attach [name] # start the session without attaching
+#
+# Example .herdr/session.toml:
+#   name = "my-project"
+#   root = ".."            # relative to the config's project root
+#
+#   [[tabs]]
+#   name = "editor"
+#   cwd = "."
+#   command = "nvim"
+#
+#   [[tabs.panes]]
+#   direction = "right"    # right or down
+#   ratio = 0.4
+#   target = 0              # pane index to split; defaults to the root pane
+#   command = ["bin/dev"]  # commands may be strings or arrays
+#
+# Requires `herdr` and `yq`; `fzf` is required only for `hdr -a`.
+
 require "fileutils"
 require "json"
 require "open3"

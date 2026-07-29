@@ -274,7 +274,7 @@ label = 'Environment'
 [[comboMode.bindings]]
 key = 'enter'
 label = 'Terminal'
-url = 'tuna://run?subject=path:/Applications/Ghostty.app&action=tuna.common-actions/open'
+url = 'tuna://run?subject=tuna.applications.all//Applications/Ghostty.app&action=tuna.common-actions/open'
 
 [[comboMode.bindings]]
 iconPath = 'uiwindow.split.2x1'
