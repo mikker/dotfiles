@@ -7,16 +7,54 @@ import {
   Spacer,
   Text,
 } from "@earendil-works/pi-tui";
-import {
-  type EditRenderContext,
-  type EditRenderState,
-  extractTextOutput,
-  getCallComponent,
-  summarizeDiff,
-} from "../shared/render";
 import type { ApplyPatchDetails, ApplyPatchFileDiff } from "./tool";
 
-export type ApplyPatchRenderState = EditRenderState;
+export interface ApplyPatchRenderState {
+  callComponent?: Text;
+}
+
+interface ApplyPatchRenderContext<T> {
+  state: ApplyPatchRenderState;
+  lastComponent?: Component;
+  args?: T;
+}
+
+function getCallComponent(
+  state: ApplyPatchRenderState,
+  lastComponent: Component | undefined,
+): Text {
+  if (lastComponent instanceof Text) {
+    state.callComponent = lastComponent;
+    return lastComponent;
+  }
+  if (state.callComponent) return state.callComponent;
+
+  const component = new Text("", 0, 0);
+  state.callComponent = component;
+  return component;
+}
+
+function extractTextOutput(result: {
+  content: Array<{ type: string; text?: string }>;
+}): string {
+  return result.content
+    .filter((item) => item.type === "text")
+    .map((item) => item.text ?? "")
+    .join("\n");
+}
+
+function summarizeDiff(diff: string): {
+  additions: number;
+  removals: number;
+} {
+  let additions = 0;
+  let removals = 0;
+  for (const line of diff.split("\n")) {
+    if (line.startsWith("+")) additions++;
+    else if (line.startsWith("-")) removals++;
+  }
+  return { additions, removals };
+}
 
 export function extractFileOps(patch: string): string[] {
   return extractFileOpDetails(patch).map((op) => `${op.status} ${op.path}`);
@@ -44,7 +82,7 @@ function extractFileOpDetails(patch: string): FileOpSummary[] {
 export function renderApplyPatchCall(
   args: { input?: string },
   theme: Theme,
-  context: EditRenderContext<{ input?: string }>,
+  context: ApplyPatchRenderContext<{ input?: string }>,
 ) {
   const ops = extractFileOpDetails(args.input ?? "");
   const detail = formatCallSummary(ops, theme);
