@@ -212,6 +212,15 @@
       "skillFolderHash": "3965b5bc70657d64f0163a65389990c6044d0290",
       "installedAt": "2026-07-14T21:15:19.160Z",
       "updatedAt": "2026-07-25T10:50:02.652Z"
+    },
+    "semantic-review": {
+      "source": "mikker/semantic-review",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mikker/semantic-review.git",
+      "skillPath": "skills/semantic-review/SKILL.md",
+      "skillFolderHash": "15c9857b3ff414b5eb1fc8c5ddd4615c4153d3d9",
+      "installedAt": "2026-07-29T10:32:37.939Z",
+      "updatedAt": "2026-07-29T10:32:37.939Z"
     }
   },
   "dismissed": {

@@ -1,134 +1,33 @@
-schemaVersion = 4
+schemaVersion = 5
 
-[[catalogConfiguration.customFolders]]
-depthRawValue = 1
-entryType = 'directory'
-filterMode = 'folders'
-id = '4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF'
-path = '~/dev'
+[catalogConfiguration]
+folderDepthOverrides = []
 
-[[catalogConfiguration.customFolders]]
-depthRawValue = 1
-entryType = 'directory'
-id = '7DD8B0C1-9632-4635-9E93-9896CD315580'
-path = '~/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents'
+    [[catalogConfiguration.customFolders]]
+    depthRawValue = 1
+    entryType = 'directory'
+    filterMode = 'folders'
+    id = '4920BDBB-E032-4F00-97C9-9CD2A2ECFEDF'
+    path = '~/dev'
 
-[[catalogConfiguration.customItems]]
-id = '9F46D7F0-206D-434B-BB06-20261D043E7F'
-kind = 'path'
-value = '~/Documents'
+    [[catalogConfiguration.customFolders]]
+    depthRawValue = 1
+    entryType = 'directory'
+    id = '7DD8B0C1-9632-4635-9E93-9896CD315580'
+    path = '~/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents'
 
-[[catalogConfiguration.folderDepthOverrides]]
-catalogIdentifier = 'tuna.applications.all'
-depthRawValue = 1
+    [[catalogConfiguration.customItems]]
+    id = '9F46D7F0-206D-434B-BB06-20261D043E7F'
+    kind = 'path'
+    value = '~/Documents'
 
-[[catalogConfiguration.scriptsDirectories]]
-id = '4ADB3FCD-1146-45CC-8B9F-886121D22F08'
-path = '~/Library/Scripts'
+    [[catalogConfiguration.scriptsDirectories]]
+    id = '4ADB3FCD-1146-45CC-8B9F-886121D22F08'
+    path = '~/Library/Scripts'
 
-[[catalogConfiguration.scriptsDirectories]]
-id = '876D2A76-6AA6-42E2-8B29-5348570BF5BB'
-path = '~/dev/Tuna/scripts/manual-script-catalog'
-
-[catalogs]
-searchPriorities = []
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'brew.packages'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'notes'
-
-        [catalogs.globalScopes.scope]
-        itemIDs = [
-            '041D6B89-D02F-48CD-81AC-7AE5B7EAA1D4',
-            '08843309-45DC-45F3-9D73-E0C4B7419CE9',
-            '0FEF7474-AAAC-409E-A022-473670BF9CA2',
-            '210DBB99-4450-4891-A547-B6784DEDCB1B',
-            '30D90CB2-79F7-496D-97F5-A65BDFE31639',
-            '35368AB9-EEE5-47AE-BACF-5FC817A88AE8',
-            '3F30A131-5FA8-442E-8773-013E6EBC29C5',
-            '4B9300D6-0068-4ADC-B10F-A8262AF10F98',
-            '6DB07FE5-DFFF-43D4-A061-24E13DB6D5A9',
-            '71C1C2FA-6F48-4189-8176-14EC5DF18836',
-            '74A6A6D1-BBB7-485F-A775-99AF25217F93',
-            '8A72D57C-E7CE-4837-90D2-EF5844C06857',
-            'A5B8798C-0390-4511-88E4-D61806C22886',
-            'AA973052-F597-4FE8-B615-858FD45BC8AE',
-            'BA608B1B-1B29-44AC-847E-D859E7FBA238',
-            'C590E436-B476-4288-9201-477C011D8AAA',
-            'D526139F-AAE7-4B83-83B1-D80CB64C345E',
-            'D78A235C-816E-4F83-B962-8097BDAE0655',
-            'DD8E1AD4-6DEF-49EF-840B-73245B503825',
-            'EAD88B74-E477-4E65-A38E-B538C0C0B21A',
-            'F5287FB0-B250-4981-824D-F3160B44071D',
-            'FC80F13D-BC47-4DD5-9FF7-35954B3F1936',
-            'FE70C311-CBE6-4BF2-A2C0-D4A54581C0E9',
-            'notes.new'
-        ]
-        kind = 'excluding'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'notion'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'obsidian.notes'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'reminders'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'tuna.contacts'
-
-        [catalogs.globalScopes.scope]
-        itemIDs = [ 'addressbook://3ABFD129-B923-44B2-AE76-3F710569A9FC%3AABPerson' ]
-        kind = 'only'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'tuna.custom-folder.4920bdbb-e032-4f00-97c9-9cd2a2ecfedf'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'tuna.effects'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'tuna.emoji'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.sortOrders]]
-    catalogIdentifier = 'Tuna.FileSystemBrowseSort'
-    sortOrder = 'capturedAt.desc'
-
-    [[catalogs.sortOrders]]
-    catalogIdentifier = 'github.notifications'
-    sortOrder = 'capturedAt.desc'
-
-    [[catalogs.sortOrders]]
-    catalogIdentifier = 'tuna.clipboard'
-    sortOrder = 'capturedAt.desc'
-
-    [[catalogs.sortOrders]]
-    catalogIdentifier = 'tuna.emoji.search'
-    sortOrder = 'score.desc'
+    [[catalogConfiguration.scriptsDirectories]]
+    id = '876D2A76-6AA6-42E2-8B29-5348570BF5BB'
+    path = '~/dev/Tuna/scripts/manual-script-catalog'
 
 [[comboMode.bindings]]
 iconPath = 'cat.fill'
@@ -448,7 +347,7 @@ url = 'tuna://run?subject=tuna.menu-items/menuItems.search&action=tuna.common-ac
 
 [[comboMode.bindings]]
 key = 'n'
-url = 'tuna://stage?subject=tuna.smart-links/X&action=tuna.smart-links.actions/open-smart-link&target=text:'
+url = 'tuna://stage?subject=tuna.smart-links/67D53699-5043-4D0D-9A3D-15872A80E343&action=tuna.smart-links.actions/open-smart-link&target=text:'
 
 [[comboMode.bindings]]
 key = 'N'
@@ -828,7 +727,7 @@ presentation = 'show'
 
     [hotkeys.custom.command]
     actionIdentifier = 'tuna.common-actions/resolve'
-    subjectIdentifier = 'Tuna.CurrentSelectionCatalog.Current Selection'
+    subjectIdentifier = 'tuna.current-selection/Current Selection'
 
     [hotkeys.custom.shortcut]
     carbonKeyCode = 5
@@ -936,78 +835,8 @@ requiresInput = true
 template = 'https://www.youtube.com/results?search_query={{input}}'
 
 [[catalogSettings]]
-catalogIdentifier = 'Tuna.Internal.AgentCommands'
-
-    [catalogSettings.values]
-    AllowBashTool = 'true'
-    Model = 'gpt-5.4-mini'
-    ReasoningEffort = 'low'
-
-[[catalogSettings]]
-catalogIdentifier = 'com.brnbw.TunaPrompts'
-
-    [catalogSettings.values]
-    AgentAllowBashTool = 'true'
-    AgentModel = 'gpt-5.6-luna'
-    AgentReasoningEffort = 'low'
-    BaseURL = 'https://api.openai.com/v1'
-    Model = 'gpt-5.6-luna'
-    Provider = 'openaiCompatible'
-
-[[catalogSettings]]
-catalogIdentifier = 'com.brnbw.tuna.plugins.emoji'
-
-    [catalogSettings.values]
-    EmojiSkinTone = 'default'
-
-[[catalogSettings]]
-catalogIdentifier = 'com.brnbw.tuna.plugins.things'
-
-    [catalogSettings.values]
-    ShowThingsWhenAdding = 'false'
-
-[[catalogSettings]]
-catalogIdentifier = 'com.brnbw.tuna.themes.default'
-
-    [catalogSettings.values]
-    ThemeTint = 'system'
-
-[[catalogSettings]]
-catalogIdentifier = 'com.brnbw.tuna.themes.nuggets'
-
-    [catalogSettings.values]
-    ThemeTint = 'system'
-
-[[catalogSettings]]
-catalogIdentifier = 'things.actions'
-
-    [catalogSettings.values]
-    ShowThingsWhenAdding = 'false'
-
-[[catalogSettings]]
-catalogIdentifier = 'tuna.emoji'
-
-    [catalogSettings.values]
-    EmojiSkinTone = 'default'
-
-[[catalogSettings]]
 catalogIdentifier = 'tuna.prompts'
 
     [catalogSettings.values]
-    AgentAllowBashTool = 'true'
-    AgentModel = 'gpt-5.6-sol'
-    Model = 'gpt-5.6-luna'
+    AgentModel = ''
     Provider = 'openaiCompatible'
-
-[[catalogSettings]]
-catalogIdentifier = 'tuna.text-actions'
-
-    [catalogSettings.values]
-    TextActionsFileExtension = 'txt'
-
-[[catalogSettings]]
-catalogIdentifier = 'tuna.window-management'
-
-    [catalogSettings.values]
-    Cycling = 'none'
-    Gap = '0'

@@ -65,13 +65,13 @@ command = "mikker.project-runner.restart"
 description = "restart project runner"
 
 [ui]
-# accent = "#0951AF"
+accent = "#0951AF"
 mouse_capture = true
 copy_on_select = true
 pane_borders = true
 sidebar_start_collapsed = true
 prompt_new_tab_name = false
-
 show_agent_labels_on_pane_borders = false
+
 [ui.sound]
 enabled = false

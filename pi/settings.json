@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.83.0",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
@@ -15,11 +15,12 @@
   "packages": [
     {
       "source": "git:github.com/davis7dotsh/my-pi-setup",
-      "extensions": ["!extensions/summaries/index.ts"],
+      "extensions": [
+        "!extensions/summaries/index.ts"
+      ],
       "themes": []
     },
     "npm:pi-autoresearch",
-    "npm:@rendotdev/lgtm",
     "~/.dotfiles/pi"
   ],
   "enableSkillCommands": true,

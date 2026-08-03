@@ -2,9 +2,12 @@
 
 # Start or attach to a named Herdr project session:
 #   hdr                    # use the nearest .herdr/session.toml
-#   hdr my-project         # merge ~/.config/herdr/projects/my-project.toml
+#   hdr my-project         # attach if existing, otherwise load its global or local config
 #   hdr -l                 # list running sessions
 #   hdr -a                 # choose a running session with fzf
+#   hdr -a my-project      # attach directly to a running session
+#   hdr -k                 # choose a session with fzf, then stop and delete it
+#   hdr -k my-project      # stop and delete a session
 #   hdr --no-attach [name] # start the session without attaching
 #
 # Example .herdr/session.toml:
@@ -22,7 +25,7 @@
 #   target = 0              # pane index to split; defaults to the root pane
 #   command = ["bin/dev"]  # commands may be strings or arrays
 #
-# Requires `herdr` and `yq`; `fzf` is required only for `hdr -a`.
+# Requires `herdr` and `yq`; `fzf` is required for `-a` and `-k` without a name.
 
 require "fileutils"
 require "json"
@@ -75,7 +78,7 @@ def load_config(requested_name)
   global_config = global_path&.file? ? read_toml(global_path) : {}
 
   if global_config["root"]
-    root = expanded_path(global_config["root"].to_s, Pathname.home)
+    root = expanded_path(global_config["root"].to_s, Pathname(Dir.home))
     local_path = root / LOCAL_CONFIG_PATH
   else
     local_path = nearest_local_config(Pathname.pwd)
@@ -121,13 +124,18 @@ def attach(name)
   exec(neutral_env, "herdr", "session", "attach", name, unsetenv_others: true)
 end
 
+def kill_session(name)
+  run_cli(["session", "stop", name], neutral_env)
+  run_cli(["session", "delete", name], neutral_env)
+end
+
 def pick_session(available)
   names = available.map { |session| session.fetch("name") }.join("\n")
   names << "\n" unless names.empty?
   output, _, status = Open3.capture3("fzf", stdin_data: names)
   status.success? ? output.strip : nil
 rescue Errno::ENOENT
-  raise "fzf is required for -a"
+  raise "fzf is required when no session name is given"
 end
 
 def command_argv(value, cwd)
@@ -260,12 +268,14 @@ end
 def main
   options = { no_attach: !!ARGV.delete("--no-attach") }
   parser = OptionParser.new do |opts|
-    opts.banner = "Usage: hdr [-l | -a] [name]"
+    opts.banner = "Usage: hdr [-l | -a | -k] [name]"
     opts.on("-l", "--list", "List sessions") { options[:list] = true }
-    opts.on("-a", "--attach", "Pick a session with fzf and attach") { options[:attach] = true }
+    opts.on("-a", "--attach", "Attach to a session, choosing with fzf if unnamed") { options[:attach] = true }
+    opts.on("-k", "--kill", "Stop and delete a session, choosing with fzf if unnamed") { options[:kill] = true }
   end
   parser.parse!
-  raise OptionParser::InvalidOption, "-l and -a are mutually exclusive" if options[:list] && options[:attach]
+  modes = options.values_at(:list, :attach, :kill).compact
+  raise OptionParser::InvalidOption, "-l, -a, and -k are mutually exclusive" if modes.length > 1
   raise OptionParser::InvalidArgument, "too many session names" if ARGV.length > 1
 
   if options[:list]
@@ -274,13 +284,29 @@ def main
   end
 
   if options[:attach]
-    name = pick_session(sessions)
+    name = ARGV.first || pick_session(sessions)
     attach(name) if name
     return
   end
 
-  name, root, config = load_config(ARGV.first)
-  if sessions.any? { |session| session["name"] == name }
+  if options[:kill]
+    name = ARGV.first || pick_session(sessions)
+    kill_session(name) if name
+    return
+  end
+
+  requested_name = ARGV.first
+  available = sessions
+  if requested_name && available.any? { |session| session["name"] == requested_name }
+    if options[:no_attach]
+      puts "hdr: session #{requested_name} already exists"
+      return
+    end
+    attach(requested_name)
+  end
+
+  name, root, config = load_config(requested_name)
+  if available.any? { |session| session["name"] == name }
     if options[:no_attach]
       puts "hdr: session #{name} already exists"
       return
