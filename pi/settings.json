@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.83.0",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
-  "defaultThinkingLevel": "high",
+  "lastChangelogVersion": "0.84.1",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.6-terra",
+  "defaultThinkingLevel": "low",
   "theme": "zenbones-ansi",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -21,7 +21,8 @@
       "themes": []
     },
     "npm:pi-autoresearch",
-    "~/.dotfiles/pi"
+    "~/.dotfiles/pi",
+    "../../dev/fut"
   ],
   "enableSkillCommands": true,
   "terminal": {

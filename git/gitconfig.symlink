@@ -61,6 +61,8 @@
 	helper = osxkeychain
 [credential "https://github.com"]
 	username = mikker
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
 [commit]
 	gpgsign = true
 [merge]
@@ -85,3 +87,6 @@
 	lowSpeedTime = 999999
 [include]
   path = ~/.dotfiles/git/delta.gitconfig.symlink
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
