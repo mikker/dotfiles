@@ -1,17 +1,16 @@
-font-family = "IBM Plex Mono"
-font-family = "JetBrainsMono Nerd Font Mono"
-#font-family = "Iosevka"
+# font-family = "IBM Plex Mono"
+# font-family = "JetBrainsMono Nerd Font Mono"
+font-family = "Iosevka"
 #font-family = "Berkeley Mono"
 #font-family = "Cartograph CF"
 #font-family = "Cascadia Code NF"
 #font-family = "Martian Mono"
 #font-family = "SF Mono"
 #font-family = "Pragmasevka Nerd Font"
-#font-family = "Maple Mono NF"
 
 font-style = "Regular"
-font-size = 14
-adjust-cell-height = 15%
+font-size = 16
+adjust-cell-height = 10%
 
 theme = light:Zenbones Light,dark:Zenbones Dark
 
@@ -64,5 +63,3 @@ keybind = shift+enter=text:\x1b\r
 
 macos-option-as-alt = right
 macos-icon = blueprint
-# macos-icon-ghost-color = #ff0000
-# macos-icon-screen-color = #0000ff

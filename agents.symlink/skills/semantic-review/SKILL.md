@@ -2,7 +2,7 @@
 name: semantic-review
 description: Opens a semantic, narrative browser review of a git diff and returns the human reviewer's comments. Use after completing a substantial code change, or when the user asks for semantic-review, a narrative review, or a review of current changes.
 license: MIT
-compatibility: Requires Node.js 20+. Optional sidecars use ANTHROPIC_API_KEY or an installed claude, codex, gemini, or pi CLI.
+compatibility: Requires Node.js 20+. Optional sidecars use ANTHROPIC_API_KEY, OPENAI_API_KEY, or an installed claude, codex, gemini, or pi CLI.
 disable-model-invocation: true
 context: fork
 background: false
@@ -39,13 +39,14 @@ When the user expresses a harness or model preference in any wording, translate 
 
 ```sh
 npx --yes semantic-review --with anthropic --model claude-sonnet-5 --effort medium
+npx --yes semantic-review --with openai --model gpt-5.6
 npx --yes semantic-review --with claude --model sonnet
 npx --yes semantic-review --with codex --model gpt-5.3-codex-spark
 npx --yes semantic-review --with gemini --model gemini-2.5-pro
 npx --yes semantic-review --with pi --model google/gemini-2.5-pro
 ```
 
-For example, “use Claude Code with fable” means `--with claude --model fable`. The available harnesses are `anthropic`, `claude`, `codex`, `gemini`, and `pi`. CLI harnesses reuse their existing local authentication; `anthropic` uses `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN`. If the user names a harness without a model, leave off `--model` and let that backend choose its default.
+For example, “use Claude Code with fable” means `--with claude --model fable`. The available backends are `anthropic`, `openai`, `claude`, `codex`, `gemini`, and `pi`. CLI backends reuse their existing local authentication; the API backends use `ANTHROPIC_API_KEY`/`ANTHROPIC_AUTH_TOKEN` and `OPENAI_API_KEY`. If the user names a backend without a model, leave off `--model` and let that backend choose its default.
 
 To compare harnesses, provide a comma-separated list. Do not add `--model`, because model IDs are backend-specific:
 

@@ -1,0 +1,20 @@
+[ui.styles.current]
+foreground = "#FFFFFF"
+background = "#0053B5"
+add_modifiers = []
+
+[ui.tab_bar]
+position = "bottom"
+right = [
+  { segments = [{ token = "workspace.name", prefix = " ", suffix = " ", max_width = 20 }], style = "muted", priority = 200 },
+  { segments = [{ token = "client.zoom", suffix = " " }], priority = 255 },
+  { segments = [{ token = "client.help" }], style = "muted", priority = 0 },
+  { segments = [{ token = "fut" }], style = "muted", priority = 0 },
+  { segments = [{ token = "session.waiting", prefix = " ", suffix = " " }], style = "attention", priority = 255 },
+]
+
+[ui.workspace_sidebar]
+position = "right"
+
+[ui.icons]
+preset = "nerd_font"

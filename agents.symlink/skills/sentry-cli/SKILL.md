@@ -1,6 +1,6 @@
 ---
 name: sentry-cli
-version: 0.31.0
+version: 0.42.2
 description: Guide for using the Sentry CLI to interact with Sentry from the command line. Use when the user asks about viewing issues, events, projects, organizations, making API calls, or authenticating with Sentry via CLI.
 requires:
   bins: ["sentry"]
@@ -104,6 +104,26 @@ sentry log list --follow
 
 # Filter logs by severity
 sentry log list --query "severity:error"
+```
+
+#### Capture Events Locally (Spotlight)
+
+```bash
+# Run the app with the local server auto-enabled; tail errors/traces/logs.
+# No DSN needed — with no DSN, events go ONLY to the local server (nothing
+# reaches the user's Sentry org, no production quota). With a DSN set, the
+# SDK sends to both.
+sentry local run -- npm run dev          # or: python manage.py runserver, etc.
+
+# Watch only AI/agent (gen_ai, mcp) spans while iterating on an agent.
+sentry local -f ai
+
+# Server-side SDKs read SENTRY_SPOTLIGHT automatically. The CLI also injects
+# the URL under every framework client prefix (NEXT_PUBLIC_, VITE_, PUBLIC_,
+# NUXT_PUBLIC_, REACT_APP_, VUE_APP_, GATSBY_). Until the browser SDK reads
+# these automatically (getsentry/sentry-javascript#18198), reference the var
+# matching your framework in the client config:
+# Sentry.init({ spotlight: process.env.NEXT_PUBLIC_SENTRY_SPOTLIGHT ?? false })
 ```
 
 #### Explore the API Schema
@@ -232,7 +252,7 @@ sentry span list my-org/my-project/abc123def456...
 
 #### Dataset names for the Events API
 
-When querying the Events API (directly or via `sentry api`), valid dataset values are: `spans`, `transactions`, `logs`, `errors`, `discover`.
+When querying the Events API (directly or via `sentry api`), valid dataset values are: `spans`, `logs`, `errors`, `tracemetrics`, `profile_functions`, and `uptime_results`.
 
 ### Common Mistakes
 
@@ -245,7 +265,7 @@ When querying the Events API (directly or via `sentry api`), valid dataset value
 - **Fetching API schemas instead of using the CLI**: Prefer `sentry schema` to browse the API and `sentry api` to make requests — the CLI handles authentication and endpoint resolution, so there's rarely a need to download OpenAPI specs separately.
 - **Release version mismatch**: The `org/version` positional is `<org-slug>/<version>`, where `org/` is the org, not part of the version. `sentry release create sentry/1.0.0` creates version `1.0.0` in org `sentry`. If your `Sentry.init()` uses `release: "1.0.0"`, this is correct. Don't double-prefix like `sentry/myapp/1.0.0`.
 - **Running `set-commits --auto` without a git checkout**: `--auto` needs a local git repo to discover the origin remote URL and HEAD commit. In CI, ensure `actions/checkout` with `fetch-depth: 0` runs before `set-commits --auto`.
-- **Using `sentry api` when CLI commands suffice**: `sentry issue list --json` already includes `shortId`, `title`, `priority`, `level`, `status`, `permalink`, and other fields at the top level. Some fields like `count`, `userCount`, `firstSeen`, and `lastSeen` may be null depending on the issue. Use `--fields` to select specific fields and `--help` to see all available fields. Only fall back to `sentry api` for data the CLI doesn't expose.
+- **Using `sentry api` when CLI commands suffice**: `sentry issue list --json` and `sentry issue view --json` already include `shortId`, `title`, `count`, `userCount`, `priority`, `level`, `status`, `permalink`, and other fields at the top level. When using `--fields` to select specific fields like `count` or `userCount`, the CLI automatically ensures these fields are present in the API response. Use `--fields` to select specific fields and `--help` to see all available fields. Only fall back to `sentry api` for data the CLI doesn't expose.
 
 ## Prerequisites
 
@@ -264,8 +284,8 @@ npm install -g sentry
 ### Authentication
 
 ```bash
-sentry auth login
-sentry auth login --token YOUR_SENTRY_API_TOKEN
+sentry auth
+sentry auth --token YOUR_SENTRY_API_TOKEN
 sentry auth status
 sentry auth logout
 ```
@@ -278,10 +298,10 @@ Authenticate with Sentry
 
 - `sentry auth login` — Authenticate with Sentry
 - `sentry auth logout` — Log out of Sentry
-- `sentry auth refresh` — Refresh your authentication token
+- `sentry auth refresh` — Refresh your OAuth access token
 - `sentry auth status` — View authentication status
 - `sentry auth token` — Print the stored authentication token
-- `sentry auth whoami` — Show the currently authenticated user
+- `sentry auth whoami` — Show the currently authenticated identity
 
 → Full flags and examples: `references/auth.md`
 
@@ -298,7 +318,7 @@ Work with Sentry organizations
 
 Work with Sentry projects
 
-- `sentry project create <name> <platform>` — Create a new project
+- `sentry project create [<org>/]<name>:<platform>...` — Create one or more projects
 - `sentry project delete <org/project>` — Delete a project
 - `sentry project list <org/project>` — List projects
 - `sentry project view <org/project>` — View details of a project
@@ -323,10 +343,11 @@ Manage Sentry issues
 
 ### Event
 
-View and list Sentry events
+View, list, and send Sentry events
 
-- `sentry event view <org/project/event-id...>` — View details of a specific event
+- `sentry event view <org/project/event-id...>` — View details of one or more events
 - `sentry event list <issue>` — List events for an issue
+- `sentry event send <args...>` — Send a Sentry event
 
 → Full flags and examples: `references/event.md`
 
@@ -338,6 +359,32 @@ Make an authenticated API request
 
 → Full flags and examples: `references/api.md`
 
+### Alert
+
+Manage Sentry alert rules
+
+- `sentry alert issues list <org/project>` — List issue alert rules
+- `sentry alert issues view <org/project/rule-id-or-name>` — View an issue alert rule
+- `sentry alert issues create <target>` — Create an issue alert rule
+- `sentry alert issues delete <org/project/rule-id-or-name>` — Delete an issue alert rule
+- `sentry alert issues edit <org/project/rule-id-or-name>` — Edit an issue alert rule
+- `sentry alert metrics list <target>` — List metric alert rules
+- `sentry alert metrics view <org/rule-id-or-name>` — View a metric alert rule
+- `sentry alert metrics create <org>` — Create a metric alert rule
+- `sentry alert metrics delete <org/rule-id-or-name>` — Delete a metric alert rule
+- `sentry alert metrics edit <org/rule-id-or-name>` — Edit a metric alert rule
+
+→ Full flags and examples: `references/alert.md`
+
+### Build
+
+Manage mobile build artifacts
+
+- `sentry build upload <path...>` — Upload builds to a project
+- `sentry build download <build-id>` — Download a build artifact
+
+→ Full flags and examples: `references/build.md`
+
 ### CLI
 
 CLI-related commands
@@ -345,10 +392,50 @@ CLI-related commands
 - `sentry cli defaults <key value...>` — View and manage default settings
 - `sentry cli feedback <message...>` — Send feedback about the CLI
 - `sentry cli fix` — Diagnose and repair CLI database issues
+- `sentry cli import` — Import settings from legacy .sentryclirc files
 - `sentry cli setup` — Configure shell integration
+- `sentry cli uninstall` — Uninstall Sentry CLI
 - `sentry cli upgrade <version>` — Update the Sentry CLI to the latest version
 
 → Full flags and examples: `references/cli.md`
+
+### Code-mappings
+
+Manage code mappings for stack trace linking
+
+- `sentry code-mappings upload <path>` — Upload code mappings for stack trace linking
+
+→ Full flags and examples: `references/code-mappings.md`
+
+### Conversation
+
+List and view AI conversations
+
+- `sentry conversation list <org>` — List recent AI conversations
+- `sentry conversation view <org/conversation-id>` — View an AI conversation transcript
+
+→ Full flags and examples: `references/conversation.md`
+
+### Dart-symbol-map
+
+Work with Dart/Flutter symbol maps
+
+- `sentry dart-symbol-map upload <path>` — Upload a Dart/Flutter symbol map to Sentry
+
+→ Full flags and examples: `references/dart-symbol-map.md`
+
+### Debug-files
+
+Work with debug information files
+
+- `sentry debug-files check <path>` — Inspect a debug information file
+- `sentry debug-files find <id...>` — Locate debug files for given debug identifiers
+- `sentry debug-files upload <path...>` — Upload debug information files to Sentry
+- `sentry debug-files print-sources <path>` — List the source files a debug file references
+- `sentry debug-files bundle-sources <path>` — Bundle a debug file's source files for source context
+- `sentry debug-files bundle-jvm <path>` — Create a JVM source bundle for source context
+
+→ Full flags and examples: `references/debug-files.md`
 
 ### Dashboard
 
@@ -360,21 +447,60 @@ Manage Sentry dashboards
 - `sentry dashboard widget add <org/project/dashboard/title...>` — Add a widget to a dashboard
 - `sentry dashboard widget edit <org/project/dashboard...>` — Edit a widget in a dashboard
 - `sentry dashboard widget delete <org/project/dashboard...>` — Delete a widget from a dashboard
+- `sentry dashboard revisions <org/dashboard...>` — List dashboard revisions
+- `sentry dashboard restore <org/dashboard...>` — Restore a dashboard revision
 
 → Full flags and examples: `references/dashboard.md`
+
+### Platform
+
+List valid Sentry platform identifiers
+
+- `sentry platform list` — List all valid Sentry platform identifiers
+
+→ Full flags and examples: `references/platform.md`
+
+### Proguard
+
+Work with ProGuard/R8 mapping files
+
+- `sentry proguard upload <path...>` — Upload ProGuard/R8 mapping files to Sentry
+- `sentry proguard uuid <path>` — Compute the UUID for a ProGuard mapping file
+
+→ Full flags and examples: `references/proguard.md`
+
+### React-native
+
+Upload React Native sourcemaps from build steps
+
+- `sentry react-native gradle` — Upload a React Native bundle + sourcemap (Gradle build step)
+- `sentry react-native xcode <script-arg...>` — Upload React Native sourcemaps (Xcode build step)
+
+→ Full flags and examples: `references/react-native.md`
+
+### Replay
+
+Search and inspect Session Replays
+
+- `sentry replay list <org/project>` — List recent Session Replays
+- `sentry replay view <replay-id-or-url...>` — View a Session Replay
+
+→ Full flags and examples: `references/replay.md`
 
 ### Release
 
 Work with Sentry releases
 
 - `sentry release list <org/project>` — List releases with adoption and health metrics
-- `sentry release view <org/version...>` — View release details with health metrics
-- `sentry release create <org/version...>` — Create a release
-- `sentry release finalize <org/version...>` — Finalize a release
-- `sentry release delete <org/version...>` — Delete a release
-- `sentry release deploy <org/version environment name...>` — Create a deploy for a release
-- `sentry release deploys <org/version...>` — List deploys for a release
-- `sentry release set-commits <org/version...>` — Set commits for a release
+- `sentry release view <org/version>` — View release details with health metrics
+- `sentry release create <org/version>` — Create a release
+- `sentry release finalize <org/version>` — Finalize a release
+- `sentry release delete <org/version>` — Delete a release
+- `sentry release archive <org/version>` — Archive a release
+- `sentry release restore <org/version>` — Restore an archived release
+- `sentry release deploy <org/version> <environment> <name>` — Create a deploy for a release
+- `sentry release deploys <org/version>` — List deploys for a release
+- `sentry release set-commits <org/version>` — Set commits for a release
 - `sentry release propose-version` — Propose a release version
 
 → Full flags and examples: `references/release.md`
@@ -403,6 +529,15 @@ Query aggregate event data (Explore)
 
 → Full flags and examples: `references/explore.md`
 
+### Feedback
+
+Search and inspect User Feedback
+
+- `sentry feedback list <org/project>` — List and search User Feedback
+- `sentry feedback view <feedback>` — View a User Feedback item
+
+→ Full flags and examples: `references/feedback.md`
+
 ### Log
 
 View Sentry logs
@@ -412,12 +547,32 @@ View Sentry logs
 
 → Full flags and examples: `references/log.md`
 
+### Monitor
+
+Work with Sentry cron monitors
+
+- `sentry monitor run <monitor-slug command...>` — Wrap a command with cron monitor check-ins
+- `sentry monitor list <org/project>` — List cron monitors
+
+→ Full flags and examples: `references/monitor.md`
+
+### Snapshots
+
+Manage and compare snapshots
+
+- `sentry snapshots diff <base-dir> <head-dir>` — Compare two directories of snapshot images
+- `sentry snapshots download` — Download baseline snapshot images
+- `sentry snapshots upload <path>` — Upload snapshots to a project
+
+→ Full flags and examples: `references/snapshots.md`
+
 ### Sourcemap
 
 Manage sourcemaps
 
 - `sentry sourcemap inject <directory>` — Inject debug IDs into JavaScript files and sourcemaps
 - `sentry sourcemap upload <directory>` — Upload sourcemaps to Sentry
+- `sentry sourcemap resolve <directory>` — Resolve and report sourcemap linkage for JavaScript files
 
 → Full flags and examples: `references/sourcemap.md`
 
@@ -456,6 +611,23 @@ Initialize Sentry in your project (experimental)
 - `sentry init <target> <directory>` — Initialize Sentry in your project (experimental)
 
 → Full flags and examples: `references/init.md`
+
+### Info
+
+Print configuration and verify authentication
+
+- `sentry info` — Print configuration and verify authentication
+
+→ Full flags and examples: `references/info.md`
+
+### Local
+
+Sentry for local development
+
+- `sentry local serve` — Start the local dev server and tail events
+- `sentry local run <command...>` — Run a command with the local dev server enabled
+
+→ Full flags and examples: `references/local.md`
 
 ### Schema
 
