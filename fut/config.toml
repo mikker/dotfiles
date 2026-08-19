@@ -6,6 +6,9 @@ extensions = [
 [projects.tuna]
 path = "~/dev/Tuna"
 
+[projects.dotfiles]
+path = "~/.dotfiles"
+
 [ui.bindings]
 open_left_sidebar = "]"
 open_right_sidebar = "w"

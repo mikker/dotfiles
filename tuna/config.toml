@@ -29,7 +29,6 @@ folderDepthOverrides = []
 
 [catalogs]
 searchPriorities = []
-sortOrders = []
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'obsidian.notes'
@@ -49,6 +48,10 @@ sortOrders = []
 
         [catalogs.globalScopes.scope]
         kind = 'none'
+
+    [[catalogs.sortOrders]]
+    catalogIdentifier = 'Tuna.FileSystemBrowseSort'
+    sortOrder = 'capturedAt.desc'
 
 [[comboMode.bindings]]
 key = ','
