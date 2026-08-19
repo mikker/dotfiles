@@ -11,6 +11,10 @@ alias dsay='say -v Sara'
 alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1/"\"
 alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"
 
+# Fut development
+alias fut='"$PROJECTS/fut/target/release/fut" --socket "${TMPDIR%/}/fut-release.sock"'
+alias futd='"$PROJECTS/fut/target/debug/fut" --socket "${TMPDIR%/}/fut-debug.sock"'
+
 claude-bash() {
   local suggestion
   suggestion=$("$DOTFILES/bin/claude-bash" "$@") || return

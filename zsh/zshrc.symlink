@@ -44,7 +44,6 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# Added by Pear Runtime, configures system with Pear CLI
 export PATH="$HOME/Library/Application Support/pear/bin:$PATH"
 
 # Local modifications
@@ -61,3 +60,4 @@ fi
 # Dotfile wrappers intentionally override package-managed executables.
 export PATH="$DOTFILES/bin:$PATH"
 
+export PATH=$PATH:$HOME/.maestro/bin

@@ -1,0 +1,2 @@
+#!/bin/bash
+osascript -e 'tell application "Helium" to tell the active tab of its first window to reload'

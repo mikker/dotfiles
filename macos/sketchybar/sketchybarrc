@@ -17,7 +17,7 @@ source "$CONFIG_DIR/colors.sh"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=36 blur_radius=30 color=$BAR_COLOR
+sketchybar --bar position=top height=36 blur_radius=0 color=$BAR_COLOR
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -42,6 +42,12 @@ sketchybar --default "${default[@]}"
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode_changed
+sketchybar --add event appearance_changed AppleInterfaceThemeChangedNotification
+
+# Reload the palette as soon as macOS changes between light and dark mode.
+sketchybar --add item appearance_observer left \
+  --set appearance_observer drawing=off script="$PLUGIN_DIR/appearance.sh" \
+  --subscribe appearance_observer appearance_changed
 
 for sid in $(aerospace list-workspaces --all); do
   # Determine icon based on workspace ID
@@ -125,14 +131,25 @@ sketchybar --add item clock right \
   background.drawing=on \
   background.color="$CAL_EVENT_BG_COLOR" \
   background.corner_radius=8 \
-  background.height=25
+  background.height=25 \
+  --add item fut_waiting right \
+  --set fut_waiting \
+  drawing=off \
+  update_freq=5 \
+  icon="●" \
+  icon.font="SF Pro:Bold:10.0" \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.font="SF Pro:Semibold:13.0" \
+  label.padding_right=8 \
+  script="$PLUGIN_DIR/fut_agents.sh"
 
 # --add item things_todo right \
 # --set things_todo update_freq=60 \
 # script="$PLUGIN_DIR/things_todo.sh" \
 # click_script="open -a Things3" \
 # background.drawing=on \
-# background.color=$GREY_TRANSP \
+# background.color=$ITEM_BG_COLOR \
 # background.corner_radius=8 \
 # background.height=25
 

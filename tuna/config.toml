@@ -1990,6 +1990,19 @@ requiresInput = true
 template = 'https://www.youtube.com/results?search_query={{input}}'
 
 [[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.plugins.mymind'
+
+    [catalogSettings.values]
+    AccessLevel = 'full-access'
+    KeyID = '1jsWbDTRdXl1e23PZhU1X5'
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.themes.default'
+
+    [catalogSettings.values]
+    ThemeTint = 'system'
+
+[[catalogSettings]]
 catalogIdentifier = 'tuna.prompts'
 
     [catalogSettings.values]
