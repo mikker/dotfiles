@@ -1,7 +1,5 @@
-version = 1
-
-[[tabs]]
-id = "main"
-panes = [
-  { id = "agent", command = ["pi"] },
-]
+[[workspaces]]
+[[workspaces.tabs]]
+panes = [{ command = ["pi"] }]
+[[workspaces.tabs]]
+panes = [{ command = ["nvim"] }]

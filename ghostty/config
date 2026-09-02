@@ -1,6 +1,6 @@
 font-family = "IBM Plex Mono"
 #font-family = "JetBrainsMono Nerd Font Mono"
-#font-family = "Iosevka"
+#font-family = "Iosevka Curly"
 #font-family = "Berkeley Mono"
 #font-family = "Cartograph CF"
 #font-family = "Cascadia Code NF"
@@ -10,7 +10,7 @@ font-family = "IBM Plex Mono"
 #font-family = "BitstromWera Nerd Font Mono"
 
 font-style = "Regular"
-font-size = 14
+font-size = 16
 adjust-cell-height = 15%
 
 theme = light:Zenbones Light,dark:Zenbones Dark
@@ -26,7 +26,10 @@ window-padding-y = 4,8
 window-colorspace = display-p3
 window-height = 36
 window-width = 120
-macos-titlebar-style = native
+
+#macos-titlebar-style = native
+macos-option-as-alt = right
+# macos-icon = blueprint
 
 # Word navigation
 keybind = opt+arrow_left=text:\x1bb
@@ -43,7 +46,7 @@ keybind = cmd+arrow_up=text:\x02\x1b[A
 keybind = cmd+arrow_down=text:\x02\x1b[B
 
 # Command palette
-# keybind = cmd+k=toggle_quick_terminal
+#keybind = cmd+k=toggle_quick_terminal
 
 # Tmux window switching (uses physical bracket keys on Ghostty 1.2+)
 keybind = cmd+shift+bracket_left=text:\x02p
@@ -61,6 +64,3 @@ keybind = cmd+digit_8=text:\x028
 keybind = cmd+digit_9=text:\x029
 
 keybind = shift+enter=text:\x1b\r
-
-macos-option-as-alt = right
-# macos-icon = blueprint

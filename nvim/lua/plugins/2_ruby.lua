@@ -19,4 +19,5 @@ return {
   -- better matchup for ruby
   { "andymass/vim-matchup" },
   "tpope/vim-endwise",
+  "tpope/vim-liquid",
 }

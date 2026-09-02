@@ -3,8 +3,8 @@ set -eu
 
 usage() {
     status=${1:-2}
-    echo "usage: launch-thread <name> [--prompt-file <path>]" >&2
-    echo "       launch-thread <name> < prompt.md" >&2
+    echo "usage: launch-thread <worktree-name> [--workspace-name <title>] [--prompt-file <path>]" >&2
+    echo "       launch-thread <worktree-name> [--workspace-name <title>] < prompt.md" >&2
     exit "$status"
 }
 
@@ -19,13 +19,19 @@ case "$1" in
         usage 0
         ;;
 esac
-name=$1
+worktree_name=$1
 shift
+workspace_name=$worktree_name
 prompt_file=
 temporary_prompt=
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
+        --workspace-name)
+            [ "$#" -ge 2 ] || usage
+            workspace_name=$2
+            shift 2
+            ;;
         --prompt-file)
             [ "$#" -ge 2 ] || usage
             prompt_file=$2
@@ -54,13 +60,13 @@ main_checkout=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/nul
 main_checkout=$(dirname "$main_checkout")
 main_checkout=$(cd "$main_checkout" && pwd -P)
 
-create_output=$(cd "$main_checkout" && wt create "$name") \
-    || die "wt could not create worktree $name"
+create_output=$(cd "$main_checkout" && wt create "$worktree_name") \
+    || die "wt could not create worktree $worktree_name"
 worktree_path=$(printf '%s\n' "$create_output" | tail -n 1)
 [ -d "$worktree_path" ] || die "wt reported an invalid worktree path: $worktree_path"
 worktree_path=$(cd "$worktree_path" && pwd -P)
 
-if ! open_json=$(cd "$main_checkout" && fut --json open --background --name "$name" "$worktree_path" -- pi --name "$name"); then
+if ! open_json=$(cd "$main_checkout" && fut --json open --background --name "$workspace_name" "$worktree_path" -- pi --name "$workspace_name"); then
     die "Fut could not create a workspace; worktree retained at $worktree_path"
 fi
 
@@ -76,12 +82,13 @@ git_dir=$(cd "$worktree_path" && git rev-parse --path-format=absolute --git-dir)
 manifest=$git_dir/new-thread.json
 
 jq -n \
-    --arg name "$name" \
+    --arg worktree_name "$worktree_name" \
+    --arg workspace_name "$workspace_name" \
     --arg worktree_path "$worktree_path" \
     --arg workspace_id "$workspace_id" \
     --arg pane_id "$pane_id" \
     --arg terminal_id "$terminal_id" \
-    '{name: $name, worktree_path: $worktree_path, workspace_id: $workspace_id, pane_id: $pane_id, terminal_id: $terminal_id, prompted: false}' \
+    '{worktree_name: $worktree_name, workspace_name: $workspace_name, worktree_path: $worktree_path, workspace_id: $workspace_id, pane_id: $pane_id, terminal_id: $terminal_id, prompted: false}' \
     > "$manifest"
 
 agent_available=false
@@ -106,8 +113,14 @@ workspace_root=$(printf '%s' "$workspace_json" | jq -er '.result.target.workspac
 [ "$workspace_root" = "$worktree_path" ] \
     || die "workspace root $workspace_root does not match $worktree_path (manifest: $manifest)"
 
-prompt_json=$(cd "$main_checkout" && fut --json agent prompt "$terminal_id" --stdin < "$prompt_file") \
-    || die "prompt submission failed; inspect terminal $terminal_id (manifest: $manifest)"
+if fut agent prompt --help 2>&1 | grep -q -- '--stdin'; then
+    prompt_json=$(cd "$main_checkout" && fut --json agent prompt "$terminal_id" --stdin < "$prompt_file") \
+        || die "prompt submission failed; inspect terminal $terminal_id (manifest: $manifest)"
+else
+    prompt_text=$(cat "$prompt_file")
+    prompt_json=$(cd "$main_checkout" && fut --json agent prompt "$terminal_id" -- "$prompt_text") \
+        || die "prompt submission failed; inspect terminal $terminal_id (manifest: $manifest)"
+fi
 
 updated_manifest=$manifest.tmp
 jq --argjson prompt "$(printf '%s' "$prompt_json" | jq '.result')" \

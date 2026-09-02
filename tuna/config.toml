@@ -1,3 +1,17 @@
+[[aliases.entries]]
+abbreviation = 'gif'
+
+    [[aliases.entries.targets]]
+    catalogID = 'tuna.custom-folder.7dd8b0c1-9632-4635-9e93-9896cd315580'
+    id = '/Users/mikker/Library/Mobile Documents/iCloud~com~jellystyle~GIFwrapped~library/Documents'
+
+[[aliases.entries]]
+abbreviation = 'smit'
+
+    [[aliases.entries.targets]]
+    catalogID = 'tuna.applications.all'
+    id = '/Applications/Transmit.app'
+
 [catalogConfiguration]
 folderDepthOverrides = []
 
@@ -29,12 +43,56 @@ folderDepthOverrides = []
 
 [catalogs]
 searchPriorities = []
+sortOrders = []
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'music.albums'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'music.artists'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'music.controls'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'music.playlists'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'music.songs'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'obsidian.notes'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'poof.snippets'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.applications'
+
+        [catalogs.globalScopes.scope]
+        itemIDs = [ '/Applications/1Password for Safari.app' ]
+        kind = 'excluding'
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.contacts'
@@ -49,9 +107,17 @@ searchPriorities = []
         [catalogs.globalScopes.scope]
         kind = 'none'
 
-    [[catalogs.sortOrders]]
-    catalogIdentifier = 'Tuna.FileSystemBrowseSort'
-    sortOrder = 'capturedAt.desc'
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.quick-actions'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'tuna.shortcuts'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
 
 [[comboMode.bindings]]
 key = ','
@@ -396,20 +462,6 @@ label = 'Environment'
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
-        key = 'e'
-        label = 'Key Light'
-
-            [comboMode.bindings.destination.bindings.destination]
-            type = 'command'
-
-                [comboMode.bindings.destination.bindings.destination.command]
-                actionIdentifier = 'tuna.common-actions/open-url'
-                behavior = 'run'
-                presentation = 'automatic'
-                subjectIdentifiers = [ 'url:raycast://extensions/thomas/elgato-key-light/toggle' ]
-                type = 'savedCommand'
-
-        [[comboMode.bindings.destination.bindings]]
         key = 'm'
         label = 'Monitor'
 
@@ -457,6 +509,36 @@ label = 'Environment'
                         presentation = 'automatic'
                         subjectIdentifiers = [ 'url:BetterDisplay://set?name=PG27UCDM&brightness=1.0' ]
                         type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'k'
+        label = "Run with Input\u2026 Elgato Key Light -> On"
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-with-input'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.scripts//Users/mikker/Library/Scripts/elgato-key-light' ]
+                targetIdentifier = 'text:on'
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'K'
+        label = "Run with Input\u2026 Elgato Key Light -> On"
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-with-input'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.scripts//Users/mikker/Library/Scripts/elgato-key-light' ]
+                targetIdentifier = 'text:off'
+                type = 'savedCommand'
 
 [[comboMode.bindings]]
 key = 'enter'
@@ -1923,8 +2005,7 @@ comboModeCheatsheetBehavior = 'never'
 comboModeCheatsheetShowDetails = false
 comboModeDoublePressTrigger = 'rightOption'
 comboModeModifierTrigger = 'rightCommand'
-dictationActivationMode = 'toggle'
-dictationWindowPosition = 'bottomLeft'
+dictationActivationMode = 'hybrid'
 holdToExecuteEnabled = true
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
@@ -2012,3 +2093,15 @@ catalogIdentifier = 'tuna.prompts'
     AgentAllowBashTool = 'true'
     Provider = 'openai'
     'Provider.openai.Model' = 'gpt-5.6-luna'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.smart-links'
+
+    [catalogSettings.values]
+    UseFavicone = 'true'
+
+[[catalogSettings]]
+catalogIdentifier = 'tuna.window-management'
+
+    [catalogSettings.values]
+    Cycling = 'sizes'

@@ -60,4 +60,3 @@ fi
 # Dotfile wrappers intentionally override package-managed executables.
 export PATH="$DOTFILES/bin:$PATH"
 
-export PATH=$PATH:$HOME/.maestro/bin

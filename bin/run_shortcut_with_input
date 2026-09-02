@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+if [ "$#" -ne 2 ]; then
+  printf 'usage: run_shortcut_with_input <shortcut-name> <input>\n' >&2
+  exit 2
+fi
+
+input_dir=$(mktemp -d "${TMPDIR:-/tmp}/shortcut-input.XXXXXX")
+trap 'rm -rf "$input_dir"' EXIT HUP INT TERM
+
+input_file="$input_dir/input.txt"
+printf '%s\n' "$2" > "$input_file"
+
+shortcuts run "$1" --input-path "$input_file"

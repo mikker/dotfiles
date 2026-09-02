@@ -7,6 +7,7 @@ Managed here:
 - `settings.json`
 - `keybindings.json`
 - `extensions/`
+- `prompts/`
 - `themes/`
 
 Runtime state stays in `~/.pi/agent/`:

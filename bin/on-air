@@ -8,6 +8,7 @@ set -euo pipefail
 #   ON_AIR_RESTORE_RESOLUTION=2560x1440
 #   ON_AIR_MENUBAR_NEVER_OPTION=3
 #   ON_AIR_MENUBAR_ALWAYS_OPTION=0
+#   ON_AIR_MENUBAR_CLICK_DELAY=0.75
 #   ON_AIR_DND_ON_SHORTCUT="DND On"
 #   ON_AIR_DND_OFF_SHORTCUT="DND Off"
 
@@ -16,9 +17,11 @@ RESOLUTION="${ON_AIR_RESOLUTION:-1920x1080}"
 RESTORE_RESOLUTION="${ON_AIR_RESTORE_RESOLUTION:-2560x1440}"
 MENUBAR_NEVER_OPTION="${ON_AIR_MENUBAR_NEVER_OPTION:-3}"
 MENUBAR_ALWAYS_OPTION="${ON_AIR_MENUBAR_ALWAYS_OPTION:-0}"
+MENUBAR_CLICK_DELAY="${ON_AIR_MENUBAR_CLICK_DELAY:-0.75}"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/on-air"
+ACTIVE_FILE="$STATE_DIR/active"
 DISPLAY_RESTORE="$STATE_DIR/displayplacer.restore.sh"
-DISPLAY_PRESENT=false
+DISPLAY_PRESENT_FILE="$STATE_DIR/display-present"
 
 say_step() { printf '\033[1m%s\033[0m\n' "$*"; }
 warn() { printf 'warning: %s\n' "$*" >&2; }
@@ -55,9 +58,9 @@ apply_menubar_system_settings() {
   open 'x-apple.systempreferences:com.apple.ControlCenter-Settings.extension'
   steve wait --app 'System Settings' --window 'Menu Bar' --timeout 5 >/dev/null
   steve find --app 'System Settings' --window 'Menu Bar' --identifier autohide-menubar --click >/dev/null
-  sleep 0.2
+  sleep "$MENUBAR_CLICK_DELAY"
   steve find --app 'System Settings' --title "$title" --click >/dev/null
-  sleep 0.2
+  sleep 0.5
   steve quit --app 'System Settings' >/dev/null 2>&1 || true
 }
 
@@ -66,13 +69,14 @@ menubar_always() { apply_menubar_system_settings Always || apply_menubar_default
 
 save_display_layout() {
   mkdir -p "$STATE_DIR"
-  : > "$DISPLAY_RESTORE"
+  rm -f "$DISPLAY_PRESENT_FILE"
+  : >"$DISPLAY_RESTORE"
 
   system_profiler SPDisplaysDataType | grep -Fq "${DISPLAY_NAME}:" || return 1
-  DISPLAY_PRESENT=true
+  touch "$DISPLAY_PRESENT_FILE"
 
   if command -v displayplacer >/dev/null; then
-    displayplacer list | awk '/^Execute the command below/ { getline; getline; print }' > "$DISPLAY_RESTORE"
+    displayplacer list | awk '/^Execute the command below/ { getline; getline; print }' >"$DISPLAY_RESTORE"
   fi
 }
 
@@ -92,7 +96,7 @@ set_display_resolution() {
 }
 
 restore_display_resolution() {
-  [[ "$DISPLAY_PRESENT" == true ]] || return
+  [[ -e "$DISPLAY_PRESENT_FILE" ]] || return
 
   say_step "Restoring display layout"
   if [[ -s "$DISPLAY_RESTORE" ]]; then
@@ -104,34 +108,48 @@ restore_display_resolution() {
 }
 
 enter_on_air() {
+  if [[ -e "$ACTIVE_FILE" ]]; then
+    say_step "Already on air"
+    return
+  fi
+
+  mkdir -p "$STATE_DIR"
+  touch "$ACTIVE_FILE"
   set_display_resolution
 
-  say_step "Stopping SketchyBar"
-  brew services stop sketchybar >/dev/null 2>&1 || true
+  # say_step "Stopping SketchyBar"
+  # brew services stop sketchybar >/dev/null 2>&1 || true
 
-  say_step "Setting menu bar hiding to Never"
-  menubar_never
+  # say_step "Setting menu bar hiding to Never"
+  # menubar_never
 
   say_step "Turning DND on"
   dnd_on
-
-  printf '\nOn air. Press return to restore... '
-  read -r _
 }
 
 leave_on_air() {
   say_step "Turning DND off"
   dnd_off
 
-  say_step "Setting menu bar hiding to Always"
-  menubar_always
+  # say_step "Setting menu bar hiding to Always"
+  # menubar_always
 
-  say_step "Starting SketchyBar"
-  brew services start sketchybar >/dev/null 2>&1 || true
+  # say_step "Starting SketchyBar"
+  # brew services start sketchybar >/dev/null 2>&1 || true
 
   restore_display_resolution
+  rm -f "$ACTIVE_FILE" "$DISPLAY_PRESENT_FILE" "$DISPLAY_RESTORE"
 }
 
-trap leave_on_air EXIT
-trap 'exit 130' INT TERM
-enter_on_air
+case "${1:-}" in
+on)
+  enter_on_air
+  ;;
+off)
+  leave_on_air
+  ;;
+*)
+  printf 'usage: on-air {on|off}\n' >&2
+  exit 2
+  ;;
+esac

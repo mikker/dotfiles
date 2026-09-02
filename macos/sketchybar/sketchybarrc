@@ -134,12 +134,15 @@ sketchybar --add item clock right \
   background.height=25 \
   --add item fut_waiting right \
   --set fut_waiting \
-  drawing=off \
+  drawing=on \
+  width=0 \
   update_freq=5 \
   icon="●" \
+  icon.drawing=off \
   icon.font="SF Pro:Bold:10.0" \
   icon.padding_left=8 \
   icon.padding_right=4 \
+  label.drawing=off \
   label.font="SF Pro:Semibold:13.0" \
   label.padding_right=8 \
   script="$PLUGIN_DIR/fut_agents.sh"

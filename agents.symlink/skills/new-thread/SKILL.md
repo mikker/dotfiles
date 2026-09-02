@@ -13,14 +13,18 @@ pane or tab of the caller's workspace.
 
 1. Read the installed `wt` and `fut` help needed for the commands below. Treat
    those CLIs as authoritative.
-2. Derive a short branch-compatible name from the request. If it names a ticket,
-   inspect that ticket first and prefer its ID or a short title slug. Ask only
-   when no useful name can be inferred.
+2. Derive two concise, distinctive names without asking when the request makes
+   them clear:
+   - **Worktree name:** a short branch-compatible identifier. If the request
+     names a ticket, inspect it first and prefer its ID or a compact title slug.
+   - **Workspace title:** a very short human-readable label, ideally one to
+     three words, that is easy to distinguish in Fut's navigator. It may be
+     shorter and friendlier than the worktree name.
 3. Build a complete child prompt in a literal heredoc and launch the thread with
    the companion script:
 
    ```sh
-   <skill-dir>/scripts/launch-thread <name> <<'PROMPT'
+   <skill-dir>/scripts/launch-thread <worktree-name> --workspace-name <workspace-title> <<'PROMPT'
    <complete child prompt>
    PROMPT
    ```
@@ -57,11 +61,12 @@ If the helper is unavailable or incompatible with the installed CLIs, perform
 the same steps manually from the main checkout:
 
    ```sh
-   wt create <name>
-   fut --json open --background --name <name> <worktree-path> -- pi --name <name>
+   wt create <worktree-name>
+   fut --json open --background --name <workspace-title> <worktree-path> -- pi --name <workspace-title>
    fut --json agent get <terminal-id>
    fut --json get <workspace-id>
-   fut --json agent prompt <terminal-id> --stdin < <prompt-file>
+   prompt_text=$(cat <prompt-file>)
+   fut --json agent prompt <terminal-id> -- "$prompt_text"
    ```
 
 Require `disposition: workspace_created`; never accept `existing`. Poll
@@ -80,7 +85,8 @@ pane currently has focus.
 fut --json agent get <terminal-id>
 fut --json agent read <terminal-id> --source recent-unwrapped --lines 200
 fut --json agent wait <terminal-id> --timeout 10m
-fut --json agent prompt <terminal-id> --stdin --wait --timeout 10m < <follow-up-file>
+follow_up=$(cat <follow-up-file>)
+fut --json agent prompt --wait --timeout 10m <terminal-id> -- "$follow_up"
 ```
 
 - Use `agent wait` for work already underway.
@@ -125,6 +131,9 @@ Never close or remove resources that were not created for this thread.
   worktree and offer to retry or remove it.
 - If agent integration does not appear, inspect the terminal before closing it;
   do not launch a second agent blindly.
-- Send free-form text through `--stdin`. Use quoted heredoc delimiters so
-  backticks, dollar signs, and command substitutions remain literal.
+- Treat installed `fut agent prompt --help` as authoritative. Use `--stdin`
+  when that version supports it; otherwise read the file into a quoted shell
+  variable and pass it as positional `TEXT` after `--`. Use quoted heredoc
+  delimiters so backticks, dollar signs, and command substitutions remain
+  literal.
 - Preserve surprising changes in both the main checkout and worktree.
