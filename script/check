@@ -104,21 +104,29 @@ check_brewfile() {
 }
 
 check_linux_dependencies() {
-  local package
-  local manifest="$DOTFILES_ROOT/linux/pacman-packages"
+  local package manifest
+  local pacman_manifest="$DOTFILES_ROOT/linux/pacman-packages"
+  local apt_manifest="$DOTFILES_ROOT/linux/apt-packages"
 
-  [[ -f "$manifest" ]] || { fail "missing Linux package manifest"; return; }
+  [[ -f "$pacman_manifest" ]] || { fail "missing pacman package manifest"; return; }
   for package in bat git mise neovim ripgrep tmux ttf-ibmplex-mono-nerd ttf-iosevka-nerd zsh; do
-    grep -Fxq "$package" "$manifest" || fail "Linux package manifest missing $package"
+    grep -Fxq "$package" "$pacman_manifest" || fail "pacman package manifest missing $package"
+  done
+  [[ -f "$apt_manifest" ]] || { fail "missing apt package manifest"; return; }
+  for package in bat fd-find git-lfs neovim pipx ripgrep tmux zsh; do
+    grep -Fxq "$package" "$apt_manifest" || fail "apt package manifest missing $package"
   done
   grep -Fxq 'ticket' "$DOTFILES_ROOT/linux/aur-packages" ||
     fail "Linux AUR package manifest missing ticket"
+  for manifest in arch ubuntu; do
+    [[ -f "$DOTFILES_ROOT/linux/$manifest.sh" ]] || fail "missing $manifest dependency installer"
+  done
   [[ -f "$DOTFILES_ROOT/bat/linux.sh" ]] ||
     fail "missing Linux bat installer"
   grep -Fq 'bat cache --build' "$DOTFILES_ROOT/bat/linux.sh" ||
     fail "Linux bat installer does not rebuild the theme cache"
-  grep -Fq 'install_linux_dependencies' "$DOTFILES_ROOT/script/setup" ||
-    fail "setup does not install Linux dependencies"
+  grep -Fq 'run_linux_dependency_installer' "$DOTFILES_ROOT/script/setup" ||
+    fail "setup does not dispatch Linux dependencies"
   pass "Linux dependency declarations"
 }
 
@@ -147,6 +155,16 @@ check_mise() {
   grep -Fq 'ruby = "4"' "$DOTFILES_ROOT/mise/config.toml" || fail "Ruby major is not pinned"
   grep -Fq 'mise activate zsh' "$DOTFILES_ROOT/zsh/zshrc.symlink" || fail "Mise is not activated by zshrc"
   pass "Mise ownership"
+}
+
+check_portability() {
+  if grep -Fq '/opt/homebrew/bin/gh auth git-credential' "$DOTFILES_ROOT/git/gitconfig.symlink"; then
+    fail "GitHub credential helper is pinned to Homebrew"
+  fi
+  grep -Fq '!/usr/bin/env gh auth git-credential' "$DOTFILES_ROOT/git/gitconfig.symlink" ||
+    fail "GitHub credential helper is not portable"
+  [[ -f "$DOTFILES_ROOT/linux/shared.sh" ]] || fail "shared Linux installer is missing"
+  pass "macOS/Linux portability"
 }
 
 check_symlinks() {
@@ -210,6 +228,7 @@ check_linux_dependencies
 check_ghostty_linux
 check_omarchy_config
 check_mise
+check_portability
 check_symlinks
 check_architecture
 check_safety_helpers

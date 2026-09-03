@@ -3,7 +3,10 @@ export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 export XDG_CONFIG_HOME=$HOME/.config
 
-export PATH="$DOTFILES/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
+if [[ "$(uname -s)" == Darwin ]]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+fi
+export PATH="$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export VISUAL=nvim
 export EDITOR=$VISUAL
 
@@ -22,9 +25,11 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+if [[ -f "$HOME/.local/share/zinit/zinit.git/zinit.zsh" ]]; then
+  source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+  autoload -Uz _zinit
+  (( ${+_comps} )) && _comps[zinit]=_zinit
+fi
 
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
@@ -32,7 +37,12 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice lucid wait'0' # what does this first line do?
 zinit light joshskidmore/zsh-fzf-history-search
 
-eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
+if (( $+commands[oh-my-posh] )); then
+  eval "$(oh-my-posh init zsh --config $ZSH_FILES/omp.toml)"
+else
+  autoload -Uz promptinit && promptinit
+  prompt adam1
+fi
 
 # Initialize completion engine with caching
 autoload -Uz compinit
@@ -44,7 +54,9 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
-export PATH="$HOME/Library/Application Support/pear/bin:$PATH"
+if [[ "$(uname -s)" == Darwin ]]; then
+  export PATH="$HOME/Library/Application Support/pear/bin:$PATH"
+fi
 
 # Local modifications
 [[ -f ~/.lrc ]] && . ~/.lrc

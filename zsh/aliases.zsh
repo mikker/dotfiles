@@ -4,11 +4,42 @@ alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias ddate='date +"%Y-%m-%d"'
-
+alias mux='tmuxinator'
 alias rm_orig="find . -name '*.orig' -exec rm {} \;"
-alias dsay='say -v Sara'
-
+alias online='ping -c 1 google.com &> /dev/null'
+if (( $+commands[say] )); then
+  alias dsay='say -v Sara'
+elif (( $+commands[spd-say] )); then
+  alias dsay='spd-say'
+fi
 alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1/"\"
+alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"
+
+# Fut development
+alias fut='"$PROJECTS/fut/target/release/fut"'
+alias futd='"$PROJECTS/fut/target/debug/fut" --socket "${${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}%/}/fut-debug-$UID/fut.sock"'
+alias futr='"$PROJECTS/fut/target/release/fut" --socket "${${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}%/}/fut-release.sock"'
+
+claude-bash() {
+  local suggestion
+  suggestion=$("$DOTFILES/bin/claude-bash" "$@") || return
+
+  if [[ -o interactive ]]; then
+    print -z -- "$suggestion"
+    print "Command inserted for review. Press Enter to run it."
+  else
+    print -r -- "$suggestion"
+  fi
+}
+
+# tmux
+alias tm="tmux -u"
+alias ta='tmux attach'
+tat() {
+  local session=${PWD:t}
+  tmux new-session -As "${session//./-}"
+}
+alias tmux-set-title='tmux rename-session `basename $PWD | sed -e "s/\./-/g"`'
 
 # Git
 alias g='git'
@@ -39,9 +70,5 @@ alias codex="codex --yolo"
 alias amp="amp --dangerously-allow-all"
 alias claude="claude --dangerously-skip-permissions"
 alias gemini="gemini -y"
-
-# Fut development
-alias futr='"$PROJECTS/fut/target/release/fut" --socket "${XDG_RUNTIME_DIR%/}/fut-release.sock"'
-alias futd='"$PROJECTS/fut/target/debug/fut" --socket "${XDG_RUNTIME_DIR%/}/fut-debug-$UID/fut.sock"'
 
 alias vim=nvim

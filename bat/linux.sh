@@ -8,6 +8,8 @@ link_path "bat/config" "$HOME/.config/bat/config"
 
 if command_exists bat; then
   bat cache --build
+elif command_exists batcat; then
+  batcat cache --build
 else
   echo "Skipping bat cache rebuild; bat is not installed"
 fi

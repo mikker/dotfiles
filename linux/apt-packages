@@ -1,0 +1,13 @@
+# Debian/Ubuntu package names for the shared command-line environment.
+bat
+fd-find
+file
+fzf
+git-delta
+git-lfs
+neovim
+patchelf
+pipx
+ripgrep
+tmux
+zsh

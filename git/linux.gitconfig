@@ -1,0 +1,3 @@
+# Linux hosts do not necessarily have the private key stored in macOS Keychain.
+[commit]
+	gpgsign = false

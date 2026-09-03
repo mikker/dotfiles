@@ -57,12 +57,10 @@
 [pull]
 	ff = only
 	rebase = true
-[credential]
-	helper = osxkeychain
 [credential "https://github.com"]
 	username = mikker
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/usr/bin/env gh auth git-credential
 [commit]
 	gpgsign = true
 [merge]
@@ -89,4 +87,6 @@
   path = ~/.dotfiles/git/delta.gitconfig.symlink
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/usr/bin/env gh auth git-credential
+[include]
+  path = ~/.gitconfig.platform

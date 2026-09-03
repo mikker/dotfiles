@@ -17,4 +17,8 @@ if [[ "$current_shell" == "/bin/zsh" ]]; then
 fi
 
 echo "Changing default shell to zsh"
-chsh -s /bin/zsh
+if [[ "$(uname -s)" == Linux ]] && command_exists sudo; then
+  sudo chsh -s /bin/zsh "$USER"
+else
+  chsh -s /bin/zsh
+fi
