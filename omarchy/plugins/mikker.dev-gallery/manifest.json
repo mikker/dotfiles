@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "mikker.dev-gallery",
+  "name": "My Dev gallery",
+  "version": "1.0.0",
+  "author": "Omarchy",
+  "description": "Visual reference for omarchy-shell common UI components. Summon with: omarchy-shell shell summon omarchy.dev-gallery '{}' (or run: omarchy dev ui-preview).",
+  "kinds": [
+    "panel"
+  ],
+  "entryPoints": {
+    "panel": "GalleryPanel.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.dev-gallery"
+  }
+}

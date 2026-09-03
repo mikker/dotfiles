@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+plugin="$HOME/.local/lib/hyprland/plugins/mekanikos-borders.so"
+
+hyprctl plugin list | grep -q "Plugin borders-plus-plus" || hyprctl plugin load "$plugin"

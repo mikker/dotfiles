@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_dir="${XDG_CACHE_HOME:-$HOME/.cache}/omarchy/hyprland-plugins"
+plugin_dir="$HOME/.local/lib/hyprland/plugins"
+plugin_path="$plugin_dir/mekanikos-borders.so"
+repo_url="https://github.com/hyprwm/hyprland-plugins.git"
+
+if [[ -d "$repo_dir/.git" ]]; then
+  git -C "$repo_dir" fetch --quiet origin
+else
+  mkdir -p "$(dirname "$repo_dir")"
+  git clone --filter=blob:none "$repo_url" "$repo_dir"
+fi
+
+git -C "$repo_dir" checkout --quiet --detach origin/HEAD
+
+hyprland_hash="$(hyprctl version | sed -n 's/.*commit \([0-9a-f]\{40\}\).*/\1/p' | head -n 1)"
+[[ -n "$hyprland_hash" ]] || { echo "Could not determine the Hyprland commit" >&2; exit 1; }
+
+plugin_revision="$(python - "$repo_dir/hyprpm.toml" "$hyprland_hash" <<'PY'
+import sys
+import tomllib
+
+with open(sys.argv[1], "rb") as manifest:
+    pins = tomllib.load(manifest)["repository"]["commit_pins"]
+
+for hyprland_revision, plugin_revision in pins:
+    if hyprland_revision == sys.argv[2]:
+        print(plugin_revision)
+        break
+else:
+    raise SystemExit(f"No borders-plus-plus revision is pinned for Hyprland {sys.argv[2]}")
+PY
+)"
+
+git -C "$repo_dir" checkout --quiet --detach "$plugin_revision"
+make -C "$repo_dir/borders-plus-plus" clean >/dev/null 2>&1 || true
+make -C "$repo_dir/borders-plus-plus" all
+
+mkdir -p "$plugin_dir"
+hyprctl plugin unload "$plugin_path" >/dev/null 2>&1 || true
+install -m 755 "$repo_dir/borders-plus-plus/borders-plus-plus.so" "$plugin_path"
+hyprctl plugin load "$plugin_path"

@@ -102,11 +102,77 @@ generic() {
 }
 
 dependencies() {
-  [[ "$(detect_platform)" == macos ]] || return
-  command_exists brew || fail "Homebrew is required; install it with Strap first"
+  case "$(detect_platform)" in
+    macos)
+      command_exists brew || fail "Homebrew is required; install it with Strap first"
 
-  echo "Install Homebrew dependencies"
-  brew bundle --file "$DOTFILES_ROOT/brew/Brewfile.symlink"
+      echo "Install Homebrew dependencies"
+      brew bundle --file "$DOTFILES_ROOT/brew/Brewfile.symlink"
+      ;;
+    linux)
+      install_linux_dependencies
+      ;;
+  esac
+}
+
+install_linux_dependencies() {
+  local distro_id=""
+  local distro_like=""
+
+  if [[ -r /etc/os-release ]]; then
+    # This file is shell syntax by specification.
+    # shellcheck disable=SC1091
+    source /etc/os-release
+    distro_id="${ID:-}"
+    distro_like="${ID_LIKE:-}"
+  fi
+
+  case " $distro_id $distro_like " in
+    *" arch "*|*" omarchy "*)
+      install_arch_dependencies
+      ;;
+    *)
+      fail "unsupported Linux distribution '$distro_id'; add its packages to script/setup"
+      ;;
+  esac
+}
+
+install_arch_dependencies() {
+  local repo_packages=()
+  local missing_repo_packages=()
+  local aur_packages=()
+  local package
+
+  while IFS= read -r package; do
+    [[ -n "$package" && "$package" != \#* ]] && repo_packages+=("$package")
+  done < "$DOTFILES_ROOT/linux/pacman-packages"
+
+  while IFS= read -r package; do
+    [[ -n "$package" && "$package" != \#* ]] && aur_packages+=("$package")
+  done < "$DOTFILES_ROOT/linux/aur-packages"
+
+  command_exists pacman || fail "pacman is required to install Arch Linux dependencies"
+  for package in "${repo_packages[@]}"; do
+    # pacman -Q also accepts packages provided by another package (for example,
+    # mise-bin provides mise). Do not ask pacman to replace a valid provider.
+    pacman -Q "$package" &>/dev/null || missing_repo_packages+=("$package")
+  done
+
+  echo "Install Arch Linux dependencies"
+  if command_exists omarchy; then
+    if (( ${#missing_repo_packages[@]} > 0 )); then
+      omarchy pkg add "${missing_repo_packages[@]}"
+    fi
+    omarchy pkg aur add "${aur_packages[@]}"
+  else
+    if (( ${#missing_repo_packages[@]} > 0 )); then
+      sudo pacman --needed --sync "${missing_repo_packages[@]}"
+    fi
+    if (( ${#aur_packages[@]} > 0 )); then
+      command_exists yay || fail "yay is required to install AUR dependencies: ${aur_packages[*]}"
+      yay --needed --sync "${aur_packages[@]}"
+    fi
+  fi
 }
 
 symlinks() {

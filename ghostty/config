@@ -1,4 +1,4 @@
-font-family = "IBM Plex Mono"
+font-family = "Iosevka Nerd Font Mono"
 #font-family = "JetBrainsMono Nerd Font Mono"
 #font-family = "Iosevka Curly"
 #font-family = "Berkeley Mono"
@@ -10,7 +10,7 @@ font-family = "IBM Plex Mono"
 #font-family = "BitstromWera Nerd Font Mono"
 
 font-style = "Regular"
-font-size = 16
+# font-size = 14
 adjust-cell-height = 15%
 
 theme = light:Zenbones Light,dark:Zenbones Dark

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+gsettings set org.gnome.desktop.interface font-name "Inter 11"
+gsettings set org.gnome.desktop.interface document-font-name "Inter 11"
+gsettings set org.gnome.desktop.interface monospace-font-name "Iosevka Nerd Font Mono 11"
+
+fc-cache -f >/dev/null
+omarchy restart shell
+
+if pgrep -x ghostty >/dev/null; then
+  pkill -SIGUSR2 ghostty
+fi

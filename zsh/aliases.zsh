@@ -41,5 +41,7 @@ alias claude="claude --dangerously-skip-permissions"
 alias gemini="gemini -y"
 
 # Fut development
-alias futr='"$PROJECTS/fut/target/release/fut" --socket "${TMPDIR%/}/fut-release.sock"'
-alias futd='"$PROJECTS/fut/target/debug/fut" --socket "${TMPDIR%/}/fut-debug-$UID/fut.sock"'
+alias futr='"$PROJECTS/fut/target/release/fut" --socket "${XDG_RUNTIME_DIR%/}/fut-release.sock"'
+alias futd='"$PROJECTS/fut/target/debug/fut" --socket "${XDG_RUNTIME_DIR%/}/fut-debug-$UID/fut.sock"'
+
+alias vim=nvim

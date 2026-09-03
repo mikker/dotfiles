@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+case "${1:-}" in
+  mekanikos | mekanikos-light)
+    "$HOME/.dotfiles/bin/omarchy-mekanikos-fonts-set"
+    ;;
+esac

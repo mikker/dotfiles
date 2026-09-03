@@ -1,0 +1,6 @@
+[launcher]
+background-alpha = 0.60
+border = "#1853C7"
+border-alpha = 1.0
+border-width = 2
+scrim-alpha = 0.12

@@ -1,0 +1,33 @@
+mode = "light"
+
+# Zenbones Light, with Mekanikos blue as the system accent.
+accent = "#1853C7"
+selection = "#CBD9E3"
+muted = "#CFC1BA"
+
+background = "#F0EDEC"
+dark_background = "#E6E1DF"
+darker_background = "#D8D1CE"
+lighter_background = "#F7F5F4"
+
+foreground = "#2C363C"
+dark_foreground = "#6D7478"
+light_foreground = "#4F5E68"
+bright_foreground = "#182126"
+
+red = "#A8334C"
+yellow = "#944927"
+orange = "#A85D2D"
+green = "#4F6C31"
+cyan = "#3B8992"
+blue = "#286486"
+magenta = "#88507D"
+brown = "#76523A"
+
+bright_red = "#94253E"
+bright_yellow = "#803D1C"
+bright_green = "#3F5A22"
+bright_cyan = "#2B747C"
+bright_blue = "#1D5573"
+bright_magenta = "#7B3B70"
+

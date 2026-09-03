@@ -1,7 +1,7 @@
 extensions = [
-  "/Users/mikker/dev/fut/extensions/wt",
-  "/Users/mikker/dev/fut/extensions/run",
-  "/Users/mikker/dev/fut/extensions/ghostty-title",
+  "/home/mikker/dev/fut/extensions/wt",
+  "/home/mikker/dev/fut/extensions/run",
+  "/home/mikker/dev/fut/extensions/ghostty-title",
 ]
 
 [projects.tuna]
@@ -76,4 +76,4 @@ notification = " "
 [trusted_commands.git_diff]
 title = "Repository diff"
 binding = "g"
-program = "/Users/mikker/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh"
+program = "/home/mikker/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh"

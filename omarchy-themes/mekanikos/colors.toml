@@ -1,0 +1,32 @@
+mode = "dark"
+
+# Zenbones Dark.
+accent = "#6099C0"
+selection = "#3D4042"
+muted = "#403833"
+
+background = "#1C1917"
+dark_background = "#171412"
+darker_background = "#100E0D"
+lighter_background = "#25211F"
+
+foreground = "#B4BDC3"
+dark_foreground = "#6E6763"
+light_foreground = "#C4CACF"
+bright_foreground = "#D4D9DC"
+
+red = "#DE6E7C"
+yellow = "#B77E64"
+orange = "#D68C67"
+green = "#819B69"
+cyan = "#66A5AD"
+blue = "#6099C0"
+magenta = "#B279A7"
+brown = "#867A74"
+
+bright_red = "#E8838F"
+bright_yellow = "#D68C67"
+bright_green = "#8BAE68"
+bright_cyan = "#65B8C1"
+bright_blue = "#61ABDA"
+bright_magenta = "#CF86C1"

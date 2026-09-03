@@ -1,0 +1,5 @@
+[notifications]
+background-alpha = 1.0
+border = "#6099C0"
+border-alpha = 1.0
+border-width = 4

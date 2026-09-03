@@ -1,2 +1,15 @@
 #!/bin/sh
-[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]
+
+case "$(uname -s)" in
+  Darwin)
+    [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = "Dark" ]
+    ;;
+  Linux)
+    colors="$HOME/.local/state/omarchy/current/theme/colors.toml"
+    [ -r "$colors" ] &&
+      grep -Eq '^[[:space:]]*mode[[:space:]]*=[[:space:]]*"dark"([[:space:]]*#.*)?[[:space:]]*$' "$colors"
+    ;;
+  *)
+    exit 1
+    ;;
+esac

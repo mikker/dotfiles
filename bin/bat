@@ -1,7 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
-bat=/opt/homebrew/bin/bat
+for candidate in /opt/homebrew/bin/bat /home/linuxbrew/.linuxbrew/bin/bat /usr/local/bin/bat /usr/bin/bat; do
+  if [[ -x "$candidate" ]]; then
+    bat="$candidate"
+    break
+  fi
+done
+
+if [[ -z "${bat:-}" ]]; then
+  echo "bat is not installed" >&2
+  exit 127
+fi
 
 if [[ "${1-}" == "cache" ]]; then
   exec "$bat" "$@"

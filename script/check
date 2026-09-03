@@ -103,6 +103,44 @@ check_brewfile() {
   pass "Brew dependency declarations"
 }
 
+check_linux_dependencies() {
+  local package
+  local manifest="$DOTFILES_ROOT/linux/pacman-packages"
+
+  [[ -f "$manifest" ]] || { fail "missing Linux package manifest"; return; }
+  for package in bat git mise neovim ripgrep tmux ttf-ibmplex-mono-nerd ttf-iosevka-nerd zsh; do
+    grep -Fxq "$package" "$manifest" || fail "Linux package manifest missing $package"
+  done
+  grep -Fxq 'ticket' "$DOTFILES_ROOT/linux/aur-packages" ||
+    fail "Linux AUR package manifest missing ticket"
+  [[ -f "$DOTFILES_ROOT/bat/linux.sh" ]] ||
+    fail "missing Linux bat installer"
+  grep -Fq 'bat cache --build' "$DOTFILES_ROOT/bat/linux.sh" ||
+    fail "Linux bat installer does not rebuild the theme cache"
+  grep -Fq 'install_linux_dependencies' "$DOTFILES_ROOT/script/setup" ||
+    fail "setup does not install Linux dependencies"
+  pass "Linux dependency declarations"
+}
+
+check_ghostty_linux() {
+  local installer="$DOTFILES_ROOT/ghostty/linux.sh"
+
+  [[ -f "$installer" ]] || { fail "missing Ghostty Linux installer"; return; }
+  grep -Fq 'config-file = ?"~/.dotfiles/ghostty/config"' "$installer" ||
+    fail "Ghostty Linux installer does not include the dotfiles config"
+  pass "Ghostty Linux config include"
+}
+
+check_omarchy_config() {
+  [[ -f "$DOTFILES_ROOT/omarchy/config/shell.json" ]] || fail "missing Omarchy shell config"
+  [[ -d "$DOTFILES_ROOT/omarchy/plugins/mikker.bar" ]] || fail "missing custom Omarchy bar"
+  [[ -d "$DOTFILES_ROOT/omarchy-themes/mekanikos" ]] || fail "missing Mekanikos theme"
+  [[ -d "$DOTFILES_ROOT/omarchy-themes/mekanikos-light" ]] || fail "missing Mekanikos Light theme"
+  grep -Fq 'bobbynicholas.omaland https://github.com/bobby-nicholas/omaland.git' "$DOTFILES_ROOT/omarchy/plugins/git" ||
+    fail "missing external Omarchy plugin declaration"
+  pass "Omarchy config and themes"
+}
+
 check_mise() {
   grep -Fq 'node = "26"' "$DOTFILES_ROOT/mise/config.toml" || fail "Node major is not pinned"
   grep -Fq 'bun = "1"' "$DOTFILES_ROOT/mise/config.toml" || fail "Bun major is not pinned"
@@ -168,6 +206,9 @@ check_link_safety
 check_executables
 check_structured_files
 check_brewfile
+check_linux_dependencies
+check_ghostty_linux
+check_omarchy_config
 check_mise
 check_symlinks
 check_architecture

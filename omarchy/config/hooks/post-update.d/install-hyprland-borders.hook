@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+"$HOME/.dotfiles/bin/omarchy-hyprland-borders-install"

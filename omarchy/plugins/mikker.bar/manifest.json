@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "mikker.bar",
+  "name": "My Bar",
+  "version": "1.0.0",
+  "author": "Omarchy",
+  "description": "Status bar with widgets",
+  "kinds": [
+    "bar"
+  ],
+  "entryPoints": {
+    "bar": "Bar.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.bar"
+  }
+}

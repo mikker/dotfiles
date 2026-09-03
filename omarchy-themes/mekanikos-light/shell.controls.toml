@@ -1,0 +1,3 @@
+[controls]
+# Consumed by the user-owned Mekanikos menu clone; other themes default to 0.
+material-shadow-alpha = 0.14
