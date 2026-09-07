@@ -304,8 +304,6 @@ Use a segmented control or picker in the toolbar for switching between content v
 ToolbarItem(placement: .principal) {
     Picker("View Mode", selection: $viewMode) {
         Label("List", systemImage: "list.bullet").tag(ViewMode.list)
-        Label("Grid", systemImage: "square.grid.2x2").tag(ViewMode.grid)
-        Label("Column", systemImage: "rectangle.split.3x1").tag(ViewMode.column)
     }
     .pickerStyle(.segmented)
 }

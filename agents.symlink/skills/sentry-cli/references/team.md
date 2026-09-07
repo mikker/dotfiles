@@ -1,6 +1,6 @@
 ---
 name: sentry-cli-team
-version: 0.42.2
+version: 0.44.1
 description: Work with Sentry teams
 requires:
   bins: ["sentry"]

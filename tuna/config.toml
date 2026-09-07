@@ -2091,7 +2091,7 @@ catalogIdentifier = 'tuna.prompts'
 
     [catalogSettings.values]
     AgentAllowBashTool = 'true'
-    Provider = 'openai'
+    Provider = 'apple'
     'Provider.openai.Model' = 'gpt-5.6-luna'
 
 [[catalogSettings]]

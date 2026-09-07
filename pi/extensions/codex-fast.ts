@@ -14,13 +14,15 @@ export function supportsCodexFastMode(
 ): boolean {
   if (!modelId) return false;
 
+  const isAstra = modelId === "gpt-6-astra" || modelId.startsWith("gpt-6-astra-");
   const supportsFast =
+    isAstra ||
     FAST_MODELS.has(modelId) ||
     FAST_MODEL_PREFIXES.some((prefix) => modelId.startsWith(prefix));
 
   return (
     (provider === "openai-codex" && supportsFast) ||
-    (provider === "openai" && modelId.startsWith("gpt-5.6-"))
+    (provider === "openai" && (isAstra || modelId.startsWith("gpt-5.6-")))
   );
 }
 

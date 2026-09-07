@@ -1,6 +1,6 @@
 ---
 name: sentry-cli-code-mappings
-version: 0.42.2
+version: 0.44.1
 description: Manage code mappings for stack trace linking
 requires:
   bins: ["sentry"]

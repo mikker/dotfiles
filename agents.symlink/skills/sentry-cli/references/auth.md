@@ -1,6 +1,6 @@
 ---
 name: sentry-cli-auth
-version: 0.42.2
+version: 0.44.1
 description: Authenticate with Sentry
 requires:
   bins: ["sentry"]

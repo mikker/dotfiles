@@ -47,7 +47,7 @@ right = [
     { token = "workspace.extension.run.status", inverted = true, pill = true },
   ], priority = 255 },
   { segments = [
-    { token = "session.waiting", prefix = " ", suffix = " " },
+    { token = "client.waiting", prefix = " ", suffix = " " },
   ], style = "attention", priority = 255 },
 ]
 
@@ -72,6 +72,9 @@ preset = "nerd_font"
 pill_left = ""
 pill_right = ""
 notification = " "
+
+[ui.spinner]
+style = "arc"
 
 [trusted_commands.git_diff]
 title = "Repository diff"

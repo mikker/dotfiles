@@ -1,6 +1,6 @@
 ---
 name: sentry-cli-proguard
-version: 0.42.2
+version: 0.44.1
 description: Work with ProGuard/R8 mapping files
 requires:
   bins: ["sentry"]

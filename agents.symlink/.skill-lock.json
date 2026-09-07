@@ -20,13 +20,14 @@
       "updatedAt": "2026-06-02T09:34:35.954Z"
     },
     "playwriter": {
-      "source": "remorses/playwriter",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/remorses/playwriter.git",
-      "skillPath": "skills/playwriter/SKILL.md",
-      "skillFolderHash": "e07f981a95b1764f5f0d7efe59a134d5c24fa151",
+      "source": "playwriter.dev",
+      "sourceType": "well-known",
+      "sourceUrl": "https://playwriter.dev/.well-known/agent-skills/playwriter/SKILL.md",
+      "skillFolderHash": "",
+      "sourceBaseUrl": "https://playwriter.dev",
+      "wellKnownDigest": "sha256:264dabeaae53560c8ffb759c80a0f64add58be7ddfbae2dfcab7ad5f5479de1d",
       "installedAt": "2026-02-23T09:08:11.173Z",
-      "updatedAt": "2026-07-23T21:35:38.948Z"
+      "updatedAt": "2026-09-07T11:38:15.418Z"
     },
     "swiftui-pro": {
       "source": "twostraws/swiftui-agent-skill",
@@ -52,9 +53,9 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/upgrade-stripe/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://docs.stripe.com",
-      "wellKnownDigest": "sha256:e90e738392f12ffefce8c18a57af6f4c3337a398baf1cc73900bdcc41a596308",
+      "wellKnownDigest": "sha256:08c562af69939b605382e30284ad53c84c5b852c3fd401413e16644a2f060d69",
       "installedAt": "2026-04-02T20:42:03.139Z",
-      "updatedAt": "2026-08-11T07:51:56.961Z"
+      "updatedAt": "2026-09-07T11:38:26.045Z"
     },
     "rails-hotwire": {
       "source": "pproenca/dot-skills",
@@ -74,24 +75,6 @@
       "installedAt": "2026-04-20T10:29:21.552Z",
       "updatedAt": "2026-07-25T10:49:56.712Z"
     },
-    "macos-design-guidelines": {
-      "source": "ehmo/platform-design-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/ehmo/platform-design-skills.git",
-      "skillPath": "skills/macos/SKILL.md",
-      "skillFolderHash": "e0d7bccfcde02ddc429c2c1cd40f8c20be9ebb30",
-      "installedAt": "2026-04-28T21:29:08.802Z",
-      "updatedAt": "2026-04-28T21:29:08.802Z"
-    },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "037e8078db4b20b4aa25c04f21c6de7d335ec449",
-      "installedAt": "2026-04-30T08:30:37.072Z",
-      "updatedAt": "2026-07-23T21:35:42.830Z"
-    },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
@@ -110,50 +93,14 @@
       "installedAt": "2026-04-30T19:20:17.766Z",
       "updatedAt": "2026-04-30T19:20:17.766Z"
     },
-    "teach": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/teach/SKILL.md",
-      "skillFolderHash": "15f8c86d39ef834e643d092733ca899b59049067",
-      "installedAt": "2026-06-09T12:21:57.343Z",
-      "updatedAt": "2026-07-23T21:35:45.160Z"
-    },
-    "grill-me": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
-      "installedAt": "2026-06-09T12:22:45.177Z",
-      "updatedAt": "2026-07-23T21:35:46.680Z"
-    },
     "grill-with-docs": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
-      "skillFolderHash": "5fdcdeedf2d0c73b3ecb1da0a464dd885590f8d6",
+      "skillFolderHash": "eedaf2562c83155115e9c649fa3ecaac2e10e81d",
       "installedAt": "2026-06-09T12:22:45.180Z",
-      "updatedAt": "2026-07-23T21:35:49.516Z"
-    },
-    "handoff": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/handoff/SKILL.md",
-      "skillFolderHash": "184d485ae68a2132893a94239b2b85d253e6152b",
-      "installedAt": "2026-06-09T12:22:45.180Z",
-      "updatedAt": "2026-07-23T21:35:52.128Z"
-    },
-    "improve-codebase-architecture": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
-      "skillFolderHash": "6a971d1f5b109ac817e18c0f0419c2a32d60f26a",
-      "installedAt": "2026-06-09T12:22:45.181Z",
-      "updatedAt": "2026-08-11T07:38:40.149Z"
+      "updatedAt": "2026-09-07T11:38:45.054Z"
     },
     "do-i-understand": {
       "source": "anthonypalicea/skills",
@@ -163,33 +110,6 @@
       "skillFolderHash": "d14b4424f85b8a1a7ef5761452eff670ca3d425c",
       "installedAt": "2026-07-02T09:27:48.733Z",
       "updatedAt": "2026-07-02T09:27:48.733Z"
-    },
-    "better-colors": {
-      "source": "jakubkrehel/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/jakubkrehel/skills.git",
-      "skillPath": "skills/better-colors/SKILL.md",
-      "skillFolderHash": "efb5db3cbc324ea836305baac585d07e4c725696",
-      "installedAt": "2026-07-14T21:15:19.158Z",
-      "updatedAt": "2026-07-25T10:49:58.245Z"
-    },
-    "better-typography": {
-      "source": "jakubkrehel/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/jakubkrehel/skills.git",
-      "skillPath": "skills/better-typography/SKILL.md",
-      "skillFolderHash": "a175046f0135de4056196a8d69e856f1583a9b6e",
-      "installedAt": "2026-07-14T21:15:19.159Z",
-      "updatedAt": "2026-07-25T10:50:00.538Z"
-    },
-    "better-ui": {
-      "source": "jakubkrehel/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/jakubkrehel/skills.git",
-      "skillPath": "skills/better-ui/SKILL.md",
-      "skillFolderHash": "3965b5bc70657d64f0163a65389990c6044d0290",
-      "installedAt": "2026-07-14T21:15:19.160Z",
-      "updatedAt": "2026-07-25T10:50:02.652Z"
     },
     "semantic-review": {
       "source": "mikker/semantic-review",
@@ -216,9 +136,9 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-directory/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://docs.stripe.com",
-      "wellKnownDigest": "sha256:ccd641e5f483cd1a4f38db80247a43605a7bc17202d1b6d0b712a8c58e38379e",
+      "wellKnownDigest": "sha256:7fff24f219bc53d779bcdbddcbecac6b89972df53a56b9aff67918304d5f32b8",
       "installedAt": "2026-08-11T07:39:05.802Z",
-      "updatedAt": "2026-08-11T07:39:05.802Z"
+      "updatedAt": "2026-09-07T11:38:32.662Z"
     },
     "stripe-docs": {
       "source": "docs.stripe.com",
@@ -236,9 +156,9 @@
       "sourceUrl": "https://cli.sentry.dev/.well-known/skills/sentry-cli/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://cli.sentry.dev",
-      "wellKnownDigest": "sha256:deacdd7c5a704acf2c58825b08a7317b7b6315a49664adc8e90e705cde61dd73",
+      "wellKnownDigest": "sha256:f0e5c3fdf1cfe71cefcdff90fd9bc5ab37e0a5f92692ee8579bfbfac275100a0",
       "installedAt": "2026-08-11T07:51:24.564Z",
-      "updatedAt": "2026-08-11T07:51:24.564Z"
+      "updatedAt": "2026-09-07T11:38:35.723Z"
     },
     "stripe-best-practices": {
       "source": "docs.stripe.com",
@@ -246,9 +166,9 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-best-practices/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://docs.stripe.com",
-      "wellKnownDigest": "sha256:44b81438ad4dfd034b68b2c820b3db6bc9e2fc06565db8e98027d969e25fb401",
+      "wellKnownDigest": "sha256:3401074add1930c1c00f1e299a48b87e881ea4bd9fc22045d09266130da133a2",
       "installedAt": "2026-08-11T07:51:56.962Z",
-      "updatedAt": "2026-08-11T07:51:56.962Z"
+      "updatedAt": "2026-09-07T11:38:34.161Z"
     }
   },
   "dismissed": {
