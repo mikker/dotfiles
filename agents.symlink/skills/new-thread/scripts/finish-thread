@@ -1,0 +1,113 @@
+#!/bin/sh
+set -eu
+
+usage() {
+    status=${1:-2}
+    echo "usage: finish-thread <manifest-path> (--done|--abandon)" >&2
+    exit "$status"
+}
+
+die() {
+    echo "finish-thread: $*" >&2
+    exit 1
+}
+
+update_manifest() {
+    filter=$1
+    shift
+    updated_manifest=$manifest.tmp
+    jq "$@" "$filter" "$manifest" > "$updated_manifest"
+    mv "$updated_manifest" "$manifest"
+}
+
+record_failure() {
+    state=$1
+    message=$2
+    update_manifest \
+        '.lifecycle = {state: $state, updated_at: $updated_at, error: $error}' \
+        --arg state "$state" \
+        --arg updated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+        --arg error "$message"
+    die "$message (report retained at $manifest)"
+}
+
+[ "$#" -eq 2 ] || usage
+manifest=$1
+case "$2" in
+    --done) mode='done' ;;
+    --abandon) mode='abandon' ;;
+    *) usage ;;
+esac
+
+for command in fut jq wt; do
+    command -v "$command" >/dev/null 2>&1 || die "required command not found: $command"
+done
+[ -f "$manifest" ] || die "manifest does not exist: $manifest"
+manifest=$(cd "$(dirname "$manifest")" && printf '%s/%s\n' "$(pwd -P)" "$(basename "$manifest")")
+
+worktree_name=$(jq -er '.worktree_name' "$manifest") || die "manifest has no worktree name"
+worktree_path=$(jq -er '.worktree_path' "$manifest") || die "manifest has no worktree path"
+main_checkout=$(jq -er '.main_checkout' "$manifest") || die "manifest has no main checkout"
+workspace_id=$(jq -er '.workspace_id' "$manifest") || die "manifest has no workspace ID"
+terminal_id=$(jq -er '.terminal_id' "$manifest") || die "manifest has no terminal ID"
+
+current_dir=$(pwd -P)
+case "$current_dir/" in
+    "$worktree_path"/*) die "run completion outside the owned worktree: $worktree_path" ;;
+esac
+[ "${FUT_WORKSPACE_ID:-}" != "$workspace_id" ] \
+    || die "the owned workspace cannot retire itself; run completion from the parent thread"
+[ "${FUT_TERMINAL_ID:-}" != "$terminal_id" ] \
+    || die "the owned agent cannot retire itself; run completion from the parent thread"
+[ -d "$main_checkout" ] || die "main checkout does not exist: $main_checkout"
+[ -d "$worktree_path" ] || die "worktree does not exist: $worktree_path"
+
+error_file=$(mktemp "${TMPDIR:-/tmp}/finish-thread-error.XXXXXX")
+output_file=$(mktemp "${TMPDIR:-/tmp}/finish-thread-output.XXXXXX")
+trap 'rm -f "$error_file" "$output_file"' EXIT HUP INT TERM
+
+if ! agent_json=$(cd "$main_checkout" && fut --json agent get "$terminal_id" 2> "$error_file"); then
+    record_failure capture_failed "could not capture final agent state: $(cat "$error_file")"
+fi
+if ! output_json=$(cd "$main_checkout" && fut --json agent read "$terminal_id" --source recent-unwrapped --lines 2000 2> "$error_file"); then
+    record_failure capture_failed "could not capture final agent output: $(cat "$error_file")"
+fi
+agent_result=$(printf '%s' "$agent_json" | jq -e '.result') \
+    || record_failure capture_failed "final agent state was not valid Fut JSON"
+output_result=$(printf '%s' "$output_json" | jq -e '.result') \
+    || record_failure capture_failed "final agent output was not valid Fut JSON"
+
+update_manifest \
+    '.final = {captured_at: $captured_at, agent: $agent, output: $output} | .lifecycle = {state: "report_persisted", updated_at: $captured_at}' \
+    --arg captured_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --argjson agent "$agent_result" \
+    --argjson output "$output_result"
+
+if ! close_json=$(cd "$main_checkout" && fut --json workspace close "$workspace_id" 2> "$error_file"); then
+    record_failure workspace_close_failed "could not close owned workspace: $(cat "$error_file")"
+fi
+close_result=$(printf '%s' "$close_json" | jq -e '.result') \
+    || record_failure workspace_close_failed "workspace close did not return valid Fut JSON"
+update_manifest \
+    '.workspace_close = $workspace_close | .lifecycle = {state: "workspace_closed", updated_at: $updated_at}' \
+    --argjson workspace_close "$close_result" \
+    --arg updated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+if [ "$mode" = 'done' ]; then
+    if ! (cd "$worktree_path" && wt "$mode") > "$output_file" 2>&1; then
+        cat "$output_file" >&2
+        record_failure teardown_failed "wt done failed after the final report was persisted and the workspace was closed"
+    fi
+else
+    if ! (cd "$main_checkout" && printf 'y\n' | wt rm "$worktree_name" --force) > "$output_file" 2>&1; then
+        cat "$output_file" >&2
+        record_failure teardown_failed "wt rm failed after the final report was persisted and the workspace was closed"
+    fi
+fi
+
+update_manifest \
+    '.teardown = {mode: $mode, output: $output} | .lifecycle = {state: "completed", updated_at: $updated_at}' \
+    --arg mode "$mode" \
+    --arg output "$(cat "$output_file")" \
+    --arg updated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+cat "$manifest"

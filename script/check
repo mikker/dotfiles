@@ -206,6 +206,12 @@ check_safety_helpers() {
   pass "destructive helper safeguards"
 }
 
+check_new_thread() {
+  "$DOTFILES_ROOT/agents.symlink/skills/new-thread/tests/new-thread-test.sh" ||
+    fail "new-thread lifecycle tests"
+  pass "new-thread lifecycle"
+}
+
 check_configs() {
   git -C "$DOTFILES_ROOT" config --file git/gitconfig.symlink --list >/dev/null || fail "Git config"
   [[ ! -e "$DOTFILES_ROOT/hunk/config.toml" ]] || fail "tracked Hunk runtime config"
@@ -232,6 +238,7 @@ check_portability
 check_symlinks
 check_architecture
 check_safety_helpers
+check_new_thread
 check_configs
 
 printf '\n%d failure(s), %d warning(s)\n' "$failures" "$warnings"

@@ -79,4 +79,4 @@ style = "arc"
 [trusted_commands.git_diff]
 title = "Repository diff"
 binding = "g"
-program = "/home/mikker/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh"
+program = "~/.dotfiles/tmux/tmux.symlink/git_diff_popup.sh"

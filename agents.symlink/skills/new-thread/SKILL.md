@@ -32,16 +32,20 @@ pane or tab of the caller's workspace.
    The script requires `git`, `wt`, `fut`, `jq`, and `pi`. It creates the
    worktree, creates a new Fut workspace, polls for Pi integration, verifies the
    exact workspace root, submits the prompt through `fut agent prompt --stdin`,
-   and prints a JSON manifest. It also stores that manifest as
-   `new-thread.json` in the worktree's private Git directory. Record its
+   and prints a JSON manifest. It also stores that manifest under
+   `<common-git-dir>/new-thread/<workspace-id>.json`, outside the disposable
+   worktree, so the final report survives teardown. Record its manifest path,
    worktree, workspace, pane, and terminal IDs.
 
    For an existing prompt file, pass `--prompt-file <path>` instead of stdin.
    Create multiple threads one after another rather than running launchers in
    parallel, because concurrent `wt create` calls can contend on Git locks.
 4. Require the manifest's prompt result to report `submitted: true`. The helper
-   has already required `disposition: workspace_created`, `available: true`, and
-   an exact root match. If it fails after worktree creation, follow the printed
+   has already required a fresh `workspace_created` or `session_created`
+   disposition, `available: true`, and an exact root match. `session_created` is
+   the normal fresh result when the repository had no existing Fut session.
+   The helper still rejects `existing`, reuse results, and every unknown
+   disposition. If it fails after worktree creation, follow the printed
    resource IDs and path; do not launch another agent blindly or remove the
    retained worktree without checking it.
 5. Run every later Git, ticket, build, and cleanup command with an explicit `cd`
@@ -53,7 +57,9 @@ to read the repository instructions, inspect relevant ticket details, make a
 complete implementation, add focused tests and user-facing docs/changelog where
 required, run the project's required build, preserve existing changes, avoid
 committing unless requested, and report changed files plus exact validation
-results.
+results. State explicitly that the parent thread owns completion: the child must
+not run `wt done`, `wt rm`, close or retire its Fut workspace, or delete its
+active worktree.
 
 ### Manual fallback
 
@@ -69,9 +75,11 @@ the same steps manually from the main checkout:
    fut --json agent prompt <terminal-id> -- "$prompt_text"
    ```
 
-Require `disposition: workspace_created`; never accept `existing`. Poll
-`agent get` with a bounded timeout rather than sleeping once. Confirm the exact
-workspace root and `available: true` before prompting.
+Require `disposition: workspace_created` or `session_created`; never accept
+`existing`, a reuse result, or an unknown disposition. Poll `agent get` with a
+bounded timeout rather than sleeping once. Confirm the exact workspace root and
+`available: true` before prompting. Store the resource IDs and lifecycle state
+under the common Git directory rather than inside the disposable worktree.
 
 Do not wait for completion by default. Report the workspace name, worktree path,
 and launched task so the user can switch to it immediately.
@@ -99,29 +107,37 @@ fut --json agent prompt --wait --timeout 10m <terminal-id> -- "$follow_up"
 
 ## Finish
 
-Before cleanup, collect the final agent output and inspect status from the
-worktree path.
+Completion belongs to the parent thread or another controller outside the owned
+worktree and Fut workspace. A child must never delete the directory that is its
+active cwd or terminate the workspace carrying its own final report.
+
+Before cleanup, inspect status from the recorded worktree path, then run the
+companion completion script from the parent thread:
+
+```sh
+<skill-dir>/scripts/finish-thread <manifest-path> --done
+<skill-dir>/scripts/finish-thread <manifest-path> --abandon
+```
+
+The script refuses to run from inside the owned worktree or from the owned Fut
+workspace/terminal. It captures `agent get` and up to 2,000 unwrapped output
+lines into the durable manifest, atomically records `report_persisted`, closes
+the owned workspace by explicit ID, and only then runs `wt done` or confirmed
+`wt rm --force`. If capture or close fails, it records the failure and leaves
+the worktree in place. If teardown fails after close, the durable report and
+failure state remain available for recovery.
 
 When the user asks to commit and merge:
 
 1. Ensure validation passed and commit all intended work in the worktree.
-2. Close the owned Fut workspace by explicit ID so no process remains rooted in
-   the worktree:
+2. From outside the worktree, run `finish-thread <manifest-path> --done`. Never
+   push unless requested.
+3. Verify the main checkout, the durable manifest, and `wt ls`.
 
-   ```sh
-   fut --json workspace close <workspace-id>
-   ```
-3. Run `wt done` from the worktree path. Never push unless requested.
-4. Verify the main checkout and `wt ls`.
-
-When the user asks to abandon the thread, close the owned Fut workspace first,
-then remove only the owned worktree. `wt rm --force` still asks for confirmation
-in some versions, so provide explicit stdin for intentional noninteractive
-cleanup:
-
-```sh
-printf 'y\n' | wt rm <name> --force
-```
+When the user asks to abandon the thread, run
+`finish-thread <manifest-path> --abandon` from outside the worktree. The helper
+provides the explicit confirmation still required by some `wt rm --force`
+versions.
 
 Never close or remove resources that were not created for this thread.
 
@@ -131,6 +147,9 @@ Never close or remove resources that were not created for this thread.
   worktree and offer to retry or remove it.
 - If agent integration does not appear, inspect the terminal before closing it;
   do not launch a second agent blindly.
+- Do not clean up if final state or output capture fails. The completion helper
+  persists a typed failure in the manifest and deliberately leaves resources
+  available for inspection.
 - Treat installed `fut agent prompt --help` as authoritative. Use `--stdin`
   when that version supports it; otherwise read the file into a quoted shell
   variable and pass it as positional `TEXT` after `--`. Use quoted heredoc
