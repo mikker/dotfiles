@@ -3,6 +3,8 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
+link_path "zsh/zfunc.symlink" "$HOME/.zfunc"
+
 current_shell="${SHELL:-}"
 
 if command_exists dscl; then

@@ -1,4 +1,0 @@
-npm install -g \
-      neovim@latest \
-      vercel@latest \
-      serve@latest

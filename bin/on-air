@@ -40,6 +40,11 @@ run_shortcut() {
 dnd_on() { run_shortcut "${ON_AIR_DND_ON_SHORTCUT:-DND On}" on; }
 dnd_off() { run_shortcut "${ON_AIR_DND_OFF_SHORTCUT:-DND Off}" off; }
 
+refresh_sketchybar() {
+  command -v sketchybar >/dev/null || return 0
+  sketchybar --update >/dev/null 2>&1 || warn "could not refresh SketchyBar"
+}
+
 apply_menubar_defaults() {
   local hidden="$1" option="$2"
 
@@ -125,6 +130,9 @@ enter_on_air() {
 
   say_step "Turning DND on"
   dnd_on
+
+  say_step "Redacting SketchyBar"
+  refresh_sketchybar
 }
 
 leave_on_air() {
@@ -139,6 +147,9 @@ leave_on_air() {
 
   restore_display_resolution
   rm -f "$ACTIVE_FILE" "$DISPLAY_PRESENT_FILE" "$DISPLAY_RESTORE"
+
+  say_step "Restoring SketchyBar"
+  refresh_sketchybar
 }
 
 case "${1:-}" in

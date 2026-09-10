@@ -16,7 +16,6 @@ alias ruby-vers="cat Gemfile | grep '^ruby' | sed -E \"s/.*[\\\"'](.+)[\\\"']/\1
 alias docker-killall="docker ps | tail -n +2 | awk '{ print \$1 }' | xargs docker kill"
 
 # Fut development
-alias fut='"$PROJECTS/fut/target/release/fut"'
 alias futd='"$PROJECTS/fut/target/debug/fut" --socket "${${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}%/}/fut-debug-$UID/fut.sock"'
 alias futr='"$PROJECTS/fut/target/release/fut" --socket "${${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}%/}/fut-release.sock"'
 

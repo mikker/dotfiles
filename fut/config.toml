@@ -1,7 +1,7 @@
 extensions = [
-  "/home/mikker/dev/fut/extensions/wt",
-  "/home/mikker/dev/fut/extensions/run",
-  "/home/mikker/dev/fut/extensions/ghostty-title",
+  "~/dev/fut/extensions/wt",
+  "~/dev/fut/extensions/run",
+  "~/dev/fut/extensions/ghostty-title",
 ]
 
 [projects.tuna]

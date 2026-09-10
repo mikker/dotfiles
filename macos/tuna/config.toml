@@ -1,3 +1,38 @@
+[actionPreferences]
+applicationOrderOverrides = []
+itemDefaultOverrides = []
+
+    [[actionPreferences.typeOrderOverrides]]
+    typeID = 'com.tuna.type.application'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'open'
+        catalogIdentifier = 'tuna.common-actions'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'toggle-application'
+        catalogIdentifier = 'tuna.common-actions'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'activate'
+        catalogIdentifier = 'tuna.common-actions'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'hide-others'
+        catalogIdentifier = 'tuna.common-actions'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'quit'
+        catalogIdentifier = 'tuna.common-actions'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'kill'
+        catalogIdentifier = 'tuna.common-actions'
+
+        [[actionPreferences.typeOrderOverrides.actions]]
+        actionID = 'reveal'
+        catalogIdentifier = 'tuna.common-actions'
+
 [[aliases.entries]]
 abbreviation = 'gif'
 
@@ -43,7 +78,6 @@ folderDepthOverrides = []
 
 [catalogs]
 searchPriorities = []
-sortOrders = []
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'music.albums'
@@ -71,6 +105,12 @@ sortOrders = []
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'music.songs'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'notes'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
@@ -105,7 +145,8 @@ sortOrders = []
     catalogIdentifier = 'tuna.emoji'
 
         [catalogs.globalScopes.scope]
-        kind = 'none'
+        itemIDs = [ '1fa93' ]
+        kind = 'only'
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.quick-actions'
@@ -118,6 +159,10 @@ sortOrders = []
 
         [catalogs.globalScopes.scope]
         kind = 'none'
+
+    [[catalogs.sortOrders]]
+    catalogIdentifier = 'tuna.emoji.search'
+    sortOrder = 'score.desc'
 
 [[comboMode.bindings]]
 key = ','
@@ -268,7 +313,7 @@ label = 'Browser'
         actionIdentifier = 'tuna.common-actions/open'
         behavior = 'run'
         presentation = 'automatic'
-        subjectIdentifiers = [ 'path:/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app' ]
+        subjectIdentifiers = [ 'tuna.applications//Applications/Helium.app' ]
         type = 'savedCommand'
 
 [[comboMode.bindings]]
@@ -2004,7 +2049,7 @@ clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keyc
 comboModeCheatsheetBehavior = 'never'
 comboModeCheatsheetShowDetails = false
 comboModeDoublePressTrigger = 'rightOption'
-comboModeModifierTrigger = 'rightCommand'
+comboModeModifierTrigger = 'hyper'
 dictationActivationMode = 'hybrid'
 holdToExecuteEnabled = true
 physicalHyperKeySource = 'capsLock'
@@ -2091,7 +2136,7 @@ catalogIdentifier = 'tuna.prompts'
 
     [catalogSettings.values]
     AgentAllowBashTool = 'true'
-    Provider = 'apple'
+    Provider = 'openai'
     'Provider.openai.Model' = 'gpt-5.6-luna'
 
 [[catalogSettings]]

@@ -8,7 +8,7 @@ export BAR_COLOR=$TRANSPARENT
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   export RED=0xfffda7a6
   export GREEN=0xffa6da95
-  export BLUE=0xff8aadf4
+  export BLUE=0xff1e66f5
   export YELLOW=0xffffe4bf
   export ORANGE=0xfff5a97f
 

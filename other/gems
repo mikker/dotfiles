@@ -1,6 +1,0 @@
-gem update --system
-gem install \
-  bundler \
-  gem-shut-the-fuck-up \
-  neovim \
-  tmuxinator

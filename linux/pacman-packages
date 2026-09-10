@@ -1,4 +1,4 @@
-# Cross-platform command-line tools from brew/Brewfile.symlink.
+# Cross-platform command-line tools from macos/brew/Brewfile.
 aria2
 ast-grep
 bat

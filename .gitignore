@@ -4,5 +4,5 @@ doc/tags
 /vim/vim.symlink/.netrwhist
 nvim/plugin/packer_compiled.lua
 nvim/lazy-lock.json
-brew/Brewfile.symlink.lock.json
-karabiner/automatic_backups
+macos/brew/Brewfile.lock.json
+macos/karabiner/automatic_backups

@@ -3,6 +3,9 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
+# official installer
+curl -fsSL https://mise.run | sh
+
 link_path "mise/config.toml" "$HOME/.config/mise/config.toml"
 if command_exists mise; then
   mise install

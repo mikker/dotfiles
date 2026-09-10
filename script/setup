@@ -102,7 +102,14 @@ platform() {
 }
 
 generic() {
-  run_installers "generic installers" "all.sh"
+  echo "Running generic installers"
+
+  local installer
+  for installer in "$DOTFILES_ROOT"/*/all.sh; do
+    [[ -f "$installer" ]] || continue
+    echo "${installer#$DOTFILES_ROOT/}"
+    bash "$installer"
+  done
 }
 
 dependencies() {
@@ -111,7 +118,7 @@ dependencies() {
       command_exists brew || fail "Homebrew is required; install it with Strap first"
 
       echo "Install Homebrew dependencies"
-      brew bundle --file "$DOTFILES_ROOT/brew/Brewfile.symlink"
+      brew bundle --file "$DOTFILES_ROOT/macos/brew/Brewfile"
       ;;
     linux)
       run_linux_dependency_installer
@@ -156,7 +163,7 @@ symlinks() {
   while IFS= read -r source; do
     sources+=("$source")
   done < <(
-    find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -print | sort
+    find "$DOTFILES_ROOT" -maxdepth 2 -type f -name '*.symlink' -print | sort
   )
 
   local dest action overwrite backup skip

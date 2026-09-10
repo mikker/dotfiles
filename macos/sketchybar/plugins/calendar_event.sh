@@ -2,6 +2,13 @@
 
 source "$CONFIG_DIR/colors.sh"
 
+if [ -e "${XDG_STATE_HOME:-$HOME/.local/state}/on-air/active" ]; then
+  sketchybar --set "$NAME" drawing=off
+  exit 0
+fi
+
+sketchybar --set "$NAME" drawing=on
+
 # Get upcoming timed events today (excluding all-day events)
 OUTPUT=$(icalBuddy -n -nc -npn -ea -li 10 -tf '%H:%M' -df '' -b '•' eventsToday 2>/dev/null)
 

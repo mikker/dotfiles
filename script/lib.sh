@@ -42,6 +42,11 @@ link_path() {
   local source
   source="$(resolve_source "$1")"
 
+  if ! path_exists "$source"; then
+    printf 'Link source does not exist: %s\n' "$source" >&2
+    return 1
+  fi
+
   local dest="$2"
   command mkdir -p "$(dirname "$dest")"
 

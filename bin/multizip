@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-Dir["*.zip"].each { |file|
-  `unzip -o "#{file}" && mv "#{file}" ~/.Trash`
-  print "."
-}
-puts ""
-

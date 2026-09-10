@@ -3,6 +3,8 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
+link_path "tmux/tmux.symlink" "$HOME/.tmux"
+
 if [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
   # TPM normally initializes this from a live tmux session. Bootstrap may run
   # before the user's first session, so keep a temporary server alive while it

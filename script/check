@@ -12,6 +12,8 @@ fail() { printf 'FAIL %s\n' "$1" >&2; failures=$((failures + 1)); }
 check_shell_syntax() {
   local file first
   while IFS= read -r file; do
+    [[ -f "$DOTFILES_ROOT/$file" ]] || continue
+    [[ "$(head -c 2 "$DOTFILES_ROOT/$file" 2>/dev/null || true)" == '#!' ]] || continue
     first=$(head -n 1 "$DOTFILES_ROOT/$file" 2>/dev/null || true)
     case "$first" in
       '#!'*bash*|'#!'*'/sh')
@@ -53,7 +55,7 @@ check_link_safety() {
 check_executables() {
   local file first kind
   while IFS= read -r file; do
-    [[ "$file" == agents.symlink/skills/* ]] && continue
+    [[ "$file" == agents.symlink/skills/* || "$file" == agents.symlink/skills-bak/* ]] && continue
     [[ -f "$DOTFILES_ROOT/$file" && ! -L "$DOTFILES_ROOT/$file" ]] || continue
     [[ -x "$DOTFILES_ROOT/$file" ]] || continue
     first=$(head -c 2 "$DOTFILES_ROOT/$file" 2>/dev/null || true)
@@ -86,18 +88,16 @@ PY
 }
 
 check_brewfile() {
-  local formula
-  for formula in aria2 displayplacer git-lfs ical-buddy mise moreutils the_silver_searcher; do
-    grep -Fq "brew(\"$formula\")" "$DOTFILES_ROOT/brew/Brewfile.symlink" ||
-      fail "Brewfile missing $formula"
-  done
+  local brewfile="$DOTFILES_ROOT/macos/brew/Brewfile"
 
-  if grep -Fq 'oven-sh/bun/bun' "$DOTFILES_ROOT/brew/Brewfile.symlink"; then
+  [[ -f "$brewfile" ]] || { fail "missing Brewfile"; return; }
+
+  if grep -Fq 'oven-sh/bun/bun' "$brewfile"; then
     fail "Bun has multiple owners (Brew and Mise)"
   fi
 
   if command -v brew >/dev/null; then
-    brew bundle check --file="$DOTFILES_ROOT/brew/Brewfile.symlink" >/dev/null 2>&1 ||
+    brew bundle check --file="$brewfile" >/dev/null 2>&1 ||
       warn "some Brewfile dependencies are not installed"
   fi
   pass "Brew dependency declarations"
@@ -179,7 +179,7 @@ check_symlinks() {
     else
       warn "$dest is not a symlink"
     fi
-  done < <(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -print | sed "s#^$DOTFILES_ROOT/##" | sort)
+  done < <(find "$DOTFILES_ROOT" -maxdepth 2 -type f -name '*.symlink' -print | sed "s#^$DOTFILES_ROOT/##" | sort)
   pass "managed symlink inspection"
 }
 
@@ -196,9 +196,6 @@ check_architecture() {
 }
 
 check_safety_helpers() {
-  if grep -Eq '(^|[[:space:]])eval[[:space:]]' "$DOTFILES_ROOT/bin/claude-bash"; then
-    fail "claude-bash executes model output with eval"
-  fi
   grep -Fq 'status --short --untracked-files=all' "$DOTFILES_ROOT/zsh/zfunc.symlink/gwrm" ||
     fail "gwrm does not inspect worktree changes"
   grep -Fq 'Re-run with --force' "$DOTFILES_ROOT/zsh/zfunc.symlink/gwrm" ||

@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 #
 # Gets the original feed url from an iTunes podcast page
 #
@@ -11,7 +13,7 @@ require 'json'
 
 feed = ARGV.shift
 
-if id = feed[/id(\d+)/, 1]
+if (id = feed[/id(\d+)/, 1])
   url = "https://itunes.apple.com/lookup?id=#{id}&entity=podcast"
   json = JSON.parse(URI.open(url).read)
   print json['results'][0]['feedUrl']
