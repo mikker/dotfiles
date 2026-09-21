@@ -7,8 +7,37 @@ local omarchy_monitor_scale = "auto"
 hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
 
--- ASUS PG27UCDM: drive the native 4K panel at its advertised 240 Hz mode.
-hl.monitor({ output = "DP-2", mode = "3840x2160@240", position = "0x0", scale = 1.5 })
+-- ASUS ROG Swift PG27UCDM: native 4K/240 Hz and 10-bit output. Keep the SDR
+-- desktop in sRGB because Chromium/Helium does not yet advertise a P3 Wayland
+-- output on this stack; forcing a wide output makes those surfaces appear dim.
+-- HDR still switches on for fullscreen HDR content. Keep VRR to fullscreen
+-- games so ordinary desktop redraws do not cause OLED flicker.
+hl.config({
+	misc = { vrr = 3 },
+	render = {
+		cm_enabled = true,
+		send_content_type = true,
+		cm_auto_hdr = 1,
+	},
+})
+
+hl.monitor({
+	output = "DP-2",
+	mode = "3840x2160@240",
+	position = "0x0",
+	scale = 1.5,
+	bitdepth = 10,
+	cm = "srgb",
+	supports_wide_color = true,
+	supports_hdr = true,
+	sdrbrightness = 1.0,
+	sdrsaturation = 1.0,
+	sdr_min_luminance = 0.2,
+	sdr_max_luminance = 200,
+	min_luminance = 0.0005,
+	max_luminance = 1015,
+	max_avg_luminance = 265,
+})
 
 -- Configure a specific monitor.
 -- hl.monitor({ output = "DP-2", mode = "2560x1440@144", position = "0x0", scale = 1 })

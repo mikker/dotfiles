@@ -1,3 +1,23 @@
 [controls]
-# Consumed by the user-owned Mekanikos menu clone; other themes default to 0.
-material-shadow-alpha = 0.14
+normal-color = "#2C363C"
+normal-fill-alpha = 0.04
+normal-border = "#2C363C"
+normal-border-width = 1
+normal-border-alpha = 0.40
+hover-cursor-color = "#1853C7"
+hover-cursor-fill-alpha = 0.08
+hover-cursor-border = "#1853C7"
+hover-cursor-border-width = 1
+hover-cursor-border-alpha = 0.45
+focus-color = "#1853C7"
+focus-fill-alpha = 0.10
+focus-border = "#1853C7"
+focus-border-width = 1
+focus-border-alpha = 1.0
+selected-color = "#1853C7"
+selected-fill-alpha = 0.14
+selected-border = "#1853C7"
+selected-border-width = 0
+selected-border-alpha = 1.0
+pressed-fill-alpha = 0.24
+selection-fill-alpha = 0.28

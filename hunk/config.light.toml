@@ -9,12 +9,12 @@ agent_notes = true
 
 [custom_theme]
 base = "paper"
-label = "Zenbones Light"
-accent = "#2C363C"
+label = "Mekanikos Light"
+accent = "#1853C7"
 panel = "#F0EDEC"
-panelAlt = "#E9E4E2"
+panelAlt = "#F7F5F4"
 text = "#2C363C"
-muted = "#948985"
+muted = "#6D7478"
 border = "#CFC1BA"
 noteBorder = "#6A5549"
 add = "#5C6F3E"

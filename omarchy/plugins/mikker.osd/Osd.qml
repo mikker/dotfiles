@@ -5,6 +5,7 @@ import Quickshell.Io
 import Quickshell.Wayland
 import qs.Commons
 import qs.Ui
+import "DesignTokens.js" as DesignTokens
 import "OsdModel.js" as OsdModel
 
 Item {
@@ -21,11 +22,10 @@ Item {
 
   readonly property bool mediaOsd: iconKey.indexOf("media") === 0 || iconKey.indexOf("player") === 0
 
-  // The card is built out of measured columns instead of fixed widths, so it
-  // keeps exactly `pad` between border and content on every side whatever
-  // glyph or message it carries. Messages grow with their text up to
-  // `maxMessageWidth` and elide beyond it.
-  readonly property int pad: Style.space(16)
+  // OSD density is independent from shared PopupCard padding: this compact,
+  // transient control wants a low vertical profile and more lateral air.
+  readonly property int paddingX: DesignTokens.number(Color.shellValues, "spacing.osd-padding-x", 20)
+  readonly property int paddingY: DesignTokens.number(Color.shellValues, "spacing.osd-padding-y", 10)
   readonly property int gap: Style.space(16)
   // A glyph next to a message reads airier than it measures: the icon outline
   // and the letterforms both fall away from their ink extremes, so the space
@@ -50,6 +50,8 @@ Item {
   readonly property int contentWidth: root.hasProgress
     ? root.iconWidth + root.gap + root.barWidth + root.gap + root.valueWidth
     : (root.message === "" ? root.iconWidth : root.iconWidth + root.messageGap + root.messageWidth)
+  readonly property var surfaceShadow: DesignTokens.shadow(Color.shellValues, "popups")
+  readonly property var surfaceInnerBorder: DesignTokens.innerBorder(Color.shellValues, "popups")
 
   function iconFor(name, percent) {
     return OsdModel.iconFor(name, percent)
@@ -88,7 +90,7 @@ Item {
 
   TextMetrics {
     id: messageMetrics
-    font.family: "Inter"
+    font.family: DesignTokens.color(Color.shellValues, "font.ui-family", "Inter")
     font.bold: true
     font.pixelSize: Style.font.title
     text: root.message
@@ -139,29 +141,39 @@ Item {
 
     BorderSurface {
       id: card
-      width: card.borderLeft + root.pad + root.contentWidth + root.pad + card.borderRight
-      height: card.borderTop + root.pad + Style.font.displayLarge + root.pad + card.borderBottom
+      width: card.borderLeft + root.paddingX + root.contentWidth + root.paddingX + card.borderRight
+      height: card.borderTop + root.paddingY + Style.font.displayLarge + root.paddingY + card.borderBottom
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.bottom: parent.bottom
       anchors.bottomMargin: Style.space(67)
-      color: Util.alpha(Qt.lighter(Color.background, 1.08), 0.72)
-      borderSpec: Border.flat(Qt.rgba(0.5, 0.5, 0.5, 0.5), 1)
+      color: Color.popups.background
+      borderSpec: Border.surfaceSpec("popups", "border", Color.popups.border, 0.5)
       radius: Style.cornerRadius
       opacity: root.opened ? 1 : 0
       layer.enabled: true
       layer.effect: MultiEffect {
         shadowEnabled: true
-        shadowColor: Qt.rgba(0, 0, 0, 0.22)
-        shadowBlur: 0.35
-        shadowVerticalOffset: 2
+        shadowColor: Util.alpha(root.surfaceShadow.color, root.surfaceShadow.alpha)
+        shadowBlur: 1.0
+        shadowHorizontalOffset: root.surfaceShadow.x
+        shadowVerticalOffset: root.surfaceShadow.y
+        blurMax: root.surfaceShadow.blur
+      }
+
+      BorderSurface {
+        anchors.fill: parent
+        anchors.margins: card.borderTop
+        color: "transparent"
+        borderSpec: Border.flat(Util.alpha(root.surfaceInnerBorder.color, root.surfaceInnerBorder.alpha), root.surfaceInnerBorder.width)
+        radius: Math.max(0, card.radius - card.borderTop)
       }
 
       Row {
         anchors.fill: parent
-        anchors.topMargin: card.borderTop + root.pad
-        anchors.rightMargin: card.borderRight + root.pad
-        anchors.bottomMargin: card.borderBottom + root.pad
-        anchors.leftMargin: card.borderLeft + root.pad
+        anchors.topMargin: card.borderTop + root.paddingY
+        anchors.rightMargin: card.borderRight + root.paddingX
+        anchors.bottomMargin: card.borderBottom + root.paddingY
+        anchors.leftMargin: card.borderLeft + root.paddingX
         spacing: root.hasProgress ? root.gap : root.messageGap
         Item {
           width: root.iconWidth

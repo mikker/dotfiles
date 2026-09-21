@@ -1,5 +1,16 @@
 [popups]
-background-alpha = 1.0
-border = "#6099C0"
-border-alpha = 1.0
-border-width = 4
+background = "#25211F"
+background-alpha = 0.86
+text = "#B4BDC3"
+border = "#FFFFFF"
+border-alpha = 0.22
+border-width = 1.0
+inner-border = "#FFFFFF"
+inner-border-alpha = 0.08
+inner-border-width = 0.5
+shadow-color = "#10131A"
+shadow-alpha = 0.12
+shadow-blur = 18
+shadow-x = 0
+shadow-y = 4
+backdrop-blur = 18

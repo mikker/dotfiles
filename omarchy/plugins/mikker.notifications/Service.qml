@@ -9,6 +9,7 @@ import Quickshell.Services.Notifications
 import qs.Commons
 
 import "components"
+import "DesignTokens.js" as DesignTokens
 import "NotificationLogic.js" as NotificationLogic
 
 Item {
@@ -50,6 +51,7 @@ Item {
   readonly property int defaultBarSize: barVertical ? Style.bar.sizeVertical : Style.bar.sizeHorizontal
   readonly property int liveBarSize: shell && shell.bar && !shell.bar.barHidden ? Math.max(0, shell.bar.barSize) : defaultBarSize
   readonly property int barClearance: liveBarSize + Style.gapsOut
+  readonly property var popupShadow: DesignTokens.shadow(Color.shellValues, "notifications")
 
   // Live Notification objects by originalId, kept OUT of the ListModels: a
   // QObject stored in a model role becomes a dangling C++ pointer when the
@@ -981,8 +983,8 @@ Item {
         id: popupColumn
         anchors.right: parent.right
         anchors.top: parent.top
-        anchors.topMargin: popupWindow.popupPlacement.margins.top
-        anchors.rightMargin: popupWindow.popupPlacement.margins.right
+        anchors.topMargin: popupWindow.popupPlacement.margins.top + DesignTokens.gutterTop(service.popupShadow)
+        anchors.rightMargin: popupWindow.popupPlacement.margins.right + DesignTokens.gutterRight(service.popupShadow)
         spacing: Style.space(8)
 
         Repeater {

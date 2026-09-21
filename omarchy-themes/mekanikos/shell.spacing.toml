@@ -1,0 +1,17 @@
+[spacing]
+scale = 1
+scale-with-font = false
+control-gap = 8
+control-padding-x = 10
+control-padding-y = 6
+input-padding-y = 7
+control-height = 28
+popup-row-height = 28
+row-gap = 6
+row-padding-x = 10
+label-gap = 4
+popup-padding = 14
+panel-padding = 14
+panel-gap = 10
+osd-padding-x = 20
+osd-padding-y = 10

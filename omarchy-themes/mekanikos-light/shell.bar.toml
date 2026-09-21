@@ -1,4 +1,8 @@
 [bar]
-# Renders four pixels taller than the Omarchy default after the theme font
-# scale is applied. Bar modules stay cross-axis centered by the bar layout.
+background = "#FFFFFF"
+background-alpha = 0.64
+text = "#2C363C"
+active = "#A8334C"
+scale-with-font = false
 size-horizontal = 29
+size-vertical = 28

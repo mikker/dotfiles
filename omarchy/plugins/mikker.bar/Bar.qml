@@ -3,13 +3,22 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import qs.Commons
 import qs.Ui
+import "DesignTokens.js" as DesignTokens
 import "BarModel.js" as BarModel
 
 Item {
   id: root
+
+  readonly property var tooltipShadow: DesignTokens.shadow(Color.shellValues, "tooltip")
+  readonly property var tooltipInnerBorder: DesignTokens.innerBorder(Color.shellValues, "tooltip")
+  readonly property real tooltipShadowLeft: DesignTokens.gutterLeft(tooltipShadow)
+  readonly property real tooltipShadowTop: DesignTokens.gutterTop(tooltipShadow)
+  readonly property real tooltipShadowRight: DesignTokens.gutterRight(tooltipShadow)
+  readonly property real tooltipShadowBottom: DesignTokens.gutterBottom(tooltipShadow)
 
   // The omarchy-shell host injects omarchyPath from OMARCHY_PATH.
   property string omarchyPath: Quickshell.env("OMARCHY_PATH")
@@ -65,8 +74,10 @@ Item {
   property bool centerHoverRevealSuppressed: false
   property int barConfigSerial: 0
   property string position: "top"
-  // Keep desktop chrome proportional while terminals use the system monospace font.
-  property string fontFamily: "Inter SemiBold"
+  // Bar plugins only accept a family string, not a numeric weight. Use the
+  // dedicated medium face here while keeping regular UI text on plain Inter.
+  // This avoids the old SemiBold + font.bold double-bold combination.
+  property string fontFamily: DesignTokens.color(Color.shellValues, "font.bar-family", "Inter Medium")
   // Bound to the central Color singleton so the bar tracks shell.toml's
   // [bar] section. Property names kept for the rest of this file's bindings.
   property color themeForeground: Color.bar.text
@@ -1286,8 +1297,8 @@ Item {
 
       visible: root.tooltipShown && root.tooltipTarget !== null && root.tooltipText !== "" && root.targetBelongsToWindow(root.tooltipTarget, barWindow)
       color: "transparent"
-      implicitWidth: Math.ceil(tooltipBubble.implicitWidth)
-      implicitHeight: Math.ceil(tooltipBubble.implicitHeight)
+      implicitWidth: Math.ceil(root.tooltipShadowLeft + tooltipBubble.implicitWidth + root.tooltipShadowRight)
+      implicitHeight: Math.ceil(root.tooltipShadowTop + tooltipBubble.implicitHeight + root.tooltipShadowBottom)
 
       anchor {
         id: tooltipAnchor
@@ -1305,15 +1316,15 @@ Item {
           var popupWidth = tooltipWindow.implicitWidth
           var popupHeight = tooltipWindow.implicitHeight
           var localX = target.width / 2 - popupWidth / 2
-          var localY = target.height + 6
+          var localY = target.height + 6 - root.tooltipShadowTop
 
           if (root.position === "bottom") {
-            localY = -popupHeight - 6
+            localY = -popupHeight - 6 + root.tooltipShadowBottom
           } else if (root.position === "left") {
-            localX = target.width + 6
+            localX = target.width + 6 - root.tooltipShadowLeft
             localY = target.height / 2 - popupHeight / 2
           } else if (root.position === "right") {
-            localX = -popupWidth - 6
+            localX = -popupWidth - 6 + root.tooltipShadowRight
             localY = target.height / 2 - popupHeight / 2
           }
 
@@ -1325,11 +1336,32 @@ Item {
 
       BorderSurface {
         id: tooltipBubble
+        x: root.tooltipShadowLeft
+        y: root.tooltipShadowTop
+        width: implicitWidth
+        height: implicitHeight
         implicitWidth: tooltipLabel.implicitWidth + 20
         implicitHeight: tooltipLabel.implicitHeight + 14
         color: Color.tooltip.background
         borderSpec: Border.surfaceSpec("tooltip", "border", Color.tooltip.border, 1)
         radius: Style.cornerRadius
+        layer.enabled: true
+        layer.effect: MultiEffect {
+          shadowEnabled: true
+          shadowColor: Util.alpha(root.tooltipShadow.color, root.tooltipShadow.alpha)
+          shadowBlur: 1.0
+          shadowHorizontalOffset: root.tooltipShadow.x
+          shadowVerticalOffset: root.tooltipShadow.y
+          blurMax: root.tooltipShadow.blur
+        }
+
+        BorderSurface {
+          anchors.fill: parent
+          anchors.margins: tooltipBubble.borderTop
+          color: "transparent"
+          borderSpec: Border.flat(Util.alpha(root.tooltipInnerBorder.color, root.tooltipInnerBorder.alpha), root.tooltipInnerBorder.width)
+          radius: Math.max(0, tooltipBubble.radius - tooltipBubble.borderTop)
+        }
 
         Text {
           id: tooltipLabel

@@ -1,5 +1,17 @@
 [notifications]
-background-alpha = 0.68
-border = "#1853C7"
-border-alpha = 1.0
-border-width = 4
+background = "#FFFFFF"
+background-alpha = 0.78
+text = "#2C363C"
+border = "#FFFFFF"
+border-alpha = 0.68
+border-width = 1.0
+inner-border = "#2C363C"
+inner-border-alpha = 0.14
+inner-border-width = 0.5
+shadow-color = "#10131A"
+shadow-alpha = 0.12
+shadow-blur = 18
+shadow-x = 0
+shadow-y = 4
+backdrop-blur = 18
+countdown = "#1853C7"

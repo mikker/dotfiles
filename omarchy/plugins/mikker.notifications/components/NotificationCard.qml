@@ -3,10 +3,12 @@
 // panel drives static rendering. Both use the same component.
 
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import Quickshell
 import qs.Commons
 import qs.Ui
+import "../DesignTokens.js" as DesignTokens
 import "../NotificationLogic.js" as NotificationLogic
 
 BorderSurface {
@@ -50,6 +52,8 @@ BorderSurface {
   readonly property color bodyColor: Qt.darker(Color.notifications.text, 1.15)
   readonly property color accentColor: urgency === 2 ? Color.urgent : (urgency === 0 ? dimColor : Color.notifications.countdown)
   readonly property var cardBorderSpec: Border.surfaceSpec("notifications", "border", Color.notifications.border, Math.max(1, Style.space(2)))
+  readonly property var surfaceShadow: DesignTokens.shadow(Color.shellValues, "notifications")
+  readonly property var surfaceInnerBorder: DesignTokens.innerBorder(Color.shellValues, "notifications")
 
   function sanitizeBody(s) {
     return NotificationLogic.sanitizeBody(s, app, appIcon)
@@ -71,6 +75,23 @@ BorderSurface {
   color: Color.notifications.background
   borderSpec: cardBorderSpec
   clip: true
+  layer.enabled: true
+  layer.effect: MultiEffect {
+    shadowEnabled: true
+    shadowColor: Util.alpha(root.surfaceShadow.color, root.surfaceShadow.alpha)
+    shadowBlur: 1.0
+    shadowHorizontalOffset: root.surfaceShadow.x
+    shadowVerticalOffset: root.surfaceShadow.y
+    blurMax: root.surfaceShadow.blur
+  }
+
+  BorderSurface {
+    anchors.fill: parent
+    anchors.margins: root.borderTop
+    color: "transparent"
+    borderSpec: Border.flat(Util.alpha(root.surfaceInnerBorder.color, root.surfaceInnerBorder.alpha), root.surfaceInnerBorder.width)
+    radius: Math.max(0, root.radius - root.borderTop)
+  }
 
   HoverHandler { id: hoverTracker }
 
@@ -167,7 +188,7 @@ BorderSurface {
           Layout.fillWidth: true
           visible: root.summary.length > 0
           text: root.summary
-          font.family: "Inter"
+          font.family: DesignTokens.color(Color.shellValues, "font.ui-family", "Inter")
           color: Color.notifications.text
           font.pixelSize: Style.font.title
           font.bold: true
@@ -182,7 +203,7 @@ BorderSurface {
           visible: root.sanitizedBody.length > 0
           text: root.styledBody
           textFormat: Text.StyledText
-          font.family: "Inter"
+          font.family: DesignTokens.color(Color.shellValues, "font.ui-family", "Inter")
           color: root.bodyColor
           font.pixelSize: Style.font.title
           wrapMode: Text.WordWrap

@@ -9,10 +9,10 @@ agent_notes = true
 
 [custom_theme]
 base = "graphite"
-label = "Zenbones Dark"
-accent = "#B4BDC3"
+label = "Mekanikos Dark"
+accent = "#1853C7"
 panel = "#1C1917"
-panelAlt = "#25211F"
+panelAlt = "#171412"
 text = "#B4BDC3"
 muted = "#6E6763"
 border = "#403833"
