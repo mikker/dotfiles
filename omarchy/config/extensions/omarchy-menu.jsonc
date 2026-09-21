@@ -27,4 +27,11 @@
   // Example: replace the default About action by reusing the same id. Existing
   // fields are kept unless overridden.
   // "about": {"icon":"","label":"About","action":"omarchy-launch-or-focus-tui \"zsh -c 'fastfetch; read -k 1'\""},
+  "setup.default.browser.helium": {
+    "icon": "󰖟",
+    "label": "Helium",
+    "when": "command -v helium-browser >/dev/null",
+    "checked": "[[ \"$(env -u BROWSER xdg-settings get default-web-browser)\" == \"helium.desktop\" ]]",
+    "action": "env -u BROWSER xdg-settings set default-web-browser helium.desktop && omarchy notification send -g 󰖟 'Helium is now the default browser'"
+  }
 }

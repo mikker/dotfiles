@@ -56,8 +56,7 @@ link_path() {
   fi
 
   if path_exists "$dest"; then
-    printf 'Refusing to replace existing path: %s\n' "$dest" >&2
-    return 1
+    remove_path "$dest"
   fi
 
   command ln -s "$source" "$dest"

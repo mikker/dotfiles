@@ -37,19 +37,18 @@ check_link_safety() {
   sandbox=$(mktemp -d)
   mkdir -p "$sandbox/repo" "$sandbox/home"
   printf 'source\n' > "$sandbox/repo/source"
-  printf 'keep\n' > "$sandbox/home/dest"
+  printf 'replace\n' > "$sandbox/home/dest"
 
   (
     DOTFILES_ROOT="$sandbox/repo"
     source "$DOTFILES_ROOT_ORIGINAL/script/lib.sh"
-    if link_path source "$sandbox/home/dest" >/dev/null 2>&1; then exit 1; fi
-    [[ "$(cat "$sandbox/home/dest")" == keep ]]
-    rm "$sandbox/home/dest"
     link_path source "$sandbox/home/dest" >/dev/null
     same_link "$sandbox/home/dest" "$sandbox/repo/source"
-  ) || fail "link_path replacement safety"
+    link_path source "$sandbox/home/dest" >/dev/null
+    same_link "$sandbox/home/dest" "$sandbox/repo/source"
+  ) || fail "link_path force replacement and idempotence"
   rm -rf "$sandbox"
-  pass "link safety and idempotence"
+  pass "link force replacement and idempotence"
 }
 
 check_executables() {
