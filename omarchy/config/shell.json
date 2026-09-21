@@ -13,7 +13,7 @@
       ],
       "left": [
         {
-          "id": "mikker.menu"
+          "id": "omarchy.menu"
         },
         {
           "id": "mikker.workspaces"
@@ -58,12 +58,14 @@
     "transparent": true
   },
   "cloneSourceRestores": [
-    "mikker.menu",
-    "mikker.dev-gallery"
+    "mikker.dev-gallery",
+    "mikker.notifications",
+    "mikker.osd"
   ],
   "disabledPlugins": [
-    "omarchy.menu",
-    "omarchy.dev-gallery"
+    "omarchy.dev-gallery",
+    "omarchy.notifications",
+    "omarchy.osd"
   ],
   "idle": {
     "lock": 300,
@@ -72,6 +74,12 @@
   "plugins": [
     {
       "id": "mikker.dev-gallery"
+    },
+    {
+      "id": "mikker.notifications"
+    },
+    {
+      "id": "mikker.osd"
     }
   ],
   "version": 1

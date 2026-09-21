@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "mikker.osd",
+  "name": "My On-screen display",
+  "version": "1.0.0",
+  "description": "Quickshell volume, brightness, and status overlays.",
+  "kinds": [
+    "panel"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "panel": "Osd.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.osd"
+  }
+}

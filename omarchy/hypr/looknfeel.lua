@@ -1,50 +1,15 @@
--- Change the default Omarchy look'n'feel.
+-- Pull tiled windows closer to the bar while preserving the other outer gaps.
+hl.config({
+  general = {
+    gaps_out = { top = 4, right = 12, bottom = 12, left = 12 },
+  },
+})
 
--- https://wiki.hypr.land/Configuring/Basics/Variables/#general
--- hl.config({
---   general = {
---     -- No gaps between windows or borders.
---     gaps_in = 0,
---     gaps_out = 0,
---     border_size = 0,
---
---     -- Change to niri-like side-scrolling layout.
---     layout = "scrolling",
---   },
--- })
-
--- https://wiki.hypr.land/Configuring/Basics/Variables/#decoration
--- hl.config({
---   decoration = {
---     -- Use round window corners.
---     rounding = 8,
---
---     -- Dim unfocused windows (0.0 = no dim, 1.0 = fully dimmed).
---     dim_inactive = true,
---     dim_strength = 0.15,
---   },
--- })
-
--- https://wiki.hypr.land/Configuring/Basics/Variables/#animations
--- hl.config({
---   animations = {
---     -- Disable all animations.
---     enabled = false,
---   },
--- })
-
--- https://wiki.hypr.land/Configuring/Basics/Variables/#layout
--- hl.config({
---   layout = {
---     -- Avoid overly wide single-window layouts on wide screens.
---     single_window_aspect_ratio = { 1, 1 },
---   },
--- })
-
--- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
--- hl.config({
---   scrolling = {
---     -- See only one column per screen instead of two.
---     column_width = 0.97,
---   },
--- })
+-- Frost the translucent Omarchy OSD card without blurring the transparent
+-- fullscreen layer around it.
+hl.layer_rule({
+  name = "frosted-omarchy-osd",
+  match = { namespace = "^omarchy-osd$" },
+  blur = true,
+  ignore_alpha = 0.08,
+})

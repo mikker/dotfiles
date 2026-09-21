@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "mikker.notifications",
+  "name": "My Notifications",
+  "version": "1.0.0",
+  "author": "Omarchy",
+  "description": "Notification daemon, popups, DND, and history",
+  "kinds": [
+    "service"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.notifications"
+  }
+}
