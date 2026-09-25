@@ -1,0 +1,9 @@
+[osd]
+icon-size = 33
+gap = 16
+track = "#B4BDC3"
+track-alpha = 0.14
+track-height = 5
+track-length = 142
+track-radius = 999
+fill = "#1853C7"

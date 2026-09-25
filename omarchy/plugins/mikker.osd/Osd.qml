@@ -26,13 +26,22 @@ Item {
   // transient control wants a low vertical profile and more lateral air.
   readonly property int paddingX: DesignTokens.number(Color.shellValues, "spacing.osd-padding-x", 20)
   readonly property int paddingY: DesignTokens.number(Color.shellValues, "spacing.osd-padding-y", 10)
-  readonly property int gap: Style.space(16)
+  // Row geometry, track, and readout type come from the generated [osd] and
+  // [font] theme sections (White Pill Studio recipe.osd); the fallbacks are
+  // the same values for themes that don't ship them.
+  readonly property int gap: Style.space(DesignTokens.number(Color.shellValues, "osd.gap", 16))
   // A glyph next to a message reads airier than it measures: the icon outline
   // and the letterforms both fall away from their ink extremes, so the space
   // between them opens up well past the nominal gap. Text takes two thirds of
   // it; the progress bar's hard edge keeps the full gap.
   readonly property int messageGap: Math.round(root.gap * 2 / 3)
-  readonly property int barWidth: Style.space(142)
+  readonly property int barWidth: Style.space(DesignTokens.number(Color.shellValues, "osd.track-length", 142))
+  readonly property int trackHeight: Style.space(DesignTokens.number(Color.shellValues, "osd.track-height", 5))
+  readonly property real trackRadius: DesignTokens.number(Color.shellValues, "osd.track-radius", 999)
+  readonly property color trackColor: Util.alpha(DesignTokens.color(Color.shellValues, "osd.track", Color.popups.text),
+                                                 DesignTokens.number(Color.shellValues, "osd.track-alpha", 0.14))
+  readonly property color fillColor: DesignTokens.color(Color.shellValues, "osd.fill", Color.accent)
+  readonly property int iconSize: DesignTokens.number(Color.shellValues, "osd.icon-size", Style.font.displayLarge)
   readonly property int maxMessageWidth: root.mediaOsd ? Style.space(325) : Style.space(190)
 
   // Nerd Font glyphs draw well outside their monospace cell, so the icon
@@ -90,9 +99,11 @@ Item {
 
   TextMetrics {
     id: messageMetrics
+    // The popup title role: semibold with slightly tightened tracking.
     font.family: DesignTokens.color(Color.shellValues, "font.ui-family", "Inter")
-    font.bold: true
+    font.weight: DesignTokens.number(Color.shellValues, "font.title-weight", 600)
     font.pixelSize: Style.font.title
+    font.letterSpacing: Style.font.title * DesignTokens.number(Color.shellValues, "font.title-tracking", -0.01)
     text: root.message
   }
 
@@ -104,8 +115,8 @@ Item {
 
   TextMetrics {
     id: iconMetrics
-    font.family: Style.font.family
-    font.pixelSize: Style.font.displayLarge
+    font.family: DesignTokens.color(Color.shellValues, "font.icon-family", Style.font.family)
+    font.pixelSize: root.iconSize
     text: root.icon
   }
 
@@ -142,7 +153,7 @@ Item {
     BorderSurface {
       id: card
       width: card.borderLeft + root.paddingX + root.contentWidth + root.paddingX + card.borderRight
-      height: card.borderTop + root.paddingY + Style.font.displayLarge + root.paddingY + card.borderBottom
+      height: card.borderTop + root.paddingY + root.iconSize + root.paddingY + card.borderBottom
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.bottom: parent.bottom
       anchors.bottomMargin: Style.space(67)
@@ -192,13 +203,15 @@ Item {
         Rectangle {
           visible: root.hasProgress
           width: root.barWidth
-          height: Math.max(Style.space(6), Style.spacing.sm)
+          height: root.trackHeight
+          radius: Math.min(height / 2, root.trackRadius)
           anchors.verticalCenter: parent.verticalCenter
-          color: Util.alpha(Color.popups.text, 0.45)
+          color: root.trackColor
           Rectangle {
             height: parent.height
+            radius: parent.radius
             width: parent.width * (root.hasProgress ? root.value / root.maxValue : 0)
-            color: Color.accent
+            color: root.fillColor
 
             Behavior on width {
               enabled: root.opened

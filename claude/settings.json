@@ -4,7 +4,8 @@
     "commit": "",
     "pr": ""
   },
-  "hooks": { },
+  "model": "claude-fable-5-1[1m]",
+  "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "bash \"$HOME/.claude/statusline-command.sh\""
@@ -42,6 +43,5 @@
   "preferredNotifChannel": "terminal_bell",
   "feedbackSurveyState": {
     "lastShownTime": 1754086441827
-  },
-  "model": "claude-fable-5-1[1m]"
+  }
 }

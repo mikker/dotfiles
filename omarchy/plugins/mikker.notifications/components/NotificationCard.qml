@@ -49,7 +49,11 @@ BorderSurface {
   readonly property string styledBody: NotificationLogic.styledBody(body, app, appIcon)
 
   readonly property color dimColor: Qt.darker(Color.notifications.text, 1.4)
-  readonly property color bodyColor: Qt.darker(Color.notifications.text, 1.15)
+  // Body copy is the popup context-subtitle role; Qt.darker is only the
+  // fallback for themes without a generated [notifications] text-secondary.
+  readonly property color bodyColor: DesignTokens.color(Color.shellValues, "notifications.text-secondary",
+                                                        Qt.darker(Color.notifications.text, 1.15))
+  readonly property string iconFamily: DesignTokens.color(Color.shellValues, "font.icon-family", root.fontFamily)
   readonly property color accentColor: urgency === 2 ? Color.urgent : (urgency === 0 ? dimColor : Color.notifications.countdown)
   readonly property var cardBorderSpec: Border.surfaceSpec("notifications", "border", Color.notifications.border, Math.max(1, Style.space(2)))
   readonly property var surfaceShadow: DesignTokens.shadow(Color.shellValues, "notifications")
@@ -67,7 +71,7 @@ BorderSurface {
     return Quickshell.iconPath(value, true)
   }
 
-  implicitWidth: Style.space(380)
+  implicitWidth: Style.space(DesignTokens.number(Color.shellValues, "notifications.width", 380))
   // Add vertical border insets so mainColumn (inset by border on top/left/right)
   // doesn't push content under the bottom edge.
   implicitHeight: mainColumn.implicitHeight + borderTop + borderBottom
@@ -123,10 +127,10 @@ BorderSurface {
     // Text content.
     RowLayout {
       Layout.fillWidth: true
-      Layout.leftMargin: Style.space(12)
-      Layout.rightMargin: Style.space(12)
-      Layout.topMargin: root.singleLineToast ? Style.space(7) : Style.space(10)
-      Layout.bottomMargin: root.singleLineToast ? Style.space(7) : Style.space(10)
+      Layout.leftMargin: Style.spacing.popupPadding
+      Layout.rightMargin: Style.spacing.popupPadding
+      Layout.topMargin: root.singleLineToast ? Style.space(7) : Style.spacing.popupPadding
+      Layout.bottomMargin: root.singleLineToast ? Style.space(7) : Style.spacing.popupPadding
       spacing: root.collapseRedundantIcon ? 0 : (root.compactGlyph ? Style.space(8) : Style.space(12))
 
       Item {
@@ -159,7 +163,7 @@ BorderSurface {
           visible: root.hasGlyph && smallIconImage.status !== Image.Ready
           text: root.glyph
           color: Color.notifications.text
-          font.family: root.fontFamily
+          font.family: root.iconFamily
           font.pixelSize: Style.font.displayLarge
         }
       }
@@ -170,14 +174,14 @@ BorderSurface {
         visible: root.compactGlyph
         text: root.glyph
         color: Color.notifications.text
-        font.family: root.fontFamily
+        font.family: root.iconFamily
         font.pixelSize: Style.font.icon
       }
 
       ColumnLayout {
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignVCenter
-        spacing: Style.space(2)
+        spacing: Style.spacing.labelGap
 
         Text {
           // The spec defines the summary as a single line of plain text, so
@@ -190,8 +194,10 @@ BorderSurface {
           text: root.summary
           font.family: DesignTokens.color(Color.shellValues, "font.ui-family", "Inter")
           color: Color.notifications.text
+          // The popup title role: semibold with slightly tightened tracking.
           font.pixelSize: Style.font.title
-          font.bold: true
+          font.weight: DesignTokens.number(Color.shellValues, "font.title-weight", 600)
+          font.letterSpacing: Style.font.title * DesignTokens.number(Color.shellValues, "font.title-tracking", -0.01)
           wrapMode: Text.WordWrap
           elide: Text.ElideRight
           maximumLineCount: 2
@@ -199,13 +205,13 @@ BorderSurface {
 
         Text {
           Layout.fillWidth: true
-          Layout.topMargin: Style.space(2)
           visible: root.sanitizedBody.length > 0
           text: root.styledBody
           textFormat: Text.StyledText
           font.family: DesignTokens.color(Color.shellValues, "font.ui-family", "Inter")
           color: root.bodyColor
-          font.pixelSize: Style.font.title
+          font.pixelSize: Style.font.caption
+          font.weight: DesignTokens.number(Color.shellValues, "font.subtitle-weight", 500)
           wrapMode: Text.WordWrap
           elide: Text.ElideRight
           maximumLineCount: 3

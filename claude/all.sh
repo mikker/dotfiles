@@ -3,10 +3,7 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
-for source_path in "$DOTFILES_ROOT/claude/CLAUDE.md" \
-                   "$DOTFILES_ROOT/claude/settings.json" \
-                   "$DOTFILES_ROOT/claude/statusline-command.sh" \
-                   "$DOTFILES_ROOT/claude/commands/"*.md; do
+for source_path in "$DOTFILES_ROOT/claude/settings.json"; do
   dest="$HOME/.claude/${source_path#"$DOTFILES_ROOT/claude/"}"
 
   if same_link "$dest" "$source_path"; then

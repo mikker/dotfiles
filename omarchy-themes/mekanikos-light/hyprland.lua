@@ -1,31 +1,16 @@
-local focus_blue = "rgb(1853c7)"
-local transparent = "rgba(ffffff22)"
-
 -- Mekanikos Light owns its rounded client shape and focus ring. Hyprland's
 -- native border tracks focus; borders-plus-plus is static and paints every window.
-hl.config({
-	general = {
-		border_size = 4,
-		gaps_in = 2,
-		gaps_out = 12,
-		col = {
-			active_border = focus_blue,
-			inactive_border = transparent,
-		},
-	},
+-- Border, gap, rounding, and shadow values are generated from White Pill Studio
+-- (recipe.window) into hyprland_window.lua.
+hl.config(require("omarchy.current.theme.hyprland_window"))
 
+hl.config({
 	decoration = {
 		border_part_of_window = true,
-		rounding = 14,
-		rounding_power = 2,
 		shadow = {
 			enabled = true,
-			range = 18,
 			render_power = 2,
 			sharp = false,
-			color = "rgba(10131a18)",
-			color_inactive = "rgba(10131a0d)",
-			offset = { 0, 4 },
 			scale = 1.0,
 		},
 		glow = {
@@ -48,21 +33,10 @@ hl.config({
 		},
 	},
 
-	group = {
-		col = {
-			border_active = focus_blue,
-			border_inactive = transparent,
-		},
-	},
-
 	plugin = {
 		borders_plus_plus = {
 			add_borders = 0,
 			natural_rounding = false,
-			border_size_1 = 4,
-			col = {
-				border_1 = focus_blue,
-			},
 		},
 	},
 })

@@ -14,4 +14,6 @@ shadow-blur = 18
 shadow-x = 0
 shadow-y = 4
 backdrop-blur = 18
+text-secondary = "#8D9499"
+width = 380
 countdown = "#1853C7"
