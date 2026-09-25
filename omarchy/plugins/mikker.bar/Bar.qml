@@ -74,10 +74,9 @@ Item {
   property bool centerHoverRevealSuppressed: false
   property int barConfigSerial: 0
   property string position: "top"
-  // Bar plugins only accept a family string, not a numeric weight. Use the
-  // dedicated medium face here while keeping regular UI text on plain Inter.
-  // This avoids the old SemiBold + font.bold double-bold combination.
-  property string fontFamily: DesignTokens.color(Color.shellValues, "font.bar-family", "Inter Medium")
+  // Bar plugins only accept a family string, not weight or OpenType features.
+  // The fontconfig alias selects Inter Medium and enables tabular numerals.
+  property string fontFamily: DesignTokens.color(Color.shellValues, "font.bar-family", "Inter Medium Tabular")
   // Bound to the central Color singleton so the bar tracks shell.toml's
   // [bar] section. Property names kept for the rest of this file's bindings.
   property color themeForeground: Color.bar.text

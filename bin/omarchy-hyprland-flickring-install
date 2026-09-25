@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source_dir="$HOME/.dotfiles/omarchy/flickring"
+plugin_dir="$HOME/.local/lib/hyprland/plugins"
+plugin_path="$plugin_dir/flickring.so"
+
+make -C "$source_dir" clean >/dev/null
+make -C "$source_dir" all
+
+mkdir -p "$plugin_dir"
+hyprctl plugin unload "$plugin_path" >/dev/null 2>&1 || true
+install -m 755 "$source_dir/flickring.so" "$plugin_path"
+hyprctl plugin load "$plugin_path"

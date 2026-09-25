@@ -28,6 +28,10 @@ window-colorspace = display-p3
 window-height = 36
 window-width = 120
 
+# Keep physical scrolling at Ghostty's defaults. FlickRing controls the speed
+# of its own synthetic scroll events independently.
+mouse-scroll-multiplier = precision:1,discrete:3
+
 #macos-titlebar-style = native
 macos-option-as-alt = right
 # macos-icon = blueprint

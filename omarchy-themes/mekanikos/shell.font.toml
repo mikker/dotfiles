@@ -5,5 +5,5 @@ body = 14
 title = 16
 ui-family = "Inter"
 ui-strong-family = "Inter"
-bar-family = "Inter Medium"
+bar-family = "Inter Medium Tabular"
 icon-family = "Iosevka Nerd Font Mono"

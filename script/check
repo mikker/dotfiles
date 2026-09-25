@@ -139,11 +139,17 @@ check_ghostty_linux() {
 }
 
 check_omarchy_config() {
+  local studio="${WHITE_PILL_STUDIO:-$HOME/dev/white-pill-studio}"
   [[ -f "$DOTFILES_ROOT/omarchy/config/shell.json" ]] || fail "missing Omarchy shell config"
   [[ -d "$DOTFILES_ROOT/omarchy/plugins/mikker.bar" ]] || fail "missing custom Omarchy bar"
   [[ -d "$DOTFILES_ROOT/omarchy-themes/mekanikos" ]] || fail "missing Mekanikos theme"
   [[ -d "$DOTFILES_ROOT/omarchy-themes/mekanikos-light" ]] || fail "missing Mekanikos Light theme"
-  "$DOTFILES_ROOT/script/design-system" check || fail "generated design-system files"
+  if [[ -x "$studio/script/design-system" ]]; then
+    WHITE_PILL_DOTFILES="$DOTFILES_ROOT" "$studio/script/design-system" check ||
+      fail "generated design-system files"
+  else
+    fail "White Pill Studio not found at $studio"
+  fi
   grep -Fq 'bobbynicholas.omaland https://github.com/bobby-nicholas/omaland.git' "$DOTFILES_ROOT/omarchy/plugins/git" ||
     fail "missing external Omarchy plugin declaration"
   pass "Omarchy config and themes"

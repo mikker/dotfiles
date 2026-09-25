@@ -2,15 +2,33 @@
 set -euo pipefail
 
 ghostty_config="$HOME/.config/ghostty/config"
+dotfiles_marker='# Personal dotfiles'
 dotfiles_include='config-file = ?"~/.dotfiles/ghostty/config"'
 
 mkdir -p "$(dirname "$ghostty_config")"
 touch "$ghostty_config"
 
-if grep -Fqx "$dotfiles_include" "$ghostty_config"; then
-  echo "Ghostty dotfiles config already included"
+tmp="$(mktemp "${ghostty_config}.tmp.XXXXXX")"
+trap 'rm -f "$tmp"' EXIT
+
+# Personal config must be loaded last so it can override Omarchy defaults.
+awk -v marker="$dotfiles_marker" -v include_line="$dotfiles_include" '
+  $0 != marker && $0 != include_line { lines[++count] = $0 }
+  END {
+    while (count > 0 && lines[count] == "") count--
+    for (i = 1; i <= count; i++) print lines[i]
+    if (count > 0) print ""
+    print marker
+    print include_line
+  }
+' "$ghostty_config" > "$tmp"
+
+if cmp -s "$tmp" "$ghostty_config"; then
+  echo "Ghostty dotfiles config already included last"
   exit 0
 fi
 
-printf '\n# Personal dotfiles\n%s\n' "$dotfiles_include" >> "$ghostty_config"
+chmod --reference="$ghostty_config" "$tmp"
+mv "$tmp" "$ghostty_config"
+trap - EXIT
 echo "Included dotfiles config from $ghostty_config"
