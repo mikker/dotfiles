@@ -1,15 +1,18 @@
 ---
 name: semantic-review
-description: Opens a semantic, narrative browser review of a git diff and returns the human reviewer's comments. Use after completing a substantial code change, or when the user asks for semantic-review, a narrative review, or a review of current changes.
+description: Opens a semantic, narrative browser review of a git diff and returns the human reviewer's comments.
 license: MIT
 compatibility: Requires Node.js 20+. Optional sidecars use ANTHROPIC_API_KEY, OPENAI_API_KEY, or an installed claude, codex, gemini, or pi CLI.
 disable-model-invocation: true
+user-invocable: true
 context: fork
 background: false
 agent: general-purpose
 ---
 
 # Semantic Review
+
+This skill is strictly opt-in. Do not run it unless the user explicitly requests semantic-review by name.
 
 Run the review from the repository root after implementation and validation are complete. Interpret arguments supplied with the skill as natural-language preferences for how the analysis is generated.
 

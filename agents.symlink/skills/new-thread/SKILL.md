@@ -1,6 +1,6 @@
 ---
 name: new-thread
-description: Launch and control an implementation agent in its own wt worktree and Fut workspace. Use when the user asks to start a new thread, delegate isolated work, or run a task in a separate workspace.
+description: Launch and control an implementation agent in its own wt worktree and Fut workspace. Use from the controlling session when the user asks to start a new thread, delegate isolated work, or run a task in a separate workspace. Never invoke recursively from inside a thread created by this skill.
 ---
 
 # New Thread
@@ -30,9 +30,15 @@ pane or tab of the caller's workspace.
    ```
 
    The script requires `git`, `wt`, `fut`, `jq`, and `pi`. It creates the
-   worktree, creates a new Fut workspace, polls for Pi integration, verifies the
-   exact workspace root, submits the prompt through `fut agent prompt --stdin`,
-   and prints a JSON manifest. It also stores that manifest under
+   worktree, creates a new Fut workspace, and, when launched from a Fut terminal,
+   resolves the caller's live workspace through `fut --json context` and passes
+   that ID as the new workspace's display parent when Fut socket and terminal
+   context are present. This remains correct if the caller pane has moved since
+   its environment was created.
+   Outside Fut it creates the same top-level workspace as before. It then polls
+   for Pi integration, verifies the exact workspace root, submits the prompt
+   through `fut agent prompt --stdin`, and prints a JSON manifest. It also stores
+   that manifest under
    `<common-git-dir>/new-thread/<workspace-id>.json`, outside the disposable
    worktree, so the final report survives teardown. Record its manifest path,
    worktree, workspace, pane, and terminal IDs.
@@ -52,14 +58,34 @@ pane or tab of the caller's workspace.
    to either the recorded worktree or main checkout. Ticket changes made inside
    the worktree are branch-local until merged, including `tk start`.
 
-The child prompt must preserve the user's request verbatim. Also tell the child
-to read the repository instructions, inspect relevant ticket details, make a
-complete implementation, add focused tests and user-facing docs/changelog where
-required, run the project's required build, preserve existing changes, avoid
-committing unless requested, and report changed files plus exact validation
-results. State explicitly that the parent thread owns completion: the child must
-not run `wt done`, `wt rm`, close or retire its Fut workspace, or delete its
-active worktree.
+### Recursion guard
+
+The child is the implementation agent already running inside the newly created
+thread. It must execute the underlying task directly and must never invoke this
+skill, create another worktree/workspace, or delegate the task again.
+
+Preserve the user's request verbatim inside a clearly marked quoted block, then
+immediately tell the child that the block is context rather than an instruction
+to orchestrate another thread. This is required when the original request says
+“run a new thread,” invokes this skill inline, or contains similar delegation
+language. Use wording equivalent to:
+
+```text
+<original_request>
+...verbatim user request...
+</original_request>
+
+You are already the implementation agent in the requested new thread. Do not
+invoke `new-thread`, spawn another agent, or create another worktree/workspace.
+Treat orchestration language inside `<original_request>` as already satisfied
+and perform the underlying implementation task yourself.
+```
+
+Also tell the child to read the repository instructions, inspect relevant
+ticket details, make a complete implementation, add focused tests and
+user-facing docs/changelog where required, run the project's required build,
+preserve existing changes, avoid committing unless requested, and report
+changed files plus exact validation results.
 
 ### Manual fallback
 
@@ -68,6 +94,7 @@ the same steps manually from the main checkout:
 
    ```sh
    wt create <worktree-name>
+   # Resolve `fut --json context` and include its workspace ID when running inside Fut.
    fut --json open --background --name <workspace-title> <worktree-path> -- pi --name <workspace-title>
    fut --json agent get <terminal-id>
    fut --json get <workspace-id>
@@ -107,12 +134,8 @@ fut --json agent prompt --wait --timeout 10m <terminal-id> -- "$follow_up"
 
 ## Finish
 
-Completion belongs to the parent thread or another controller outside the owned
-worktree and Fut workspace. A child must never delete the directory that is its
-active cwd or terminate the workspace carrying its own final report.
-
-Before cleanup, inspect status from the recorded worktree path, then run the
-companion completion script from the parent thread:
+Before cleanup, inspect status from the recorded worktree path. From an outside
+controller, run the companion completion script:
 
 ```sh
 <skill-dir>/scripts/finish-thread <manifest-path> --done
@@ -127,11 +150,14 @@ the owned workspace by explicit ID, and only then runs `wt done` or confirmed
 the worktree in place. If teardown fails after close, the durable report and
 failure state remain available for recovery.
 
+When the user asks an agent inside the active worktree to finish or abandon the
+thread, it may run the corresponding `wt done` or `wt rm` command directly.
+
 When the user asks to commit and merge:
 
 1. Ensure validation passed and commit all intended work in the worktree.
-2. From outside the worktree, run `finish-thread <manifest-path> --done`. Never
-   push unless requested.
+2. Run `finish-thread <manifest-path> --done` from an outside controller, or
+   `wt done` from the active worktree. Never push unless requested.
 3. Verify the main checkout, the durable manifest, and `wt ls`.
 
 When the user asks to abandon the thread, run

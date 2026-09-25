@@ -9,6 +9,7 @@ Managed here:
 - `extensions/`
 - `prompts/`
 - `themes/`
+- `skills/elyx/` (Elyx agent skill, copied from `elyx-design/agents` at `e41870c`)
 
 Runtime state stays in `~/.pi/agent/`:
 
@@ -18,3 +19,5 @@ Runtime state stays in `~/.pi/agent/`:
 
 `all.sh` symlinks the managed config files into `~/.pi/agent/`.
 Pi then loads this directory as a local package via `packages: ["~/.dotfiles/pi"]` in `settings.json`.
+
+The Elyx skill also needs the separate CLI: `npm install --global @elyx-design/cli`.

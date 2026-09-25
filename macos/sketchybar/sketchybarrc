@@ -17,7 +17,7 @@ source "$CONFIG_DIR/colors.sh"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=36 blur_radius=0 color=$BAR_COLOR
+sketchybar --bar position=top height=34 blur_radius=0 color=$BAR_COLOR
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -66,11 +66,11 @@ for sid in $(aerospace list-workspaces --all); do
     --set space.$sid \
     background.color=$TRANSPARENT \
     background.corner_radius=5 \
-    background.height=25 \
+    background.height=26 \
     background.drawing=off \
     background.padding_left=6 \
     background.padding_right=6 \
-    y_offset=1 \
+    y_offset=0 \
     icon="$space_icon" \
     icon.font="SF Pro:Bold:16.0" \
     icon.highlight_color=$SPACE_HIGHLIGHT_COLOR \

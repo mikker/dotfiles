@@ -1,4 +1,4 @@
-font-family = "Iosevka Nerd Font Mono"
+#font-family = "Iosevka Nerd Font Mono"
 #font-family = "JetBrainsMono Nerd Font Mono"
 #font-family = "Iosevka Curly"
 #font-family = "Berkeley Mono"
@@ -8,9 +8,10 @@ font-family = "Iosevka Nerd Font Mono"
 #font-family = "SF Mono"
 #font-family = "Pragmasevka Nerd Font"
 #font-family = "BitstromWera Nerd Font Mono"
+font-family = "IBM Plex Mono"
 
 font-style = "Regular"
-# font-size = 14
+font-size = 16
 adjust-cell-height = 15%
 
 theme = light:Zenbones Light,dark:Zenbones Dark

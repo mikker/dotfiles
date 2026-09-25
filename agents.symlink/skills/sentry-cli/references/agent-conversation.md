@@ -1,6 +1,6 @@
 ---
 name: sentry-cli-agent-conversation
-version: 0.44.1
+version: 0.45.0
 description: List and view agent conversations
 requires:
   bins: ["sentry"]
@@ -18,7 +18,7 @@ List recent agent conversations
 **Flags:**
 - `-n, --limit <value> - Number of conversations (1-1000) - (default: "25")`
 - `-q, --query <value> - Search query`
-- `-t, --period <value> - Time range: "7d", "2026-07-01..2026-08-01", ">=2026-07-01" - (default: "7d")`
+- `-t, --period <value> - Time range: "7d", "2026-08-01..2026-09-01", ">=2026-08-01" - (default: "7d")`
 - `-f, --fresh - Bypass cache, re-detect projects, and fetch fresh data`
 - `-c, --cursor <value> - Navigate pages: "next", "prev", "first" (or raw cursor string)`
 

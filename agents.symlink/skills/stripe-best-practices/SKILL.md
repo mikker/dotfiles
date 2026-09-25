@@ -1,20 +1,24 @@
 ---
 name: stripe-best-practices
 description: >-
-  Guides Stripe integration decisions across API selection (Checkout Sessions vs
-  PaymentIntents), Connect platform setup (Accounts v2, controller properties),
-  billing/subscriptions, tax and registrations (Stripe Tax, automatic_tax,
-  product tax codes), Treasury financial accounts, integration options
-  (Checkout, Payment Element), migrating from deprecated Stripe APIs, and
-  security best practices (API key management, restricted keys, webhooks,
-  OAuth). Use when building, modifying, or reviewing any Stripe integration,
-  including accepting payments, building marketplaces, integrating Stripe,
+  Guides Stripe integration decisions across development and test environment
+  planning (separate sandboxes vs the shared test mode sandbox), API selection
+  (Checkout Sessions vs PaymentIntents), Connect platform setup (Accounts v2,
+  controller properties), billing/subscriptions, tax and registrations (Stripe
+  Tax, automatic_tax, product tax codes), Treasury financial accounts,
+  integration options (Checkout, Payment Element), migrating from deprecated
+  Stripe APIs, and security best practices (API key management, API key
+  permissions, webhooks, OAuth). Use when planning, building, modifying,
+  testing, or reviewing any Stripe integration, including choosing a development
+  environment, accepting payments, building marketplaces, integrating Stripe,
   processing payments, setting up subscriptions, collecting sales tax, VAT, or
   GST, creating connected accounts, or implementing secure key handling.
 
 ---
 
 Latest Stripe API version: **2026-08-26.dahlia**. Always use the latest API version and SDK unless the user specifies otherwise.
+
+Development and testing environment default: For new integration development, use separate [sandboxes](https://docs.stripe.com/sandboxes.md) instead of the account’s shared test mode sandbox. Sandboxes isolate settings and test data from live mode. Use separate sandboxes for local development and CI. When stronger isolation is useful, dedicate sandboxes to development teams or testing scenarios. Use the shared test mode sandbox only for an existing integration that depends on it or when a required feature doesn’t support general sandboxes.
 
 Latest SDK versions:
 
@@ -57,6 +61,8 @@ Read the relevant reference file before answering any integration question or wr
 - *Before enabling `automatic_tax: { enabled: true }`* (or calculating tax for a custom PaymentIntent), read the [tax reference](references/tax.md) and confirm the user has an active registration. Without one, Stripe calculates and collects no tax while the user believes tax is on (the most common Stripe Tax mistake).
 
 - *Never include `payment_method_types` in any Stripe API call*, with one exception: Terminal (in-person payments) integrations must pass `payment_method_types: ['card_present']` on the PaymentIntent. For all other integrations, omit this parameter entirely to enable dynamic payment methods, which enables you to configure payment method settings from the Dashboard and dynamically display the most relevant eligible payment methods to each customer to maximize conversion. To customize which payment methods you accept, use [`payment_method_configurations`](https://docs.stripe.com/payments/payment-method-configurations.md) or `excluded_payment_method_types` instead of `payment_method_types`.
+
+- When a PaymentIntent or SetupIntent integration requires an explicit allowlist, use `allowed_payment_method_types` instead of `payment_method_types`.
 
 - *Never present webhooks as optional.* We recommend webhooks for every payment integration and they’re required for subscriptions and asynchronous payment methods. Fulfillment belongs in a handler for both `checkout.session.completed` and `checkout.session.async_payment_succeeded` (gated on `payment_status`), not the success page. See <references/payments.md>.
 

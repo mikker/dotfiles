@@ -7,22 +7,18 @@ document.addEventListener("keydown", (event) => {
   if (event.ctrlKey && event.key === "r") rebase();
 });
 
-async function rebase() {
-  const button = q('[data-testid="mergebox-border-container"] button');
-  console.log(button.innerText);
-
-  if (button.innerText !== "Squash and merge") {
-    //   q('[aria-label="Select merge method"]').click();
-    //   await sleep(250);
-    //
-    //   q('.js-merge-method-menu button[value="squash"]').click();
-    //   await sleep(250);
+function findButton(text) {
+  for (let elm of Array.from(document.querySelectorAll("button"))) {
+   if (elm.innerText === text) return elm
   }
 
-  button.click();
-  await sleep(100);
+  throw new Error(`Button "${text}" not found`)
+}
 
-  q('[data-testid="mergebox-border-container"] button').click();
+async function rebase() {
+  findButton("Squash and merge").click()
+  await sleep(300)
+  findButton("Confirm squash and merge").click()
 }
 
 function sleep(delay) {
@@ -31,6 +27,3 @@ function sleep(delay) {
   });
 }
 
-function q(selector) {
-  return document.querySelector(selector);
-}

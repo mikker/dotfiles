@@ -116,9 +116,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mikker/semantic-review.git",
       "skillPath": "skills/semantic-review/SKILL.md",
-      "skillFolderHash": "7011e0b68d0adb6cd0852c0aff75dd21e8ccd062",
+      "skillFolderHash": "25c4e30696e8fd40ba4ced380cd34ceec423aece",
       "installedAt": "2026-07-29T10:32:37.939Z",
-      "updatedAt": "2026-08-11T07:38:41.830Z"
+      "updatedAt": "2026-09-14T10:05:32.933Z"
     },
     "connect-recommend": {
       "source": "docs.stripe.com",
@@ -146,9 +146,9 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-docs/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://docs.stripe.com",
-      "wellKnownDigest": "sha256:a2d407ba808bce05731557fa7b92022376545e363a8958012253a3b82def71a6",
+      "wellKnownDigest": "sha256:354fb04e9c979223bfecabc994fff41c8da5b5ea155684f1b4ade3a6fed07bac",
       "installedAt": "2026-08-11T07:39:05.802Z",
-      "updatedAt": "2026-08-11T07:51:56.962Z"
+      "updatedAt": "2026-09-14T10:05:25.396Z"
     },
     "sentry-cli": {
       "source": "cli.sentry.dev",
@@ -156,9 +156,9 @@
       "sourceUrl": "https://cli.sentry.dev/.well-known/skills/sentry-cli/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://cli.sentry.dev",
-      "wellKnownDigest": "sha256:f0e5c3fdf1cfe71cefcdff90fd9bc5ab37e0a5f92692ee8579bfbfac275100a0",
+      "wellKnownDigest": "sha256:4dfbed84492c278cc6ee0919e82af19c69632a11b615eb3c3da02cdb436bd2d8",
       "installedAt": "2026-08-11T07:51:24.564Z",
-      "updatedAt": "2026-09-07T11:38:35.723Z"
+      "updatedAt": "2026-09-14T10:05:28.604Z"
     },
     "stripe-best-practices": {
       "source": "docs.stripe.com",
@@ -166,9 +166,9 @@
       "sourceUrl": "https://docs.stripe.com/.well-known/skills/stripe-best-practices/SKILL.md",
       "skillFolderHash": "",
       "sourceBaseUrl": "https://docs.stripe.com",
-      "wellKnownDigest": "sha256:3401074add1930c1c00f1e299a48b87e881ea4bd9fc22045d09266130da133a2",
+      "wellKnownDigest": "sha256:cb228ffe3c6500f6f9cd5d9e61cc51bcafe87caafe4fcc156f616576fcbf3bb5",
       "installedAt": "2026-08-11T07:51:56.962Z",
-      "updatedAt": "2026-09-07T11:38:34.161Z"
+      "updatedAt": "2026-09-14T10:05:27.086Z"
     }
   },
   "dismissed": {

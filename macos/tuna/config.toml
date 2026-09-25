@@ -80,6 +80,24 @@ folderDepthOverrides = []
 searchPriorities = []
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'chrome.bookmarks'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'chrome.profiles'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'chrome.utilities'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'music.albums'
 
         [catalogs.globalScopes.scope]
@@ -128,6 +146,30 @@ searchPriorities = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'spotify.controls'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'spotify.devices'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'spotify.library'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'spotify.playlists'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.applications'
 
         [catalogs.globalScopes.scope]
@@ -158,10 +200,11 @@ searchPriorities = []
     catalogIdentifier = 'tuna.shortcuts'
 
         [catalogs.globalScopes.scope]
-        kind = 'none'
+        itemIDs = [ '4D669EF7-0296-4D09-91BB-2E42A0337FD1', '75FE4B57-6557-4CF4-93D9-97A6C3F4D395' ]
+        kind = 'only'
 
     [[catalogs.sortOrders]]
-    catalogIdentifier = 'tuna.emoji.search'
+    catalogIdentifier = 'tuna.emoji'
     sortOrder = 'score.desc'
 
 [[comboMode.bindings]]
@@ -1216,7 +1259,7 @@ label = 'System'
                 actionIdentifier = 'tuna.common-actions/run'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'tuna.system-tasks/Toggle Light/Dark Mode' ]
+                subjectIdentifiers = [ 'tuna.system-tasks/dark-mode' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1229,7 +1272,7 @@ label = 'System'
                 actionIdentifier = 'tuna.common-actions/run'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'tuna.system-tasks/Lock Screen' ]
+                subjectIdentifiers = [ 'tuna.system-tasks/lock-screen' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1242,7 +1285,7 @@ label = 'System'
                 actionIdentifier = 'tuna.common-actions/run'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'tuna.system-tasks/Sleep' ]
+                subjectIdentifiers = [ 'tuna.system-tasks/sleep' ]
                 type = 'savedCommand'
 
 [[comboMode.bindings]]
@@ -1458,7 +1501,7 @@ key = 'up'
 
                                                                         [[comboMode.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings]]
                                                                         key = 'a'
-                                                                        label = 'You found a secret!'
+                                                                        label = 'Run Confetti Rain'
 
                                                                             [comboMode.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination.bindings.destination]
                                                                             type = 'command'
@@ -1941,16 +1984,141 @@ label = 'Aerospace'
                 type = 'savedCommand'
 
 [[comboMode.bindings]]
-key = 'y'
+key = 'X'
 
     [comboMode.bindings.destination]
     type = 'command'
 
         [comboMode.bindings.destination.command]
-        actionIdentifier = 'tuna.common-actions/show-in-silly-type'
+        actionIdentifier = 'tuna.common-actions/open'
         behavior = 'run'
         presentation = 'automatic'
-        subjectIdentifiers = [ 'text:W' ]
+        subjectIdentifiers = [ 'tuna.applications.all//Users/mikker/Applications/Chromium Apps.localized/X.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'T'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/open'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'tuna.applications.all//Applications/Typefully.app' ]
+        type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'q'
+label = "\U0001D67C\U0001D674\U0001D683\U0001D670"
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'd'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'safari.utilities/Last Download' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'l'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.current-selection/Current Finder Location' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'f'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.current-selection/Current Finder Selection' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 's'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.current-selection/Current Selection' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'c'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.current-selection/Current Text Selection' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'o'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.current-selection/Current Document' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'v'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/resolve'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.current-selection/Current Clipboard' ]
+                type = 'savedCommand'
+
+[[comboMode.bindings]]
+key = 'y'
+label = 'Run mikker'
+
+    [comboMode.bindings.destination]
+    type = 'command'
+
+        [comboMode.bindings.destination.command]
+        actionIdentifier = 'tuna.common-actions/run'
+        behavior = 'run'
+        presentation = 'automatic'
+        subjectIdentifiers = [ 'chrome.profiles/6:chrome7:Default' ]
         type = 'savedCommand'
 
 [hotkeys.app.activate]
@@ -2051,6 +2219,7 @@ comboModeCheatsheetShowDetails = false
 comboModeDoublePressTrigger = 'rightOption'
 comboModeModifierTrigger = 'hyper'
 dictationActivationMode = 'hybrid'
+dictationWindowBecomesKey = true
 holdToExecuteEnabled = true
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'

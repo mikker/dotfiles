@@ -77,14 +77,29 @@ main_checkout=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/nul
 main_checkout=$(dirname "$main_checkout")
 main_checkout=$(cd "$main_checkout" && pwd -P)
 
+parent_workspace_id=
+if [ -n "${FUT_SOCKET:-}" ] && [ -n "${FUT_TERMINAL_ID:-}" ]; then
+    context_json=$(fut --json context) \
+        || die "could not resolve the live caller workspace from Fut context"
+    parent_workspace_id=$(printf '%s' "$context_json" | jq -er '.result.workspace_id') \
+        || die "Fut context did not contain a caller workspace ID"
+fi
+
 create_output=$(cd "$main_checkout" && wt create "$worktree_name") \
     || die "wt could not create worktree $worktree_name"
 worktree_path=$(printf '%s\n' "$create_output" | tail -n 1)
 [ -d "$worktree_path" ] || die "wt reported an invalid worktree path: $worktree_path"
 worktree_path=$(cd "$worktree_path" && pwd -P)
 
-if ! open_json=$(cd "$main_checkout" && fut --json open --background --name "$workspace_name" "$worktree_path" -- pi --name "$workspace_name"); then
-    die "Fut could not create a workspace; worktree retained at $worktree_path"
+if [ -n "$parent_workspace_id" ]; then
+    open_json=$(cd "$main_checkout" && fut --json open --background \
+        --name "$workspace_name" --parent-workspace "$parent_workspace_id" \
+        "$worktree_path" -- pi --name "$workspace_name") \
+        || die "Fut could not create a child workspace; worktree retained at $worktree_path"
+else
+    open_json=$(cd "$main_checkout" && fut --json open --background \
+        --name "$workspace_name" "$worktree_path" -- pi --name "$workspace_name") \
+        || die "Fut could not create a workspace; worktree retained at $worktree_path"
 fi
 
 disposition=$(printf '%s' "$open_json" | jq -er '.result.disposition') \

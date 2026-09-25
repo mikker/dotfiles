@@ -1,14 +1,21 @@
+#:schema https://fut.sh/schemas/config.json
+
 extensions = [
   "~/dev/fut/extensions/wt",
   "~/dev/fut/extensions/run",
   "~/dev/fut/extensions/ghostty-title",
 ]
 
+projects_dir = "~/dev"
+
 [projects.tuna]
 path = "~/dev/Tuna"
 
 [projects.dotfiles]
 path = "~/.dotfiles"
+
+[projects.10er]
+path = "~/dev/10er"
 
 [projects.mm]
 path = "~/dev/mikkelmalmberg-rails"

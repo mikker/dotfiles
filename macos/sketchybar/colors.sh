@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 export TRANSPARENT=0x00000000
-export BAR_COLOR=$TRANSPARENT
 
 # Appearance palettes. The original colors are the dark palette; the light
 # palette keeps the same roles with darker, higher-contrast counterparts.
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  export BAR_COLOR=0xff000000
   export RED=0xfffda7a6
   export GREEN=0xffa6da95
   export BLUE=0xff1e66f5
@@ -17,6 +17,7 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   export ITEM_BG_COLOR=0x22ffffff
   export ACCENT_TRANSPARENT=0x44ffffff
 else
+  export BAR_COLOR=0xffffffff
   export RED=0xffd20f39
   export GREEN=0xff287a3e
   export BLUE=0xff1e66f5
