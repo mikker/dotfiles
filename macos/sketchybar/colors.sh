@@ -16,6 +16,8 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   export TEXT_MUTED=0xffcad3f5
   export ITEM_BG_COLOR=0x22ffffff
   export ACCENT_TRANSPARENT=0x44ffffff
+  export DOING_BG_COLOR=0xff403927
+  export DOING_LABEL_COLOR=0xfff3e5b5
 else
   export BAR_COLOR=0xffffffff
   export RED=0xffd20f39
@@ -28,6 +30,8 @@ else
   export TEXT_MUTED=0xff666666
   export ITEM_BG_COLOR=0x1f000000
   export ACCENT_TRANSPARENT=0x26000000
+  export DOING_BG_COLOR=0xfff3e5b5
+  export DOING_LABEL_COLOR=0xff403927
 fi
 
 # Semantic roles shared by SketchyBar and borders.
@@ -38,11 +42,15 @@ export DEFAULT_LABEL_COLOR=$TEXT_PRIMARY
 
 export SPACE_ACTIVE_COLOR=$ACCENT
 export SPACE_ACTIVE_BG_COLOR=$ACCENT_TRANSPARENT
+export SPACE_SWITCHING_BORDER_COLOR=0x80${SPACE_ACTIVE_COLOR#0xff}
 export SPACE_HIGHLIGHT_COLOR=$ACCENT
 export SPACE_INACTIVE_COLOR=$TEXT_MUTED
 
 export FRONT_APP_LAYOUT_ICON_COLOR=$BLUE
 export FRONT_APP_LAYOUT_BG_COLOR=$ITEM_BG_COLOR
+
+export DINKY_MODE_LABEL_COLOR=$ORANGE
+export DINKY_MODE_BG_COLOR=$ITEM_BG_COLOR
 
 export CLOCK_COLOR=$TEXT_MUTED
 

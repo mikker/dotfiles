@@ -9,6 +9,8 @@ tags: drive, prefetch, performance, navigation
 
 Turbo Drive prefetches links on hover (`mouseenter`) by default, making subsequent page loads feel instant. This eliminates the network round-trip delay users would otherwise experience after clicking. Disable prefetching selectively on expensive endpoints (dashboards, reports) to avoid unnecessary server load.
 
+Keep this default rather than requiring every link to opt in. Opt out when measured rendering cost or correctness warrants it. Hover requests are speculative: GET endpoints must not perform business mutations, and analytics should distinguish prefetches (the `X-Sec-Purpose: prefetch` request header) from actual visits. Site-wide disabling is an exception for a demonstrated site-wide problem, not the starting point.
+
 **Incorrect (no prefetch awareness, slow navigation):**
 
 ```erb

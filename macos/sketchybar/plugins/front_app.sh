@@ -6,7 +6,7 @@
 # https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
 
 get_layout_icon() {
-  LAYOUT=$(aerospace list-windows --focused --format '%{window-layout}' 2>/dev/null)
+  LAYOUT=$($HOME/.local/bin/dinky list-windows --focused --format '%{window-layout}' 2>/dev/null)
 
   if [ -n "$LAYOUT" ]; then
     case "$LAYOUT" in

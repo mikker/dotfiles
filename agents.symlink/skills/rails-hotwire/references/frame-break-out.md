@@ -1,20 +1,20 @@
 ---
 title: Handle Frame Breakout for Redirects
 impact: HIGH
-impactDescription: prevents silent failures on auth redirects
+impactDescription: prevents content-missing failures on auth redirects
 tags: frame, breakout, redirect, authentication
 ---
 
 ## Handle Frame Breakout for Redirects
 
-When a Turbo Frame request receives a response that does not contain a matching `<turbo-frame>` element, Turbo silently renders nothing -- the frame goes blank. This commonly happens when an authenticated frame request gets redirected to a login page, or when a frame action redirects to an unrelated page. Use `target="_top"` on the frame or add a `turbo-visit-control` meta tag on redirect target pages to force a full-page visit.
+When a Turbo Frame request receives a response that does not contain a matching `<turbo-frame>` element, Turbo emits `turbo:frame-missing`; by default it displays “Content missing” and throws an exception. This commonly happens when an authenticated frame request gets redirected to a login page, or when a frame action redirects to an unrelated page. Add a `turbo-visit-control` meta tag on pages that must always break out of frames. Use `target="_top"` only when links and forms in the frame should normally navigate the whole page; it does not repair a missing frame in a `src` response.
 
-**Incorrect (login redirect silently failing inside a frame):**
+**Incorrect (login redirect producing content missing inside a frame):**
 
 ```erb
 <%# app/views/projects/show.html.erb %>
 <%# When session expires, this frame request redirects to /login
-    but the login page has no matching frame — user sees blank space %>
+    but the login page has no matching frame — user sees Content missing %>
 <%= turbo_frame_tag "project_comments",
     src: project_comments_path(@project) do %>
   <p>Loading comments...</p>
@@ -74,7 +74,8 @@ end
 ```
 
 ```erb
-<%# Alternative: use target="_top" on the frame itself %>
+<%# Whole-page navigation for links and forms inside this frame %>
+<%# The src response must still contain the matching frame %>
 <%= turbo_frame_tag "project_comments",
     src: project_comments_path(@project),
     target: "_top" do %>
@@ -82,18 +83,6 @@ end
 <% end %>
 ```
 
-**Caveat:** `turbo-visit-control="reload"` causes two GET requests — the first is the frame fetch that discovers the meta tag, and the second is the full-page reload Turbo triggers. Flash messages set during the redirect are consumed by the first request and lost before the second. If flash preservation matters, prefer handling the redirect in the controller with `turbo_frame_request?`:
+**Caveat:** `turbo-visit-control="reload"` causes two GET requests — the first is the frame fetch that discovers the meta tag, and the second is the full-page reload Turbo triggers. Flash messages set during the redirect can be consumed by the first request. If flash preservation matters, keep the needed flash in the redirect target's controller when `turbo_frame_request?` is true, and test the complete navigation. Turbo has no built-in `redirect` stream action; do not emit one unless the application explicitly registers it.
 
-```ruby
-# app/controllers/application_controller.rb
-def authenticate_user!
-  unless current_user
-    if turbo_frame_request?
-      # Respond with a full-page redirect instead of rendering inside the frame
-      render turbo_stream: turbo_stream.action(:redirect, login_path)
-    else
-      redirect_to login_path
-    end
-  end
-end
-```
+For other missing-frame responses, intercept `turbo:frame-missing`, report the response URL/status and expected frame ID to the application's error tracker, and provide a fallback or appropriate full-page visit. Recovery is not a substitute for fixing a missing wrapper in a normal response. See [`drive-error-recovery`](drive-error-recovery.md).

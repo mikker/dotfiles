@@ -3,13 +3,11 @@
 /**
  * `apply_patch` tool definition for Codex / GPT-style models.
  *
- * GPT coding models were post-trained on a freeform text-patch interface (the
- * V4A format) rather than JSON `old_string/new_string` tools. This tool takes a
- * single `input` string containing a raw V4A patch, parses it, and applies it.
+ * This JSON-schema tool takes an object with a single `input` string containing
+ * a V4A patch, parses it, and applies it. It is not a freeform tool declaration.
  *
  * Adapted from openai/codex `codex-rs/tools/src/apply_patch_tool.rs`
- * (`APPLY_PATCH_JSON_TOOL_DESCRIPTION`) and the `tool_apply_patch.lark`
- * grammar.
+ * (`APPLY_PATCH_JSON_TOOL_DESCRIPTION`).
  */
 
 import {
@@ -17,7 +15,7 @@ import {
   type ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
 
-import { applyHunks } from "./apply";
+import { ApplyPatchError, applyHunks } from "./apply";
 import { ApplyPatchParseError, parsePatch } from "./parser";
 import {
   type ApplyPatchRenderState,
@@ -26,7 +24,7 @@ import {
 } from "./render";
 import { APPLY_PATCH_SCHEMA, type ApplyPatchResult } from "./types";
 
-const APPLY_PATCH_DESCRIPTION = `Apply a file patch in the V4A format. Use this tool to create, update, delete, or rename files. The entire patch is passed as a single raw text string in the \`input\` field -- do NOT wrap it in JSON, do NOT use line numbers.
+const APPLY_PATCH_DESCRIPTION = `Apply a file patch in the V4A format. Use this tool to create, update, delete, or rename files. Pass a JSON object with the entire patch as the string value of \`input\`. Do not JSON-encode the patch itself or use line numbers.
 
 The patch is an envelope of file operations:
 
@@ -82,10 +80,10 @@ Rules:
 
 const APPLY_PATCH_GUIDELINES = [
   "apply_patch: Use for any file edit, creation, deletion, or rename on GPT/Codex models. It is the in-distribution editing interface for this model family.",
-  "apply_patch: Pass the whole patch as a single raw text string in `input`. Do not wrap it in JSON and do not use line numbers.",
+  "apply_patch: Pass a JSON object with the whole patch as the string value of `input`. Do not JSON-encode the patch itself or use line numbers.",
   "apply_patch: Show 3 lines of context around each change and use @@ with the enclosing class/function name when context alone cannot uniquely locate the change.",
   "apply_patch: Each hunk must be one contiguous block of lines from the file. Do not split an expression, object literal, or block across hunks; include the whole construct in one hunk.",
-  "apply_patch: Do not re-read files after calling apply_patch. The tool result will report success or failure, and on failure it will include any partial changes that were already applied.",
+  "apply_patch: Results report success or failure and any completed partial changes. Re-read affected files before retrying a failed patch; changes are not rolled back.",
 ];
 
 export interface ApplyPatchDetails {
@@ -121,29 +119,39 @@ export function createApplyPatchToolDefinition(
     promptGuidelines: APPLY_PATCH_GUIDELINES,
     parameters: APPLY_PATCH_SCHEMA,
     renderShell: "default",
-    async execute(_toolCallId, params, _signal, onUpdate, ctx) {
+    async execute(_toolCallId, params, signal, onUpdate, ctx) {
       const workdir = ctx?.cwd ?? cwd;
-      const { hunks } = parsePatch(params.input);
-      // Stream a partial result per committed hunk so the UI renders files as
-      // they are edited/created, instead of only after the whole patch lands.
-      const result = await applyHunks(hunks, workdir, (partial) => {
-        onUpdate?.({
-          content: [],
-          details: buildApplyPatchDetails(params.input, partial),
-        });
-      });
-      const details = buildApplyPatchDetails(params.input, result);
-      return {
-        content: [
-          {
-            type: "text",
-            text:
-              "Success. Updated the following files:\n" +
-              result.summary.join("\n"),
-          },
-        ],
-        details,
-      };
+      try {
+        const { hunks } = parsePatch(params.input);
+        // Stream a partial result per committed hunk so the UI renders files as
+        // they are edited/created, instead of only after the whole patch lands.
+        const result = await applyHunks(hunks, workdir, (partial) => {
+          onUpdate?.({
+            content: [],
+            details: buildApplyPatchDetails(params.input, partial),
+          });
+        }, signal);
+        const details = buildApplyPatchDetails(params.input, result);
+        return {
+          content: [
+            {
+              type: "text",
+              text:
+                "Success. Updated the following files:\n" +
+                result.summary.join("\n"),
+            },
+          ],
+          details,
+        };
+      } catch (error) {
+        return {
+          isError: true,
+          content: [{ type: "text", text: error instanceof Error ? error.message : String(error) }],
+          details: buildApplyPatchDetails(params.input, error instanceof ApplyPatchError
+            ? error.partial
+            : { affected: { added: [], modified: [], deleted: [], overwritten: [] }, summary: [], fileChanges: [] }),
+        };
+      }
     },
     renderCall: renderApplyPatchCall,
     renderResult: renderApplyPatchResult,

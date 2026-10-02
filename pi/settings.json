@@ -1,9 +1,8 @@
 {
-  "lastChangelogVersion": "0.87.1",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-6-sol",
+  "lastChangelogVersion": "1.0.0",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-6.1-sol",
   "defaultThinkingLevel": "medium",
-  "theme": "zenbones-ansi",
   "quietStartup": true,
   "collapseChangelog": true,
   "hideThinkingBlock": true,
@@ -14,18 +13,25 @@
   "transport": "auto",
   "packages": [
     {
-      "source": "git:github.com/davis7dotsh/my-pi-setup",
+      "source": "~/.pi/agent/git/github.com/davis7dotsh/my-pi-setup",
       "extensions": [
         "!extensions/summaries/index.ts"
       ],
       "themes": []
     },
-    "~/.dotfiles/pi",
-    "../../dev/fut"
+    {
+      "source": "~/.dotfiles/pi",
+      "extensions": [
+        "!extensions/prompt-box.ts"
+      ]
+    },
+    {
+      "source": "../../dev/fut",
+      "skills": []
+    }
   ],
   "skills": [
-    "!skills/xcode-skills/**",
-    "!~/dev/fut/skills/**"
+    "!skills/xcode-skills/**"
   ],
   "enableSkillCommands": true,
   "terminal": {
@@ -36,9 +42,11 @@
   },
   "enabledModels": [
     "openrouter/z-ai/glm-5.3",
-    "openai-codex/gpt-6-sol",
-    "openai-codex/gpt-6-astra",
-    "openai-codex/gpt-6-luna",
-    "openrouter/meta/muse-spark-1.3"
-  ]
+    "openrouter/meta/muse-spark-1.3",
+    "openai/gpt-6-astra",
+    "openai/gpt-6-luna",
+    "openai/gpt-6-sol",
+    "openai/gpt-6.1-sol"
+  ],
+  "deviceId": "a5203416-a850-436b-be2c-da1f5e8b7639"
 }

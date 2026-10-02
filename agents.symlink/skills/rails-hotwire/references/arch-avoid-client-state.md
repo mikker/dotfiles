@@ -9,6 +9,8 @@ tags: arch, state-management, turbo, server-rendering
 
 Hotwire's core principle is that the server renders HTML and Turbo delivers it to the browser. When Stimulus controllers start fetching JSON, building HTML client-side, or managing complex application state in JavaScript values, you recreate the synchronization problems that Hotwire was designed to eliminate. Server-rendered HTML delivered via Frames or Streams is the single source of truth, and Stimulus should only manage ephemeral UI state like open/closed toggles.
 
+Presentation-only personalization also belongs in the browser when useful: formatting server-provided timestamps or labeling an already-visible participant as “you” does not move business state to the client. Keep validation, persistence, permissions, and authoritative calculations on the server. In particular, hiding shared broadcast content client-side is never an authorization boundary.
+
 **Incorrect (Stimulus controller fetching JSON API and rendering HTML client-side):**
 
 ```js

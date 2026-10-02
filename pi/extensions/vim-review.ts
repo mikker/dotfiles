@@ -1,5 +1,5 @@
 // Archived in favor of the shared Pi setup.
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -197,22 +197,42 @@ export default function vimReviewExtension(pi: ExtensionAPI) {
         writeFileSync(file, BUFFER_INSTRUCTIONS + built.body + "\n", "utf8");
 
         ctx.ui.notify(`Opening vim for diff against ${built.base} (:wq submits, :cq cancels)`, "info");
-        const vim = spawnSync(
-          process.env.VISUAL || process.env.EDITOR || "vim",
-          [
-            "-c",
-            "setlocal filetype=diff number cursorline signcolumn=no nowrap foldmethod=syntax",
-            "-c",
-            "normal! gg",
-            file,
-          ],
-          { cwd, stdio: "inherit" },
+        const editor = process.env.VISUAL || process.env.EDITOR || "vim";
+        const vim = await ctx.ui.custom<{ code: number | null; signal: NodeJS.Signals | null }>(
+          async (tui, _theme, _kb, done) => {
+            let result: { code: number | null; signal: NodeJS.Signals | null };
+            try {
+              tui.stop();
+              result = await new Promise<{ code: number | null; signal: NodeJS.Signals | null }>(
+                (resolve, reject) => {
+                  // Interpret the trusted editor setting as a command, but pass our
+                  // arguments separately so quotes and spaces cannot change them.
+                  const child = spawn("/bin/sh", [
+                    "-c", `exec ${editor} "$@"`, "vim-review",
+                    "-c",
+                    "setlocal filetype=diff number cursorline signcolumn=no nowrap foldmethod=syntax",
+                    "-c", "normal! gg", file,
+                  ], { cwd, stdio: "inherit" });
+                  child.once("error", reject);
+                  child.once("close", (code, signal) => resolve({ code, signal }));
+                },
+              );
+            } finally {
+              tui.start();
+              tui.requestRender(true);
+            }
+            done(result);
+            return { render: () => [], invalidate: () => {} };
+          },
         );
 
-        if (vim.status !== 0) {
+        if (vim.signal) throw new Error(`Editor terminated by ${vim.signal}`);
+        // Vim's :cq uses exit code 1; other failures are not cancellations.
+        if (vim.code === 1) {
           ctx.ui.notify("vim-review cancelled", "info");
           return;
         }
+        if (vim.code !== 0) throw new Error(`Editor exited with code ${vim.code ?? "unknown"}`);
 
         const annotated = readFileSync(file, "utf8").trimEnd();
         const reviewed = stripUncommentedHunks(built.body, annotated);
@@ -223,6 +243,8 @@ export default function vimReviewExtension(pi: ExtensionAPI) {
 
         ctx.ui.setEditorText(PROMPT_PREFIX + reviewed);
         ctx.ui.notify("Commented diff hunks loaded into prompt. Press Enter to send.", "info");
+      } catch (error) {
+        ctx.ui.notify(`vim-review failed: ${error instanceof Error ? error.message : String(error)}`, "error");
       } finally {
         rmSync(dir, { recursive: true, force: true });
       }

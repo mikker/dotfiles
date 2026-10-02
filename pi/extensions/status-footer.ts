@@ -28,7 +28,6 @@ type ModelInfo = {
   thinking: string;
   contextWindow: number;
   contextPercent: number | null;
-  cost: number;
   tokensPerSecond: number | null;
 };
 
@@ -47,7 +46,6 @@ const emptyModelInfo = (): ModelInfo => ({
   thinking: "off",
   contextWindow: 0,
   contextPercent: null,
-  cost: 0,
   tokensPerSecond: null,
 });
 
@@ -71,7 +69,6 @@ function isModelInfo(value: unknown): value is ModelInfo {
     typeof value.contextWindow === "number" &&
     (value.contextPercent === null ||
       typeof value.contextPercent === "number") &&
-    typeof value.cost === "number" &&
     (value.tokensPerSecond === null ||
       typeof value.tokensPerSecond === "number")
   );
@@ -241,7 +238,7 @@ export default function statusFooter(pi: ExtensionAPI) {
             model.tokensPerSecond === null
               ? "— tok/s"
               : `${Math.round(model.tokensPerSecond)} tok/s`;
-          const usage = `${contextPercent}%/${contextWindow} · $${model.cost.toFixed(2)} · ${speed}`;
+          const usage = `${contextPercent}%/${contextWindow} · ${speed}`;
 
           let gitLabel = git.branch
             ? `${sanitizeLabel(git.branch)} · ${formatGitStatus(theme, git, diff)}`

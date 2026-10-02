@@ -81,7 +81,7 @@ parent_workspace_id=
 if [ -n "${FUT_SOCKET:-}" ] && [ -n "${FUT_TERMINAL_ID:-}" ]; then
     context_json=$(fut --json context) \
         || die "could not resolve the live caller workspace from Fut context"
-    parent_workspace_id=$(printf '%s' "$context_json" | jq -er '.result.workspace_id') \
+    parent_workspace_id=$(printf '%s' "$context_json" | jq -er '.result.workspace_id // .result.target.workspace.id') \
         || die "Fut context did not contain a caller workspace ID"
 fi
 

@@ -22,8 +22,9 @@
  * already modified so the model can re-read them instead of double-applying.
  */
 
-import { mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { mkdir, readFile, realpath, rm, stat, writeFile } from "node:fs/promises";
+import { dirname, isAbsolute, resolve, win32 } from "node:path";
+import { withFileMutationQueue } from "@earendil-works/pi-coding-agent";
 
 import { seekSequence } from "./seek";
 import type {
@@ -34,135 +35,163 @@ import type {
   UpdateFileChunk,
 } from "./types";
 
+export class ApplyPatchError extends Error {
+  constructor(message: string, readonly partial: ApplyPatchResult) {
+    super(message);
+    this.name = "ApplyPatchError";
+  }
+}
+
 export async function applyHunks(
   hunks: Hunk[],
   cwd: string,
   onProgress?: (partial: ApplyPatchResult) => void,
+  signal?: AbortSignal,
 ): Promise<ApplyPatchResult> {
-  if (hunks.length === 0) {
-    throw new Error("No files were modified.");
-  }
-
   const added: string[] = [];
   const modified: string[] = [];
   const deleted: string[] = [];
   const overwritten: string[] = [];
   const fileChanges: FileChange[] = [];
-  // Paths already committed to disk before the current hunk. If a later hunk
-  // fails, these are the files whose contents changed before the error, so the
-  // caller (and the model) can tell the patch was partially applied rather
-  // than rolled back. V4A apply is best-effort: committed hunks stay on disk.
-  const appliedBefore: string[] = [];
-
-  for (const hunk of hunks) {
-    const affectedPath = hunkPath(hunk);
-    try {
-      if (hunk.type === "add") {
-        const abs = resolve(cwd, hunk.path);
-        const exists = await pathExists(abs);
-        const before = exists ? await readFileText(abs) : "";
-        if (exists) overwritten.push(affectedPath);
-        await writeFileWithDirs(abs, hunk.contents);
-        added.push(affectedPath);
-        fileChanges.push({ path: affectedPath, before, after: hunk.contents });
-      } else if (hunk.type === "delete") {
-        const abs = resolve(cwd, hunk.path);
-        await ensureNotDirectory(abs);
-        const before = await readFileText(abs);
-        await rm(abs, { force: false });
-        deleted.push(affectedPath);
-        fileChanges.push({ path: affectedPath, before, after: "" });
-      } else {
-        const abs = resolve(cwd, hunk.path);
-        const original = await readFileText(abs);
-        const next = deriveNewContents(original, hunk.chunks, abs);
-        if (hunk.movePath) {
-          const dest = resolve(cwd, hunk.movePath);
-          // Issue A: a Move to the same path writes the new content then
-          // removes it (dest === abs), silently deleting the file. Reject
-          // before any write so no data is lost. Use Update File without a
-          // Move to edit in place.
-          if (dest === abs) {
-            throw new Error(
-              `Move to: '${hunk.movePath}' is the same as the source path '${hunk.path}'. This would delete the file. Use Update File without a Move to instead.`,
-            );
-          }
-          const destExists = await pathExists(dest);
-          const destBefore = destExists ? await readFileText(dest) : "";
-          if (destExists) {
-            overwritten.push(hunk.movePath);
-          }
-          await writeFileWithDirs(dest, next);
-          await ensureNotDirectory(abs);
-          await rm(abs, { force: false });
-          fileChanges.push({ path: hunk.path, before: original, after: "" });
-          fileChanges.push({
-            path: hunk.movePath,
-            before: destBefore,
-            after: next,
-          });
-        } else {
-          await writeFileWithDirs(abs, next);
-          fileChanges.push({
-            path: affectedPath,
-            before: original,
-            after: next,
-          });
-        }
-        modified.push(affectedPath);
-      }
-    } catch (error) {
-      // Issue E: earlier hunks are already on disk; surface them so the model
-      // knows the patch was partially applied and does not blindly retry the
-      // whole patch (which would double-apply the committed hunks).
-      if (appliedBefore.length > 0) {
-        const list = appliedBefore.join(", ");
-        const msg = error instanceof Error ? error.message : String(error);
-        throw new Error(
-          `${msg}\nFiles already modified before this error: ${list}. The patch was partially applied; re-reading those files before retrying.`,
-        );
-      }
-      throw error;
-    }
-    appliedBefore.push(affectedPath);
-    // Stream a partial result after each committed hunk so the UI can render
-    // files as they are edited/created instead of waiting for the full patch.
-    // Snapshot the accumulated arrays: they keep mutating as later hunks run,
-    // and a consumer may hold a partial past the next tick.
-    onProgress?.({
-      affected: {
-        added: [...added],
-        modified: [...modified],
-        deleted: [...deleted],
-        overwritten: [...overwritten],
-      },
-      summary: formatSummary({ added, modified, deleted, overwritten }),
-      fileChanges: [...fileChanges],
-    });
-  }
-
-  const affected: AffectedPaths = { added, modified, deleted, overwritten };
-  return {
-    affected,
-    summary: formatSummary(affected),
-    fileChanges,
+  const snapshot = (): ApplyPatchResult => ({
+    affected: {
+      added: [...added], modified: [...modified],
+      deleted: [...deleted], overwritten: [...overwritten],
+    },
+    summary: formatSummary({ added, modified, deleted, overwritten }),
+    fileChanges: [...fileChanges],
+  });
+  const checkAbort = () => {
+    if (signal?.aborted) throw new Error("Operation aborted");
   };
+
+  try {
+    checkAbort();
+    if (hunks.length === 0) throw new Error("No files were modified.");
+    // Validate the entire patch before making any changes, including moves.
+    for (const hunk of hunks) {
+      validateRelativePath(hunk.path);
+      if (hunk.type === "update" && hunk.movePath !== undefined) {
+        validateRelativePath(hunk.movePath);
+      }
+    }
+    for (const hunk of hunks) {
+      checkAbort();
+      const abs = resolve(cwd, hunk.path);
+      const dest = hunk.type === "update" && hunk.movePath !== undefined
+        ? resolve(cwd, hunk.movePath) : undefined;
+      await withMutationPaths(dest ? [abs, dest] : [abs], async (keys) => {
+        checkAbort();
+        if (dest && keys.length === 1) {
+          throw new Error(`Move to: '${hunk.type === "update" ? hunk.movePath : ""}' is the same as the source path '${hunk.path}'. Use Update File without a Move to instead.`);
+        }
+        if (hunk.type === "add") {
+          const exists = await pathExists(abs);
+          checkAbort();
+          const before = exists ? await readFileText(abs) : "";
+          checkAbort();
+          await writeFileWithDirs(abs, hunk.contents, checkAbort);
+          if (exists) overwritten.push(hunk.path);
+          added.push(hunk.path);
+          fileChanges.push({ path: hunk.path, before, after: hunk.contents });
+        } else if (hunk.type === "delete") {
+          await ensureNotDirectory(abs);
+          checkAbort();
+          const before = await readFileText(abs);
+          checkAbort();
+          await rm(abs, { force: false });
+          deleted.push(hunk.path);
+          fileChanges.push({ path: hunk.path, before, after: "" });
+        } else {
+          const original = await readFileText(abs);
+          checkAbort();
+          const next = deriveNewContents(original, hunk.chunks, abs);
+          if (dest && hunk.movePath !== undefined) {
+            const destExists = await pathExists(dest);
+            checkAbort();
+            const destBefore = destExists ? await readFileText(dest) : "";
+            checkAbort();
+            await writeFileWithDirs(dest, next, checkAbort);
+            if (destExists) {
+              overwritten.push(hunk.movePath);
+            }
+            modified.push(hunk.movePath);
+            fileChanges.push({
+              path: hunk.movePath,
+              before: destBefore,
+              after: next,
+            });
+            // Record the destination even if cancellation or source removal fails.
+            checkAbort();
+            await ensureNotDirectory(abs);
+            checkAbort();
+            await rm(abs, { force: false });
+            deleted.push(hunk.path);
+            fileChanges.push({ path: hunk.path, before: original, after: "" });
+          } else {
+            await writeFileWithDirs(abs, next, checkAbort);
+            modified.push(hunk.path);
+            fileChanges.push({
+              path: hunk.path,
+              before: original,
+              after: next,
+            });
+          }
+        }
+        // Never release a queue while filesystem work is still in flight.
+        // Completed mutations must be recorded before observing cancellation.
+        checkAbort();
+      });
+      onProgress?.(snapshot());
+    }
+    checkAbort();
+    return snapshot();
+  } catch (error) {
+    const partial = snapshot();
+    const message = error instanceof Error ? error.message : String(error);
+    const paths = [...new Set(fileChanges.map((change) => change.path))];
+    throw new ApplyPatchError(message + (paths.length
+      ? `\nFiles already modified before this error: ${paths.join(", ")}. The patch was partially applied; re-read those files before retrying.`
+      : ""), partial);
+  }
 }
 
-function hunkPath(hunk: Hunk): string {
-  if (hunk.type === "update" && hunk.movePath) return hunk.movePath;
-  return hunk.path;
+function validateRelativePath(path: string): void {
+  if (!path.trim() || isAbsolute(path) || win32.isAbsolute(path)) {
+    throw new Error(`File path must be relative to the working directory: '${path}'`);
+  }
+}
+
+async function withMutationPaths<T>(paths: string[], fn: (keys: string[]) => Promise<T>): Promise<T> {
+  // Pi queues one canonical path at a time. Deduplicate aliases and acquire
+  // canonical keys in sorted order so opposite moves cannot deadlock.
+  const keys = [...new Set(await Promise.all(paths.map(async (path) => {
+    try { return await realpath(path); }
+    catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code === "ENOENT" || code === "ENOTDIR") return resolve(path);
+      throw error;
+    }
+  })))].sort();
+  const lock = (index: number): Promise<T> => index === keys.length
+    ? fn(keys)
+    : withFileMutationQueue(keys[index]!, () => lock(index + 1));
+  return lock(0);
 }
 
 async function writeFileWithDirs(
   absPath: string,
   content: string,
+  checkAbort: () => void,
 ): Promise<void> {
+  checkAbort();
   try {
     await writeFile(absPath, content, "utf8");
   } catch (error) {
+    checkAbort();
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
       await mkdir(dirname(absPath), { recursive: true });
+      checkAbort();
       await writeFile(absPath, content, "utf8");
       return;
     }
@@ -177,13 +206,14 @@ async function ensureNotDirectory(absPath: string): Promise<void> {
   }
 }
 
-/** True if `absPath` exists (file or directory). Swallows errors. */
+/** True if `absPath` exists (file or directory). */
 async function pathExists(absPath: string): Promise<boolean> {
   try {
     await stat(absPath);
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return false;
+    throw error;
   }
 }
 

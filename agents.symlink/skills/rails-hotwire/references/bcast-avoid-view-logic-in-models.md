@@ -9,6 +9,12 @@ tags: bcast, separation-of-concerns, architecture, callbacks
 
 When models contain inline partial rendering in `after_commit` callbacks, they become tightly coupled to the view layer. This makes testing harder (model tests need view fixtures), creates circular dependencies, and breaks when partials change. The declarative `broadcasts_refreshes` macro is acceptable because it only signals a refresh without rendering. For anything more complex, move broadcast logic to controllers or dedicated jobs where view context is appropriate.
 
+### Shared Payloads Must Be Request-Independent
+
+A broadcast payload is shared by its recipients; it is not rendered separately in each recipient's request context. Rendering from a controller does not make its `Current.user` appropriate for everyone, and a background job has no recipient request context. Use explicit locals and do not rely on request-bound helpers or `Current` attributes in shared broadcast partials.
+
+Refresh broadcasts avoid this problem by letting each recipient render their own authenticated page. When granular shared broadcasts are justified, render only content all authorized recipients may see. Small Stimulus behaviors can personalize presentation—formatting UTC timestamps in the browser's timezone, or changing an already-visible player name to “you” using an identifier supplied by the receiving page. Never use client personalization or hiding as authorization; sensitive content needs authorized audience scoping or separately rendered payloads.
+
 **Incorrect (after_create_commit with inline partial rendering in model):**
 
 ```ruby

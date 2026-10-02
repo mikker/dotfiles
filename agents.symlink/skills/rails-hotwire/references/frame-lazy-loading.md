@@ -9,6 +9,12 @@ tags: frame, lazy-loading, performance, viewport
 
 Turbo Frames with `loading: :lazy` defer their `src` request until the frame enters the viewport. On pages with multiple independent sections (comments, activity feeds, related items), eager-loading all frames fires parallel requests on page load, increasing time to interactive and wasting bandwidth for content users may never scroll to.
 
+### Avoid Request N+1
+
+Each `src` frame is a separate HTTP request. Do not turn every collection row into a remote frame merely to make the index endpoint look fast: 20 rows can mean 21 requests, repeated authentication/layout work, and repeated queries. Start by rendering ordinary collections in the initial response with eager-loaded associations; frames can still wrap that rendered HTML for scoped navigation without a `src` request.
+
+Use remote frames for genuinely independent or deferred content. Lazy loading defers requests; it does not guarantee less total work once the user scrolls. Compare total requests, queries, server time, and perceived latency for the whole visit before splitting content into more endpoints.
+
 **Incorrect (eager-loading all frames on page load):**
 
 ```erb

@@ -7,28 +7,29 @@ tags: drive, error-handling, resilience, events
 
 ## Handle Turbo Navigation and Fetch Errors Gracefully
 
-When Turbo Drive encounters a server error (500), network failure, or timeout, it either shows the raw error response or silently fails. When a Turbo Frame request fails, the frame goes blank with no feedback. Turbo emits events at each failure point (`turbo:fetch-request-error`, `turbo:frame-missing`, `turbo:frame-render`) that let you intercept errors and show meaningful feedback instead of leaving users staring at a broken page.
+Distinguish HTTP error responses, network failures, and missing-frame responses. `turbo:fetch-request-error` covers network errors in form/frame fetches, not ordinary HTTP 404/500 responses. A response without the expected frame emits `turbo:frame-missing`; by default Turbo displays “Content missing” and throws an exception. `turbo:frame-render` is a render lifecycle event, not an error event. Use the appropriate event to provide recovery without hiding actionable bugs.
 
-**Incorrect (no error handling — server errors show raw HTML or blank frames):**
+Report missing-frame response URLs/statuses and expected frame IDs to the application's error tracker before showing a fallback. A missing wrapper in a normal response is a bug to fix; expired sessions and unavailable records need intentional recovery. Keep known login breakout handling in [`frame-break-out`](frame-break-out.md).
+
+**Incorrect (no intentional recovery for failed frame requests):**
 
 ```erb
 <%# app/views/projects/show.html.erb %>
-<%# If this frame's endpoint returns 500, the frame goes blank silently %>
+<%# If this endpoint returns HTML without the frame, Turbo reports Content missing %>
 <%= turbo_frame_tag "project_comments",
     src: project_comments_path(@project),
     loading: :lazy do %>
   <p>Loading comments...</p>
 <% end %>
 
-<%# No error handling configured — a network failure during Drive navigation
-    shows a blank page or the browser's default error %>
+<%# No application-specific recovery or error reporting is configured %>
 ```
 
 **Correct (event listeners for error recovery and user feedback):**
 
 ```js
 // app/javascript/turbo_error_handler.js
-// Handle network errors during Turbo Drive navigation
+// Handle network errors in form/frame fetches
 document.addEventListener("turbo:fetch-request-error", (event) => {
   event.preventDefault()
   const message = navigator.onLine
@@ -41,6 +42,12 @@ document.addEventListener("turbo:fetch-request-error", (event) => {
 document.addEventListener("turbo:frame-missing", (event) => {
   event.preventDefault()
   const frame = event.target
+  // Wire this to the application's error tracker; do not silently swallow it.
+  console.error("Missing Turbo Frame", {
+    frameId: frame.id,
+    url: event.detail.response.url,
+    status: event.detail.response.status
+  })
   frame.innerHTML = `
     <div class="frame-error" role="alert">
       <p>This content could not be loaded.</p>

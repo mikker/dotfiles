@@ -1,0 +1,156 @@
+#:schema https://mikker.github.io/Dinky/schemas/dinky.json
+
+# ~/.config/dinky/dinky.toml. Saved changes take effect at once.
+# A key you leave out keeps its default.
+# Every key and command: https://mikker.github.io/Dinky/configuration/
+
+start-at-login = true
+workspaces = 5               # across all displays, one native Space each
+default-layout = 'accordion' # tiles | accordion
+follow-app-activation = true # Cmd-Tab and Dock clicks switch Spaces the fast way
+
+[accordion]
+padding = 30
+
+[animations]
+enabled = true
+duration-ms = 150
+
+[gaps]
+inner = 12
+outer = { top = 40, bottom = 8, left = 8, right = 8 }
+
+[display.built-in]
+gaps.outer.top = 10
+
+# Workspace 5 lives on the second display while it is connected, like AeroSpace's a1 on "secondary";
+# without it, 5 is a normal workspace on the laptop.
+[workspace-to-display]
+5 = 'secondary'
+
+[borders]
+enabled = true
+width = 4
+active-color = '#0055BCee'
+inactive-color = '#eeeeee55'
+exclude-apps = [
+  'com.brnbw.Leader-Key',
+  'pl.maketheweb.cleanshotx',
+  'com.brnbw.Tuna',
+]
+
+[focus-follows-mouse]
+enabled = false
+delay-ms = 50
+accordion-edges = true
+
+# SketchyBar: same event names as the AeroSpace setup, so the bar scripts keep working.
+[hooks]
+startup = ['exec-and-forget brew services restart sketchybar']
+workspace-changing = [
+  'exec-and-forget sketchybar --trigger dinky_workspace_changing DINKY_DISPLAY=$DINKY_DISPLAY DINKY_WORKSPACE=$DINKY_WORKSPACE',
+]
+workspace-changed = [
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$DINKY_WORKSPACE',
+]
+focus-changed = ['exec-and-forget sketchybar --trigger aerospace_mode_changed']
+mode-changed = [
+  'exec-and-forget sketchybar --trigger aerospace_mode_changed',
+  'exec-and-forget sketchybar --trigger dinky_mode_changed MODE=$DINKY_MODE',
+]
+
+[[rules]]
+app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[rules]]
+app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[rules]]
+app-id = 'com.brnbw.Tuna'
+run = 'layout floating'
+
+[[rules]]
+app-id = 'com.apple.Preview'
+run = 'layout floating'
+
+[[rules]]
+app-id = 'com.apple.QuickTimePlayerX'
+run = 'layout floating'
+
+[[rules]]
+app-id = 'com.sindresorhus.Plain-Text-Editor'
+run = 'layout floating'
+
+[[rules]]
+app-id = 'com.brnbw.Egomaxxing'
+run = 'layout floating'
+
+[mode.main]
+# override system, slow prev/next space
+ctrl-left = 'workspace prev'
+ctrl-right = 'workspace next'
+
+alt-shift-h = 'workspace prev'
+alt-shift-l = 'workspace next'
+# alt-1 = 'workspace 1'
+# alt-2 = 'workspace 2'
+# alt-3 = 'workspace 3'
+# alt-4 = 'workspace 4'
+# alt-5 = 'workspace 5'
+# alt-6 = 'workspace 6'
+# alt-7 = 'workspace 7'
+# alt-8 = 'workspace 8'
+# alt-9 = 'workspace 9'
+# alt-shift-1 = 'move-window-to-workspace 1'
+# alt-shift-2 = 'move-window-to-workspace 2'
+# alt-shift-3 = 'move-window-to-workspace 3'
+# alt-shift-4 = 'move-window-to-workspace 4'
+# alt-shift-5 = 'move-window-to-workspace 5'
+# alt-shift-6 = 'move-window-to-workspace 6'
+# alt-shift-7 = 'move-window-to-workspace 7'
+# alt-shift-8 = 'move-window-to-workspace 8'
+# alt-shift-9 = 'move-window-to-workspace 9'
+alt-tab = 'workspace-back-and-forth'
+# alt-left = 'focus left'
+# alt-down = 'focus down'
+# alt-up = 'focus up'
+# alt-right = 'focus right'
+alt-h = 'focus left --boundaries all-monitors-outer-frame'
+alt-j = 'focus down --boundaries-action wrap-around-the-workspace'
+alt-k = 'focus up --boundaries-action wrap-around-the-workspace'
+alt-l = 'focus right --boundaries all-monitors-outer-frame'
+cmd-alt-left = 'move left'
+cmd-alt-down = 'move down'
+cmd-alt-up = 'move up'
+cmd-alt-right = 'move right'
+cmd-alt-shift-left = 'join-with left'
+cmd-alt-shift-down = 'join-with down'
+cmd-alt-shift-up = 'join-with up'
+cmd-alt-shift-right = 'join-with right'
+# alt-minus = 'resize smart -50'
+# alt-equal = 'balance-sizes'
+# alt-f = 'fullscreen'
+# alt-shift-f = 'layout floating tiling'
+ctrl-alt-cmd-shift-t = 'layout accordion tiles'
+ctrl-alt-cmd-shift-f = 'layout floating tiles'
+# ctrl-alt-cmd-< = 'layout accordion'
+# ctrl-alt-cmd-> = 'layout tiles'
+# alt-shift-n = 'move-window-to-display next'
+# alt-shift-semicolon = 'mode service'
+
+# Entered with `dinky mode resize` (Tuna: w s).
+[mode.resize]
+minus = 'resize smart -50'
+shift-equal = 'balance-sizes'
+equal = 'balance-sizes'
+esc = 'mode main'
+ctrl-c = 'mode main'
+enter = 'mode main'
+
+# [workspace.3]
+# layout = 'fixed'
+# columns = 2
+# # rows = 1
+# expand = 'accordion'  # overflowing cells get added to last cell as accordion

@@ -1516,6 +1516,480 @@ key = 'up'
 [[comboMode.bindings]]
 iconPath = 'rectangle.grid.2x2'
 key = 'w'
+label = 'dinky'
+
+    [comboMode.bindings.destination]
+    type = 'group'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'c'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/open-url'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'url:raycast://extensions/raycast/window-management/center' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'e'
+        label = 'workspace 3'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 3' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'q'
+        label = 'workspace 1'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 1' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'r'
+        label = 'workspace 4'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 4' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'w'
+        label = 'workspace 2'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 2' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'f'
+        label = 'fullscreen'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky fullscreen' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'F'
+        label = 'flatten-workspace-tree'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky flatten-workspace-tree' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'j'
+        label = 'join-with'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'h'
+                label = 'left'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with left' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'j'
+                label = 'down'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with down' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'k'
+                label = 'up'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with up' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'l'
+                label = 'right'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with right' ]
+                        type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'l'
+        label = 'layout'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'a'
+                label = 'accordion'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout accordion horizontal vertical' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'f'
+                label = 'floating'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout floating tiling' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 't'
+                label = 'tiles'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout tiles' ]
+                        type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'm'
+        label = 'move'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'group'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'h'
+                label = 'left'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move left' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'j'
+                label = 'down'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move down' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'k'
+                label = 'up'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move up' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'l'
+                label = 'right'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move right' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'E'
+                label = 'move-window-to-workspace 3'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 3' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'Q'
+                label = 'move-window-to-workspace 1'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 1' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'R'
+                label = 'move-window-to-workspace 4'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 4' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'W'
+                label = 'move-window-to-workspace 2'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 2' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'e'
+                label = 'move-window-to-workspace 3 --follow'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 3 --follow' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'q'
+                label = 'move-window-to-workspace 1 --follow'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 1 --follow' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'r'
+                label = 'move-window-to-workspace 4 --follow'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 4 --follow' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'w'
+                label = 'move-window-to-workspace 2 --follow'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 2 --follow' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'T'
+                label = 'move-window-to-display next'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-display next' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 't'
+                label = 'move-window-to-display next --follow'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-display next --follow' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'H'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:text:/Users/mikker/.local/bin/dinky move-window-to-workspace prev' ]
+                        type = 'savedCommand'
+
+                [[comboMode.bindings.destination.bindings.destination.bindings]]
+                key = 'L'
+
+                    [comboMode.bindings.destination.bindings.destination.bindings.destination]
+                    type = 'command'
+
+                        [comboMode.bindings.destination.bindings.destination.bindings.destination.command]
+                        actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                        behavior = 'run'
+                        presentation = 'automatic'
+                        subjectIdentifiers = [ 'text:text:/Users/mikker/.local/bin/dinky move-window-to-workspace next' ]
+                        type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'R'
+        label = 'reload-config'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky reload-config' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 's'
+        label = 'mode resize'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky mode resize' ]
+                type = 'savedCommand'
+
+[[comboMode.bindings]]
+iconPath = 'rectangle.grid.2x2'
+key = 'W'
 label = 'Aerospace'
 
     [comboMode.bindings.destination]
@@ -2118,7 +2592,7 @@ label = 'Run mikker'
         actionIdentifier = 'tuna.common-actions/run'
         behavior = 'run'
         presentation = 'automatic'
-        subjectIdentifiers = [ 'chrome.profiles/6:chrome7:Default' ]
+        subjectIdentifiers = [ 'tuna.combo-groups/f' ]
         type = 'savedCommand'
 
 [hotkeys.app.activate]
@@ -2170,20 +2644,6 @@ id = '4685557B-B7CA-4B05-A1A4-07383833E0BF'
     carbonModifiers = 4352
 
 [[hotkeys.custom]]
-id = '65966102-7E4A-4C40-8719-87DF69A6F59C'
-
-    [hotkeys.custom.command]
-    actionIdentifier = 'tuna.common-actions/resolve'
-    behavior = 'run'
-    presentation = 'show'
-    subjectIdentifiers = [ 'tuna.current-selection/Current Selection' ]
-    type = 'savedCommand'
-
-    [hotkeys.custom.shortcut]
-    carbonKeyCode = 5
-    carbonModifiers = 6912
-
-[[hotkeys.custom]]
 id = 'BEAA276E-6DFD-4AE0-AF3A-77BABE5D785F'
 
     [hotkeys.custom.command]
@@ -2221,6 +2681,7 @@ comboModeModifierTrigger = 'hyper'
 dictationActivationMode = 'hybrid'
 dictationWindowBecomesKey = true
 holdToExecuteEnabled = true
+includeShiftInHyperKey = false
 physicalHyperKeySource = 'capsLock'
 screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true

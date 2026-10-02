@@ -3,10 +3,15 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
-for source_path in "$DOTFILES_ROOT/claude/settings.json"; do
-  dest="$HOME/.claude/${source_path#"$DOTFILES_ROOT/claude/"}"
+for skill_file in "$DOTFILES_ROOT"/agents.symlink/skills/*/SKILL.md \
+                  "$DOTFILES_ROOT"/agents.symlink/skills/*/*/SKILL.md; do
+  [[ -f "$skill_file" ]] || continue
 
-  if same_link "$dest" "$source_path"; then
+  source_path="$(dirname "$skill_file")"
+  dest="$HOME/.claude/skills/${source_path##*/}"
+
+  # Keep existing links (including relative ones) that already point to this skill.
+  if [[ -L "$dest" && "$dest" -ef "$source_path" ]]; then
     continue
   fi
 
@@ -21,5 +26,3 @@ for source_path in "$DOTFILES_ROOT/claude/settings.json"; do
 
   link_path "$source_path" "$dest"
 done
-
-bash "$DOTFILES_ROOT/claude/skills.sh"

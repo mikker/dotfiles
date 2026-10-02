@@ -20,11 +20,8 @@ path = "~/dev/10er"
 [projects.mm]
 path = "~/dev/mikkelmalmberg-rails"
 
-[projects.fut]
-path = "~/dev/fut"
-
-[projects.wt]
-path = "~/dev/wt"
+[projects.nk]
+path = "~/dev/nitro_kit"
 
 [ui.bindings]
 open_left_sidebar = "]"

@@ -4,9 +4,6 @@ export const CODEX_FAST_EVENT = "codex-fast:changed";
 export const DEFAULT_CODEX_FAST_ENABLED = true;
 
 const ENTRY_TYPE = "codex-fast-mode";
-const FAST_MODELS = new Set(["gpt-5.4", "gpt-5.5"]);
-const FAST_MODEL_PREFIXES = ["gpt-5.6-"];
-const GPT_6_FAST_MODELS = ["gpt-6-sol", "gpt-6-astra", "gpt-6-luna"];
 const ACTIONS = new Set(["on", "off", "toggle", "status"]);
 
 export function supportsCodexFastMode(
@@ -14,19 +11,7 @@ export function supportsCodexFastMode(
   modelId: string | undefined,
 ): boolean {
   if (!modelId) return false;
-
-  const isGpt6Fast = GPT_6_FAST_MODELS.some(
-    (model) => modelId === model || modelId.startsWith(`${model}-`),
-  );
-  const supportsFast =
-    isGpt6Fast ||
-    FAST_MODELS.has(modelId) ||
-    FAST_MODEL_PREFIXES.some((prefix) => modelId.startsWith(prefix));
-
-  return (
-    (provider === "openai-codex" && supportsFast) ||
-    (provider === "openai" && (isGpt6Fast || modelId.startsWith("gpt-5.6-")))
-  );
+  return provider === "openai-codex" || provider === "openai";
 }
 
 export function formatCodexFastLabel(

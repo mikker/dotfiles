@@ -30,7 +30,7 @@ function getSkills(pi: ExtensionAPI): SkillRef[] {
       name: command.name.slice(SKILL_COMMAND_PREFIX.length),
       description: command.description,
       path: command.sourceInfo.path,
-      baseDir: command.sourceInfo.baseDir ?? dirname(command.sourceInfo.path),
+      baseDir: dirname(command.sourceInfo.path),
     }))
     .sort((left, right) => left.name.localeCompare(right.name));
 }
@@ -186,6 +186,29 @@ export default function inlineSkills(pi: ExtensionAPI) {
     }
 
     try {
+      const leadingCommand = event.text.match(/^\/([^\s]+)(?:\s+([\s\S]*))?$/);
+      if (leadingCommand) {
+        const command = pi.getCommands().find((item) => item.name === leadingCommand[1]);
+        if (command?.source === "prompt") {
+          ctx.ui.notify(
+            "Inline $skills cannot be combined with prompt templates. Invoke the skill in a separate message or use a plain-text prompt.",
+            "error",
+          );
+          return { action: "handled" };
+        }
+        if (command?.source === "skill") {
+          const primary = skillsByName.get(command.name.slice(SKILL_COMMAND_PREFIX.length));
+          if (primary) {
+            return {
+              action: "transform",
+              text: await expandInlineSkills(
+                leadingCommand[2] ?? "",
+                [primary, ...referenced.skills.filter((skill) => skill.name !== primary.name)],
+              ),
+            };
+          }
+        }
+      }
       return {
         action: "transform",
         text: await expandInlineSkills(event.text, referenced.skills),
@@ -195,7 +218,7 @@ export default function inlineSkills(pi: ExtensionAPI) {
         `Could not load inline skills: ${error instanceof Error ? error.message : String(error)}`,
         "error",
       );
-      return { action: "continue" };
+      return { action: "handled" };
     }
   });
 }

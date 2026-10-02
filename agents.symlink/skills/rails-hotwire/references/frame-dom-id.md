@@ -9,6 +9,8 @@ tags: frame, dom-id, naming, collections
 
 Rails' `dom_id` helper generates unique, deterministic IDs from Active Record objects (e.g., `message_42`). When rendering collections of framed items, hardcoded string IDs collide and cause Turbo to match the wrong frame. Passing a model directly to `turbo_frame_tag` calls `dom_id` internally, ensuring each frame has a unique, consistent identifier that matches between the list view and the edit/show response.
 
+IDs identify a representation, not just a record. If the same record appears as both a row and a sidebar card, use distinct IDs such as `dom_id(message, :row)` and `dom_id(message, :card)`. On Rails versions that provide `dom_target`, it can compose multiple objects and qualifiers into an ID. Use the same construction at the render and stream-target sites. Streams targeting absent IDs silently do nothing, so test the DOM contract as well as the response's stream tags.
+
 **Incorrect (hardcoded string IDs that collide in collections):**
 
 ```erb

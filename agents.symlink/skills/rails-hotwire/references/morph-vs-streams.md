@@ -9,6 +9,8 @@ tags: morph, streams, architecture, simplicity
 
 When a single user action affects multiple page sections (sidebar counts, main content, header badges, activity feeds), orchestrating individual Turbo Stream tags for each target becomes brittle and hard to maintain. See also [`bcast-refresh-over-replace`](bcast-refresh-over-replace.md) for the model declaration side. Each stream tag requires a matching DOM ID, the correct action, and the right partial with the right locals. A broadcast refresh with morphing re-renders the entire page server-side and patches only the differences, achieving the same result with zero stream orchestration.
 
+Prefer this simpler path by default, but multiple stream targets are not inherently wrong. Keep explicit streams when the interaction needs precise updates or measured refresh fan-out is too costly. A redirect updates the acting user's page; a refresh broadcast causes each other connected viewer to request their own page. Account for that total rendering cost, not just the size of the broadcast message.
+
 **Incorrect (5+ turbo_stream tags targeting different page sections):**
 
 ```erb

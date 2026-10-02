@@ -7,6 +7,14 @@ description: Ruby on Rails Hotwire best practices for building interactive appli
 
 Comprehensive guide for building interactive Rails applications with Hotwire (Turbo + Stimulus), maintained by Community. Contains 53 rules across 9 categories, prioritized by impact to guide automated refactoring and code generation. Follows the DHH "One Person Framework" philosophy: the server renders HTML, Turbo makes it feel like an SPA, Stimulus adds the sprinkle of JS where needed.
 
+## Default Policy: Adopt First, Opt Out Deliberately
+
+Use Hotwire's conventions fully on the ordinary path: keep prefetch enabled, prefer refresh broadcasts with morphing for broad page updates, and use declarative model broadcasts for lifecycle-driven changes. Do not add architectural complexity for hypothetical scale or future requirements.
+
+Opt out locally when correctness, the interaction, or measured cost warrants it—not only after a visible failure. Expensive hover requests, request fan-out from frames or refresh broadcasts, and operation-specific side effects are concrete reasons to depart from the default. Measure total work per user visit and across connected subscribers, not just the speed of individual endpoints.
+
+The rules below express preferred defaults, not a prohibition on justified alternatives. Preserve the simple path and document exceptions where they are introduced.
+
 ## When to Apply
 
 Reference these guidelines when:

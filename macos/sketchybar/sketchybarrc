@@ -17,7 +17,7 @@ source "$CONFIG_DIR/colors.sh"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=34 blur_radius=0 color=$BAR_COLOR
+sketchybar --bar position=top height=32 blur_radius=0 color=$BAR_COLOR
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -41,7 +41,9 @@ default=(
 sketchybar --default "${default[@]}"
 
 sketchybar --add event aerospace_workspace_change
+sketchybar --add event dinky_workspace_changing
 sketchybar --add event aerospace_mode_changed
+sketchybar --add event dinky_mode_changed
 sketchybar --add event appearance_changed AppleInterfaceThemeChangedNotification
 
 # Reload the palette as soon as macOS changes between light and dark mode.
@@ -49,21 +51,15 @@ sketchybar --add item appearance_observer left \
   --set appearance_observer drawing=off script="$PLUGIN_DIR/appearance.sh" \
   --subscribe appearance_observer appearance_changed
 
-for sid in $(aerospace list-workspaces --all); do
-  # Determine icon based on workspace ID
-  space_icon=""
-  case "$sid" in
-  a1) space_icon="↖" ;;
-  b1) space_icon="Q" ;;
-  b2) space_icon="W" ;;
-  b3) space_icon="E" ;;
-  b4) space_icon="R" ;;
-  *) space_icon="$sid" ;;
-  esac
-
-  sketchybar --add item space.$sid left \
-    --subscribe space.$sid aerospace_workspace_change \
-    --set space.$sid \
+# One item per workspace, named space.<workspace>. dinky numbers workspaces across displays, so a workspace
+# on the side display (AeroSpace's a1, dinky's [workspace-to-display]) is just a number that lives there;
+# plugins/dinky_spaces.sh draws it as an arrow while it does. Side-display workspaces come first, as that
+# display sits left of the main one. A click shows the workspace and focuses its display.
+DINKY="$HOME/.local/bin/dinky"
+while read -r is_main workspace; do
+  [ -n "$workspace" ] || continue
+  sketchybar --add item space.$workspace left \
+    --set space.$workspace \
     background.color=$TRANSPARENT \
     background.corner_radius=5 \
     background.height=26 \
@@ -71,15 +67,19 @@ for sid in $(aerospace list-workspaces --all); do
     background.padding_left=6 \
     background.padding_right=6 \
     y_offset=0 \
-    icon="$space_icon" \
+    icon="$workspace" \
     icon.font="SF Pro:Bold:16.0" \
     icon.highlight_color=$SPACE_HIGHLIGHT_COLOR \
     label.drawing=off \
     label.font="sketchybar-app-font:Regular:14.0" \
     label.y_offset=-1 \
-    click_script="aerospace workspace $sid" \
-    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
-done
+    click_script="$DINKY workspace $workspace"
+done <<<"$($DINKY list-workspaces --all --format '%{monitor-is-main} %{workspace}' | sort -k1,1 -s)"
+
+# Refreshes all of the above when dinky starts and ends a switch, when focus moves, and when displays change.
+sketchybar --add item dinky_spaces left \
+  --set dinky_spaces drawing=off updates=on script="$CONFIG_DIR/plugins/dinky_spaces.sh" \
+  --subscribe dinky_spaces dinky_workspace_changing aerospace_workspace_change aerospace_mode_changed front_app_switched display_change system_woke
 
 ##### Adding Left Items #####
 # We add some regular items to the left side of the bar, where
@@ -103,7 +103,21 @@ sketchybar --add item chevron left \
   background.corner_radius=4 \
   background.height=16 \
   script="$PLUGIN_DIR/front_app.sh" \
-  --subscribe front_app_layout front_app_switched aerospace_mode_changed
+  --subscribe front_app_layout front_app_switched aerospace_mode_changed \
+  --add item dinky_mode left \
+  --set dinky_mode \
+  drawing=off \
+  icon.drawing=off \
+  label.font="SF Pro:Bold:10.0" \
+  label.color=$DINKY_MODE_LABEL_COLOR \
+  label.padding_left=6 \
+  label.padding_right=6 \
+  background.drawing=on \
+  background.color=$DINKY_MODE_BG_COLOR \
+  background.corner_radius=4 \
+  background.height=16 \
+  script="$PLUGIN_DIR/dinky_mode.sh" \
+  --subscribe dinky_mode dinky_mode_changed
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
@@ -132,6 +146,22 @@ sketchybar --add item clock right \
   background.color="$CAL_EVENT_BG_COLOR" \
   background.corner_radius=8 \
   background.height=25 \
+  --add item doing right \
+  --set doing \
+  icon.drawing=off \
+  label="Doing…" \
+  label.font="SF Pro:Medium:12.0" \
+  label.color="$DOING_LABEL_COLOR" \
+  label.padding_left=8 \
+  label.padding_right=8 \
+  background.drawing=on \
+  background.color="$DOING_BG_COLOR" \
+  background.corner_radius=4 \
+  background.height=20 \
+  update_freq=30 \
+  script="$PLUGIN_DIR/doing.sh" \
+  click_script="$PLUGIN_DIR/doing.sh edit" \
+  --subscribe doing system_woke \
   --add item fut_waiting right \
   --set fut_waiting \
   drawing=on \

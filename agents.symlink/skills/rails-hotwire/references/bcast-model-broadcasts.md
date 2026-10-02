@@ -9,6 +9,10 @@ tags: bcast, broadcasts-refreshes, real-time, model
 
 For straightforward real-time updates where all subscribers should see the latest state of a page, `broadcasts_refreshes` provides maximum value with minimal code. A single declaration in the model triggers a page morph for every subscribed client after create, update, or destroy. This eliminates the need to manually wire Action Cable channels, write JavaScript handlers, or maintain stream templates for each mutation type.
 
+Use declarative broadcasts for ordinary lifecycle-driven updates. If delivery belongs to a specific business operation rather than every save, let that operation explicitly trigger a broadcast instead. Bulk imports should suppress automatic broadcasts and deliver one update after successful completion; see [`bcast-debounce-n1`](bcast-debounce-n1.md). Do not abandon callbacks preemptively, but do not make imports or exceptional workflows inherit unintended side effects.
+
+Refresh messages cause recipients to fetch their current page. Enable page morphing with `<meta name="turbo-refresh-method" content="morph">`; the model macro alone does not enable it. For recipient fan-out costs, see [`bcast-refresh-over-replace`](bcast-refresh-over-replace.md).
+
 **Incorrect (manually wiring ActionCable channels and JavaScript handlers):**
 
 ```ruby
