@@ -53,8 +53,8 @@ sketchybar --add item appearance_observer left \
 
 # One item per workspace, named space.<workspace>. dinky numbers workspaces across displays, so a workspace
 # on the side display (AeroSpace's a1, dinky's [workspace-to-display]) is just a number that lives there;
-# plugins/dinky_spaces.sh draws it as an arrow while it does. Side-display workspaces come first, as that
-# display sits left of the main one. A click shows the workspace and focuses its display.
+# plugins/dinky_spaces.sh shows each item only on its display's bar. Items stay in number order whatever
+# displays are connected when the bar starts. A click shows the workspace and focuses its display.
 DINKY="$HOME/.local/bin/dinky"
 while read -r is_main workspace; do
   [ -n "$workspace" ] || continue
@@ -74,7 +74,7 @@ while read -r is_main workspace; do
     label.font="sketchybar-app-font:Regular:14.0" \
     label.y_offset=-1 \
     click_script="$DINKY workspace $workspace"
-done <<<"$($DINKY list-workspaces --all --format '%{monitor-is-main} %{workspace}' | sort -k1,1 -s)"
+done <<<"$($DINKY list-workspaces --all --format '%{monitor-is-main} %{workspace}')"
 
 # Refreshes all of the above when dinky starts and ends a switch, when focus moves, and when displays change.
 sketchybar --add item dinky_spaces left \

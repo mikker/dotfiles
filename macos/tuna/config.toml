@@ -628,6 +628,32 @@ label = 'Environment'
                 targetIdentifier = 'text:off'
                 type = 'savedCommand'
 
+        [[comboMode.bindings.destination.bindings]]
+        key = 'o'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/on-air on' ]
+                type = 'savedCommand'
+
+        [[comboMode.bindings.destination.bindings]]
+        key = 'O'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/on-air off' ]
+                type = 'savedCommand'
+
 [[comboMode.bindings]]
 key = 'enter'
 label = 'Terminal'
@@ -2604,8 +2630,8 @@ carbonKeyCode = 111
 carbonModifiers = 0
 
 [hotkeys.app.dictation]
-carbonKeyCode = 1
-carbonModifiers = 6912
+carbonKeyCode = 6
+carbonModifiers = 6400
 
 [hotkeys.app.stageFinderSelection]
 carbonKeyCode = 7
@@ -2746,6 +2772,12 @@ enabled = true
 name = 'YouTube'
 requiresInput = true
 template = 'https://www.youtube.com/results?search_query={{input}}'
+
+[[smartLinks.entries]]
+enabled = true
+name = 'YouTube mikker'
+requiresInput = true
+template = 'https://www.youtube.com/@MikkelMalmberg/search?query={{input}}'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.plugins.mymind'

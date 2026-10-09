@@ -4,7 +4,7 @@
     "commit": "",
     "pr": ""
   },
-  "model": "claude-fable-5-1[1m]",
+  "model": "opus",
   "hooks": {},
   "statusLine": {
     "type": "command",
@@ -39,7 +39,7 @@
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "theme": "light",
+  "theme": "auto",
   "preferredNotifChannel": "terminal_bell",
   "feedbackSurveyState": {
     "lastShownTime": 1754086441827

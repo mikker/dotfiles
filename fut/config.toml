@@ -11,17 +11,17 @@ projects_dir = "~/dev"
 [projects.tuna]
 path = "~/dev/Tuna"
 
-[projects.dotfiles]
+[projects.df]
 path = "~/.dotfiles"
-
-[projects.10er]
-path = "~/dev/10er"
 
 [projects.mm]
 path = "~/dev/mikkelmalmberg-rails"
 
 [projects.nk]
 path = "~/dev/nitro_kit"
+
+[projects.fm]
+path = "~/dev/funnymost"
 
 [ui.bindings]
 open_left_sidebar = "]"

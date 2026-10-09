@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.2",
+  "lastChangelogVersion": "1.1.0",
   "defaultProvider": "openai",
   "defaultModel": "gpt-6.1-sol",
   "defaultThinkingLevel": "medium",
@@ -48,5 +48,6 @@
     "openai/gpt-6-sol",
     "openai/gpt-6.1-sol"
   ],
-  "deviceId": "a5203416-a850-436b-be2c-da1f5e8b7639"
+  "deviceId": "a5203416-a850-436b-be2c-da1f5e8b7639",
+  "theme": "system"
 }

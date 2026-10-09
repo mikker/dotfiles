@@ -1,0 +1,14 @@
+cf() {
+  local dir="$PROJECTS"
+  local destination
+
+  if [[ $# == 0 ]]; then
+    destination=$(find "$dir" -maxdepth 2 -type d ! -path '*.git*' | sed -E "s#^$dir##" | fzf) || return
+  else
+    destination="$1"
+  fi
+
+  (
+    cd "$dir/$destination" && fut
+  )
+}

@@ -141,14 +141,14 @@ ctrl-alt-cmd-f = 'layout floating tiles'
 # Entered with `dinky mode resize` (Tuna: w s).
 [mode.resize]
 minus = 'resize smart -50'
+equal = 'resize smart +50'
 shift-equal = 'balance-sizes'
-equal = 'balance-sizes'
 esc = 'mode main'
 ctrl-c = 'mode main'
 enter = 'mode main'
 
 # [workspace.3]
 # layout = 'fixed'
-# columns = 2
-# # rows = 1
+# columns = 3
+# rows = 3
 # expand = 'accordion'  # overflowing cells get added to last cell as accordion

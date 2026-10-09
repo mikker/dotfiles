@@ -2,8 +2,8 @@
 
 # Refreshes every workspace item (space.<workspace>, added in sketchybarrc) in one sketchybar call.
 # The focused workspace gets the active background, the workspace showing on the other display a fainter
-# one, and every workspace a label with the icons of its apps. A workspace on a display other than the main
-# one shows as an arrow. Written for macOS's bash 3.2.
+# one, and every workspace a label with the icons of its apps. Each workspace draws only on the bar of the
+# display it lives on, as an arrow off the main one. Written for macOS's bash 3.2.
 
 source "$CONFIG_DIR/colors.sh"
 source "$CONFIG_DIR/plugins/icon_map.sh"
@@ -33,9 +33,11 @@ fi
 windows=$("$DINKY" list-windows --all --format '%{workspace}|%{app-name}' 2>/dev/null)
 
 args=()
-while read -r workspace focused visible is_main; do
+while read -r workspace focused visible monitor is_main; do
   [ -n "$workspace" ] || continue
   item="space.$workspace"
+  # dinky's monitor-id and sketchybar's arrangement-id both count displays in WindowServer's order.
+  args+=(--set "$item" display="$monitor")
   if [ "$is_main" = true ]; then
     args+=(--set "$item" icon="$workspace")
   else
@@ -66,6 +68,6 @@ while read -r workspace focused visible is_main; do
     args+=(--set "$item" label.drawing=off)
   fi
 done <<<"$("$DINKY" list-workspaces --all \
-  --format '%{workspace} %{workspace-is-focused} %{workspace-is-visible} %{monitor-is-main}' 2>/dev/null)"
+  --format '%{workspace} %{workspace-is-focused} %{workspace-is-visible} %{monitor-id} %{monitor-is-main}' 2>/dev/null)"
 
 [ ${#args[@]} -gt 0 ] && sketchybar "${args[@]}"
