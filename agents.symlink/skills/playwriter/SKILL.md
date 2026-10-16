@@ -27,7 +27,7 @@ This outputs the complete documentation including:
 
 ```bash
 playwriter session new
-playwriter -s 1 -e 'await page.goto("https://example.com")'
+playwriter -s 1 -e 'state.page = await context.newPage(); await state.page.goto("https://example.com")'
 ```
 
 **Always use single quotes** for the `-e` argument. Single quotes prevent bash from interpreting `$`, backticks, and backslashes inside your JS code. Use double quotes or backtick template literals for strings inside the JS.
