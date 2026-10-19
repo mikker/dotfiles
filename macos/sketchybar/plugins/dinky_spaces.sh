@@ -8,7 +8,7 @@
 source "$CONFIG_DIR/colors.sh"
 source "$CONFIG_DIR/plugins/icon_map.sh"
 
-DINKY="$HOME/.local/bin/dinky"
+DINKY="${DOTFILES:-$HOME/.dotfiles}/bin/dinky"
 
 # Outline the requested workspace until dinky confirms the switch. A burst of
 # requests moves the outline without flashing the settled highlight on each target.

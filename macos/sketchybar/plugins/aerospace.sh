@@ -19,7 +19,7 @@ fi
 
 # Update app icons for this workspace
 # dinky list-windows format (same as aerospace): window_id | app_name | window_title
-apps=$($HOME/.local/bin/dinky list-windows --workspace $1 2>/dev/null | awk -F' \\| ' '{print $2}' | sort -u)
+apps=$("${DOTFILES:-$HOME/.dotfiles}/bin/dinky" list-windows --workspace $1 2>/dev/null | awk -F' \\| ' '{print $2}' | sort -u)
 
 icon_string=""
 if [ -n "$apps" ]; then

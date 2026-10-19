@@ -6,7 +6,7 @@
 source "$CONFIG_DIR/colors.sh"
 
 mode="$MODE"
-[ -n "$mode" ] || mode=$("$HOME/.local/bin/dinky" list-modes --current 2>/dev/null)
+[ -n "$mode" ] || mode=$("${DOTFILES:-$HOME/.dotfiles}/bin/dinky" list-modes --current 2>/dev/null)
 
 if [ -z "$mode" ] || [ "$mode" = main ]; then
   sketchybar --set "$NAME" drawing=off

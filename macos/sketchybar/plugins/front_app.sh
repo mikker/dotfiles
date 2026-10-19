@@ -5,7 +5,7 @@
 # focused application in the $INFO variable:
 # https://felixkratz.github.io/SketchyBar/config/events#events-and-scripting
 
-DINKY="$HOME/.local/bin/dinky"
+DINKY="${DOTFILES:-$HOME/.dotfiles}/bin/dinky"
 
 # Apps dinky leaves alone: the [[rules]] in ~/.config/dinky/dinky.toml float every window of these.
 # They show the ignored icon instead of a layout, as does an app with no window at all, such as Finder

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for candidate in "$HOME/.local/bin/dinky" /opt/homebrew/bin/dinky /usr/local/bin/dinky; do
+  if [ -x "$candidate" ]; then
+    exec "$candidate" "$@"
+  fi
+done
+
+echo "dinky: executable not found" >&2
+exit 127
