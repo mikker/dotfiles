@@ -46,6 +46,11 @@ defaults write com.apple.screencapture location ~/Downloads
 # }}}
 # DOCK {{{
 
+echo 'Empty Dock and disable recent applications'
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-others -array
+defaults write com.apple.dock show-recents -bool false
+
 echo 'Speed up Mission Control animations'
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
@@ -66,6 +71,8 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 echo 'Bottom left screen corner → Desktop'
 defaults write com.apple.dock wvous-bl-corner -int 4
 defaults write com.apple.dock wvous-bl-modifier -int 0
+
+killall Dock || true
 
 # }}}
 # DIALOGS {{{
