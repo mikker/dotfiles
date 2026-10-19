@@ -55,7 +55,7 @@ sketchybar --add item appearance_observer left \
 # on the side display (AeroSpace's a1, dinky's [workspace-to-display]) is just a number that lives there;
 # plugins/dinky_spaces.sh shows each item only on its display's bar. Items stay in number order whatever
 # displays are connected when the bar starts. A click shows the workspace and focuses its display.
-DINKY="$HOME/.local/bin/dinky"
+DINKY="/opt/homebrew/bin/dinky"
 while read -r is_main workspace; do
   [ -n "$workspace" ] || continue
   sketchybar --add item space.$workspace left \

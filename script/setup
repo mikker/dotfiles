@@ -117,6 +117,15 @@ dependencies() {
     macos)
       command_exists brew || fail "Homebrew is required; install it with Strap first"
 
+      # Standalone setup also needs to handle a pending full-Xcode license.
+      local developer_dir
+      developer_dir="$(/usr/bin/xcode-select -p)"
+      if [[ -x "$developer_dir/usr/bin/xcodebuild" ]] &&
+        /usr/bin/xcrun clang --version 2>&1 | grep -qi license; then
+        echo "Accepting Xcode license"
+        sudo /usr/bin/xcodebuild -license accept
+      fi
+
       echo "Install Homebrew dependencies"
       brew bundle --file "$DOTFILES_ROOT/macos/brew/Brewfile"
       ;;
