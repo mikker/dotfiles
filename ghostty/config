@@ -57,15 +57,26 @@ keybind = cmd+arrow_down=text:\x02\x1b[B
 keybind = cmd+shift+bracket_left=text:\x02p
 keybind = cmd+shift+bracket_right=text:\x02n
 
+# Fut tab numbers (Ctrl-B followed by the tab number)
+keybind = cmd+digit_1=text:\x021
+keybind = cmd+digit_2=text:\x022
+keybind = cmd+digit_3=text:\x023
+keybind = cmd+digit_4=text:\x024
+keybind = cmd+digit_5=text:\x025
+keybind = cmd+digit_6=text:\x026
+keybind = cmd+digit_7=text:\x027
+keybind = cmd+digit_8=text:\x028
+keybind = cmd+digit_9=text:\x029
+
 # Fut workspace numbers (Ctrl-B w opens the workspace sidebar)
-keybind = cmd+digit_1=text:\x02w1
-keybind = cmd+digit_2=text:\x02w2
-keybind = cmd+digit_3=text:\x02w3
-keybind = cmd+digit_4=text:\x02w4
-keybind = cmd+digit_5=text:\x02w5
-keybind = cmd+digit_6=text:\x02w6
-keybind = cmd+digit_7=text:\x02w7
-keybind = cmd+digit_8=text:\x02w8
-keybind = cmd+digit_9=text:\x02w9
+keybind = ctrl+digit_1=text:\x02w1
+keybind = ctrl+digit_2=text:\x02w2
+keybind = ctrl+digit_3=text:\x02w3
+keybind = ctrl+digit_4=text:\x02w4
+keybind = ctrl+digit_5=text:\x02w5
+keybind = ctrl+digit_6=text:\x02w6
+keybind = ctrl+digit_7=text:\x02w7
+keybind = ctrl+digit_8=text:\x02w8
+keybind = ctrl+digit_9=text:\x02w9
 
 keybind = shift+enter=text:\x1b\r
