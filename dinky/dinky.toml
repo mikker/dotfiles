@@ -133,7 +133,9 @@ cmd-alt-shift-right = 'join-with right'
 # alt-equal = 'balance-sizes'
 ctrl-alt-cmd-shift-f = 'fullscreen'
 # alt-shift-f = 'layout floating tiling'
-ctrl-alt-cmd-s = 'layout tiles accordion scrolling'
+# Layout changes fire no hook, so the bindings refresh the bar's layout icons themselves.
+ctrl-alt-cmd-s = ['layout tiles accordion', 'exec-and-forget sketchybar --trigger aerospace_mode_changed']
+ctrl-alt-cmd-shift-s = ['workspace-layout dwindle scrolling master', 'exec-and-forget sketchybar --trigger aerospace_mode_changed']
 ctrl-alt-cmd-f = 'layout floating tiles'
 # alt-shift-n = 'move-window-to-display next'
 # alt-shift-semicolon = 'mode service'
