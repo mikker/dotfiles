@@ -31,6 +31,9 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 echo 'Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)'
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
+echo 'Disable mouse pointer acceleration'
+defaults write NSGlobalDomain com.apple.mouse.linear -bool true
+
 echo 'Increase window resize speed for Cocoa applications'
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
