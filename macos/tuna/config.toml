@@ -87,6 +87,18 @@ folderDepthOverrides = []
 searchPriorities = []
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'arena'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'brew.packages'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'chrome.bookmarks'
 
         [catalogs.globalScopes.scope]
@@ -100,6 +112,12 @@ searchPriorities = []
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'chrome.utilities'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'cleanshot.commands'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
@@ -130,6 +148,12 @@ searchPriorities = []
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'music.songs'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'mymind.spaces'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
@@ -1006,7 +1030,7 @@ label = 'LLMs'
                 actionIdentifier = 'tuna.common-actions/open'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'path:/Applications/ChatGPT Classic.app' ]
+                subjectIdentifiers = [ 'tuna.applications//Applications/ChatGPT.app' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1676,7 +1700,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 3' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky workspace 3' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1690,7 +1714,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky fullscreen' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky fullscreen' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1704,7 +1728,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky flatten-workspace-tree' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky flatten-workspace-tree' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1725,7 +1749,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with left' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky join-with left' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1739,7 +1763,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with down' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky join-with down' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1753,7 +1777,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with up' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky join-with up' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1767,7 +1791,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky join-with right' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky join-with right' ]
                         type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1788,7 +1812,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout accordion horizontal vertical' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky layout accordion horizontal vertical' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1802,7 +1826,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout floating tiling' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky layout floating tiling' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1816,7 +1840,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout tiles' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky layout tiles' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1830,7 +1854,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout scrolling' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky layout scrolling' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1844,7 +1868,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky layout master' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky layout master' ]
                         type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -1865,7 +1889,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 3' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 3' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1879,7 +1903,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 3 --follow' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 3 --follow' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1893,7 +1917,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move left' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move left' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1906,7 +1930,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:text:/Users/mikker/.local/bin/dinky move-window-to-workspace prev' ]
+                        subjectIdentifiers = [ 'text:text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace prev' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1920,7 +1944,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move down' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move down' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1934,7 +1958,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move up' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move up' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1948,7 +1972,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move right' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move right' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1961,7 +1985,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:text:/Users/mikker/.local/bin/dinky move-window-to-workspace next' ]
+                        subjectIdentifiers = [ 'text:text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace next' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1975,7 +1999,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 1' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 1' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -1989,7 +2013,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 1 --follow' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 1 --follow' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -2003,7 +2027,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 4' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 4' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -2017,7 +2041,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 4 --follow' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 4 --follow' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -2031,7 +2055,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 5' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 5' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -2045,7 +2069,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 5 --follow' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 5 --follow' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -2059,7 +2083,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 2' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 2' ]
                         type = 'savedCommand'
 
                 [[comboMode.bindings.destination.bindings.destination.bindings]]
@@ -2073,7 +2097,7 @@ label = 'dinky'
                         actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                         behavior = 'run'
                         presentation = 'automatic'
-                        subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky move-window-to-workspace 2 --follow' ]
+                        subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky move-window-to-workspace 2 --follow' ]
                         type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2087,7 +2111,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 1' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky workspace 1' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2101,7 +2125,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 4' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky workspace 4' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2115,7 +2139,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 5' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky workspace 5' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2129,7 +2153,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky reload-config' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky reload-config' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2143,7 +2167,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky mode resize' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky mode resize' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2157,7 +2181,7 @@ label = 'dinky'
                 actionIdentifier = 'tuna.common-actions/run-text-as-shell-command'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'text:/Users/mikker/.local/bin/dinky workspace 2' ]
+                subjectIdentifiers = [ 'text:/Users/mikker/.dotfiles/bin/dinky workspace 2' ]
                 type = 'savedCommand'
 
 [[comboMode.bindings]]
@@ -2350,7 +2374,7 @@ catalogIdentifier = 'com.brnbw.tuna.plugins.mymind'
 
     [catalogSettings.values]
     AccessLevel = 'full-access'
-    KeyID = '1jsWbDTRdXl1e23PZhU1X5'
+    KeyID = '5Y5o8RNmbq5dXjtH9HkyvE'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.themes.default'

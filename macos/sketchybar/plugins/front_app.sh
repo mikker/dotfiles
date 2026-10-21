@@ -18,8 +18,7 @@ ignored() {
   return 1
 }
 
-# The workspace's layout, then the window's container: "󰕴 " for a tiled master stack. A dwindle workspace,
-# the default, shows the container alone, as before.
+# Show the workspace layout followed by the focused window's container layout.
 get_layout_icon() {
   ROW=$("$DINKY" list-windows --focused --format '%{app-bundle-id}|%{workspace-layout}|%{window-layout}' 2>&1)
   if [ $? -ne 0 ]; then
@@ -36,16 +35,17 @@ get_layout_icon() {
     return
   fi
   case "$WORKSPACE_LAYOUT" in
+  dwindle) WORKSPACE_ICON="󰙀" ;;
   master) WORKSPACE_ICON="󰕴" ;;
   scrolling) WORKSPACE_ICON="󰕬" ;;
   fixed) WORKSPACE_ICON="󰕰" ;;
   *) WORKSPACE_ICON="" ;;
   esac
   case "$LAYOUT" in
-  h_accordion) LAYOUT_ICON="" ;;
-  v_accordion) LAYOUT_ICON="" ;;
-  h_tiles) LAYOUT_ICON="" ;;
-  v_tiles) LAYOUT_ICON="" ;;
+  h_accordion) LAYOUT_ICON="" ;;
+  v_accordion) LAYOUT_ICON="" ;;
+  h_tiles) LAYOUT_ICON="" ;;
+  v_tiles) LAYOUT_ICON="" ;;
   floating) LAYOUT_ICON="󰉈" ;;
   *) LAYOUT_ICON="" ;;
   esac
