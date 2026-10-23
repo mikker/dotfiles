@@ -1,52 +1,88 @@
 # Pi config
 
-Dotfiles-managed Pi setup.
+Dotfiles manage `keybindings.json` and local skills. `all.sh` only symlinks the
+keybindings into `~/.pi/agent/`. Settings, package selections, credentials,
+sessions, and package checkouts stay local there, not in this repository.
 
-Managed here:
+## Fut integration
 
-- `settings.json`
-- `keybindings.json`
-- `extensions/`
-- `prompts/`
-- `skills/elyx/` (Elyx agent skill, copied from `elyx-design/agents` at `e41870c`)
+Pi 1.1.0 and later reports activity to Fut natively via OSC 7501. Launch Pi inside
+Fut; no package settings are needed for native status reporting.
 
-Runtime state stays in `~/.pi/agent/`:
-
-- `auth.json`
-- `sessions/`
-- installed third-party skills/packages
-
-`all.sh` symlinks the managed config files into `~/.pi/agent/`.
-Pi then loads this directory through the local package entry in `settings.json`.
-
-The Elyx skill also needs the separate CLI: `npm install --global @elyx-design/cli`.
-
-## Extensions
-
-- `prompt-box.ts` is disabled by the local package's extension filter; Pi uses its native editor.
-- The custom footer shows model, context, speed, and Git status, without a dollar total.
-- `$skill` invokes a skill directly; inline `$skills` can combine instructions, including in
-  `/skill:name` requests. Relative references resolve from each skill's directory. Mixing inline
-  skills with slash prompt templates is rejected rather than silently skipping template expansion.
-  Skill-load failures also stop the request.
-
-Run `/reload` after changing configuration or extensions.
-
-## Offline tests
-
-Run the local regression tests against the globally installed Pi:
+For the bundled Fut skill or fallback lifecycle reporting, install the package:
 
 ```sh
-node --experimental-test-module-mocks --test ~/.dotfiles/pi/tests/*.test.*
-node --test ~/.dotfiles/pi/extensions/apply-patch/tests/offline.test.mjs
+pi install git:github.com/mikker/fut
 ```
 
-Set `PI_TEST_HOST` to the installed `@earendil-works/pi-coding-agent` directory to test a
-different installation (`PI_TEST_PACKAGE` for the patch-tool suite). Tests mock UI interactions
-or use temporary files; they do not call providers.
+Restart Pi after installation. An existing local Fut package can stay in your
+local settings instead; there is no need to install both. See
+[Fut's Pi guide](https://fut.sh/agents/pi/).
 
-`my-pi-setup` is loaded as a local package from its existing checkout under
-`~/.pi/agent/git/github.com/davis7dotsh/my-pi-setup`. This deliberately prevents Pi package updates
-from replacing its local compatibility fixes. Those source changes live in that separate Git
-checkout, not this dotfiles directory: preserve it when migrating machines, and review/reconcile
-upstream changes manually before updating it.
+## Packages
+
+Package selections are managed locally with `pi install`, `pi remove`, and
+`pi config`. The current setup uses:
+
+| Source | Responsibility |
+| --- | --- |
+| [`mikker/pineapple`](https://github.com/mikker/pineapple) | Questions, background terminals, file search, Firecrawl, subagents, inline skills and prompt box. |
+| [`mikker/codex-booster`](https://github.com/mikker/codex-booster) | `apply_patch` and opt-in OpenAI priority service. |
+| This directory | Local skills only; extension discovery is explicitly disabled. |
+| `~/dev/fut` | Reports agent activity to the Fut workspace. Its skills are excluded here. |
+
+Extensions previously maintained under `pi/extensions/` have been migrated or
+removed; do not re-enable duplicate copies. Pineapple leaves the native Pi header
+and system theme alone; its footer keeps extension statuses without duplicating
+the prompt-box information. There are no Git/model telemetry loops, summaries,
+workflows, `/btw`, `/copy-all`, or `/vim-review` extensions.
+
+## Interaction
+
+- Skills: `$name` and `/skill:name` work inline with completion and highlighting.
+  Skill files load once per request; references resolve from each skill's actual
+  directory. Load failures stop submission. Leading non-skill commands keep their
+  native behavior rather than having their arguments reinterpreted.
+- Prompt box: dim native-editor-based frame, with victory icon, directory basename,
+  branch and Git status on the left; model, enabled fast mode and reasoning on the
+  right. Image paths display as numbered `[Image #1]` labels while submission
+  preserves the underlying paths. Recognized-skill highlighting/labels, native
+  shortcuts, paste, history and completion are retained.
+- Questions: native Pi selection and free-form input in TUI/RPC, with cancellation.
+  Independent tools may share the batch, but later model turns still wait for the
+  answer. Research and limitations are documented in Pineapple's `docs/ask-user.md`.
+- Background commands: `bg_start`/status/list/kill, `/ps` and `/ps <id>` inspection.
+- Subagents: Pi/Claude Code/Codex spawn/check/wait/cancel/list, plus `/subagents`
+  inspection. No takeover or `/btw`.
+- Search: install `fd`/`fdfind` and `rg` through the package manager. No automatic
+  binary downloads. Web tools require `FIRECRAWL_API_KEY`.
+- Priority service: **off by default**. Use `/fast on`, `/fast off`, or `/fast status`.
+  It only modifies official OpenAI Responses/Codex endpoints; availability and
+  pricing depend on your account/model. Enabled state appears in Pi's status area.
+
+The Elyx skill needs its separate CLI: `npm install --global @elyx-design/cli`.
+
+## Maintenance
+
+```sh
+pi update git:github.com/mikker/pineapple
+pi update git:github.com/mikker/codex-booster
+pi update --all
+pi list
+```
+
+Restart or `/reload` after package/configuration changes. Git packages are managed
+under `~/.pi/agent/git/github.com/mikker/`; local packages are loaded in place.
+Development checkouts are `~/dev/pineapple` and `~/dev/codex-booster`: commit and
+push there, then update the corresponding managed package. Pineapple preserves
+Benjamin Davis's upstream history and MIT attribution; Codex Booster preserves
+the OpenAI Codex attribution and Apache-2.0 license for its patch implementation.
+
+## Offline verification
+
+Both package repos provide `npm run check`, `npm run format:check`, and `npm test`.
+Tests belong with their implementations, not in these dotfiles. Pi host peers
+must be linked for standalone development (see each package's documentation).
+
+Pineapple's `npm test` is offline. Live Claude/Codex tests are deliberately separate
+under `npm run test:live` and may make billable provider requests.

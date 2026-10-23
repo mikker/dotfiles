@@ -117,12 +117,6 @@ searchPriorities = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
-    catalogIdentifier = 'cleanshot.commands'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
     catalogIdentifier = 'music.albums'
 
         [catalogs.globalScopes.scope]
@@ -1295,7 +1289,7 @@ label = 'Media'
                 actionIdentifier = 'tuna.common-actions/open'
                 behavior = 'run'
                 presentation = 'automatic'
-                subjectIdentifiers = [ 'path:/Users/mikker/Applications/YouTube.app' ]
+                subjectIdentifiers = [ 'tuna.applications//Users/mikker/Applications/Chromium Apps.localized/YouTube.app' ]
                 type = 'savedCommand'
 
 [[comboMode.bindings]]
@@ -1609,7 +1603,7 @@ key = 'T'
         actionIdentifier = 'tuna.common-actions/open'
         behavior = 'run'
         presentation = 'automatic'
-        subjectIdentifiers = [ 'tuna.applications.all//Applications/Typefully.app' ]
+        subjectIdentifiers = [ 'tuna.applications//Users/mikker/Applications/Chromium Apps.localized/Typefully.app' ]
         type = 'savedCommand'
 
 [[comboMode.bindings]]

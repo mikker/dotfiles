@@ -1,0 +1,4 @@
+par() {
+  (( $# )) || return 0
+  parallel --line-buffer --tagstring '{#}:' ::: "$@"
+}

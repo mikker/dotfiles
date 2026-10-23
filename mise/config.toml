@@ -2,6 +2,7 @@
 node = "26"
 bun = "1"
 ruby = "4"
+pnpm = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby", "node", "bun"]

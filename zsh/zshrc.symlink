@@ -3,7 +3,7 @@ export ZSH_FILES=$DOTFILES/zsh
 export PROJECTS=$HOME/dev
 export XDG_CONFIG_HOME=$HOME/.config
 
-if [[ "$(uname -s)" == Darwin ]]; then
+if [[ $OSTYPE == darwin* ]]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 fi
 export PATH="$DOTFILES/bin:/usr/local/bin:/usr/local/sbin:$PATH"
@@ -44,9 +44,10 @@ else
   prompt adam1
 fi
 
-# Initialize completion engine with caching
+# All completion directories must be registered before the one compinit call.
+[[ -d ~/.docker/completions ]] && fpath=(~/.docker/completions $fpath)
 autoload -Uz compinit
-if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+if [[ ! -f ~/.zcompdump || -n ~/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
   compinit -C
@@ -54,16 +55,30 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
-if [[ "$(uname -s)" == Darwin ]]; then
+if [[ $OSTYPE == darwin* ]]; then
   export PATH="$HOME/Library/Application Support/pear/bin:$PATH"
+  # Homebrew's opt symlink survives upgrades; no brew subprocess per shell.
+  if (( $+commands[brew] )); then
+    _openssl_prefix=${commands[brew]:h:h}/opt/openssl@3
+    [[ -d $_openssl_prefix ]] && export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$_openssl_prefix"
+    unset _openssl_prefix
+  fi
 fi
 
 # Local modifications
 [[ -f ~/.lrc ]] && . ~/.lrc
 
 # Mise owns language runtimes. Keep this after repository-managed PATH changes.
-if (( $+commands[mise] )) && [[ -z ${MISE_SHELL:-} ]]; then
+if (( $+commands[mise] && ! $+functions[_mise_hook] )); then
   eval "$(mise activate zsh)"
+fi
+
+# Shell integrations belong here, not in machine-local environment settings.
+if (( $+commands[wt] )); then
+  eval "$(command wt shellenv zsh)"
+fi
+if (( $+commands[fut] )); then
+  source <(COMPLETE=zsh command fut)
 fi
 
 # bun completions
@@ -71,4 +86,3 @@ fi
 
 # Dotfile wrappers intentionally override package-managed executables.
 export PATH="$DOTFILES/bin:$PATH"
-
