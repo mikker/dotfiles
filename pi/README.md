@@ -1,8 +1,11 @@
 # Pi config
 
-Dotfiles manage `keybindings.json` and local skills. `all.sh` only symlinks the
-keybindings into `~/.pi/agent/`. Settings, package selections, credentials,
-sessions, and package checkouts stay local there, not in this repository.
+Dotfiles manage `keybindings.json`, local skills, and default package selections.
+`all.sh` symlinks the keybindings, adds missing packages to
+`~/.pi/agent/settings.json`, and installs them with `pi update --extensions`.
+Pi and Node.js must already be installed. Existing settings, package filters,
+and extra packages are preserved. Credentials, sessions, and package checkouts
+stay local, not in this repository.
 
 ## Fut integration
 
@@ -21,15 +24,16 @@ local settings instead; there is no need to install both. See
 
 ## Packages
 
-Package selections are managed locally with `pi install`, `pi remove`, and
-`pi config`. The current setup uses:
+Default package selections live in `packages.mjs`. You can manage additional
+packages locally with `pi install`, `pi remove`, and `pi config`. Setup restores
+any missing defaults. The current setup uses:
 
 | Source | Responsibility |
 | --- | --- |
 | [`mikker/pineapple`](https://github.com/mikker/pineapple) | Questions, background terminals, file search, Firecrawl, subagents, inline skills and prompt box. |
 | [`mikker/codex-booster`](https://github.com/mikker/codex-booster) | `apply_patch` and opt-in OpenAI priority service. |
 | This directory | Local skills only; extension discovery is explicitly disabled. |
-| `~/dev/fut` | Reports agent activity to the Fut workspace. Its skills are excluded here. |
+| `~/dev/fut` (or `git:github.com/mikker/fut`) | Fut integration; uses the local checkout when available, otherwise installs from GitHub. Skills are excluded by default. |
 
 Extensions previously maintained under `pi/extensions/` have been migrated or
 removed; do not re-enable duplicate copies. Pineapple leaves the native Pi header

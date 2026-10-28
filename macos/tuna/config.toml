@@ -370,6 +370,19 @@ label = 'Apps'
                 subjectIdentifiers = [ 'path:/Applications/Things3.app' ]
                 type = 'savedCommand'
 
+        [[comboMode.bindings.destination.bindings]]
+        key = 'a'
+
+            [comboMode.bindings.destination.bindings.destination]
+            type = 'command'
+
+                [comboMode.bindings.destination.bindings.destination.command]
+                actionIdentifier = 'tuna.common-actions/open'
+                behavior = 'run'
+                presentation = 'automatic'
+                subjectIdentifiers = [ 'tuna.applications//Applications/Amp.app' ]
+                type = 'savedCommand'
+
 [[comboMode.bindings]]
 key = 'B'
 label = 'Browser'
@@ -2282,6 +2295,7 @@ id = 'E287933F-3EE0-4608-B02E-54B6AE92BD10'
     carbonModifiers = 6144
 
 [settings]
+automaticallyShowResults = false
 clipboardHistoryRetention = 'oneYear'
 clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keychainaccess' ]
 comboModeCheatsheetBehavior = 'never'
@@ -2296,6 +2310,7 @@ screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
 switchToTextModeWhenNoResults = true
 talkModeModifierTrigger = 'rightOption'
+themeIdentifier = 'com.brnbw.tuna.themes.signal'
 
 [[smartLinks.entries]]
 enabled = true
