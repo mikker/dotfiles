@@ -75,6 +75,11 @@ folderDepthOverrides = []
     kind = 'path'
     value = '~/Documents'
 
+    [[catalogConfiguration.customItems]]
+    id = '4DC1C208-050C-4FC1-8209-91BB3D79D622'
+    kind = 'path'
+    value = '/Applications/Xcode.app/Contents/Applications/Icon Composer.app'
+
     [[catalogConfiguration.scriptsDirectories]]
     id = '4ADB3FCD-1146-45CC-8B9F-886121D22F08'
     path = '~/Library/Scripts'
@@ -171,6 +176,18 @@ searchPriorities = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'reminders'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'reminders.lists'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'spotify.controls'
 
         [catalogs.globalScopes.scope]
@@ -195,6 +212,12 @@ searchPriorities = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'things'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.applications'
 
         [catalogs.globalScopes.scope]
@@ -205,8 +228,7 @@ searchPriorities = []
     catalogIdentifier = 'tuna.contacts'
 
         [catalogs.globalScopes.scope]
-        itemIDs = [ 'addressbook://3ABFD129-B923-44B2-AE76-3F710569A9FC%3AABPerson' ]
-        kind = 'only'
+        kind = 'none'
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.emoji'
@@ -2303,6 +2325,7 @@ comboModeCheatsheetShowDetails = false
 comboModeDoublePressTrigger = 'rightOption'
 comboModeModifierTrigger = 'hyper'
 dictationActivationMode = 'hybrid'
+dictationSpokenFormattingEnabled = true
 dictationWindowBecomesKey = true
 holdToExecuteEnabled = true
 includeShiftInHyperKey = false
@@ -2310,7 +2333,14 @@ screenPreference = 'primary'
 shelfAutoCloseWhenTasksComplete = true
 switchToTextModeWhenNoResults = true
 talkModeModifierTrigger = 'rightOption'
-themeIdentifier = 'com.brnbw.tuna.themes.signal'
+
+    [[settings.dictationTextReplacements]]
+    phrase = 'Tenor'
+    replacement = '10er'
+
+    [[settings.dictationTextReplacements]]
+    phrase = 'tuna app'
+    replacement = 'Tuna.app'
 
 [[smartLinks.entries]]
 enabled = true
@@ -2384,6 +2414,13 @@ catalogIdentifier = 'com.brnbw.tuna.plugins.mymind'
     [catalogSettings.values]
     AccessLevel = 'full-access'
     KeyID = '5Y5o8RNmbq5dXjtH9HkyvE'
+
+[[catalogSettings]]
+catalogIdentifier = 'com.brnbw.tuna.themes.alcor'
+
+    [catalogSettings.values]
+    ClearGlass = 'true'
+    ThemeTint = 'system'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.themes.default'
