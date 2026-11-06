@@ -6,8 +6,13 @@ case "$(uname -s)" in
     ;;
   Linux)
     colors="$HOME/.local/state/omarchy/current/theme/colors.toml"
-    [ -r "$colors" ] &&
+    if [ -r "$colors" ]; then
       grep -Eq '^[[:space:]]*mode[[:space:]]*=[[:space:]]*"dark"([[:space:]]*#.*)?[[:space:]]*$' "$colors"
+    elif command -v gsettings >/dev/null 2>&1; then
+      gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null | grep -q dark
+    else
+      exit 1
+    fi
     ;;
   *)
     exit 1

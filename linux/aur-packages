@@ -1,5 +1,3 @@
-# Brew formulae whose Arch equivalents live in the AUR.
-oh-my-posh
+# AUR packages without a mise equivalent.
 rubyfmt
-stripe-cli
 ticket

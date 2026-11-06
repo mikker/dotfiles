@@ -1,13 +1,12 @@
-# Debian/Ubuntu package names for the shared command-line environment.
-bat
-fd-find
+# Bootstrap and system packages only. Command-line tools live in
+# mise/config.toml so every machine gets the same versions.
+curl
 file
-fzf
-git-delta
+git
 git-lfs
-neovim
+mosh
 patchelf
-pipx
-ripgrep
 tmux
+tree
+vim
 zsh

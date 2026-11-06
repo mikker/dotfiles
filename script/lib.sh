@@ -86,3 +86,29 @@ copy_path() {
 command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
+
+# Omarchy ships its own CLI and lives in /usr/share/omarchy (or
+# ~/.local/share/omarchy on older installs).
+is_omarchy() {
+  command_exists omarchy ||
+    [[ -d "${OMARCHY_PATH:-/usr/share/omarchy}" ]] ||
+    [[ -d "$HOME/.local/share/omarchy" ]]
+}
+
+# A machine's profile says what it is for: "desktop" (GUI apps, window
+# management, system tweaks) or "runner" (headless: shell, editor, CLI tools).
+# Setup records it once per machine.
+DOTFILES_PROFILES="desktop runner"
+DOTFILES_PROFILE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/profile"
+
+valid_profile() {
+  [[ " $DOTFILES_PROFILES " == *" $1 "* ]]
+}
+
+read_profile() {
+  [[ -r "$DOTFILES_PROFILE_FILE" ]] || return 1
+  local profile
+  profile="$(tr -d '[:space:]' < "$DOTFILES_PROFILE_FILE")"
+  valid_profile "$profile" || return 1
+  printf '%s\n' "$profile"
+}

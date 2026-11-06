@@ -13,6 +13,12 @@ type = 'prompt'
 alignment = 'left'
 
 [[blocks.segments]]
+type = "session"
+style = "plain"
+foreground = "green"
+template = "{{ if .SSHSession }}<b>{{ .HostName }}</b> {{ end }}"
+
+[[blocks.segments]]
 type = "path"
 style = "plain"
 foreground = 'blue'

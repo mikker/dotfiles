@@ -87,19 +87,29 @@ PY
 }
 
 check_brewfile() {
-  local brewfile="$DOTFILES_ROOT/macos/brew/Brewfile"
+  local brewfile file
+  for brewfile in Brewfile Brewfile.desktop; do
+    [[ -f "$DOTFILES_ROOT/macos/brew/$brewfile" ]] || fail "missing $brewfile"
+  done
 
-  [[ -f "$brewfile" ]] || { fail "missing Brewfile"; return; }
-
-  if grep -Fq 'oven-sh/bun/bun' "$brewfile"; then
-    fail "Bun has multiple owners (Brew and Mise)"
-  fi
-
-  if command -v brew >/dev/null; then
-    brew bundle check --file="$brewfile" >/dev/null 2>&1 ||
-      warn "some Brewfile dependencies are not installed"
-  fi
+  # Each CLI tool has one owner. jq is the documented exception: sketchybar
+  # plugins run outside the shell and need Homebrew's copy.
+  local tool
+  while IFS= read -r tool; do
+    [[ "$tool" == jq ]] && continue
+    for file in macos/brew/Brewfile macos/brew/Brewfile.desktop linux/apt-packages linux/pacman-packages linux/aur-packages; do
+      if grep -Eq "^(brew\\(\"$tool\"|$tool\$)" "$DOTFILES_ROOT/$file"; then
+        fail "$tool is owned by both mise and $file"
+      fi
+    done
+  done < <(mise_tools)
   pass "Brew dependency declarations"
+}
+
+# Tool names declared in mise/config.toml's [tools] table.
+mise_tools() {
+  awk '/^\[/ { in_tools = ($0 == "[tools]") } in_tools && /^[a-z0-9-]+ *=/ { print $1 }' \
+    "$DOTFILES_ROOT/mise/config.toml"
 }
 
 check_linux_dependencies() {
@@ -108,11 +118,11 @@ check_linux_dependencies() {
   local apt_manifest="$DOTFILES_ROOT/linux/apt-packages"
 
   [[ -f "$pacman_manifest" ]] || { fail "missing pacman package manifest"; return; }
-  for package in bat git mise neovim ripgrep tmux ttf-ibmplex-mono-nerd ttf-iosevka-nerd zsh; do
+  for package in git mise tmux ttf-ibmplex-mono-nerd ttf-iosevka-nerd zsh; do
     grep -Fxq "$package" "$pacman_manifest" || fail "pacman package manifest missing $package"
   done
   [[ -f "$apt_manifest" ]] || { fail "missing apt package manifest"; return; }
-  for package in bat fd-find git-lfs neovim pipx ripgrep tmux zsh; do
+  for package in curl git git-lfs patchelf tmux zsh; do
     grep -Fxq "$package" "$apt_manifest" || fail "apt package manifest missing $package"
   done
   grep -Fxq 'ticket' "$DOTFILES_ROOT/linux/aur-packages" ||
@@ -120,17 +130,15 @@ check_linux_dependencies() {
   for manifest in arch ubuntu; do
     [[ -f "$DOTFILES_ROOT/linux/$manifest.sh" ]] || fail "missing $manifest dependency installer"
   done
-  [[ -f "$DOTFILES_ROOT/bat/linux.sh" ]] ||
-    fail "missing Linux bat installer"
-  grep -Fq 'bat cache --build' "$DOTFILES_ROOT/bat/linux.sh" ||
-    fail "Linux bat installer does not rebuild the theme cache"
+  grep -Fq 'bat cache --build' "$DOTFILES_ROOT/bat/all.sh" ||
+    fail "bat installer does not rebuild the theme cache"
   grep -Fq 'run_linux_dependency_installer' "$DOTFILES_ROOT/script/setup" ||
     fail "setup does not dispatch Linux dependencies"
   pass "Linux dependency declarations"
 }
 
 check_ghostty_linux() {
-  local installer="$DOTFILES_ROOT/ghostty/linux.sh"
+  local installer="$DOTFILES_ROOT/ghostty/linux.desktop.sh"
 
   [[ -f "$installer" ]] || { fail "missing Ghostty Linux installer"; return; }
   grep -Fq 'config-file = ?"~/.dotfiles/ghostty/config"' "$installer" ||
@@ -160,6 +168,13 @@ check_mise() {
   grep -Fq 'bun = "1"' "$DOTFILES_ROOT/mise/config.toml" || fail "Bun major is not pinned"
   grep -Fq 'ruby = "4"' "$DOTFILES_ROOT/mise/config.toml" || fail "Ruby major is not pinned"
   grep -Fq 'mise activate zsh' "$DOTFILES_ROOT/zsh/zshrc.symlink" || fail "Mise is not activated by zshrc"
+  local tool
+  for tool in neovim ripgrep fzf oh-my-posh pi; do
+    mise_tools | grep -Fxq "$tool" || fail "mise does not own $tool"
+  done
+  # oh-my-posh comes from mise, so mise must be active before the prompt starts.
+  awk '/mise activate zsh/ && !mise { mise = NR } /oh-my-posh init/ && !omp { omp = NR } END { exit !(mise && omp && mise < omp) }' \
+    "$DOTFILES_ROOT/zsh/zshrc.symlink" || fail "zshrc initializes oh-my-posh before activating mise"
   pass "Mise ownership"
 }
 
@@ -226,8 +241,61 @@ check_configs() {
   pass "application configs"
 }
 
+# --doctor: compare this machine with what setup would produce.
+doctor_profile() {
+  source "$DOTFILES_ROOT/script/lib.sh"
+  if profile="$(read_profile)"; then
+    pass "profile: $profile"
+  else
+    fail "no profile set; run script/setup --profile desktop|runner"
+    profile=""
+  fi
+}
+
+doctor_mise() {
+  command -v mise >/dev/null || { fail "mise is not installed"; return; }
+  local missing
+  missing="$(cd "$HOME" && mise ls --global --missing 2>/dev/null)"
+  if [[ -n "$missing" ]]; then
+    fail "mise tools not installed (run mise install):"
+    printf '       %s\n' "$missing" >&2
+  else
+    pass "mise tools installed"
+  fi
+}
+
+doctor_brew() {
+  [[ "$(uname -s)" == Darwin ]] || return 0
+  command -v brew >/dev/null || { fail "Homebrew is not installed"; return; }
+  local brewfiles=(Brewfile) brewfile
+  [[ "$profile" == desktop ]] && brewfiles+=(Brewfile.desktop)
+  for brewfile in "${brewfiles[@]}"; do
+    if brew bundle check --file="$DOTFILES_ROOT/macos/brew/$brewfile" >/dev/null 2>&1; then
+      pass "$brewfile installed"
+    else
+      fail "$brewfile has missing dependencies (run brew bundle check --verbose --file=macos/brew/$brewfile)"
+    fi
+  done
+}
+
+doctor_directories() {
+  [[ -d "$HOME/dev" ]] && pass "~/dev exists" || fail "~/dev is missing"
+}
+
 cd "$DOTFILES_ROOT"
 DOTFILES_ROOT_ORIGINAL="$DOTFILES_ROOT"
+
+if [[ "${1:-}" == --doctor ]]; then
+  doctor_profile
+  doctor_mise
+  doctor_brew
+  doctor_directories
+  check_symlinks
+  printf '\n%d problem(s), %d warning(s)\n' "$failures" "$warnings"
+  (( failures == 0 ))
+  exit
+fi
+
 check_shell_syntax
 check_link_safety
 check_executables
@@ -238,7 +306,6 @@ check_ghostty_linux
 check_omarchy_config
 check_mise
 check_portability
-check_symlinks
 check_architecture
 check_safety_helpers
 check_new_thread

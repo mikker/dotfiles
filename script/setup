@@ -9,14 +9,64 @@ EXPECTED_DOTFILES_ROOT="$HOME/.dotfiles"
 
 source "$DOTFILES_ROOT/script/lib.sh"
 
+usage() {
+  echo "Usage: script/setup [--profile desktop|runner]"
+}
+
 main() {
+  local requested_profile=""
+  while (( $# > 0 )); do
+    case "$1" in
+      --profile) requested_profile="${2:-}"; shift 2 || { usage; exit 1; } ;;
+      --profile=*) requested_profile="${1#*=}"; shift ;;
+      -h|--help) usage; exit 0 ;;
+      *) usage; fail "unknown argument: $1" ;;
+    esac
+  done
+
   assert_checkout_path
-  echo "Install"
+  resolve_profile "$requested_profile"
+  echo "Install ($(detect_platform), $DOTFILES_PROFILE profile)"
   submodules
   dependencies
+  tools
   symlinks
   platform
   generic
+  directories
+}
+
+# Picks the profile from --profile, then the saved file, then by asking.
+resolve_profile() {
+  local profile="$1"
+
+  if [[ -z "$profile" ]]; then
+    profile="$(read_profile)" || profile=""
+  fi
+
+  if [[ -z "$profile" ]]; then
+    local suggested=runner
+    if [[ "$(detect_platform)" == macos ]] || is_omarchy; then
+      suggested=desktop
+    fi
+
+    [[ -t 0 ]] || fail "no profile set for this machine; run script/setup --profile desktop|runner"
+    user "Profile for this machine? [desktop/runner] (default: $suggested)"
+    IFS= read -r profile
+    profile="${profile:-$suggested}"
+  fi
+
+  valid_profile "$profile" || fail "unknown profile '$profile' (expected one of: $DOTFILES_PROFILES)"
+
+  mkdir -p "$(dirname "$DOTFILES_PROFILE_FILE")"
+  printf '%s\n' "$profile" > "$DOTFILES_PROFILE_FILE"
+  DOTFILES_PROFILE="$profile"
+  export DOTFILES_PROFILE
+}
+
+directories() {
+  echo "Create directories"
+  mkdir -p "$HOME/dev"
 }
 
 assert_checkout_path() {
@@ -86,11 +136,16 @@ platform() {
 
   case "$platform_name" in
     macos)
-      run_installers "installers for $platform_name" "macos.sh" "mac.sh"
+      run_installers "installers for $platform_name" "macos.sh" "macos.$DOTFILES_PROFILE.sh"
       ;;
     linux)
-      run_installers "installers for $platform_name" "linux.sh"
+      run_installers "installers for $platform_name" "linux.sh" "linux.$DOTFILES_PROFILE.sh"
       bash "$DOTFILES_ROOT/linux/shared.sh"
+      if is_omarchy; then
+        run_installers "Omarchy installers" "omarchy.sh"
+      else
+        echo "Skipping Omarchy installers; Omarchy not detected"
+      fi
       ;;
     windows)
       run_installers "installers for $platform_name" "windows.sh"
@@ -128,11 +183,48 @@ dependencies() {
 
       echo "Install Homebrew dependencies"
       brew bundle --file "$DOTFILES_ROOT/macos/brew/Brewfile"
+      if [[ "$DOTFILES_PROFILE" == desktop ]]; then
+        brew bundle --file "$DOTFILES_ROOT/macos/brew/Brewfile.desktop"
+      fi
       ;;
     linux)
       run_linux_dependency_installer
       ;;
   esac
+}
+
+# mise owns language runtimes and CLI tools. Later installers depend on them,
+# so install them right after system packages and expose them on PATH.
+tools() {
+  if ! command_exists mise; then
+    echo "Install mise"
+    curl -fsSL https://mise.run | sh
+  fi
+  export PATH="$HOME/.local/bin:$PATH"
+  command_exists mise || fail "mise is not on PATH after installing it"
+
+  link_path "mise/config.toml" "$HOME/.config/mise/config.toml"
+
+  echo "Install mise tools"
+  mise install
+  eval "$(mise activate bash --shims)"
+
+  # oh-my-posh caches its shell init with an absolute binary path baked in.
+  oh-my-posh cache clear >/dev/null
+
+  patch_linux_ruby
+}
+
+# Some upstream Linux Ruby archives contain a build-machine RUNPATH. Point the
+# executable at the library shipped beside it when that happens.
+patch_linux_ruby() {
+  [[ "$(uname -s)" == Linux ]] && command_exists patchelf || return 0
+
+  local ruby_bin
+  ruby_bin="$(mise where ruby 2>/dev/null)/bin/ruby"
+  if [[ -x "$ruby_bin" ]] && ldd "$ruby_bin" 2>/dev/null | grep -q 'libruby.*not found'; then
+    patchelf --set-rpath '$ORIGIN/../lib' "$ruby_bin"
+  fi
 }
 
 run_linux_dependency_installer() {
@@ -240,6 +332,6 @@ fail() {
   exit 1
 }
 
-main
+main "$@"
 
 # vim: fdm=indent foldlevel=0

@@ -1,8 +1,35 @@
+# mise owns language runtimes and command-line tools on every machine.
+# System package managers (brew/apt/pacman) only bootstrap the shell and
+# provide system libraries and GUI apps.
 [tools]
+# Runtimes
 node = "26"
 bun = "1"
 ruby = "4"
 pnpm = "latest"
+uv = "latest"
+
+# Command-line tools
+ast-grep = "latest"
+bat = "latest"
+cloudflared = "latest"
+delta = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+jq = "latest"
+lazygit = "latest"
+neovim = "latest"
+oh-my-posh = "latest"
+pi = "latest"
+ripgrep = "latest"
+stripe = "latest"
+yq = "latest"
+yt-dlp = "latest"
+
+# Python CLIs (installed through uv)
+"pipx:llm" = "latest"
+"pipx:s3cmd" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby", "node", "bun"]

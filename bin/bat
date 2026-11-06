@@ -1,12 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-for candidate in /opt/homebrew/bin/bat /home/linuxbrew/.linuxbrew/bin/bat /usr/local/bin/bat /usr/bin/bat; do
-  if [[ -x "$candidate" ]]; then
+# Use the next bat on PATH after this wrapper.
+while IFS= read -r candidate; do
+  if [[ ! "$candidate" -ef "$0" ]]; then
     bat="$candidate"
     break
   fi
-done
+done < <(type -ap bat)
 
 if [[ -z "${bat:-}" ]]; then
   echo "bat is not installed" >&2
