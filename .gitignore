@@ -6,3 +6,4 @@ nvim/plugin/packer_compiled.lua
 nvim/lazy-lock.json
 macos/brew/Brewfile.lock.json
 macos/karabiner/automatic_backups
+/agents.symlink/AGENTS.local.md
