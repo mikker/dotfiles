@@ -122,6 +122,12 @@ searchPriorities = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'cloudshare'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'music.albums'
 
         [catalogs.globalScopes.scope]
@@ -2318,7 +2324,6 @@ id = 'E287933F-3EE0-4608-B02E-54B6AE92BD10'
 
 [settings]
 automaticallyShowResults = false
-clipboardHistoryRetention = 'oneYear'
 clipboardIgnoredBundleIdentifiers = [ 'com.1password.1password', 'com.apple.keychainaccess' ]
 comboModeCheatsheetBehavior = 'never'
 comboModeCheatsheetShowDetails = false
@@ -2420,6 +2425,7 @@ catalogIdentifier = 'com.brnbw.tuna.themes.alcor'
 
     [catalogSettings.values]
     ClearGlass = 'true'
+    GradientBacking = 'false'
     ThemeTint = 'system'
 
 [[catalogSettings]]
