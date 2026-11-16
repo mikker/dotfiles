@@ -175,7 +175,21 @@ sketchybar --add item clock right \
   label.drawing=off \
   label.font="SF Pro:Semibold:13.0" \
   label.padding_right=8 \
-  script="$PLUGIN_DIR/fut_agents.sh"
+  script="$PLUGIN_DIR/fut_agents.sh" \
+  --add item superego_unread right \
+  --set superego_unread \
+  drawing=on \
+  width=0 \
+  update_freq=5 \
+  icon="●" \
+  icon.drawing=off \
+  icon.font="SF Pro:Bold:10.0" \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.drawing=off \
+  label.font="SF Pro:Semibold:13.0" \
+  label.padding_right=8 \
+  script="$PLUGIN_DIR/superego_unread.sh"
 
 # --add item things_todo right \
 # --set things_todo update_freq=60 \
