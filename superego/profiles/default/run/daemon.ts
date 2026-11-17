@@ -280,7 +280,7 @@ export default defineDaemonExtension({
           },
         }),
         defineTool({
-          name: 'run_restart', description: "Start this folder's dev command, or restart it if it runs. Answers once it has started (not necessarily ready: check run_status).",
+          name: 'run_restart', description: "Start this folder's dev command on this machine, or restart it if it runs. Answers once it has started (not necessarily ready: check run_status).",
           parameters: obj({}), executionMode: 'sequential',
           async execute(_args, api) {
             const folder = await folderOfCall(api.conversationId)
@@ -298,6 +298,7 @@ export default defineDaemonExtension({
       ],
       sections: [section('run', () =>
         "This folder's long-running dev command (a server, a watcher) is managed by Superego from .superego/run.json, one per folder. "
+        + "It runs on the machine you run on, so a server it starts is at this machine's localhost. "
         + "Don't start it yourself with bash: use run_status, run_logs (to read its errors after a change), run_restart and run_stop.")],
     }))
 
