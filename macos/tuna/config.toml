@@ -122,7 +122,19 @@ searchPriorities = []
         kind = 'none'
 
     [[catalogs.globalScopes]]
+    catalogIdentifier = 'cleanshot.commands'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
     catalogIdentifier = 'cloudshare'
+
+        [catalogs.globalScopes.scope]
+        kind = 'none'
+
+    [[catalogs.globalScopes]]
+    catalogIdentifier = 'messages-2fa'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
@@ -240,8 +252,7 @@ searchPriorities = []
     catalogIdentifier = 'tuna.emoji'
 
         [catalogs.globalScopes.scope]
-        itemIDs = [ '1fa93' ]
-        kind = 'only'
+        kind = 'none'
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.quick-actions'
