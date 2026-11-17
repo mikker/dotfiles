@@ -428,12 +428,27 @@ function BoardPane({ machine, thread }: PaneProps) {
     )
   }
 
+  // The focus the window gives the pane's column comes on to the board: as the board appears (the column may have taken
+  // it while the board was still loading, with nothing marked data-focus yet), and whenever the column itself gets it.
+  const drawn = Boolean(items.length || plan)
+  useEffect(() => {
+    const board = root.current
+    const column = board?.closest<HTMLElement>('[data-column]')
+    if (!board || !column) return
+    const take = () => board.focus({ preventScroll: true })
+    if (document.activeElement === column) take()
+    const onFocus = (e: FocusEvent) => { if (e.target === column) take() }
+    column.addEventListener('focus', onFocus)
+    return () => column.removeEventListener('focus', onFocus)
+  }, [drawn])
+
   const running = children.filter(working).length
   const needing = needs.filter((n) => n.kind !== 'decision' || !n.decision.answer).length
   const watches = children.map((c) => <Watch key={c.id} machine={machine} child={c.id} onChange={onWait} />)
-  if (!items.length && !plan) return <>{watches}<PaneMessage>No threads started yet.</PaneMessage></>
+  if (!drawn) return <>{watches}<PaneMessage>No threads started yet.</PaneMessage></>
   return (
-    <div className="staff-board" ref={root} tabIndex={0} onKeyDown={onKeyDown}>
+    // data-focus: where the window puts the focus as it goes to this pane (opened, clicked, ⌘⌥←→), so keys work at once.
+    <div className="staff-board" ref={root} tabIndex={0} data-focus onKeyDown={onKeyDown}>
       {watches}
       <PaneHeader>
         <PaneNote>{needing ? `${needing} need${needing === 1 ? 's' : ''} you · ` : ''}{running} running{queued.length ? ` · ${queued.length} queued` : ''}</PaneNote>

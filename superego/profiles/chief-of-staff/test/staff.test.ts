@@ -259,3 +259,18 @@ it("answers a child's own question on the board, and tells the lead", async () =
   expect(await daemon!.transcript(lead.id)).toContain(`On the board, the user answered [Save v3](thread:${save.id}): Keep v2 saves loadable?`)
   await window.until(() => !pane.text().includes('Keep v2 saves loadable?'), 'the question gone')
 }, 30_000)
+
+it('takes the focus as the window goes to its pane, so keys work at once', async () => {
+  await up({ tickMs: 100 }, [callTool('board_ask', { question: 'Worth a sprite?', options: ['Yes', 'No'] }), say('Asked.')])
+  const lead = await daemon!.thread('Ask', { title: 'Lead' })
+  const watched = await daemon!.watch<Board>(BOARD, { scope: lead.id })
+  await watched.until((b) => b.decisions.length === 1, 'the decision')
+  window = await mountUi({ machines: [daemon!], profile: { ref: lead.profile!, extensions: [board] }, select: { thread: lead.id }, window: true })
+  // Opened from the window, as the lead opens it: the window focuses the pane, and the pane its board.
+  await window.dispatch('pane.open', { thread: lead.id, kind: PANE })
+  await window.until(() => document.activeElement?.classList.contains('staff-board') ?? false, 'the board focused')
+  await window.key('1')
+  expect(window.window!.text()).toContain('Sending “Yes”')
+  // Taken back: unmounted with it pending, the board would send it as the window goes.
+  await window.key('z')
+}, 20_000)
