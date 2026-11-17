@@ -74,7 +74,7 @@ check_structured_files() {
 import json, pathlib, sys, tomllib
 root = pathlib.Path(sys.argv[1])
 for path in root.rglob("*.json"):
-    if ".git" not in path.parts:
+    if ".git" not in path.parts and path.name != "tsconfig.json":  # tsconfig is JSONC
         json.loads(path.read_text())
 for path in root.rglob("*.toml"):
     if ".git" not in path.parts:
