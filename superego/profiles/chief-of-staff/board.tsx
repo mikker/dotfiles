@@ -8,8 +8,8 @@
 // sends after a moment, in which `z` takes it back. Threads come from what the window knows; the rest from staff.ts.
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import {
-  ArchiveIcon, DiffStat, defineUiExtension, factsOf, has, IconButton, Markdown, PaneHeader, PaneMessage, PaneNote,
-  StatusGlyph, TextField, ThreadRef, useDispatch, useMethod, useSelection, useThreads, useValue, XIcon,
+  ArchiveIcon, DiffStat, defineUiExtension, factsOf, Glyph, has, IconButton, Markdown, PaneHeader, PaneMessage, PaneNote,
+  STATUS_WORDS, StatusGlyph, TextField, ThreadRef, useDispatch, useMethod, useSelection, useThreads, useValue, XIcon,
   type MachineEntry, type PaneProps, type ThreadInfo,
 } from 'superego/ui'
 import {
@@ -316,13 +316,13 @@ function BoardPane({ machine, thread }: PaneProps) {
       const { decision: d } = item
       if (d.answer) {
         return row(item, 'staff-board__ask is-answered', <>
-          <div className="staff-board__line"><span className="staff-board__glyph is-answered" /><span className="staff-board__q">{d.question}</span>
+          <div className="staff-board__line"><Glyph shape="landed" className="staff-board__answered" /><span className="staff-board__q">{d.question}</span>
             <IconButton label="Dismiss" onClick={(e) => { e.stopPropagation(); dismiss(item) }}><XIcon /></IconButton></div>
           <div className="staff-board__about">→ {d.answer.text}{d.answer.by === 'lead' ? ' (closed by the lead)' : ''} · {ago(now - d.answer.at)}</div>
         </>)
       }
       return row(item, 'staff-board__ask', <>
-        <div className="staff-board__line"><span className="staff-board__glyph is-asking" /><span className="staff-board__q">{d.question}</span></div>
+        <div className="staff-board__line"><Glyph shape="question" /><span className="staff-board__q">{d.question}</span></div>
         <div className="staff-board__about">{d.about.length ? <>the lead, about {d.about.map((a, i) => <span key={a}>{i ? ', ' : ''}{ref(a)}</span>)}</> : 'the lead'} · {ago(now - d.at)}</div>
         <Options options={d.options} picked={pending?.key === item.key ? pending.option : undefined} pick={(i) => answer(item, d.options[i]!.label, i)} />
         {sending(item)}{reply(item)}
@@ -331,7 +331,7 @@ function BoardPane({ machine, thread }: PaneProps) {
     if (item.kind === 'question') {
       const { child, waiting: w } = item
       return row(item, 'staff-board__ask', <>
-        <div className="staff-board__line"><span className="staff-board__glyph is-asking" /><span className="staff-board__q">{firstLine(w.question ?? w.title ?? 'Waiting for your answer')}</span></div>
+        <div className="staff-board__line"><Glyph shape="question" /><span className="staff-board__q">{firstLine(w.question ?? w.title ?? 'Waiting for your answer')}</span></div>
         <div className="staff-board__about"><ThreadRef machine={machine.id} id={child.id} /> asks · {ago(now - w.at)}</div>
         {w.question
           ? <><Options options={w.options ?? []} picked={pending?.key === item.key ? pending.option : undefined} pick={(i) => answer(item, w.options![i]!.label, i)} />{sending(item)}{reply(item)}</>
@@ -341,7 +341,7 @@ function BoardPane({ machine, thread }: PaneProps) {
     if (item.kind === 'stall') {
       const stall = mine!.stalled[item.child.id]!
       return row(item, 'staff-board__ask', <>
-        <div className="staff-board__line"><span className="staff-board__glyph is-stalled" /><span className="staff-board__q"><ThreadRef machine={machine.id} id={item.child.id} /> has made no progress for {ago(now - stall.since)}</span></div>
+        <div className="staff-board__line"><Glyph shape="stalled" /><span className="staff-board__q"><ThreadRef machine={machine.id} id={item.child.id} /> has made no progress for {ago(now - stall.since)}</span></div>
         {stall.call && <div className="staff-board__about">in {stall.call.replace(/`/g, '')}</div>}
       </>)
     }
@@ -373,9 +373,9 @@ function BoardPane({ machine, thread }: PaneProps) {
         : tree ? <div className="staff-board__sub">{tree.branch.replace(/^superego\//, '')}</div> : null
       return row(item, 'staff-board__lane', <>
         <div className="staff-board__line">
-          {landed ? <span className="staff-board__glyph is-landed" /> : <StatusGlyph status={child.status} />}
+          {landed ? <Glyph shape="landed" /> : stall ? <Glyph shape="stalled" /> : <StatusGlyph status={child.status} />}
           <ThreadRef machine={machine.id} id={child.id} className="staff-board__title" />
-          {needsYou && <span className="staff-board__need">needs you</span>}
+          {needsYou && <span className="staff-board__need">{STATUS_WORDS.question}</span>}
           {changes?.files.length ? <Changed changes={changes} /> : null}
           {landed && merged !== null && merged !== undefined && <span className="staff-board__meta">{merged ? 'merged' : 'not merged'}</span>}
           <span className="staff-board__ago" title="Since its last step">{ago(now - child.activeAt)}</span>
@@ -389,7 +389,7 @@ function BoardPane({ machine, thread }: PaneProps) {
       const merged = details[report.id]?.merged ?? report.merged
       return row(item, 'staff-board__lane', <>
         <div className="staff-board__line">
-          <span className={`staff-board__glyph ${report.outcome === 'done' ? 'is-landed' : 'is-failed'}`} />
+          <Glyph shape={report.outcome === 'done' ? 'landed' : 'error'} />
           <ThreadRef machine={machine.id} id={report.id} className="staff-board__title">{report.title}</ThreadRef>
           {report.changes?.files.length ? <Changed changes={report.changes} /> : null}
           {merged !== null && merged !== undefined && <span className="staff-board__meta">{merged ? 'merged' : 'not merged'}</span>}
@@ -402,7 +402,7 @@ function BoardPane({ machine, thread }: PaneProps) {
     if (item.kind === 'queued' || item.kind === 'planned') {
       return row(item, 'staff-board__lane is-quiet', <>
         <div className="staff-board__line">
-          <span className={`staff-board__glyph is-${item.kind}`} />
+          <Glyph shape={item.kind === 'queued' ? 'queued' : 'idle'} />
           <span className="staff-board__title">{item.title}</span>
           <span className="staff-board__meta">{item.kind}</span>
           {item.at && <span className="staff-board__ago">{ago(now - item.at)}</span>}
@@ -466,7 +466,7 @@ function BoardPane({ machine, thread }: PaneProps) {
                 {waves.filter((w) => w.index >= 0).map((w, i) => (
                   <span key={w.index} className="staff-board__step">
                     {i > 0 && <span className={`staff-board__bar${w.landed || w.lanes.some((l) => isLanded(l) || (l.kind === 'child' && working(l.child))) ? ' is-on' : ''}`} />}
-                    <span className={`staff-board__glyph ${w.landed ? 'is-landed' : w.lanes.some((l) => l.kind === 'child') ? 'is-working' : 'is-planned'}`} />
+                    <Glyph shape={w.landed ? 'landed' : w.lanes.some((l) => l.kind === 'child') ? 'working' : 'idle'} />
                     <span title={w.title}>{w.index + 1}</span>
                   </span>
                 ))}
@@ -511,17 +511,8 @@ export default defineUiExtension({
       .staff-board__sub.is-stalled { color: var(--superego-status-blocked-text); }
       .staff-board__said { white-space: normal; }
       .staff-board__said .md { line-height: 1.5; }
-      .staff-board__glyph { flex: none; display: inline-flex; width: 1em; height: 1em; align-items: center; justify-content: center; color: var(--superego-status-idle); }
-      .staff-board__glyph::before { content: ''; box-sizing: border-box; width: var(--superego-status-dot); height: var(--superego-status-dot); border-radius: 50%; background: currentColor; }
-      .staff-board__glyph.is-asking { color: var(--superego-status-blocked); }
-      .staff-board__glyph.is-stalled { color: var(--superego-status-blocked); }
-      .staff-board__glyph.is-stalled::before, .staff-board__glyph.is-working::before, .staff-board__glyph.is-planned::before { background: none; border: 1.5px solid currentColor; }
-      .staff-board__glyph.is-working { color: var(--superego-accent); }
-      .staff-board__glyph.is-queued::before { background: none; border: 1.5px dashed var(--superego-faint); }
-      .staff-board__glyph.is-failed { color: var(--superego-status-error); }
-      .staff-board__glyph.is-landed, .staff-board__glyph.is-answered { color: var(--superego-accent); }
-      .staff-board__glyph.is-answered { color: var(--superego-faint); }
-      .staff-board__glyph.is-landed::before, .staff-board__glyph.is-answered::before { content: '✓'; width: auto; height: auto; background: none; font-size: 11px; font-weight: 700; line-height: 1; }
+      .staff-board__line > .superego-status { font-size: 13px; }
+      .staff-board .superego-status.staff-board__answered { color: var(--superego-faint); }
       .staff-board__heading { display: flex; gap: 4px; margin: var(--superego-space-3) 0 var(--superego-space-1); font-size: var(--superego-text-sm); font-weight: 600; color: var(--superego-muted); }
       .staff-board__count { color: var(--superego-status-blocked-text); }
       .staff-board__ask { padding-top: 8px; padding-bottom: 8px; }

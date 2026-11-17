@@ -1,6 +1,6 @@
 // What staff is, for both halves (spread into each), and what they share: the board's value and its shapes.
 export const about = {
-  name: 'staff', api: '^3', title: 'Chief of staff',
+  name: 'staff', api: '^3.1', title: 'Chief of staff',
   panes: {
     'staff-board': "the user's overview of this thread's work: the programme's waves (board_plan), what needs the user " +
       "(decisions from board_ask, children's questions, stalls), each child's progress and changes, queued starts, and " +
