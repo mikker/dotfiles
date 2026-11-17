@@ -16,17 +16,18 @@ const here = new URL('.', import.meta.url).pathname
 
 /**
  * The profile as the real one, with staff on test timers, and stand-ins for the bundled extensions it leans on, which a
- * test daemon hasn't: thread-tools' thread_start for it to wrap, and worktrees' facts (stand-ins.ts). Its board is a
+ * test daemon hasn't: thread-tools' thread_start for it to wrap, worktrees' facts, and agent-ui's ask_user (stand-ins.ts). Its board is a
  * copy, as the window loads a profile's UI only from inside its folder.
  */
 const source = (file: string) => readFileSync(join(here, '..', file), 'utf8')
 const profile = (options: StaffOptions) => ({
-  'profile.ts': `import { defineProfile } from 'superego'\nexport default defineProfile({ extensions: ['./staff.ts', './thread-tools.ts', './worktrees.ts'], ui: ['./board.tsx'] })\n`,
+  'profile.ts': `import { defineProfile } from 'superego'\nexport default defineProfile({ extensions: ['./staff.ts', './thread-tools.ts', './worktrees.ts', './agent-ui.ts'], ui: ['./board.tsx'] })\n`,
   'board.tsx': source('board.tsx'),
   'shared.ts': source('shared.ts'),
   'staff.ts': `import { staff } from ${JSON.stringify(join(here, '..', 'staff.ts'))}\nexport default staff(${JSON.stringify(options)})\n`,
   'thread-tools.ts': `export { threadTools as default } from ${JSON.stringify(join(here, 'stand-ins.ts'))}\n`,
   'worktrees.ts': `export { worktrees as default } from ${JSON.stringify(join(here, 'stand-ins.ts'))}\n`,
+  'agent-ui.ts': `export { agentUi as default } from ${JSON.stringify(join(here, 'stand-ins.ts'))}\n`,
 })
 
 let daemon: TestDaemon | undefined
@@ -142,11 +143,11 @@ it("reports a child with its branch's changes, keeps it past the archive, and dr
   expect(watched.value.reports).toHaveLength(1)
   expect(await daemon!.call<Details[]>('staff.details', { id: lead.id })).toEqual([{ id: lane.id, answer: null, merged: true }])
 
-  // On the board, under Reports; dismissed there: gone, and not reported again.
+  // On the board, under Landed; dismissed there: gone, and not reported again.
   window = await mountUi({ machines: [daemon!], profile: { ref: lead.profile!, extensions: [board] }, select: { thread: lead.id } })
   const pane = await window.render({ pane: { kind: PANE }, thread: lead.id })
   await window.until(() => pane.text().includes('Did the lane.'), 'the report on the board')
-  expect(pane.text()).toContain('Reports')
+  expect(pane.text()).toContain('Landed')
   expect(pane.text()).toContain('merged')
   await pane.click('button[aria-label="Dismiss"]')
   await watched.until((b) => b.reports.length === 0, 'dismissed')
@@ -174,3 +175,87 @@ it('takes a later report over an earlier one, and dismisses all at once', async 
   await new Promise((r) => setTimeout(r, 300))
   expect(watched.value.reports).toEqual([])
 })
+
+it('lays out the plan and puts decisions on the board, answered there by number after a moment to take it back', async () => {
+  await up({ tickMs: 100 }, [
+    callTool('board_plan', { title: 'Colony polish', summary: 'Wave 1 is under way.', waves: [{ title: 'Feel', lanes: ['Ranger feel', 'Sound'] }] }),
+    callTool('board_ask', { question: 'Worth a sprite?', options: ['Own sprite', { label: 'Keep the pill', description: 'as now' }], about: ['Ranger feel'] }),
+    callTool('board_ask', { question: 'Ship the lookbook?', options: ['Yes', 'No'] }),
+    say('On the board.'),
+    // The lead's turns for the answers it's told.
+    say('Noted.'), say('Noted.'),
+  ])
+  const lead = await daemon!.thread('Plan it', { title: 'Lead' })
+  const watched = await daemon!.watch<Board>(BOARD, { scope: lead.id })
+  await watched.until((b) => b.decisions.length === 2 && Boolean(b.plan), 'the plan and decisions')
+  expect(watched.value.plan).toMatchObject({ title: 'Colony polish', waves: [{ title: 'Feel', lanes: ['Ranger feel', 'Sound'] }] })
+  const [sprite, ship] = watched.value.decisions
+  expect(sprite).toMatchObject({ question: 'Worth a sprite?', options: [{ label: 'Own sprite' }, { label: 'Keep the pill', description: 'as now' }], about: ['Ranger feel'] })
+  expect(await daemon!.transcript(lead.id)).toContain(`Decision ${sprite!.id} is on the board.`)
+
+  window = await mountUi({ machines: [daemon!], profile: { ref: lead.profile!, extensions: [board] }, select: { thread: lead.id } })
+  const pane = await window.render({ pane: { kind: PANE }, thread: lead.id })
+  await window.until(() => pane.text().includes('Worth a sprite?'), 'the decision on the board')
+  expect(pane.text()).toContain('Colony polish')
+  expect(pane.text()).toContain('Wave 1 · Feel')
+  expect(pane.text()).toContain('2 need you')
+  pane.find('.staff-board')!.focus()
+
+  // The cursor starts on the first; 1 picks, z takes it back: nothing goes.
+  await window.key('1')
+  expect(pane.text()).toContain('Sending “Own sprite”')
+  await window.key('z')
+  expect(pane.text()).not.toContain('Sending')
+  // 2 picks, and after a moment it's sent: the lead hears it, and the board keeps it, answered.
+  await window.key('2')
+  // (The transcript is JSON: the message's newline is in it as \n.)
+  await daemon!.until(async () => (await said(lead.id, `Decision ${sprite!.id}: Worth a sprite?\\n→ Keep the pill`)) > 0, 'the lead told')
+  expect(await said(lead.id, '→ Own sprite')).toBe(0)
+  await watched.until((b) => b.decisions[0]?.answer?.text === 'Keep the pill', 'answered on the board')
+  await window.until(() => pane.text().includes('→ Keep the pill'), 'shown answered')
+
+  // n goes to the next open one; r answers it in words.
+  await window.key('n')
+  await window.key('r')
+  await window.type('.staff-board__reply', 'Not yet')
+  await window.key('enter')
+  await daemon!.until(async () => (await said(lead.id, `Decision ${ship!.id}: Ship the lookbook?\\n→ Not yet`)) > 0, 'the words sent')
+
+  // x on an answered one dismisses it; an answer twice is refused.
+  await expect(daemon!.dispatch('staff.decide', { id: lead.id, decision: sprite!.id, text: 'Own sprite' })).rejects.toThrow('already answered')
+  await window.key('k')
+  await window.key('x')
+  await watched.until((b) => b.decisions.length === 1, 'dismissed')
+  expect(watched.value.decisions[0]!.id).toBe(ship!.id)
+}, 30_000)
+
+it('keeps the plan and decisions across a restart, and lets the lead close one', async () => {
+  await up({ tickMs: 100 }, [
+    callTool('board_ask', { question: 'Migrate v2 saves?', options: ['Yes', 'No'] }), say('Asked.'),
+  ])
+  const lead = await daemon!.thread('Ask', { title: 'Lead' })
+  let watched = await daemon!.watch<Board>(BOARD, { scope: lead.id })
+  await watched.until((b) => b.decisions.length === 1, 'the decision')
+  const { id } = watched.value.decisions[0]!
+  daemon = await daemon!.restart({ model: [callTool('board_close', { id, note: 'Settled in chat: wipe' }), say('Closed.')] })
+  watched = await daemon.watch<Board>(BOARD, { scope: lead.id })
+  await watched.until((b) => b.decisions.length === 1, 'the decision after the restart')
+  await daemon.send(lead.id, 'Close it')
+  await watched.until((b) => b.decisions[0]?.answer?.by === 'lead', 'closed')
+  expect(watched.value.decisions[0]!.answer!.text).toBe('Settled in chat: wipe')
+}, 30_000)
+
+it("answers a child's own question on the board, and tells the lead", async () => {
+  await up({ tickMs: 100 }, [callTool('ask_user', { question: 'Keep v2 saves loadable?', options: ['Migrate', 'Wipe'] }), say('Ok.'), say('Ok.')])
+  const lead = await daemon!.thread(undefined, { title: 'Lead' })
+  // Of this profile, so it has the stand-in ask_user (a profile's extension).
+  const save = await daemon!.call<ThreadInfo>('thread.start', { parent: lead.id, title: 'Save v3', prompt: 'Do the save format', profile: 'chief-of-staff' })
+  window = await mountUi({ machines: [daemon!], profile: { ref: lead.profile!, extensions: [board] }, select: { thread: lead.id } })
+  const pane = await window.render({ pane: { kind: PANE }, thread: lead.id })
+  await window.until(() => pane.text().includes('Keep v2 saves loadable?'), "the child's question on the board", 10_000)
+  pane.find('.staff-board')!.focus()
+  await window.key('2')
+  await daemon!.until(async () => (await said(lead.id, '→ Wipe')) > 0, 'the lead told')
+  expect(await daemon!.transcript(lead.id)).toContain(`On the board, the user answered [Save v3](thread:${save.id}): Keep v2 saves loadable?`)
+  await window.until(() => !pane.text().includes('Keep v2 saves loadable?'), 'the question gone')
+}, 30_000)

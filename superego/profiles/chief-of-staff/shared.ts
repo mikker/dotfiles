@@ -2,8 +2,9 @@
 export const about = {
   name: 'staff', api: '^3', title: 'Chief of staff',
   panes: {
-    'staff-board': "this thread's children at a glance: state, time since each last made progress, stalls, worktrees, " +
-      'their changes and merges, queued starts, and reports kept until the user dismisses them; no params',
+    'staff-board': "the user's overview of this thread's work: the programme's waves (board_plan), what needs the user " +
+      "(decisions from board_ask, children's questions, stalls), each child's progress and changes, queued starts, and " +
+      'what landed; no params',
   },
 }
 
@@ -21,12 +22,36 @@ export type Report = {
   branch?: string; changes?: Changes; merged?: boolean
 }
 
-/** One lead's board: its stalled children (since when, in which call), queued starts, each child's changes, its reports. */
+/** An answer offered to a decision, with a line about it where the label needs one. */
+export type Option = { label: string; description?: string }
+
+/**
+ * A decision the lead put on the board (board_ask) for the user: the question, its options, the threads it's about (ids
+ * or titles), and its answer once given: by the user on the board, or by the lead closing it (board_close).
+ */
+export type Decision = {
+  id: string; question: string; options: Option[]; about: string[]; at: number
+  answer?: { text: string; at: number; by: 'user' | 'lead' }
+}
+
+/** The programme as the lead lays it out (board_plan): a title, a line on where it stands, its waves of lanes (titles or ids). */
+export type Plan = { title?: string; summary?: string; waves: { title: string; lanes: string[] }[]; at: number }
+
+/**
+ * One lead's board: its stalled children (since when, in which call), queued starts, each child's changes, its reports,
+ * its plan and decisions.
+ */
 export type Board = {
   stalled: Record<string, { since: number; call?: string }>; queued: { title: string; at: number }[]
-  changes: Record<string, Changes>; reports: Report[]
+  changes: Record<string, Changes>; reports: Report[]; plan?: Plan; decisions: Decision[]
 }
-export const EMPTY_BOARD: Board = { stalled: {}, queued: [], changes: {}, reports: [] }
+export const EMPTY_BOARD: Board = { stalled: {}, queued: [], changes: {}, reports: [], decisions: [] }
+
+/** What a child's agent waits on, as agent-ui publishes it in the child's scope: an ask_user's question, or an ask_ui's blocks. */
+export type Waiting = { id: string; thread: string; at: number; tool: string; question?: string; options?: Option[]; title?: string }
+/** agent-ui's: what each thread waits on (a scoped value), and the action that answers it. */
+export const WAITING = 'agent-ui.waiting'
+export const ANSWER = 'agent-ui.answer'
 
 /** `staff.details`: each child's last answer in a line, and whether its branch is merged. */
 export type Details = { id: string; answer: string | null; merged: boolean | null }

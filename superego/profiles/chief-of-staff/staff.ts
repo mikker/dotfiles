@@ -1,13 +1,16 @@
 // The chief of staff's machinery, for threads with this profile (its "leads"): a watchdog over their children, check-ins
 // they schedule for themselves, a cap on how many children run at once (thread_start beyond it queues the start), and
-// what the board pane shows: each child's changes, and its reports, kept until the user dismisses them. One timer, owned
-// by the extension and gone with it; what must survive a restart (check-ins, queued starts, reports) is kept in each
-// lead's state.
+// what the board pane shows: each child's changes, its reports (kept until the user dismisses them), the programme as the
+// lead lays it out (board_plan), and the decisions it puts to the user (board_ask), answered on the board. One timer,
+// owned by the extension and gone with it; what must survive a restart (check-ins, queued starts, reports, the plan,
+// decisions) is kept in each lead's state.
 import { execFile } from 'node:child_process'
+import { randomUUID } from 'node:crypto'
 import {
-  defineAction, defineDaemonExtension, defineExtension, defineTool, num, obj, opt, str, wrapTool, type ThreadInfo,
+  arr, defineAction, defineDaemonExtension, defineExtension, defineTool, num, obj, opt, RpcError, str, union, wrapTool,
+  type ThreadInfo,
 } from 'superego'
-import { about, BOARD, EMPTY_BOARD, type Board, type Changes, type Details, type Report } from './shared.ts'
+import { about, BOARD, EMPTY_BOARD, type Board, type Changes, type Decision, type Details, type Plan, type Report } from './shared.ts'
 
 const PROFILE = 'chief-of-staff'
 const MINUTE = 60_000
@@ -16,7 +19,9 @@ type Start = { prompt: string; title?: string; cwd?: string; profile?: string; w
 type CheckIn = { at: number; note: string }
 type Queued = { args: Start; at: number }
 /** `reported`: by child, the activity (activeAt) its last report was of, so each is recorded once, dismissed or not. */
-type State = { checkIns?: CheckIn[]; queue?: Queued[]; reports?: Report[]; reported?: Record<string, number> }
+type State = {
+  checkIns?: CheckIn[]; queue?: Queued[]; reports?: Report[]; reported?: Record<string, number>; plan?: Plan; decisions?: Decision[]
+}
 /** A thread's worktree, as the worktrees extension tells it (`facts.worktrees`). */
 type Worktree = { path: string; branch: string; removed?: boolean }
 
@@ -30,6 +35,8 @@ export type StaffOptions = {
 }
 
 const text = (value: string) => ({ output: [{ type: 'text' as const, text: value }] })
+/** A decision's options take a number key each on the board: at most nine. */
+const OPTIONS = 9
 const linkTo = (t: { id: string; title: string }) => `[${t.title.replace(/[[\]]/g, '')}](thread:${t.id})`
 const minutes = (ms: number) => `${Math.max(1, Math.round(ms / MINUTE))} min`
 const worktreeOf = (t: ThreadInfo) => t.facts?.worktrees as Worktree | undefined
@@ -152,6 +159,22 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
         }
       }
 
+      /** What the board shows straight from a lead's state: its reports, plan and decisions. */
+      const kept = (s: State | undefined) => ({ reports: s?.reports ?? [], decisions: s?.decisions ?? [], ...(s?.plan ? { plan: s.plan } : {}) })
+      /** Change a lead's state, and its board with it at once rather than on the next tick. */
+      async function keep(lead: string, edit: (s: State) => State) {
+        await state.update(lead, (s) => edit(s ?? {}))
+        const next = await state.get(lead)
+        board.update(lead, (b) => ({ ...(b ?? EMPTY_BOARD), ...kept(next) }))
+        return next
+      }
+      /** The lead of the thread a tool call is in. */
+      const leadOf = (conversationId: number) => {
+        const id = threadOf(conversationId)
+        if (!id) throw new Error('Only a thread can use the board')
+        return id
+      }
+
       async function start(lead: ThreadInfo, { worktree, ...args }: Start) {
         // A worktree is asked of the worktrees extension by name.
         const options = worktree !== undefined ? { options: { worktrees: worktree } } : {}
@@ -234,9 +257,11 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
           }
 
           if (superego.signal.aborted) return
+          // Read again: a decision or plan may have come since, and the board shouldn't lose it until the next tick.
+          mine = (await state.get(lead.id)) ?? {}
           board.set(lead.id, {
             stalled, queued: (mine.queue ?? []).map((q) => ({ title: q.args.title ?? q.args.prompt.slice(0, 60), at: q.at })),
-            changes: changed, reports: mine.reports ?? [],
+            changes: changed, ...kept(mine),
           })
           if (notes.length) await tell(lead.id, notes.join('\n\n'))
         }
@@ -255,7 +280,7 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
 
       superego.agent(defineExtension({
         name: 'staff',
-        tools: [defineTool({
+        tools: [...boardTools(), defineTool({
           name: 'check_in',
           description: 'Schedule a message to this thread, "Check-in: <note>", in `minutes`: to look at running work later instead of ' +
             'blocking on thread_read (wait: true). It survives a restart.',
@@ -297,17 +322,104 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
         }))
       }, { params: obj({ id: str() }) })
 
-      // The user's done with a report (or, without `child`, all of a lead's): off the board, and out of its state.
+      // The user's done with a report or an answered decision (or, with neither, all of a lead's reports and answered
+      // decisions): off the board, and out of its state.
       superego.action(defineAction({
-        id: 'staff.dismiss', title: 'Dismiss a report on the board', expose: ['ui'],
-        params: obj({ id: str(), child: opt(str()) }),
-        async run({ id, child }) {
-          const keep = (r: Report) => child !== undefined && r.id !== child
-          await state.update(id, (s) => ({ ...s, reports: (s?.reports ?? []).filter(keep) }))
-          board.update(id, (b) => ({ ...b, reports: b.reports.filter(keep) }))
+        id: 'staff.dismiss', title: 'Dismiss a report or an answered decision on the board', expose: ['ui'],
+        params: obj({ id: str(), child: opt(str()), decision: opt(str()) }),
+        async run({ id, child, decision }) {
+          const all = child === undefined && decision === undefined
+          await keep(id, (s) => ({
+            ...s,
+            reports: (s.reports ?? []).filter((r) => !all && r.id !== child),
+            decisions: (s.decisions ?? []).filter((d) => all ? !d.answer : d.id !== decision),
+          }))
           return null
         },
       }))
+
+      // The user answers a decision on the board: it's kept as answered, and the lead is told.
+      superego.action(defineAction({
+        id: 'staff.decide', title: 'Answer a decision on the board', expose: ['ui', 'cli'],
+        params: obj({ id: str(), decision: str(), text: str({ minLength: 1 }) }),
+        async run({ id, decision, text: answer }) {
+          const asked = (await state.get(id))?.decisions?.find((d) => d.id === decision)
+          if (!asked) throw new RpcError('not_found', 'That decision is no longer on the board')
+          if (asked.answer) throw new RpcError('invalid', 'That decision is already answered')
+          const words = answer.trim()
+          await keep(id, (s) => ({
+            ...s, decisions: (s.decisions ?? []).map((d) => d.id === decision ? { ...d, answer: { text: words, at: Date.now(), by: 'user' as const } } : d),
+          }))
+          await tell(id, `Decision ${decision}: ${asked.question}\n→ ${words}`)
+          return null
+        },
+      }))
+
+      // The user answered a child's question on the board (agent-ui's answer): the lead hears what was decided.
+      superego.action(defineAction({
+        id: 'staff.relay', title: "Tell the lead how a child's question was answered on the board", expose: ['ui'],
+        params: obj({ id: str(), child: str(), question: str(), text: str() }),
+        async run({ id, child, question, text: answer }) {
+          const thread = await superego.threads.get(child).catch(() => undefined)
+          await tell(id, `On the board, the user answered ${thread ? linkTo(thread) : child}: ${question}\n→ ${answer}`)
+          return null
+        },
+      }))
+
+      /** The lead's board tools: lay out the programme, put a decision to the user, close one. */
+      function boardTools() {
+        return [
+          defineTool({
+            name: 'board_plan',
+            description: "Lay out the programme on the board, the user's overview: a title, a line on where it stands, and its " +
+              'waves, each with its lanes (thread titles as given to thread_start, or ids; planned ones too). Replaces the last plan.',
+            parameters: obj({
+              title: opt(str()), summary: opt(str()),
+              waves: arr(obj({ title: str({ minLength: 1 }), lanes: arr(str({ minLength: 1 })) })),
+            }),
+            async execute({ title, summary, waves }, api) {
+              const plan: Plan = { ...(title ? { title } : {}), ...(summary ? { summary } : {}), waves, at: Date.now() }
+              await keep(leadOf(api.conversationId), (s) => ({ ...s, plan }))
+              return text(`The board shows ${waves.length} ${waves.length === 1 ? 'wave' : 'waves'}.`)
+            },
+          }),
+          defineTool({
+            name: 'board_ask',
+            description: 'Put a decision to the user on the board, with options they pick by number (or answer in words). ' +
+              "It doesn't wait: their answer comes as a message, \"Decision <id>: <question> → <answer>\". `about`: the threads " +
+              'it concerns (ids or titles).',
+            parameters: obj({
+              question: str({ minLength: 1 }),
+              options: arr(union([str({ minLength: 1 }), obj({ label: str({ minLength: 1 }), description: opt(str()) })]), { maxItems: OPTIONS }),
+              about: opt(arr(str())),
+            }),
+            async execute({ question, options, about: concerns }, api) {
+              const id = randomUUID().slice(0, 6)
+              const decision: Decision = {
+                id, question, about: concerns ?? [], at: Date.now(),
+                options: options.map((o) => typeof o === 'string' ? { label: o } : { label: o.label, ...(o.description ? { description: o.description } : {}) }),
+              }
+              await keep(leadOf(api.conversationId), (s) => ({ ...s, decisions: [...(s.decisions ?? []), decision] }))
+              return text(`Decision ${id} is on the board. The user's answer comes as a message.`)
+            },
+          }),
+          defineTool({
+            name: 'board_close',
+            description: 'Close a decision on the board that was settled in chat or no longer matters: shown answered, with the note.',
+            parameters: obj({ id: str(), note: opt(str()) }),
+            async execute({ id, note }, api) {
+              const lead = leadOf(api.conversationId)
+              const asked = (await state.get(lead))?.decisions?.find((d) => d.id === id)
+              if (!asked) throw new Error(`No decision ${id} on the board`)
+              if (asked.answer) return text(`Decision ${id} was already answered: ${asked.answer.text}`)
+              await keep(lead, (s) => ({
+                ...s, decisions: (s.decisions ?? []).map((d) => d.id === id ? { ...d, answer: { text: note?.trim() || 'Settled', at: Date.now(), by: 'lead' as const } } : d),
+              }))
+              return text(`Closed decision ${id}.`)
+            },
+          }),
+        ]
+      }
     },
   })
 }
