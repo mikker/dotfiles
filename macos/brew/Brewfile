@@ -21,5 +21,7 @@ brew("vim")
 brew("vips")
 brew("wget")
 brew("zsh")
+brew("just")
 
 brew("mikker/tap/fut")
+brew("mikker/tap/suite")

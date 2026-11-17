@@ -19,6 +19,7 @@ cask("mikker/tap/dinky")
 cask("mikker/tap/Fst")
 cask("mikker/tap/Poof")
 cask("mikker/tap/Moves")
+cask("mikker/tap/flick-ring")
 brew("felixkratz/formulae/sketchybar", restart_service: :always)
 brew("ical-buddy")
 
