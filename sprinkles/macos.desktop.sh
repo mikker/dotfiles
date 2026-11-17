@@ -3,4 +3,4 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}/script/lib.sh"
 
-link_path "macos/sprinkles" "$HOME/.sprinkles"
+link_path "sprinkles" "$HOME/.sprinkles"
