@@ -85,7 +85,7 @@ it('queues thread_start beyond the cap, and starts the queued as a child finishe
   const lead = await daemon!.thread('Start A and B', { title: 'Lead' })
   const transcript = await daemon!.transcript(lead.id)
   expect(transcript).toContain('Started A')
-  expect(transcript).toContain("Queued (1 running): it starts when a slot frees up, and you'll be told.")
+  expect(transcript).toMatch(/Queued as queued-\w+ \(1 running\): it starts when a slot frees up, and you'll be told\./)
   const watched = await daemon!.watch<Board>(BOARD, { scope: lead.id })
   await watched.until((b) => b.queued.map((q) => q.title).join() === 'B', 'B queued on the board')
 
@@ -274,3 +274,39 @@ it('takes the focus as the window goes to its pane, so keys work at once', async
   // Taken back: unmounted with it pending, the board would send it as the window goes.
   await window.key('z')
 }, 20_000)
+
+it("places lanes by id: a thread's, and a queued start's, which becomes its thread's as it starts", async () => {
+  await up({ tickMs: 100, cap: 1 }, [
+    callTool('thread_start', { prompt: 'Do A', title: 'A' }), callTool('thread_start', { prompt: 'Do B', title: 'B' }), say('One started, one queued.'),
+  ])
+  const lead = await daemon!.thread('Start A and B', { title: 'Lead' })
+  let watched = await daemon!.watch<Board>(BOARD, { scope: lead.id })
+  await watched.until((b) => b.queued.length === 1, 'B queued')
+  const queued = watched.value.queued[0]!.id!
+  expect(queued).toMatch(/^queued-/)
+  const [a] = await childrenOf(lead.id)
+
+  // The plan names A by its id, B by its queue id, and a lane not started by its title; a title like A's isn't A.
+  daemon = await daemon!.restart({ model: [
+    callTool('board_plan', { waves: [{ title: 'One', lanes: [a!.id, queued] }, { title: 'Two', lanes: ['A', 'Sound'] }] }), say('Planned.'),
+    say('Ok.'), say('Ok.'),
+  ] })
+  watched = await daemon.watch<Board>(BOARD, { scope: lead.id })
+  await daemon.send(lead.id, 'Plan it')
+  await watched.until((b) => Boolean(b.plan), 'the plan')
+
+  window = await mountUi({ machines: [daemon], profile: { ref: lead.profile!, extensions: [board] }, select: { thread: lead.id } })
+  const pane = await window.render({ pane: { kind: PANE }, thread: lead.id })
+  await window.until(() => pane.text().includes('Wave 2 · Two'), 'the waves')
+  const wave = (n: number) => pane.find(`.staff-board__wave:nth-of-type(${n})`)!.textContent!
+  expect(wave(1)).toContain('B')
+  expect(wave(1)).toContain('queued')
+  expect(wave(2)).toContain('Sound')
+
+  // A is done with: B starts, and its lane is its thread's.
+  await daemon.dispatch('thread.archive', { thread: a!.id })
+  await daemon.until(async () => (await childrenOf(lead.id)).some((c) => c.title === 'B'), 'B started')
+  const b = (await childrenOf(lead.id)).find((c) => c.title === 'B')!
+  await watched.until((x) => x.plan?.waves[0]?.lanes[1] === b.id, "B's lane its thread's")
+  expect(watched.value.plan!.waves.map((w) => w.lanes)).toEqual([[a!.id, b.id], ['A', 'Sound']])
+}, 30_000)

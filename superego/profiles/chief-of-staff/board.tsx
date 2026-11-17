@@ -141,6 +141,8 @@ function BoardPane({ machine, thread }: PaneProps) {
   const isLanded = (item: Item) => item.kind === 'landed' || (item.kind === 'child' && settled(item.child) && item.report?.outcome === 'done')
   const gone = reports.filter((r) => !children.some((c) => c.id === r.id))
   const queued = mine?.queued ?? []
+  const queueKey = (q: Board['queued'][number]) => `queued:${q.id ?? q.title}`
+  const queuedLane = (q: Board['queued'][number]): Item => ({ key: queueKey(q), kind: 'queued', title: q.title, at: q.at })
 
   const needs: Item[] = [
     ...decisions.map((decision): Item => ({ key: `decision:${decision.id}`, kind: 'decision', decision })),
@@ -157,12 +159,13 @@ function BoardPane({ machine, thread }: PaneProps) {
     const placed = new Set<string>()
     plan.waves.forEach((w, index) => {
       const lanes = w.lanes.map((lane): Item => {
-        const child = children.find((c) => !placed.has(c.id) && (c.id === lane || same(c.title, lane)))
+        // By id: a thread's, live or landed, or a queued start's. Anything else is a title, planned.
+        const child = children.find((c) => c.id === lane)
         if (child) { placed.add(child.id); return laneOf(child) }
-        const report = gone.find((r) => !placed.has(r.id) && (r.id === lane || same(r.title, lane)))
+        const report = gone.find((r) => r.id === lane)
         if (report) { placed.add(report.id); return { key: `landed:${report.id}`, kind: 'landed', report } }
-        const start = queued.find((q) => same(q.title, lane))
-        if (start) { placed.add(`queued:${start.title}`); return { key: `queued:${start.title}`, kind: 'queued', title: start.title, at: start.at } }
+        const start = queued.find((q) => q.id === lane)
+        if (start) { placed.add(queueKey(start)); return queuedLane(start) }
         return { key: `planned:${index}:${lane}`, kind: 'planned', title: lane }
       })
       waves.push({ index, title: w.title, lanes, landed: lanes.length > 0 && lanes.every(isLanded) })
@@ -171,14 +174,14 @@ function BoardPane({ machine, thread }: PaneProps) {
     const current = waves.find((w) => !w.landed) ?? waves.at(-1)!
     current.lanes.push(
       ...children.filter((c) => !placed.has(c.id)).map(laneOf),
-      ...queued.filter((q) => !placed.has(`queued:${q.title}`)).map((q): Item => ({ key: `queued:${q.title}`, kind: 'queued', title: q.title, at: q.at })),
+      ...queued.filter((q) => !placed.has(queueKey(q))).map(queuedLane),
     )
     const rest = gone.filter((r) => !placed.has(r.id))
     if (rest.length) waves.push({ index: -1, title: 'Landed', lanes: rest.map((report): Item => ({ key: `landed:${report.id}`, kind: 'landed', report })), landed: true })
   } else {
     const lanes = [
       ...children.map(laneOf),
-      ...queued.map((q): Item => ({ key: `queued:${q.title}`, kind: 'queued', title: q.title, at: q.at })),
+      ...queued.map(queuedLane),
     ]
     if (lanes.length) waves.push({ index: -2, title: '', lanes, landed: false })
     if (gone.length) waves.push({ index: -1, title: 'Landed', lanes: gone.map((report): Item => ({ key: `landed:${report.id}`, kind: 'landed', report })), landed: true })

@@ -30,7 +30,7 @@ After merges: verify on main yourself (typecheck, tests, smoke, per AGENTS.md) b
 Big programmes: waves of 2–3 non-overlapping lanes. After each wave, an independent reviewer thread; split its findings among the threads that own the code.
 
 The board (pane_open kind "staff-board") is the user's overview: keep it current, so they needn't read the chat to know how things stand.
-- For a programme, board_plan its waves (lanes named by the titles you give thread_start; planned ones too) and a one-line summary of where it stands. Again as a wave starts or ends, or the plan changes.
+- For a programme, board_plan its waves and a one-line summary of where it stands. Lanes are thread ids, the ids of queued starts (they become the thread's as it starts), or a short title for one not started yet. Plan again as you start a planned lane (with its id), as a wave starts or ends, or the plan changes.
 - Put product decisions on the board with board_ask, one question each, with options, and \`about\` the threads they concern. It doesn't block you: the answer comes as "Decision <id>: …". Keep going on what doesn't depend on it.
 - Use ask_user only when you can't go on without the answer.
 - A decision settled in chat, or that no longer matters: board_close it.

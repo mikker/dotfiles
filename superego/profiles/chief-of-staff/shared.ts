@@ -34,7 +34,10 @@ export type Decision = {
   answer?: { text: string; at: number; by: 'user' | 'lead' }
 }
 
-/** The programme as the lead lays it out (board_plan): a title, a line on where it stands, its waves of lanes (titles or ids). */
+/**
+ * The programme as the lead lays it out (board_plan): a title, a line on where it stands, its waves of lanes. A lane is a
+ * thread's id, a queued start's (until it starts, when it becomes its thread's), or a title for one not started yet.
+ */
 export type Plan = { title?: string; summary?: string; waves: { title: string; lanes: string[] }[]; at: number }
 
 /**
@@ -42,7 +45,7 @@ export type Plan = { title?: string; summary?: string; waves: { title: string; l
  * its plan and decisions.
  */
 export type Board = {
-  stalled: Record<string, { since: number; call?: string }>; queued: { title: string; at: number }[]
+  stalled: Record<string, { since: number; call?: string }>; queued: { id?: string; title: string; at: number }[]
   changes: Record<string, Changes>; reports: Report[]; plan?: Plan; decisions: Decision[]
 }
 export const EMPTY_BOARD: Board = { stalled: {}, queued: [], changes: {}, reports: [], decisions: [] }

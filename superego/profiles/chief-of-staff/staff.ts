@@ -17,7 +17,8 @@ const MINUTE = 60_000
 
 type Start = { prompt: string; title?: string; cwd?: string; profile?: string; worktree?: boolean }
 type CheckIn = { at: number; note: string }
-type Queued = { args: Start; at: number }
+/** A start waiting for a slot. `id`, to name it in the plan's lanes until it starts (older ones have none). */
+type Queued = { args: Start; at: number; id?: string }
 /** `reported`: by child, the activity (activeAt) its last report was of, so each is recorded once, dismissed or not. */
 type State = {
   checkIns?: CheckIn[]; queue?: Queued[]; reports?: Report[]; reported?: Record<string, number>; plan?: Plan; decisions?: Decision[]
@@ -249,6 +250,12 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
             mine = { ...mine, queue: rest }
             try {
               const child = await start(lead, next!.args)
+              // Its lane in the plan, named by its queue id, is the thread's now.
+              if (next!.id && mine.plan?.waves.some((w) => w.lanes.includes(next!.id!))) {
+                await state.update(lead.id, (s) => ({
+                  ...s, ...(s?.plan ? { plan: { ...s.plan, waves: s.plan.waves.map((w) => ({ ...w, lanes: w.lanes.map((l) => l === next!.id ? child.id : l) })) } } : {}),
+                }))
+              }
               notes.push(`Started ${linkTo(child)} (id ${child.id}) from the queue${rest.length ? `; ${rest.length} still queued` : ''}.`)
               slots--
             } catch (error) {
@@ -260,7 +267,7 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
           // Read again: a decision or plan may have come since, and the board shouldn't lose it until the next tick.
           mine = (await state.get(lead.id)) ?? {}
           board.set(lead.id, {
-            stalled, queued: (mine.queue ?? []).map((q) => ({ title: q.args.title ?? q.args.prompt.slice(0, 60), at: q.at })),
+            stalled, queued: (mine.queue ?? []).map((q) => ({ ...(q.id ? { id: q.id } : {}), title: q.args.title ?? q.args.prompt.slice(0, 60), at: q.at })),
             changes: changed, ...kept(mine),
           })
           if (notes.length) await tell(lead.id, notes.join('\n\n'))
@@ -303,9 +310,11 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
             const busy = lead ? all.filter((t) => t.parent === lead.id && running(t, Date.now())).length : 0
             const queued = lead ? ((await state.get(lead.id))?.queue ?? []).length : 0
             if (!lead || (busy < cap && !queued)) return tool.execute(args, api, context)
-            await state.update(lead.id, (s) => ({ ...s, queue: [...(s?.queue ?? []), { args, at: Date.now() }] }))
+            const queueId = `queued-${randomUUID().slice(0, 6)}`
+            await state.update(lead.id, (s) => ({ ...s, queue: [...(s?.queue ?? []), { args, at: Date.now(), id: queueId }] }))
             void poke()
-            return text(`Queued (${busy} running${queued ? `, ${queued} queued before it` : ''}): it starts when a slot frees up, and you'll be told.`)
+            return text(`Queued as ${queueId} (${busy} running${queued ? `, ${queued} queued before it` : ''}): it starts when a slot frees up, and you'll be told. ` +
+              `Name it ${queueId} in board_plan's lanes; once it starts, its lane is its thread's.`)
           },
         }))],
       }))
@@ -372,7 +381,8 @@ export function staff({ tickMs = 30_000, stallMs = 15 * MINUTE, cap = 4 }: Staff
           defineTool({
             name: 'board_plan',
             description: "Lay out the programme on the board, the user's overview: a title, a line on where it stands, and its " +
-              'waves, each with its lanes (thread titles as given to thread_start, or ids; planned ones too). Replaces the last plan.',
+              "waves, each with its lanes. A lane is a thread's id, a queued start's id (it becomes the thread's as it starts), " +
+              'or a short title for one not started yet (plan again with its id once it is). Replaces the last plan.',
             parameters: obj({
               title: opt(str()), summary: opt(str()),
               waves: arr(obj({ title: str({ minLength: 1 }), lanes: arr(str({ minLength: 1 })) })),
