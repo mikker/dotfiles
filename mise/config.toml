@@ -30,6 +30,7 @@ yt-dlp = "latest"
 # Python CLIs (installed through uv)
 "pipx:llm" = "latest"
 "pipx:s3cmd" = "latest"
+claude = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby", "node", "bun"]
