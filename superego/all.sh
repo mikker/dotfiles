@@ -3,17 +3,22 @@ set -euo pipefail
 
 source "${DOTFILES_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/script/lib.sh"
 
-# Superego's user profiles live in github.com/mikker/superego-profiles, checked out to ~/dev/superego-profiles.
-repo="$HOME/dev/superego-profiles"
-[ -d "$repo" ] || git clone https://github.com/mikker/superego-profiles.git "$repo"
+command_exists superego || { echo "Superego is required to install profiles" >&2; exit 1; }
 
-# Each linked on its own, so a machine can keep profiles of its own beside them.
-for profile in "$repo"/profiles/*/; do
-  name="$(basename "$profile")"
-  link_path "${profile%/}" "$HOME/.superego/profiles/$name"
+# Superego's user profiles: github.com/mikker/superego-profiles, from the local checkout when there is one.
+local_profiles="$HOME/dev/superego-profiles"
+if [ -d "$local_profiles" ]; then
+  superego profile install "$local_profiles"
+else
+  superego profile install git:github.com/mikker/superego-profiles
+fi
+
+# Links from before profile sources, which would shadow the source's profiles.
+for link in "$HOME"/.superego/profiles/*; do
+  [ -L "$link" ] || continue
+  case "$(readlink "$link")" in
+    "$local_profiles"/profiles/* | "$HOME"/.dotfiles/superego/profiles/*) rm "$link" ;;
+  esac
 done
 
-# Their node_modules link to this machine's Superego types; made once Superego is installed.
-if command_exists superego; then
-  superego profile types --user || echo "superego profile types --user failed: run it again once Superego is set up" >&2
-fi
+superego profile types --user || echo "superego profile types --user failed: run it again once Superego is set up" >&2

@@ -34,6 +34,13 @@ itemDefaultOverrides = []
         catalogIdentifier = 'tuna.common-actions'
 
 [[aliases.entries]]
+abbreviation = 'e'
+
+    [[aliases.entries.targets]]
+    catalogID = 'tuna.system-tasks'
+    id = 'empty-trash'
+
+[[aliases.entries]]
 abbreviation = 'gif'
 
     [[aliases.entries.targets]]
@@ -117,12 +124,6 @@ searchPriorities = []
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'chrome.utilities'
-
-        [catalogs.globalScopes.scope]
-        kind = 'none'
-
-    [[catalogs.globalScopes]]
-    catalogIdentifier = 'cleanshot.commands'
 
         [catalogs.globalScopes.scope]
         kind = 'none'
@@ -1140,19 +1141,6 @@ label = 'Messaging'
                 behavior = 'run'
                 presentation = 'automatic'
                 subjectIdentifiers = [ 'tuna.applications.all//Applications/Signal.app' ]
-                type = 'savedCommand'
-
-        [[comboMode.bindings.destination.bindings]]
-        key = 'k'
-
-            [comboMode.bindings.destination.bindings.destination]
-            type = 'command'
-
-                [comboMode.bindings.destination.bindings.destination.command]
-                actionIdentifier = 'tuna.common-actions/open'
-                behavior = 'run'
-                presentation = 'automatic'
-                subjectIdentifiers = [ 'path:/Applications/Keet-Internal.app' ]
                 type = 'savedCommand'
 
         [[comboMode.bindings.destination.bindings]]
@@ -2429,7 +2417,7 @@ catalogIdentifier = 'com.brnbw.tuna.plugins.mymind'
 
     [catalogSettings.values]
     AccessLevel = 'full-access'
-    KeyID = '5Y5o8RNmbq5dXjtH9HkyvE'
+    KeyID = 'gs5z5PNKCvGeSxzXlEC4Vq'
 
 [[catalogSettings]]
 catalogIdentifier = 'com.brnbw.tuna.themes.alcor'
