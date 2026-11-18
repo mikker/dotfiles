@@ -14,6 +14,7 @@ Use this lens when reviewing or implementing UI.
 - Avoid duplicate heading stacks: no eyebrow + heading + repeated section title saying the same thing.
 - Avoid “eyebrow” elements: no small-font, all-caps labels above headings.
 - Actively find and remove “boxes inside boxes” card/panel stacks.
+- Never use one-sided borders or accent bars (a coloured left edge on a selected row, a bottom-only shadow): mark state with a background instead.
 - Keep typography restrained: minimal fonts, sizes, and weights. If two can do, use two.
 - Icons are good, but use them sparingly and deliberately.
 - Prefer existing style variables/tokens whenever applicable.
@@ -22,6 +23,7 @@ Use this lens when reviewing or implementing UI.
 ## Review checklist
 
 - Can any wrapper, border, shadow, label, or nested panel be removed?
+- Any one-sided border, edge bar or inset shadow left?
 - Does the page rely on hierarchy instead of decoration?
 - Are font choices and weights doing only necessary work?
 - Are icons helping recognition, not adding noise?
