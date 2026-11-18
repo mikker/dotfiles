@@ -8,7 +8,7 @@ export const OUTPUT = 'run.output'
 export const LOGS_VIEW = 'run.logs-pane'
 
 export const about = {
-  name: 'run', version: '1.0.0', api: '^3', title: 'Run',
+  name: 'run', version: '1.0.0', api: '^4', title: 'Run',
   panes: { [LOGS_VIEW]: "the output of this folder's dev command (run), live; no params" },
 }
 

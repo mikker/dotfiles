@@ -1,6 +1,6 @@
 // What vault is, for both halves (spread into each), and the shapes they share.
 export const about = {
-  name: 'vault', version: '1.0.0', api: '^3', title: 'Vault',
+  name: 'vault', version: '1.0.0', api: '^4', title: 'Vault',
   panes: {
     graph: 'the vault as a graph of notes and their [[links]], coloured by top folder. Params: { focus?: "path/of/note.md" } centres it on a note.',
     note: 'a note rendered, its [[links]] clickable, with its backlinks. Params: { path: "path/of/note.md" }.',
