@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+# Upload a file or a folder to s3.brnbw.com and print its public URL.
+#
+#   share PATH [NAME]
+#
+# A file goes up as <name>-<random>.<ext>; a folder as <name>-<random>/..., its URL the folder's index.html (or, with
+# none, one URL per file). NAME defaults to the file or folder's own name. Nothing is ever overwritten: every upload
+# gets a fresh random suffix, as CloudFront caches for a day.
+#
+# Credentials: the upload-only IAM user agent-cloud-share, from 1Password (Brainbow), cached as an s3cmd config in
+# ~/.config/cloud-share/s3cfg (0600) on first use.
+set -euo pipefail
+
+BUCKET=s3-brnbw-com
+BASE_URL=https://s3.brnbw.com
+ITEM="op://Brainbow/lmaxisogc27zoxvvbqgxn2iyiu"
+CONFIG="${CLOUD_SHARE_CONFIG:-$HOME/.config/cloud-share/s3cfg}"
+
+die() { echo "share: $*" >&2; exit 1; }
+
+[ $# -ge 1 ] && [ $# -le 2 ] || die "usage: share PATH [NAME]"
+src="${1%/}"
+[ -e "$src" ] || die "$src: no such file or folder"
+
+# s3cmd, from PATH or mise (a non-interactive shell may not have mise's shims).
+if command -v s3cmd >/dev/null; then s3cmd=(s3cmd)
+elif command -v mise >/dev/null && mise which s3cmd >/dev/null 2>&1; then s3cmd=(mise exec -- s3cmd)
+else die "s3cmd isn't installed: mise use -g pipx:s3cmd"; fi
+
+if [ ! -s "$CONFIG" ]; then
+  command -v op >/dev/null || die "no $CONFIG and no 1Password CLI (op) to make it from"
+  key_id="$(op read "$ITEM/username")" || die "couldn't read the key from 1Password ($ITEM)"
+  secret="$(op read "$ITEM/credential")" || die "couldn't read the key from 1Password ($ITEM)"
+  mkdir -p "$(dirname "$CONFIG")"
+  (umask 077; cat > "$CONFIG" <<EOF
+[default]
+access_key = $key_id
+secret_key = $secret
+bucket_location = eu-west-1
+host_base = s3.amazonaws.com
+host_bucket = %(bucket)s.s3.amazonaws.com
+use_https = True
+signature_v2 = False
+EOF
+  )
+  unset secret
+fi
+
+slugify() { printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | LC_ALL=C sed -E 's/[^a-z0-9._]+/-/g; s/^-+|-+$//g' | cut -c1-60; }
+random() { LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 10 || true; }
+
+# Text gets a charset, so non-ASCII shows right without a <meta charset>; the rest, what its extension says.
+type_of() {
+  case "$(printf '%s' "${1##*.}" | tr '[:upper:]' '[:lower:]')" in
+    html|htm) echo 'text/html; charset=utf-8' ;;
+    css) echo 'text/css; charset=utf-8' ;;
+    js|mjs) echo 'text/javascript; charset=utf-8' ;;
+    json|map) echo 'application/json; charset=utf-8' ;;
+    txt|log|diff|patch) echo 'text/plain; charset=utf-8' ;;
+    md|markdown) echo 'text/markdown; charset=utf-8' ;;
+    csv) echo 'text/csv; charset=utf-8' ;;
+    xml) echo 'application/xml; charset=utf-8' ;;
+    svg) echo 'image/svg+xml' ;;
+    png) echo 'image/png' ;;
+    jpg|jpeg) echo 'image/jpeg' ;;
+    gif) echo 'image/gif' ;;
+    webp) echo 'image/webp' ;;
+    avif) echo 'image/avif' ;;
+    ico) echo 'image/x-icon' ;;
+    mp4|m4v) echo 'video/mp4' ;;
+    webm) echo 'video/webm' ;;
+    mov) echo 'video/quicktime' ;;
+    mp3) echo 'audio/mpeg' ;;
+    wav) echo 'audio/wav' ;;
+    pdf) echo 'application/pdf' ;;
+    zip) echo 'application/zip' ;;
+    wasm) echo 'application/wasm' ;;
+    woff2) echo 'font/woff2' ;;
+    woff) echo 'font/woff' ;;
+    *) echo 'application/octet-stream' ;;
+  esac
+}
+
+put() { # put FILE KEY
+  "${s3cmd[@]}" -c "$CONFIG" --no-progress --no-preserve --mime-type="$(type_of "$1")" \
+    --add-header='Cache-Control:public, max-age=31536000, immutable' \
+    put "$1" "s3://$BUCKET/$2" >/dev/null
+}
+
+base="$(basename "$src")"
+if [ -f "$src" ]; then
+  stem="${base%.*}"; ext=""
+  [ "$stem" != "$base" ] && ext=".$(printf '%s' "${base##*.}" | tr '[:upper:]' '[:lower:]')"
+  name="$(slugify "${2:-$stem}")"; name="${name%"$ext"}"
+  key="${name:-file}-$(random)$ext"
+  put "$src" "$key"
+  echo "$BASE_URL/$key"
+else
+  prefix="$(slugify "${2:-$base}")"; prefix="${prefix:-site}-$(random)"
+  count=0
+  while IFS= read -r -d '' file; do
+    rel="${file#"$src"/}"
+    put "$file" "$prefix/$rel"
+    count=$((count + 1))
+  done < <(find "$src" -type f ! -name '.DS_Store' ! -path '*/.git/*' -print0)
+  [ "$count" -gt 0 ] || die "$src has no files"
+  if [ -f "$src/index.html" ]; then echo "$BASE_URL/$prefix/index.html"
+  else find "$src" -type f ! -name ".DS_Store" ! -path "*/.git/*" | sed "s|^$src/|$BASE_URL/$prefix/|; s| |%20|g"; fi
+fi
