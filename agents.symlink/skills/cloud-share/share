@@ -18,6 +18,9 @@ CONFIG="${CLOUD_SHARE_CONFIG:-$HOME/.config/cloud-share/s3cfg}"
 
 die() { echo "share: $*" >&2; exit 1; }
 
+# Homebrew's s3cmd on a newer Python warns about its own regexes on every run.
+export PYTHONWARNINGS=ignore::SyntaxWarning
+
 [ $# -ge 1 ] && [ $# -le 2 ] || die "usage: share PATH [NAME]"
 src="${1%/}"
 [ -e "$src" ] || die "$src: no such file or folder"
@@ -29,6 +32,8 @@ else die "s3cmd isn't installed: mise use -g pipx:s3cmd"; fi
 
 if [ ! -s "$CONFIG" ]; then
   command -v op >/dev/null || die "no $CONFIG and no 1Password CLI (op) to make it from"
+  # op read waits for 1Password to be unlocked, which an ssh session can't do: say so instead of hanging.
+  [ -t 0 ] || [ -z "${SSH_CONNECTION:-}" ] || die "no $CONFIG: run share once in a terminal on this machine, so 1Password can unlock"
   key_id="$(op read "$ITEM/username")" || die "couldn't read the key from 1Password ($ITEM)"
   secret="$(op read "$ITEM/credential")" || die "couldn't read the key from 1Password ($ITEM)"
   mkdir -p "$(dirname "$CONFIG")"
